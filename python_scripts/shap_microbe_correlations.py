@@ -19,14 +19,15 @@ metadata_df = pd.read_csv("metadata.csv", index_col=0)
 data = microbiome_df.merge(metadata_df, left_index=True, right_index=True)
 
 # Select a specific microbe abundance as the outcome variable
-target_microbe = "Staphylococcus_aureus"  # Replace with any species of interest
+target_microbe = "Staphylococcus.aureus"  # Replace with any species of interest
 y = data[target_microbe]
 
 # Select clinical metadata as predictors
 X = metadata_df.copy()
 
 # Encode categorical variables (e.g., feeding, antibiotic use)
-categorical_features = ["feeding", "antibiotics", "PICC_placement"]
+categorical_features = ["Location", "SampleType", "SampleCollectionWeek", "GestationCohort", "PostNatalAbxCohort", 
+                        "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
 for col in categorical_features:
     X[col] = LabelEncoder().fit_transform(X[col])
 
