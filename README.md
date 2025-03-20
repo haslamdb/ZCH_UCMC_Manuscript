@@ -121,7 +121,7 @@ This script processes the raw sequencing data:
 - Kraken2: For taxonomic classification
 - Bracken: For abundance estimation
 - kneaddata: For host DNA removal
-- kraken_tools: For pipeline execution
+- kraken_tools: For pipeline execution (https://github.com/haslamdb/kraken_tools)
 
 ## Usage Instructions
 
