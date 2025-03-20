@@ -48,8 +48,6 @@ NewSampleKey$PostNatalAntibioticsNew <- factor(
 )
 NewSampleKey$Sample <- NewSampleKey$SampleID
 
-# Another file that might track antibiotic usage
-NewSampleKeyAbx <- read.csv("SampleKeyAbx20231106.csv", header = FALSE)
 
 AllSampleKey <- NewSampleKey
 
