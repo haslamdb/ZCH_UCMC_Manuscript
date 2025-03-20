@@ -20,6 +20,7 @@ ZCH_UCMC_Manuscript/
 │   └── import_initial_species_analysis.R       # Main analysis script
 │   └── bsi_microbiome_comparison.R             # Correlation between BSI microbes with skin and gut microbiome
 ├── bash_scripts/              # Bash processing scripts
+│   └── process_reads.sh       # command line tool to filter and assign reads by Kraken2 and Bracken (using kraken_tools repository)
 └── results/                   # Analysis results 
     ├── figures/               # Generated figures
     └── tables/                # Generated data tables
