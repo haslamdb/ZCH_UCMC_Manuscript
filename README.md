@@ -41,7 +41,7 @@ The analysis pipeline consists of several stages:
 
 ### R Scripts
 
-#### `import_initial_analysis.R`
+#### `import_initial_species_analysis.R`
 
 This script performs the core analysis of microbiome data from the NICU study. Key functions:
 
