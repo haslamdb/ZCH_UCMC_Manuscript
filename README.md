@@ -2,7 +2,7 @@
 
 ## Repository for NICU Microbiome Analysis
 
-This repository contains the code and documentation for microbiome data analysis comparing samples from NICUs in Cincinnati and Hangzhou. The analysis examines bacterial composition, diversity metrics, and associations with factors such as antibiotics exposure, gestational age, and sample collection site/timing. Bloodstream microbiology data is compared to microbiome composition.
+This repository contains the code and documentation for microbiome data analysis comparing samples from NICUs in Cincinnati and Hangzhou. Bloodstream microbiology data is compared to microbiome composition. Microbiome analysis examines bacterial composition, diversity metrics, and associations with factors such as antibiotics exposure, gestational age, and sample collection site/timing.
 
 ## Repository Structure
 
