@@ -11,6 +11,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import seaborn as sns
+import microbiome_transform as mt
 
 # Load microbiome abundance data (rows: samples, columns: species/genus)
 microbiome_df = pd.read_csv("microbiome_abundance.csv", index_col=0)
@@ -18,11 +19,17 @@ microbiome_df = pd.read_csv("microbiome_abundance.csv", index_col=0)
 # Load metadata
 metadata_df = pd.read_csv("metadata.csv", index_col=0)
 
+# transform using CLR, VST, or other method from microbiome_transform module
+microbiome_clr = mt.clr_transform(microbiome_df)
+microbiome_tss = mt.tss_transform(microbiome_df)
+microbiome_vst = mt.vst_transform(microbiome_df)
+
 # Merge microbiome data and metadata on Sample ID
-data = microbiome_df.merge(metadata_df, left_index=True, right_index=True)
+# here we're using clr transformed data
+data = microbiome_clr.merge(metadata_df, left_index=True, right_index=True)
 
 # Calculate pairwise Bray-Curtis distance matrix
-bray_curtis_dist = scipy.spatial.distance.pdist(microbiome_df, metric='braycurtis')
+bray_curtis_dist = scipy.spatial.distance.pdist(microbiome_clr, metric='braycurtis')
 bray_curtis_dist = scipy.spatial.distance.squareform(bray_curtis_dist)  # Convert to square matrix
 
 # Convert distance matrix into a vector (response variable)
@@ -33,7 +40,7 @@ y = bray_curtis_dist[np.triu_indices_from(bray_curtis_dist, k=1)]  # Take upper 
 predictors = metadata_df # no dropped columns
 
 # Encode categorical variables
-categorical_features = ["feeding", "antibiotics", "PICC_placement"]
+categorical_features = ["Location", "SampleType", "SampleCollectionWeek", "GestationCohort", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
 for col in categorical_features:
     predictors[col] = LabelEncoder().fit_transform(predictors[col])
 

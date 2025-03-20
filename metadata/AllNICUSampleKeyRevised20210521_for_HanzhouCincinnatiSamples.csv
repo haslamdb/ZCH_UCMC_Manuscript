@@ -1,0 +1,955 @@
+PatientID,SampleID,Sample,SampleType,Location,GestationalAge,GestationCohort,GestationTime,SampleCollectionWeek,PostNatalAntibiotics,MaternalAntibiotics,Week1Abx,Week3Abx,PostNatalAbxCohort,TypeWeek,TypeAbx,AnyMilk,BSI_30D,Organism,NEC_30D,Infection_within_60_days,Organism,NEC,PICC,UVC
+N01,N01_1_2,N01_1_2,Axilla,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N01,N01_1_3,N01_1_3,Groin,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N01,N01_1_4,N01_1_4,Stool,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N01,N01_2_3,N01_2_3,Groin,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N01,N01_2_4,N01_2_4,Stool,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N01,N01_2_2,N01_2_2,Axilla,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N02,N02_1_3,N02_1_3,Groin,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N02,N02_1_4,N02_1_4,Stool,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N02,N02_2_2,N02_2_2,Axilla,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N02,N02_1_2,N02_1_2,Axilla,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N02,N02_2_4,N02_2_4,Stool,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N02,N02_2_3,N02_2_3,Groin,Cincinnati,31 2/7,28-32 Weeks,31.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N03,N03_1_4,N03_1_4,Stool,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N03,N03_2_2,N03_2_2,Axilla,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N03,N03_2_4,N03_2_4,Stool,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N03,N03_2_3,N03_2_3,Groin,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N04,N04_1_2,N04_1_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N04,N04_1_3,N04_1_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N04,N04_2_2,N04_2_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N04,N04_2_3,N04_2_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N04,N04_2_4,N04_2_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N04,N04_1_4,N04_1_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N05,N05_1_2,N05_1_2,Axilla,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N05,N05_1_4,N05_1_4,Stool,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N05,N05_2_2,N05_2_2,Axilla,Cincinnati,34,33-36 Weeks,34,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N05,N05_2_3,N05_2_3,Groin,Cincinnati,34,33-36 Weeks,34,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N05,N05_1_3,N05_1_3,Groin,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N05,N05_2_4,N05_2_4,Stool,Cincinnati,34,33-36 Weeks,34,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N06,N06_1_2,N06_1_2,Axilla,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N06,N06_1_3,N06_1_3,Groin,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N06,N06_1_4,N06_1_4,Stool,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N07,N07_1_3,N07_1_3,Groin,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N07,N07_1_4,N07_1_4,Stool,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N07,N07_2_2,N07_2_2,Axilla,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N07,N07_2_3,N07_2_3,Groin,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N07,N07_2_4,N07_2_4,Stool,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N07,N07_1_2,N07_1_2,Axilla,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N08,N08_1_2,N08_1_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N08,N08_1_3,N08_1_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N08,N08_1_4,N08_1_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N08,N08_2_3,N08_2_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N08,N08_2_4,N08_2_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N08,N08_2_2,N08_2_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,UVC
+N09,N09_1_2,N09_1_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N09,N09_1_4,N09_1_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N09,N09_2_2,N09_2_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N09,N09_2_3,N09_2_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N09,N09_2_4,N09_2_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N09,N09_1_3,N09_1_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N10,N10_1_2,N10_1_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N10,N10_1_4,N10_1_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N10,N10_2_2,N10_2_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N10,N10_2_3,N10_2_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N10,N10_1_3,N10_1_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N10,N10_2_4,N10_2_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N11,N11_1_2,N11_1_2,Axilla,Cincinnati,33 3/7,33-36 Weeks,33.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,None,None
+N11,N11_1_3,N11_1_3,Groin,Cincinnati,33 3/7,33-36 Weeks,33.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,None,None
+N11,N11_1_4,N11_1_4,Stool,Cincinnati,33 3/7,33-36 Weeks,33.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,None,None
+N11,N11_2_3,N11_2_3,Groin,Cincinnati,33 3/7,33-36 Weeks,33.42857143,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,None,None
+N11,N11_2_4,N11_2_4,Stool,Cincinnati,33 3/7,33-36 Weeks,33.42857143,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,None,None
+N11,N11_2_2,N11_2_2,Axilla,Cincinnati,33 3/7,33-36 Weeks,33.42857143,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,None,None
+N12,N12_1_2,N12_1_2,Axilla,Cincinnati,34 1/7,33-36 Weeks,34.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N12,N12_1_3,N12_1_3,Groin,Cincinnati,34 1/7,33-36 Weeks,34.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N12,N12_1_4,N12_1_4,Stool,Cincinnati,34 1/7,33-36 Weeks,34.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N13,N13_1_2,N13_1_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N13,N13_1_3,N13_1_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N13,N13_1_4,N13_1_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N13,N13_2_3,N13_2_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N13,N13_2_4,N13_2_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N13,N13_2_2,N13_2_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N14,N14_1_2,N14_1_2,Axilla,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N14,N14_1_4,N14_1_4,Stool,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N14,N14_2_2,N14_2_2,Axilla,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N14,N14_2_3,N14_2_3,Groin,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N14,N14_2_4,N14_2_4,Stool,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N14,N14_1_3,N14_1_3,Groin,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N15,N15_1_3,N15_1_3,Groin,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N15,N15_1_4,N15_1_4,Stool,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N15,N15_2_2,N15_2_2,Axilla,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N15,N15_1_2,N15_1_2,Axilla,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N15,N15_2_4,N15_2_4,Stool,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N15,N15_2_3,N15_2_3,Groin,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N16,N16_1_2,N16_1_2,Axilla,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N16,N16_1_3,N16_1_3,Groin,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N16,N16_2_2,N16_2_2,Axilla,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N16,N16_2_3,N16_2_3,Groin,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N16,N16_2_4,N16_2_4,Stool,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N16,N16_1_4,N16_1_4,Stool,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N17,N17_1_2,N17_1_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N17,N17_1_3,N17_1_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N17,N17_2_2,N17_2_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N17,N17_2_3,N17_2_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N17,N17_2_4,N17_2_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N17,N17_1_4,N17_1_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N18,N18_1_3,N18_1_3,Groin,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N18,N18_1_4,N18_1_4,Stool,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N18,N18_2_2,N18_2_2,Axilla,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N18,N18_1_2,N18_1_2,Axilla,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N18,N18_2_4,N18_2_4,Stool,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N18,N18_2_3,N18_2_3,Groin,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N19,N19_1_2,N19_1_2,Axilla,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N19,N19_1_3,N19_1_3,Groin,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N19,N19_1_4,N19_1_4,Stool,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N19,N19_2_3,N19_2_3,Groin,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N19,N19_2_4,N19_2_4,Stool,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N19,N19_2_2,N19_2_2,Axilla,Cincinnati,32 5/7,28-32 Weeks,32.71428571,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N20,N20_1_2,N20_1_2,Axilla,Cincinnati,32,28-32 Weeks,32,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N20,N20_1_4,N20_1_4,Stool,Cincinnati,32,28-32 Weeks,32,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N20,N20_2_2,N20_2_2,Axilla,Cincinnati,32,28-32 Weeks,32,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N20,N20_2_3,N20_2_3,Groin,Cincinnati,32,28-32 Weeks,32,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N20,N20_1_3,N20_1_3,Groin,Cincinnati,32,28-32 Weeks,32,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N20,N20_2_4,N20_2_4,Stool,Cincinnati,32,28-32 Weeks,32,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N21,N21_1_3,N21_1_3,Groin,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N21,N21_1_4,N21_1_4,Stool,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N21,N21_2_2,N21_2_2,Axilla,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N21,N21_1_2,N21_1_2,Axilla,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N21,N21_2_4,N21_2_4,Stool,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N21,N21_2_3,N21_2_3,Groin,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N22,N22_1_2,N22_1_2,Axilla,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,BSI,Staphyloccus capitis,No.NEC,,,,PICC_UE,None
+N22,N22_1_3,N22_1_3,Groin,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,BSI,Staphyloccus capitis,No.NEC,,,,PICC_UE,None
+N22,N22_2_2,N22_2_2,Axilla,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,BSI,Staphyloccus capitis,No.NEC,,,,PICC_UE,None
+N22,N22_2_3,N22_2_3,Groin,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,BSI,Staphyloccus capitis,No.NEC,,,,PICC_UE,None
+N22,N22_2_4,N22_2_4,Stool,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI,Staphyloccus capitis,No.NEC,,,,PICC_UE,None
+N22,N22_1_4,N22_1_4,Stool,Cincinnati,27 5/7,23-27 Weeks,27.71428571,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI,Staphyloccus capitis,No.NEC,,,,PICC_UE,None
+N23,N23_2_2,N23_2_2,Axilla,Cincinnati,28 1/7,28-32 Weeks,28.14285714,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,BSI,Staphyloccus epidermidis,No.NEC,,,,PICC_UE,UVC
+N23,N23_2_3,N23_2_3,Groin,Cincinnati,28 1/7,28-32 Weeks,28.14285714,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,BSI,Staphyloccus epidermidis,No.NEC,,,,PICC_UE,UVC
+N23,N23_2_4,N23_2_4,Stool,Cincinnati,28 1/7,28-32 Weeks,28.14285714,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI,Staphyloccus epidermidis,No.NEC,,,,PICC_UE,UVC
+N23,N23_1_4,N23_1_4,Stool,Cincinnati,28 1/7,28-32 Weeks,28.14285714,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI,Staphyloccus epidermidis,No.NEC,,,,PICC_UE,UVC
+N24,N24_1_2,N24_1_2,Axilla,Cincinnati,33,33-36 Weeks,33,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N24,N24_1_3,N24_1_3,Groin,Cincinnati,33,33-36 Weeks,33,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N24,N24_1_4,N24_1_4,Stool,Cincinnati,33,33-36 Weeks,33,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N24,N24_2_4,N24_2_4,Stool,Cincinnati,33,33-36 Weeks,33,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N24,N24_2_3,N24_2_3,Groin,Cincinnati,33,33-36 Weeks,33,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N25,N25_1_2,N25_1_2,Axilla,Cincinnati,33,33-36 Weeks,33,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N25,N25_1_3,N25_1_3,Groin,Cincinnati,33,33-36 Weeks,33,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N25,N25_2_2,N25_2_2,Axilla,Cincinnati,33,33-36 Weeks,33,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N25,N25_2_3,N25_2_3,Groin,Cincinnati,33,33-36 Weeks,33,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N25,N25_2_4,N25_2_4,Stool,Cincinnati,33,33-36 Weeks,33,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N25,N25_1_4,N25_1_4,Stool,Cincinnati,33,33-36 Weeks,33,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N26,N26_1_4,N26_1_4,Stool,Cincinnati,33,33-36 Weeks,33,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N27,N27_1_3,N27_1_3,Groin,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N27,N27_1_4,N27_1_4,Stool,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N27,N27_2_3,N27_2_3,Groin,Cincinnati,34,33-36 Weeks,34,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N27,N27_1_2,N27_1_2,Axilla,Cincinnati,34,33-36 Weeks,34,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N27,N27_2_4,N27_2_4,Stool,Cincinnati,34,33-36 Weeks,34,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N28,N28_1_2,N28_1_2,Axilla,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N28,N28_1_3,N28_1_3,Groin,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N28,N28_1_4,N28_1_4,Stool,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N28,N28_2_3,N28_2_3,Groin,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N28,N28_2_4,N28_2_4,Stool,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N28,N28_2_2,N28_2_2,Axilla,Cincinnati,32 1/7,28-32 Weeks,32.14285714,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N29,N29_1_2,N29_1_2,Axilla,Cincinnati,31,28-32 Weeks,31,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N29,N29_1_4,N29_1_4,Stool,Cincinnati,31,28-32 Weeks,31,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N29,N29_2_2,N29_2_2,Axilla,Cincinnati,31,28-32 Weeks,31,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N29,N29_2_3,N29_2_3,Groin,Cincinnati,31,28-32 Weeks,31,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N29,N29_2_4,N29_2_4,Stool,Cincinnati,31,28-32 Weeks,31,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N29,N29_1_3,N29_1_3,Groin,Cincinnati,31,28-32 Weeks,31,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N30,N30_1_3,N30_1_3,Groin,Cincinnati,25,23-27 Weeks,25,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,UVC
+N30,N30_1_4,N30_1_4,Stool,Cincinnati,25,23-27 Weeks,25,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,UVC
+N30,N30_2_2,N30_2_2,Axilla,Cincinnati,25,23-27 Weeks,25,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,UVC
+N30,N30_1_2,N30_1_2,Axilla,Cincinnati,25,23-27 Weeks,25,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,UVC
+N30,N30_2_4,N30_2_4,Stool,Cincinnati,25,23-27 Weeks,25,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,UVC
+N31,N31_1_2,N31_1_2,Axilla,Cincinnati,30 4/7,28-32 Weeks,30.57142857,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,High.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N31,N31_1_3,N31_1_3,Groin,Cincinnati,30 4/7,28-32 Weeks,30.57142857,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,High.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N31,N31_1_4,N31_1_4,Stool,Cincinnati,30 4/7,28-32 Weeks,30.57142857,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,High.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N31,N31_2_3,N31_2_3,Groin,Cincinnati,30 4/7,28-32 Weeks,30.57142857,Week.3,Infant.Abx,None.Mat.Abx,No.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N31,N31_2_4,N31_2_4,Stool,Cincinnati,30 4/7,28-32 Weeks,30.57142857,Week.3,Infant.Abx,None.Mat.Abx,No.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N31,N31_2_2,N31_2_2,Axilla,Cincinnati,30 4/7,28-32 Weeks,30.57142857,Week.3,Infant.Abx,None.Mat.Abx,No.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,NEC,,,,PICC_UE,None
+N32,N32_1_2,N32_1_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N32,N32_1_3,N32_1_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N32,N32_1_4,N32_1_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N32,N32_2_4,N32_2_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N32,N32_2_3,N32_2_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N33,N33_1_2,N33_1_2,Axilla,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N33,N33_1_3,N33_1_3,Groin,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N33,N33_2_3,N33_2_3,Groin,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N33,N33_2_4,N33_2_4,Stool,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N33,N33_1_4,N33_1_4,Stool,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N34,N34_1_2,N34_1_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N34,N34_1_4,N34_1_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N34,N34_2_2,N34_2_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N34,N34_2_3,N34_2_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N34,N34_2_4,N34_2_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N34,N34_1_3,N34_1_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N35,N35_1_3,N35_1_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N35,N35_1_4,N35_1_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N35,N35_2_2,N35_2_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N35,N35_1_2,N35_1_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N35,N35_2_4,N35_2_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N35,N35_2_3,N35_2_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N36,N36_1_2,N36_1_2,Axilla,Cincinnati,28,28-32 Weeks,28,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N36,N36_1_3,N36_1_3,Groin,Cincinnati,28,28-32 Weeks,28,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N36,N36_2_2,N36_2_2,Axilla,Cincinnati,28,28-32 Weeks,28,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N36,N36_2_3,N36_2_3,Groin,Cincinnati,28,28-32 Weeks,28,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N36,N36_2_4,N36_2_4,Stool,Cincinnati,28,28-32 Weeks,28,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N36,N36_1_4,N36_1_4,Stool,Cincinnati,28,28-32 Weeks,28,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N37,N37_1_2,N37_1_2,Axilla,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N37,N37_1_4,N37_1_4,Stool,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N37,N37_2_4,N37_2_4,Stool,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N37,N37_1_3,N37_1_3,Groin,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N38,N38_1_2,N38_1_2,Axilla,Cincinnati,34 6/7,33-36 Weeks,34.85714286,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,PICC_LE,None
+N38,N38_1_4,N38_1_4,Stool,Cincinnati,34 6/7,33-36 Weeks,34.85714286,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,PICC_LE,None
+N38,N38_2_2,N38_2_2,Axilla,Cincinnati,34 6/7,33-36 Weeks,34.85714286,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,PICC_LE,None
+N38,N38_2_3,N38_2_3,Groin,Cincinnati,34 6/7,33-36 Weeks,34.85714286,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,PICC_LE,None
+N38,N38_1_3,N38_1_3,Groin,Cincinnati,34 6/7,33-36 Weeks,34.85714286,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,PICC_LE,None
+N38,N38_2_4,N38_2_4,Stool,Cincinnati,34 6/7,33-36 Weeks,34.85714286,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,,,,PICC_LE,None
+N39,N39_1_3,N39_1_3,Groin,Cincinnati,28 3/7,28-32 Weeks,28.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N39,N39_1_4,N39_1_4,Stool,Cincinnati,28 3/7,28-32 Weeks,28.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N39,N39_2_4,N39_2_4,Stool,Cincinnati,28 3/7,28-32 Weeks,28.42857143,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N39,N39_1_2,N39_1_2,Axilla,Cincinnati,28 3/7,28-32 Weeks,28.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N39,N39_2_3,N39_2_3,Groin,Cincinnati,28 3/7,28-32 Weeks,28.42857143,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N39,N39_2_2,N39_2_2,Axilla,Cincinnati,28 3/7,28-32 Weeks,28.42857143,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N40,N40_1_2,N40_1_2,Axilla,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N40,N40_1_3,N40_1_3,Groin,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N40,N40_1_4,N40_1_4,Stool,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N40,N40_2_2,N40_2_2,Axilla,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N40,N40_2_3,N40_2_3,Groin,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N40,N40_2_4,N40_2_4,Stool,Cincinnati,29 6/7,28-32 Weeks,29.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N41,N41_1_2,N41_1_2,Axilla,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N41,N41_1_4,N41_1_4,Stool,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N41,N41_2_4,N41_2_4,Stool,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N41,N41_2_2,N41_2_2,Axilla,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N41,N41_1_3,N41_1_3,Groin,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N41,N41_2_3,N41_2_3,Groin,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N42,N42_1_3,N42_1_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N42,N42_1_4,N42_1_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N42,N42_2_2,N42_2_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,None.Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N42,N42_1_2,N42_1_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N42,N42_2_4,N42_2_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,None.Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N42,N42_2_3,N42_2_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,None.Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N43,N43_1_2,N43_1_2,Axilla,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N43,N43_1_3,N43_1_3,Groin,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N43,N43_2_2,N43_2_2,Axilla,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N43,N43_2_3,N43_2_3,Groin,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N43,N43_2_4,N43_2_4,Stool,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N43,N43_1_4,N43_1_4,Stool,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N44,N44_1_3,N44_1_3,Groin,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N44,N44_1_4,N44_1_4,Stool,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N44,N44_2_2,N44_2_2,Axilla,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N44,N44_2_3,N44_2_3,Groin,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N44,N44_2_4,N44_2_4,Stool,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N44,N44_1_2,N44_1_2,Axilla,Cincinnati,31 3/7,28-32 Weeks,31.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N45,N45_1_3,N45_1_3,Groin,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N45,N45_1_4,N45_1_4,Stool,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N45,N45_2_2,N45_2_2,Axilla,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N45,N45_1_2,N45_1_2,Axilla,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N45,N45_2_4,N45_2_4,Stool,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N45,N45_2_3,N45_2_3,Groin,Cincinnati,33 4/7,33-36 Weeks,33.57142857,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N46,N46_1_2,N46_1_2,Axilla,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N46,N46_1_3,N46_1_3,Groin,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N46,N46_2_2,N46_2_2,Axilla,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N46,N46_2_3,N46_2_3,Groin,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N46,N46_2_4,N46_2_4,Stool,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N46,N46_1_4,N46_1_4,Stool,Cincinnati,32 6/7,28-32 Weeks,32.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,None,None
+N47,N47_1_2,N47_1_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,None
+N47,N47_1_4,N47_1_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,None
+N47,N47_2_2,N47_2_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,None
+N47,N47_2_3,N47_2_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,None
+N47,N47_1_3,N47_1_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,None
+N47,N47_2_4,N47_2_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_LE,None
+N48,N48_1_2,N48_1_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N48,N48_1_3,N48_1_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N48,N48_1_4,N48_1_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N48,N48_2_3,N48_2_3,Groin,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N48,N48_2_4,N48_2_4,Stool,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N48,N48_2_2,N48_2_2,Axilla,Cincinnati,32 2/7,28-32 Weeks,32.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N49,N49_1_2,N49_1_2,Axilla,Cincinnati,30 1/7,28-32 Weeks,30.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N49,N49_1_3,N49_1_3,Groin,Cincinnati,30 1/7,28-32 Weeks,30.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N49,N49_2_2,N49_2_2,Axilla,Cincinnati,30 1/7,28-32 Weeks,30.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N49,N49_2_3,N49_2_3,Groin,Cincinnati,30 1/7,28-32 Weeks,30.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N49,N49_2_4,N49_2_4,Stool,Cincinnati,30 1/7,28-32 Weeks,30.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N49,N49_1_4,N49_1_4,Stool,Cincinnati,30 1/7,28-32 Weeks,30.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N50,N50_1_3,N50_1_3,Groin,Cincinnati,34 2/7,33-36 Weeks,34.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N50,N50_1_4,N50_1_4,Stool,Cincinnati,34 2/7,33-36 Weeks,34.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N50,N50_2_2,N50_2_2,Axilla,Cincinnati,34 2/7,33-36 Weeks,34.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N50,N50_1_2,N50_1_2,Axilla,Cincinnati,34 2/7,33-36 Weeks,34.28571429,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N50,N50_2_4,N50_2_4,Stool,Cincinnati,34 2/7,33-36 Weeks,34.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N50,N50_2_3,N50_2_3,Groin,Cincinnati,34 2/7,33-36 Weeks,34.28571429,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,NA,No.BSI,0,No.NEC,,,,None,None
+N51,N51_1_2,N51_1_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N51,N51_1_3,N51_1_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N51,N51_1_4,N51_1_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N51,N51_2_2,N51_2_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N51,N51_2_3,N51_2_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N51,N51_2_4,N51_2_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N52,N52_1_2,N52_1_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N52,N52_1_3,N52_1_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N52,N52_1_4,N52_1_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N52,N52_2_2,N52_2_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N52,N52_2_3,N52_2_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N52,N52_2_4,N52_2_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N53,N53_1_2,N53_1_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N53,N53_1_3,N53_1_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N53,N53_1_4,N53_1_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N53,N53_2_2,N53_2_2,Axilla,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N53,N53_2_3,N53_2_3,Groin,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N53,N53_2_4,N53_2_4,Stool,Cincinnati,28 6/7,28-32 Weeks,28.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N54,N54_1_3,N54_1_3,Groin,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N54,N54_1_4,N54_1_4,Stool,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N54,N54_2_2,N54_2_2,Axilla,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N54,N54_2_3,N54_2_3,Groin,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N54,N54_2_4,N54_2_4,Stool,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N54,N54_1_2,N54_1_2,Axilla,Cincinnati,30 2/7,28-32 Weeks,30.28571429,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N55,N55_1_2,N55_1_2,Axilla,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N55,N55_1_3,N55_1_3,Groin,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N55,N55_1_4,N55_1_4,Stool,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N55,N55_2_3,N55_2_3,Groin,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N55,N55_2_4,N55_2_4,Stool,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N55,N55_2_2,N55_2_2,Axilla,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,None,None
+N56,N56_1_2,N56_1_2,Axilla,Cincinnati,25 3/7,23-27 Weeks,25.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N56,N56_1_4,N56_1_4,Stool,Cincinnati,25 3/7,23-27 Weeks,25.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N56,N56_2_2,N56_2_2,Axilla,Cincinnati,25 3/7,23-27 Weeks,25.42857143,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N56,N56_2_3,N56_2_3,Groin,Cincinnati,25 3/7,23-27 Weeks,25.42857143,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N56,N56_2_4,N56_2_4,Stool,Cincinnati,25 3/7,23-27 Weeks,25.42857143,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N56,N56_1_3,N56_1_3,Groin,Cincinnati,25 3/7,23-27 Weeks,25.42857143,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N57,N57_1_3,N57_1_3,Groin,Cincinnati,24 6/7,23-27 Weeks,24.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N57,N57_1_4,N57_1_4,Stool,Cincinnati,24 6/7,23-27 Weeks,24.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N57,N57_2_2,N57_2_2,Axilla,Cincinnati,24 6/7,23-27 Weeks,24.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N57,N57_1_2,N57_1_2,Axilla,Cincinnati,24 6/7,23-27 Weeks,24.85714286,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N57,N57_2_4,N57_2_4,Stool,Cincinnati,24 6/7,23-27 Weeks,24.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N57,N57_2_3,N57_2_3,Groin,Cincinnati,24 6/7,23-27 Weeks,24.85714286,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N58,N58_1_2,N58_1_2,Axilla,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N58,N58_1_3,N58_1_3,Groin,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N58,N58_2_2,N58_2_2,Axilla,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N58,N58_2_3,N58_2_3,Groin,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N58,N58_2_4,N58_2_4,Stool,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N58,N58_1_4,N58_1_4,Stool,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Donor,No.BSI,0,No.NEC,,,,PICC_UE,None
+N59,N59_1_2,N59_1_2,Axilla,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N59,N59_1_4,N59_1_4,Stool,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N59,N59_2_2,N59_2_2,Axilla,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N59,N59_2_3,N59_2_3,Groin,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N59,N59_1_3,N59_1_3,Groin,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N59,N59_2_4,N59_2_4,Stool,Cincinnati,29 5/7,28-32 Weeks,29.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,UVC
+N60,N60_1_2,N60_1_2,Axilla,Cincinnati,31 6/7,28-32 Weeks,31.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N60,N60_1_3,N60_1_3,Groin,Cincinnati,31 6/7,28-32 Weeks,31.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N60,N60_1_4,N60_1_4,Stool,Cincinnati,31 6/7,28-32 Weeks,31.85714286,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N60,N60_2_3,N60_2_3,Groin,Cincinnati,31 6/7,28-32 Weeks,31.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N60,N60_2_4,N60_2_4,Stool,Cincinnati,31 6/7,28-32 Weeks,31.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N60,N60_2_2,N60_2_2,Axilla,Cincinnati,31 6/7,28-32 Weeks,31.85714286,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N61,N61_1_3,N61_1_3,Groin,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.1,Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N61,N61_1_4,N61_1_4,Stool,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.1,Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N61,N61_2_2,N61_2_2,Axilla,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N61,N61_1_2,N61_1_2,Axilla,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.1,Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N61,N61_2_4,N61_2_4,Stool,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N61,N61_2_3,N61_2_3,Groin,Cincinnati,31 4/7,28-32 Weeks,31.57142857,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N62,N62_1_2,N62_1_2,Axilla,Cincinnati,29 2/7,28-32 Weeks,29.28571429,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N62,N62_1_3,N62_1_3,Groin,Cincinnati,29 2/7,28-32 Weeks,29.28571429,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N62,N62_2_2,N62_2_2,Axilla,Cincinnati,29 2/7,28-32 Weeks,29.28571429,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N62,N62_2_3,N62_2_3,Groin,Cincinnati,29 2/7,28-32 Weeks,29.28571429,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N62,N62_2_4,N62_2_4,Stool,Cincinnati,29 2/7,28-32 Weeks,29.28571429,Week.3,Infant.Abx,Mat.Abx,,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N62,N62_1_4,N62_1_4,Stool,Cincinnati,29 2/7,28-32 Weeks,29.28571429,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N63,N63_1_3,N63_1_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N63,N63_1_4,N63_1_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N63,N63_2_2,N63_2_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N63,N63_2_3,N63_2_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N63,N63_2_4,N63_2_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N63,N63_1_2,N63_1_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N64,N64_1_2,N64_1_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N64,N64_1_3,N64_1_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N64,N64_1_4,N64_1_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N64,N64_2_3,N64_2_3,Groin,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N64,N64_2_4,N64_2_4,Stool,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N64,N64_2_2,N64_2_2,Axilla,Cincinnati,30,28-32 Weeks,30,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N65,N65_1_2,N65_1_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N65,N65_1_4,N65_1_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N65,N65_2_2,N65_2_2,Axilla,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N65,N65_2_3,N65_2_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N65,N65_2_4,N65_2_4,Stool,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N65,N65_1_3,N65_1_3,Groin,Cincinnati,29 3/7,28-32 Weeks,29.42857143,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_UE,None
+N66,N66_1_3,N66_1_3,Groin,Cincinnati,29 1/7,28-32 Weeks,29.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N66,N66_1_4,N66_1_4,Stool,Cincinnati,29 1/7,28-32 Weeks,29.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N66,N66_2_2,N66_2_2,Axilla,Cincinnati,29 1/7,28-32 Weeks,29.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N66,N66_1_2,N66_1_2,Axilla,Cincinnati,29 1/7,28-32 Weeks,29.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N66,N66_2_4,N66_2_4,Stool,Cincinnati,29 1/7,28-32 Weeks,29.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N66,N66_2_3,N66_2_3,Groin,Cincinnati,29 1/7,28-32 Weeks,29.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N67,N67_1_2,N67_1_2,Axilla,Cincinnati,31 1/7,28-32 Weeks,31.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N67,N67_1_3,N67_1_3,Groin,Cincinnati,31 1/7,28-32 Weeks,31.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N67,N67_2_2,N67_2_2,Axilla,Cincinnati,31 1/7,28-32 Weeks,31.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N67,N67_2_3,N67_2_3,Groin,Cincinnati,31 1/7,28-32 Weeks,31.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N67,N67_2_4,N67_2_4,Stool,Cincinnati,31 1/7,28-32 Weeks,31.14285714,Week.3,No.Infant.Abx,Mat.Abx,,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N67,N67_1_4,N67_1_4,Stool,Cincinnati,31 1/7,28-32 Weeks,31.14285714,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,,,,PICC_LE,None
+N68,N68_1_2,N68_1_2,Axilla,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N68,N68_1_3,N68_1_3,Groin,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N68,N68_2_2,N68_2_2,Axilla,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N68,N68_2_3,N68_2_3,Groin,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N68,N68_2_4,N68_2_4,Stool,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.3,Infant.Abx,Mat.Abx,,Low.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N68,N68_1_4,N68_1_4,Stool,Cincinnati,28 5/7,28-32 Weeks,28.71428571,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI,MRSA,No.NEC,,,,PICC_UE,None
+N01,ZJH_N01_1_2,N01_1_2,Axilla,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,1,PICC_UE,None
+N01,ZJH_N01_1_3,N01_1_3,Groin,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,1,PICC_UE,None
+N01,ZJH_N01_1_4,N01_1_4,Stool,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,1,PICC_UE,None
+N01,ZJH_N01_2_1,N01_2_1,Nonese,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,1,PICC_UE,None
+N01,ZJH_N01_2_2,N01_2_2,Axilla,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,1,PICC_UE,None
+N01,ZJH_N01_2_3,N01_2_3,Groin,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,1,PICC_UE,None
+N01,ZJH_N01_2_4,N01_2_4,Stool,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,1,PICC_UE,None
+N02,ZJH_N02_1_2,N02_1_2,Axilla,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N02,ZJH_N02_1_3,N02_1_3,Groin,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N02,ZJH_N02_1_4,N02_1_4,Stool,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N02,ZJH_N02_2_1,N02_2_1,Nonese,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N02,ZJH_N02_2_2,N02_2_2,Axilla,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N02,ZJH_N02_2_3,N02_2_3,Groin,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N02,ZJH_N02_2_4,N02_2_4,Stool,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N03,ZJH_N03_1_1,N03_1_1,Nonese,Hangzhou,30 2/7,28-32 Weeks,30.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,axillary,None
+N03,ZJH_N03_1_2,N03_1_2,Axilla,Hangzhou,30 2/7,28-32 Weeks,30.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,axillary,None
+N03,ZJH_N03_1_3,N03_1_3,Groin,Hangzhou,30 2/7,28-32 Weeks,30.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,axillary,None
+N03,ZJH_N03_2_1,N03_2_1,Nonese,Hangzhou,30 2/7,28-32 Weeks,30.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,axillary,None
+N03,ZJH_N03_2_2,N03_2_2,Axilla,Hangzhou,30 2/7,28-32 Weeks,30.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,axillary,None
+N03,ZJH_N03_2_4,N03_2_4,Stool,Hangzhou,30 2/7,28-32 Weeks,30.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,axillary,None
+N04,ZJH_N04_1_1,N04_1_1,Nonese,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N04,ZJH_N04_1_2,N04_1_2,Axilla,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N04,ZJH_N04_1_3,N04_1_3,Groin,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N04,ZJH_N04_1_4,N04_1_4,Stool,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N04,ZJH_N04_2_1,N04_2_1,Nonese,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N04,ZJH_N04_2_2,N04_2_2,Axilla,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N04,ZJH_N04_2_3,N04_2_3,Groin,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N04,ZJH_N04_2_4,N04_2_4,Stool,Hangzhou,31 1/7,28-32 Weeks,31.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N05,ZJH_N05_1_1,N05_1_1,Nonese,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N05,ZJH_N05_1_2,N05_1_2,Axilla,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N05,ZJH_N05_1_4,N05_1_4,Stool,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N05,ZJH_N05_2_1,N05_2_1,Nonese,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N05,ZJH_N05_2_2,N05_2_2,Axilla,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N05,ZJH_N05_2_3,N05_2_3,Groin,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N05,ZJH_N05_2_4,N05_2_4,Stool,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N06,ZJH_N06_1_1,N06_1_1,Nonese,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N06,ZJH_N06_1_2,N06_1_2,Axilla,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N06,ZJH_N06_1_3,N06_1_3,Groin,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N06,ZJH_N06_1_4,N06_1_4,Stool,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N06,ZJH_N06_2_1,N06_2_1,Nonese,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N06,ZJH_N06_2_2,N06_2_2,Axilla,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N06,ZJH_N06_2_3,N06_2_3,Groin,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N06,ZJH_N06_2_4,N06_2_4,Stool,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,MRSA,No.NEC,Sputum,MRSA,0,PICC_UE,None
+N07,ZJH_N07_1_1,N07_1_1,Nonese,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood,Staphylococcus cephalus,0,None,UVC
+N07,ZJH_N07_1_2,N07_1_2,Axilla,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood,Staphylococcus cephalus,0,None,UVC
+N07,ZJH_N07_1_3,N07_1_3,Groin,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood,Staphylococcus cephalus,0,None,UVC
+N07,ZJH_N07_1_4,N07_1_4,Stool,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood,Staphylococcus cephalus,0,None,UVC
+N07,ZJH_N07_2_1,N07_2_1,Nonese,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood,Staphylococcus cephalus,0,None,UVC
+N07,ZJH_N07_2_3,N07_2_3,Groin,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood,Staphylococcus cephalus,0,None,UVC
+N07,ZJH_N07_2_4,N07_2_4,Stool,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood,Staphylococcus cephalus,0,None,UVC
+N08,ZJH_N08_1_2,N08_1_2,Axilla,Hangzhou,33 1/7,33-36 Weeks,33.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N08,ZJH_N08_1_3,N08_1_3,Groin,Hangzhou,33 1/7,33-36 Weeks,33.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N08,ZJH_N08_1_4,N08_1_4,Stool,Hangzhou,33 1/7,33-36 Weeks,33.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N08,ZJH_N08_2_2,N08_2_2,Axilla,Hangzhou,33 1/7,33-36 Weeks,33.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N08,ZJH_N08_2_3,N08_2_3,Groin,Hangzhou,33 1/7,33-36 Weeks,33.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N08,ZJH_N08_2_4,N08_2_4,Stool,Hangzhou,33 1/7,33-36 Weeks,33.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N09,ZJH_N09_1_1,N09_1_1,Nonese,Hangzhou,31 3/7,28-32 Weeks,31.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N09,ZJH_N09_1_2,N09_1_2,Axilla,Hangzhou,31 3/7,28-32 Weeks,31.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N09,ZJH_N09_1_3,N09_1_3,Groin,Hangzhou,31 3/7,28-32 Weeks,31.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N09,ZJH_N09_2_1,N09_2_1,Nonese,Hangzhou,31 3/7,28-32 Weeks,31.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N09,ZJH_N09_2_2,N09_2_2,Axilla,Hangzhou,31 3/7,28-32 Weeks,31.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N09,ZJH_N09_2_4,N09_2_4,Stool,Hangzhou,31 3/7,28-32 Weeks,31.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N10,ZJH_N10_1_2,N10_1_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_LE,None
+N10,ZJH_N10_1_4,N10_1_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_LE,None
+N10,ZJH_N10_2_1,N10_2_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_LE,None
+N10,ZJH_N10_2_2,N10_2_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_LE,None
+N10,ZJH_N10_2_3,N10_2_3,Groin,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_LE,None
+N10,ZJH_N10_2_4,N10_2_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_LE,None
+N11,ZJH_N11_1_2,N11_1_2,Axilla,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N11,ZJH_N11_1_3,N11_1_3,Groin,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N11,ZJH_N11_1_4,N11_1_4,Stool,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N11,ZJH_N11_2_1,N11_2_1,Nonese,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N11,ZJH_N11_2_2,N11_2_2,Axilla,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N11,ZJH_N11_2_3,N11_2_3,Groin,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N11,ZJH_N11_2_4,N11_2_4,Stool,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N12,ZJH_N12_1_1,N12_1_1,Nonese,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N12,ZJH_N12_1_2,N12_1_2,Axilla,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N12,ZJH_N12_1_3,N12_1_3,Groin,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N12,ZJH_N12_1_4,N12_1_4,Stool,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N12,ZJH_N12_2_1,N12_2_1,Nonese,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N12,ZJH_N12_2_2,N12_2_2,Axilla,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N12,ZJH_N12_2_4,N12_2_4,Stool,Hangzhou,30 3/7,28-32 Weeks,30.428571 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N13,ZJH_N13_1_1,N13_1_1,Nonese,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N13,ZJH_N13_1_2,N13_1_2,Axilla,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N13,ZJH_N13_1_3,N13_1_3,Groin,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N13,ZJH_N13_1_4,N13_1_4,Stool,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N13,ZJH_N13_2_1,N13_2_1,Nonese,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N13,ZJH_N13_2_2,N13_2_2,Axilla,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N13,ZJH_N13_2_3,N13_2_3,Groin,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N13,ZJH_N13_2_4,N13_2_4,Stool,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N14,ZJH_N14_1_1,N14_1_1,Nonese,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N14,ZJH_N14_1_2,N14_1_2,Axilla,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N14,ZJH_N14_1_3,N14_1_3,Groin,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N14,ZJH_N14_1_4,N14_1_4,Stool,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N14,ZJH_N14_2_1,N14_2_1,Nonese,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N14,ZJH_N14_2_2,N14_2_2,Axilla,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N14,ZJH_N14_2_3,N14_2_3,Groin,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N14,ZJH_N14_2_4,N14_2_4,Stool,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,BSI,Klebber pneumoniae,No.NEC,Blood,Klebber pneumoniae,0,axillary,None
+N15,ZJH_N15_1_1,N15_1_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N15,ZJH_N15_1_2,N15_1_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N15,ZJH_N15_1_4,N15_1_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N16,ZJH_N16_1_1,N16_1_1,Nonese,Hangzhou,36,33-36 Weeks,36.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N16,ZJH_N16_1_2,N16_1_2,Axilla,Hangzhou,36,33-36 Weeks,36.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N16,ZJH_N16_1_3,N16_1_3,Groin,Hangzhou,36,33-36 Weeks,36.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N16,ZJH_N16_2_1,N16_2_1,Nonese,Hangzhou,36,33-36 Weeks,36.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N16,ZJH_N16_2_2,N16_2_2,Axilla,Hangzhou,36,33-36 Weeks,36.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N16,ZJH_N16_2_3,N16_2_3,Groin,Hangzhou,36,33-36 Weeks,36.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N16,ZJH_N16_2_4,N16_2_4,Stool,Hangzhou,36,33-36 Weeks,36.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,PICC_UE,None
+N17,ZJH_N17_1_1,N17_1_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N17,ZJH_N17_1_2,N17_1_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N17,ZJH_N17_1_3,N17_1_3,Groin,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N17,ZJH_N17_1_4,N17_1_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N17,ZJH_N17_2_1,N17_2_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N17,ZJH_N17_2_2,N17_2_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N17,ZJH_N17_2_3,N17_2_3,Groin,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N17,ZJH_N17_2_4,N17_2_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N18,ZJH_N18_1_1,N18_1_1,Nonese,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N18,ZJH_N18_1_2,N18_1_2,Axilla,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N18,ZJH_N18_1_3,N18_1_3,Groin,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N18,ZJH_N18_1_4,N18_1_4,Stool,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N18,ZJH_N18_2_1,N18_2_1,Nonese,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N18,ZJH_N18_2_2,N18_2_2,Axilla,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N18,ZJH_N18_2_3,N18_2_3,Groin,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N18,ZJH_N18_2_4,N18_2_4,Stool,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N19,ZJH_N19_1_1,N19_1_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,None,UVC
+N19,ZJH_N19_1_2,N19_1_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,None,UVC
+N19,ZJH_N19_1_3,N19_1_3,Groin,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,None,UVC
+N19,ZJH_N19_1_4,N19_1_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,None,UVC
+N19,ZJH_N19_2_1,N19_2_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,None,UVC
+N19,ZJH_N19_2_2,N19_2_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,None,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,None,UVC
+N19,ZJH_N19_2_4,N19_2_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,PICC,Staphylococcus epidermidis,No.NEC,PICC,Staphylococcus epidermidis,0,None,UVC
+N20,ZJH_N20_1_1,N20_1_1,Nonese,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_UE,None
+N20,ZJH_N20_1_3,N20_1_3,Groin,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_UE,None
+N20,ZJH_N20_1_4,N20_1_4,Stool,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_UE,None
+N20,ZJH_N20_2_1,N20_2_1,Nonese,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_UE,None
+N20,ZJH_N20_2_2,N20_2_2,Axilla,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_UE,None
+N20,ZJH_N20_2_3,N20_2_3,Groin,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_UE,None
+N20,ZJH_N20_2_4,N20_2_4,Stool,Hangzhou,29 6/7,28-32 Weeks,29.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_UE,None
+N21,ZJH_N21_1_1,N21_1_1,Nonese,Hangzhou,33 3/7,33-36 Weeks,33.428571 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N21,ZJH_N21_1_2,N21_1_2,Axilla,Hangzhou,33 3/7,33-36 Weeks,33.428571 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N21,ZJH_N21_1_4,N21_1_4,Stool,Hangzhou,33 3/7,33-36 Weeks,33.428571 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N21,ZJH_N21_2_1,N21_2_1,Nonese,Hangzhou,33 3/7,33-36 Weeks,33.428571 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N21,ZJH_N21_2_2,N21_2_2,Axilla,Hangzhou,33 3/7,33-36 Weeks,33.428571 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N21,ZJH_N21_2_4,N21_2_4,Stool,Hangzhou,33 3/7,33-36 Weeks,33.428571 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N22,ZJH_N22_1_1,N22_1_1,Nonese,Hangzhou,29,28-32 Weeks,29.000000 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N22,ZJH_N22_1_3,N22_1_3,Groin,Hangzhou,29,28-32 Weeks,29.000000 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N22,ZJH_N22_1_4,N22_1_4,Stool,Hangzhou,29,28-32 Weeks,29.000000 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N22,ZJH_N22_2_1,N22_2_1,Nonese,Hangzhou,29,28-32 Weeks,29.000000 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N22,ZJH_N22_2_2,N22_2_2,Axilla,Hangzhou,29,28-32 Weeks,29.000000 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N22,ZJH_N22_2_3,N22_2_3,Groin,Hangzhou,29,28-32 Weeks,29.000000 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N22,ZJH_N22_2_4,N22_2_4,Stool,Hangzhou,29,28-32 Weeks,29.000000 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N23,ZJH_N23_1_1,N23_1_1,Nonese,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N23,ZJH_N23_1_2,N23_1_2,Axilla,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N23,ZJH_N23_1_3,N23_1_3,Groin,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N23,ZJH_N23_1_4,N23_1_4,Stool,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N23,ZJH_N23_2_1,N23_2_1,Nonese,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N23,ZJH_N23_2_2,N23_2_2,Axilla,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N23,ZJH_N23_2_3,N23_2_3,Groin,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N23,ZJH_N23_2_4,N23_2_4,Stool,Hangzhou,30 6/7,28-32 Weeks,30.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N24,ZJH_N24_1_1,N24_1_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N24,ZJH_N24_1_2,N24_1_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N24,ZJH_N24_1_3,N24_1_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N24,ZJH_N24_1_4,N24_1_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N24,ZJH_N24_2_1,N24_2_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N24,ZJH_N24_2_2,N24_2_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N24,ZJH_N24_2_3,N24_2_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N24,ZJH_N24_2_4,N24_2_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI and No.BSI,Staphylococcus hemolyticus and Klebber pneumoniae,No.NEC,Blood and Sputum,Staphylococcus hemolyticus and Klebber pneumoniae,0,axillary,None
+N25,ZJH_N25_1_1,N25_1_1,Nonese,Hangzhou,27 6/7,23-27 Weeks,27.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Enterococcus faecium,0,None,UVC
+N25,ZJH_N25_1_2,N25_1_2,Axilla,Hangzhou,27 6/7,23-27 Weeks,27.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Enterococcus faecium,0,None,UVC
+N25,ZJH_N25_1_3,N25_1_3,Groin,Hangzhou,27 6/7,23-27 Weeks,27.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Enterococcus faecium,0,None,UVC
+N25,ZJH_N25_1_4,N25_1_4,Stool,Hangzhou,27 6/7,23-27 Weeks,27.857143 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Enterococcus faecium,0,None,UVC
+N25,ZJH_N25_2_1,N25_2_1,Nonese,Hangzhou,27 6/7,23-27 Weeks,27.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Enterococcus faecium,0,None,UVC
+N25,ZJH_N25_2_2,N25_2_2,Axilla,Hangzhou,27 6/7,23-27 Weeks,27.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Enterococcus faecium,0,None,UVC
+N25,ZJH_N25_2_4,N25_2_4,Stool,Hangzhou,27 6/7,23-27 Weeks,27.857143 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Enterococcus faecium,0,None,UVC
+N26,ZJH_N26_1_1,N26_1_1,Nonese,Hangzhou,27,23-27 Weeks,27.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N26,ZJH_N26_1_2,N26_1_2,Axilla,Hangzhou,27,23-27 Weeks,27.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N26,ZJH_N26_1_4,N26_1_4,Stool,Hangzhou,27,23-27 Weeks,27.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N26,ZJH_N26_2_1,N26_2_1,Nonese,Hangzhou,27,23-27 Weeks,27.000000 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N26,ZJH_N26_2_2,N26_2_2,Axilla,Hangzhou,27,23-27 Weeks,27.000000 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N26,ZJH_N26_2_4,N26_2_4,Stool,Hangzhou,27,23-27 Weeks,27.000000 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N27,ZJH_N27_1_1,N27_1_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N27,ZJH_N27_1_4,N27_1_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N27,ZJH_N27_2_1,N27_2_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N27,ZJH_N27_2_2,N27_2_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N27,ZJH_N27_2_3,N27_2_3,Groin,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N27,ZJH_N27_2_4,N27_2_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N28,ZJH_N28_1_1,N28_1_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,BSI,Staphylococcus epidermidis,No.NEC,Blood,Staphylococcus epidermidis,0,axillary,None
+N28,ZJH_N28_1_2,N28_1_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,BSI,Staphylococcus epidermidis,No.NEC,Blood,Staphylococcus epidermidis,0,axillary,None
+N28,ZJH_N28_1_4,N28_1_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,BSI,Staphylococcus epidermidis,No.NEC,Blood,Staphylococcus epidermidis,0,axillary,None
+N28,ZJH_N28_2_1,N28_2_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,BSI,Staphylococcus epidermidis,No.NEC,Blood,Staphylococcus epidermidis,0,axillary,None
+N28,ZJH_N28_2_2,N28_2_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,None,BSI,Staphylococcus epidermidis,No.NEC,Blood,Staphylococcus epidermidis,0,axillary,None
+N28,ZJH_N28_2_3,N28_2_3,Groin,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,None,BSI,Staphylococcus epidermidis,No.NEC,Blood,Staphylococcus epidermidis,0,axillary,None
+N28,ZJH_N28_2_4,N28_2_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,BSI,Staphylococcus epidermidis,No.NEC,Blood,Staphylococcus epidermidis,0,axillary,None
+N29,ZJH_N29_1_1,N29_1_1,Nonese,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N29,ZJH_N29_1_2,N29_1_2,Axilla,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N29,ZJH_N29_1_4,N29_1_4,Stool,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N30,ZJH_N30_1_1,N30_1_1,Nonese,Hangzhou,28 6/7,28-32 Weeks,28.857143 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N30,ZJH_N30_1_3,N30_1_3,Groin,Hangzhou,28 6/7,28-32 Weeks,28.857143 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N30,ZJH_N30_1_4,N30_1_4,Stool,Hangzhou,28 6/7,28-32 Weeks,28.857143 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N30,ZJH_N30_2_1,N30_2_1,Nonese,Hangzhou,28 6/7,28-32 Weeks,28.857143 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N30,ZJH_N30_2_3,N30_2_3,Groin,Hangzhou,28 6/7,28-32 Weeks,28.857143 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N30,ZJH_N30_2_4,N30_2_4,Stool,Hangzhou,28 6/7,28-32 Weeks,28.857143 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N31,ZJH_N31_1_1,N31_1_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N31,ZJH_N31_1_2,N31_1_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N31,ZJH_N31_1_4,N31_1_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N31,ZJH_N31_2_1,N31_2_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N31,ZJH_N31_2_2,N31_2_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N31,ZJH_N31_2_3,N31_2_3,Groin,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N31,ZJH_N31_2_4,N31_2_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N32,ZJH_N32_1_1,N32_1_1,Nonese,Hangzhou,25 4/7,23-27 Weeks,25.571429 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood and Sputum, Staphylococcus cephalus and Klebber pneumoniae,0,PICC_UE,UVC
+N32,ZJH_N32_1_2,N32_1_2,Axilla,Hangzhou,25 4/7,23-27 Weeks,25.571429 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood and Sputum, Staphylococcus cephalus and Klebber pneumoniae,0,PICC_UE,UVC
+N32,ZJH_N32_1_4,N32_1_4,Stool,Hangzhou,25 4/7,23-27 Weeks,25.571429 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood and Sputum, Staphylococcus cephalus and Klebber pneumoniae,0,PICC_UE,UVC
+N32,ZJH_N32_2_1,N32_2_1,Nonese,Hangzhou,25 4/7,23-27 Weeks,25.571429 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood and Sputum, Staphylococcus cephalus and Klebber pneumoniae,0,PICC_UE,UVC
+N32,ZJH_N32_2_2,N32_2_2,Axilla,Hangzhou,25 4/7,23-27 Weeks,25.571429 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood and Sputum, Staphylococcus cephalus and Klebber pneumoniae,0,PICC_UE,UVC
+N32,ZJH_N32_2_3,N32_2_3,Groin,Hangzhou,25 4/7,23-27 Weeks,25.571429 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood and Sputum, Staphylococcus cephalus and Klebber pneumoniae,0,PICC_UE,UVC
+N32,ZJH_N32_2_4,N32_2_4,Stool,Hangzhou,25 4/7,23-27 Weeks,25.571429 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI,Staphylococcus cephalus,No.NEC,Blood and Sputum, Staphylococcus cephalus and Klebber pneumoniae,0,PICC_UE,UVC
+N33,ZJH_N33_1_1,N33_1_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,BSI,Enterococcus faecium,No.NEC,Blood,Enterococcus faecium,0,PICC_UE,None
+N33,ZJH_N33_1_2,N33_1_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,BSI,Enterococcus faecium,No.NEC,Blood,Enterococcus faecium,0,PICC_UE,None
+N33,ZJH_N33_1_3,N33_1_3,Groin,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,BSI,Enterococcus faecium,No.NEC,Blood,Enterococcus faecium,0,PICC_UE,None
+N33,ZJH_N33_1_4,N33_1_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,BSI,Enterococcus faecium,No.NEC,Blood,Enterococcus faecium,0,PICC_UE,None
+N33,ZJH_N33_2_1,N33_2_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,BSI,Enterococcus faecium,No.NEC,Blood,Enterococcus faecium,0,PICC_UE,None
+N33,ZJH_N33_2_2,N33_2_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,BSI,Enterococcus faecium,No.NEC,Blood,Enterococcus faecium,0,PICC_UE,None
+N33,ZJH_N33_2_4,N33_2_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,BSI,Enterococcus faecium,No.NEC,Blood,Enterococcus faecium,0,PICC_UE,None
+N34,ZJH_N34_1_1,N34_1_1,Nonese,Hangzhou,29 2/7,28-32 Weeks,29.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,Sputum, Klebber pneumoniae,0,PICC_UE,None
+N34,ZJH_N34_1_2,N34_1_2,Axilla,Hangzhou,29 2/7,28-32 Weeks,29.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,Sputum, Klebber pneumoniae,0,PICC_UE,None
+N34,ZJH_N34_1_3,N34_1_3,Groin,Hangzhou,29 2/7,28-32 Weeks,29.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,No.BSI,0,No.NEC,Sputum, Klebber pneumoniae,0,PICC_UE,None
+N34,ZJH_N34_1_4,N34_1_4,Stool,Hangzhou,29 2/7,28-32 Weeks,29.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,0,No.NEC,Sputum, Klebber pneumoniae,0,PICC_UE,None
+N35,ZJH_N35_1_1,N35_1_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum, Klebber pneumoniae,0,PICC_UE,None
+N35,ZJH_N35_1_2,N35_1_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum, Klebber pneumoniae,0,PICC_UE,None
+N35,ZJH_N35_1_4,N35_1_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Sputum, Klebber pneumoniae,0,PICC_UE,None
+N36,ZJH_N36_1_1,N36_1_1,Nonese,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N36,ZJH_N36_1_2,N36_1_2,Axilla,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N36,ZJH_N36_1_3,N36_1_3,Groin,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N36,ZJH_N36_1_4,N36_1_4,Stool,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N36,ZJH_N36_2_1,N36_2_1,Nonese,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N36,ZJH_N36_2_2,N36_2_2,Axilla,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N36,ZJH_N36_2_3,N36_2_3,Groin,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N36,ZJH_N36_2_4,N36_2_4,Stool,Hangzhou,31 2/7,28-32 Weeks,31.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N37,ZJH_N37_1_1,N37_1_1,Nonese,Hangzhou,28 4/7,28-32 Weeks,28.571429 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,UVC
+N37,ZJH_N37_1_2,N37_1_2,Axilla,Hangzhou,28 4/7,28-32 Weeks,28.571429 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,UVC
+N37,ZJH_N37_1_3,N37_1_3,Groin,Hangzhou,28 4/7,28-32 Weeks,28.571429 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,UVC
+N38,ZJH_N38_1_1,N38_1_1,Nonese,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI  ,Klebber pneumoniae,No.NEC,Sputum  ,Klebber pneumoniae,0,PICC_LE,UVC
+N38,ZJH_N38_1_2,N38_1_2,Axilla,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI  ,Klebber pneumoniae,No.NEC,Sputum  ,Klebber pneumoniae,0,PICC_LE,UVC
+N38,ZJH_N38_1_3,N38_1_3,Groin,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI  ,Klebber pneumoniae,No.NEC,Sputum  ,Klebber pneumoniae,0,PICC_LE,UVC
+N38,ZJH_N38_1_4,N38_1_4,Stool,Hangzhou,30,28-32 Weeks,30.000000 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI  ,Klebber pneumoniae,No.NEC,Sputum  ,Klebber pneumoniae,0,PICC_LE,UVC
+N39,ZJH_N39_1_1,N39_1_1,Nonese,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI ,Acinetobacter wollerii and MRSA,No.NEC,Sputum ,Acinetobacter wollerii and MRSA,0,PICC_Neck,None
+N39,ZJH_N39_1_4,N39_1_4,Stool,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI ,Acinetobacter wollerii and MRSA,No.NEC,Sputum ,Acinetobacter wollerii and MRSA,0,PICC_Neck,None
+N39,ZJH_N39_2_1,N39_2_1,Nonese,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI ,Acinetobacter wollerii and MRSA,No.NEC,Sputum ,Acinetobacter wollerii and MRSA,0,PICC_Neck,None
+N39,ZJH_N39_2_2,N39_2_2,Axilla,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI ,Acinetobacter wollerii and MRSA,No.NEC,Sputum ,Acinetobacter wollerii and MRSA,0,PICC_Neck,None
+N39,ZJH_N39_2_3,N39_2_3,Groin,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI ,Acinetobacter wollerii and MRSA,No.NEC,Sputum ,Acinetobacter wollerii and MRSA,0,PICC_Neck,None
+N39,ZJH_N39_2_4,N39_2_4,Stool,Hangzhou,28 1/7,28-32 Weeks,28.142857 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI ,Acinetobacter wollerii and MRSA,No.NEC,Sputum ,Acinetobacter wollerii and MRSA,0,PICC_Neck,None
+N40,ZJH_N40_1_1,N40_1_1,Nonese,Hangzhou,29 2/7,28-32 Weeks,29.285714 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,e. coli and Klebber pneumoniae,No.NEC,Sputum,e. coli and Klebber pneumoniae,0,PICC_UE,None
+N40,ZJH_N40_1_2,N40_1_2,Axilla,Hangzhou,29 2/7,28-32 Weeks,29.285714 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,e. coli and Klebber pneumoniae,No.NEC,Sputum,e. coli and Klebber pneumoniae,0,PICC_UE,None
+N40,ZJH_N40_1_4,N40_1_4,Stool,Hangzhou,29 2/7,28-32 Weeks,29.285714 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,e. coli and Klebber pneumoniae,No.NEC,Sputum,e. coli and Klebber pneumoniae,0,PICC_UE,None
+N41,ZJH_N41_1_1,N41_1_1,Nonese,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,serratia viscous,No.NEC,Sputum,serratia viscous,0,peripheral_UE,None
+N41,ZJH_N41_1_2,N41_1_2,Axilla,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,serratia viscous,No.NEC,Sputum,serratia viscous,0,peripheral_UE,None
+N41,ZJH_N41_1_3,N41_1_3,Groin,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,serratia viscous,No.NEC,Sputum,serratia viscous,0,peripheral_UE,None
+N41,ZJH_N41_1_4,N41_1_4,Stool,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,serratia viscous,No.NEC,Sputum,serratia viscous,0,peripheral_UE,None
+N42,ZJH_N42_1_1,N42_1_1,Nonese,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,None,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N42,ZJH_N42_1_3,N42_1_3,Groin,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,None,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N42,ZJH_N42_1_4,N42_1_4,Stool,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,None,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N42,ZJH_N42_2_1,N42_2_1,Nonese,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,None,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N42,ZJH_N42_2_2,N42_2_2,Axilla,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,None,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N42,ZJH_N42_2_3,N42_2_3,Groin,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,None,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N42,ZJH_N42_2_4,N42_2_4,Stool,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,None,No.BSI,Klebber pneumoniae,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_1_1,N43_1_1,Nonese,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_1_2,N43_1_2,Axilla,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_1_3,N43_1_3,Groin,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_1_4,N43_1_4,Stool,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_2_1,N43_2_1,Nonese,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_2_2,N43_2_2,Axilla,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_2_3,N43_2_3,Groin,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N43,ZJH_N43_2_4,N43_2_4,Stool,Hangzhou,27 3/7,23-27 Weeks,27.428571 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,Blood,Klebber pneumoniae,0,PICC_LE,None
+N44,ZJH_N44_1_1,N44_1_1,Nonese,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,UVC
+N44,ZJH_N44_1_2,N44_1_2,Axilla,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,UVC
+N44,ZJH_N44_1_3,N44_1_3,Groin,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,UVC
+N44,ZJH_N44_1_4,N44_1_4,Stool,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_UE,UVC
+N45,ZJH_N45_1_1,N45_1_1,Nonese,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N45,ZJH_N45_1_2,N45_1_2,Axilla,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N45,ZJH_N45_1_3,N45_1_3,Groin,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N45,ZJH_N45_1_4,N45_1_4,Stool,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N45,ZJH_N45_2_1,N45_2_1,Nonese,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N45,ZJH_N45_2_2,N45_2_2,Axilla,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N45,ZJH_N45_2_3,N45_2_3,Groin,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N45,ZJH_N45_2_4,N45_2_4,Stool,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,axillary,None
+N46,ZJH_N46_1_1,N46_1_1,Nonese,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N46,ZJH_N46_1_2,N46_1_2,Axilla,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N46,ZJH_N46_1_4,N46_1_4,Stool,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.1,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N46,ZJH_N46_2_1,N46_2_1,Nonese,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N46,ZJH_N46_2_2,N46_2_2,Axilla,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N46,ZJH_N46_2_3,N46_2_3,Groin,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N46,ZJH_N46_2_4,N46_2_4,Stool,Hangzhou,31 6/7,28-32 Weeks,31.857143 ,Week.3,Infant.Abx,Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N47,ZJH_N47_1_1,N47_1_1,Nonese,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N47,ZJH_N47_1_2,N47_1_2,Axilla,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N47,ZJH_N47_1_3,N47_1_3,Groin,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N47,ZJH_N47_1_4,N47_1_4,Stool,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N47,ZJH_N47_2_1,N47_2_1,Nonese,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N47,ZJH_N47_2_2,N47_2_2,Axilla,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N47,ZJH_N47_2_3,N47_2_3,Groin,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N47,ZJH_N47_2_4,N47_2_4,Stool,Hangzhou,25 2/7,23-27 Weeks,25.285714 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,BSI ,Klebber pneumoniae,No.NEC,Blood ,Klebber pneumoniae,0,PICC_UE,None
+N48,ZJH_N48_1_1,N48_1_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N48,ZJH_N48_1_3,N48_1_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N48,ZJH_N48_1_4,N48_1_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N48,ZJH_N48_2_1,N48_2_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N48,ZJH_N48_2_2,N48_2_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N48,ZJH_N48_2_4,N48_2_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N49,ZJH_N49_1_1,N49_1_1,Nonese,Hangzhou,29 1/7,28-32 Weeks,29.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N49,ZJH_N49_1_2,N49_1_2,Axilla,Hangzhou,29 1/7,28-32 Weeks,29.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N49,ZJH_N49_1_3,N49_1_3,Groin,Hangzhou,29 1/7,28-32 Weeks,29.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N49,ZJH_N49_1_4,N49_1_4,Stool,Hangzhou,29 1/7,28-32 Weeks,29.142857 ,Week.1,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N49,ZJH_N49_2_1,N49_2_1,Nonese,Hangzhou,29 1/7,28-32 Weeks,29.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N49,ZJH_N49_2_2,N49_2_2,Axilla,Hangzhou,29 1/7,28-32 Weeks,29.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N49,ZJH_N49_2_4,N49_2_4,Stool,Hangzhou,29 1/7,28-32 Weeks,29.142857 ,Week.3,Infant.Abx,Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,No.BSI,0,No.NEC,Sputum,Klebber pneumoniae,0,PICC_LE,None
+N50,ZJH_N50_1_1,N50_1_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N50,ZJH_N50_1_2,N50_1_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N50,ZJH_N50_1_3,N50_1_3,Groin,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N50,ZJH_N50_1_4,N50_1_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N50,ZJH_N50_2_1,N50_2_1,Nonese,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N50,ZJH_N50_2_2,N50_2_2,Axilla,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N50,ZJH_N50_2_3,N50_2_3,Groin,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N50,ZJH_N50_2_4,N50_2_4,Stool,Hangzhou,31 5/7,28-32 Weeks,31.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N51,ZJH_N51_1_1,N51_1_1,Nonese,Hangzhou,33 2/7,33-36 Weeks,33.285714 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N51,ZJH_N51_1_2,N51_1_2,Axilla,Hangzhou,33 2/7,33-36 Weeks,33.285714 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N51,ZJH_N51_1_3,N51_1_3,Groin,Hangzhou,33 2/7,33-36 Weeks,33.285714 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N51,ZJH_N51_1_4,N51_1_4,Stool,Hangzhou,33 2/7,33-36 Weeks,33.285714 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N51,ZJH_N51_2_1,N51_2_1,Nonese,Hangzhou,33 2/7,33-36 Weeks,33.285714 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N51,ZJH_N51_2_3,N51_2_3,Groin,Hangzhou,33 2/7,33-36 Weeks,33.285714 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N51,ZJH_N51_2_4,N51_2_4,Stool,Hangzhou,33 2/7,33-36 Weeks,33.285714 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,No.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,None,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N52,ZJH_N52_1_1,N52_1_1,Nonese,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N52,ZJH_N52_1_2,N52_1_2,Axilla,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N52,ZJH_N52_1_3,N52_1_3,Groin,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N52,ZJH_N52_1_4,N52_1_4,Stool,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.1,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N52,ZJH_N52_2_1,N52_2_1,Nonese,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N52,ZJH_N52_2_2,N52_2_2,Axilla,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N52,ZJH_N52_2_3,N52_2_3,Groin,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N52,ZJH_N52_2_4,N52_2_4,Stool,Hangzhou,30 5/7,28-32 Weeks,30.714286 ,Week.3,Infant.Abx,None.Mat.Abx,High.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_UE,None
+N53,ZJH_N53_1_1,N53_1_1,Nonese,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N53,ZJH_N53_1_4,N53_1_4,Stool,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N53,ZJH_N53_2_1,N53_2_1,Nonese,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N53,ZJH_N53_2_2,N53_2_2,Axilla,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N53,ZJH_N53_2_3,N53_2_3,Groin,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N53,ZJH_N53_2_4,N53_2_4,Stool,Hangzhou,30 4/7,28-32 Weeks,30.571429 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,Low.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,peripheral_UE,None
+N54,ZJH_N54_1_1,N54_1_1,Nonese,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N54,ZJH_N54_1_2,N54_1_2,Axilla,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N54,ZJH_N54_1_3,N54_1_3,Groin,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N54,ZJH_N54_1_4,N54_1_4,Stool,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N54,ZJH_N54_2_1,N54_2_1,Nonese,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N54,ZJH_N54_2_2,N54_2_2,Axilla,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N54,ZJH_N54_2_3,N54_2_3,Groin,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N54,ZJH_N54_2_4,N54_2_4,Stool,Hangzhou,29 5/7,28-32 Weeks,29.714286 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_LE,None
+N55,ZJH_N55_1_1,N55_1_1,Nonese,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N55,ZJH_N55_1_2,N55_1_2,Axilla,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N55,ZJH_N55_1_3,N55_1_3,Groin,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N55,ZJH_N55_1_4,N55_1_4,Stool,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N55,ZJH_N55_2_1,N55_2_1,Nonese,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N55,ZJH_N55_2_2,N55_2_2,Axilla,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.3,Axilla-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N55,ZJH_N55_2_3,N55_2_3,Groin,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N55,ZJH_N55_2_4,N55_2_4,Stool,Hangzhou,34 6/7,33-36 Weeks,34.857143 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,0,No.NEC,0,0,0,PICC_Neck,None
+N56,ZJH_N56_1_1,N56_1_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N56,ZJH_N56_1_2,N56_1_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N56,ZJH_N56_1_3,N56_1_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N56,ZJH_N56_1_4,N56_1_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N56,ZJH_N56_2_1,N56_2_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N56,ZJH_N56_2_2,N56_2_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N56,ZJH_N56_2_3,N56_2_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N56,ZJH_N56_2_4,N56_2_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N57,ZJH_N57_1_1,N57_1_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,None,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N57,ZJH_N57_1_2,N57_1_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,None,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N57,ZJH_N57_1_3,N57_1_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,None,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N57,ZJH_N57_1_4,N57_1_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,No.Infant.Abx,Low.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,None,BSI,e. coli,No.NEC,Blood,e. coli,0,PICC_LE,None
+N58,ZJH_N58_1_1,N58_1_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.1,Nonese-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N58,ZJH_N58_1_2,N58_1_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.1,Axilla-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N58,ZJH_N58_1_3,N58_1_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.1,Groin-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N58,ZJH_N58_1_4,N58_1_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.1,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.1,Stool-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N58,ZJH_N58_2_1,N58_2_1,Nonese,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Nonese-Week.3,Nonese-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N58,ZJH_N58_2_2,N58_2_2,Axilla,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Axilla-Week.3,Axilla-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N58,ZJH_N58_2_3,N58_2_3,Groin,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Groin-Week.3,Groin-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N58,ZJH_N58_2_4,N58_2_4,Stool,Hangzhou,31,28-32 Weeks,31.000000 ,Week.3,No.Infant.Abx,None.Mat.Abx,No.Infant.Abx,No.Infant.Abx,No.Infant.Abx,Stool-Week.3,Stool-None.Infant.Abx,Mother,No.BSI,0,NEC,0,0,1,PICC_UE,None
+N59,ZJH_N59_1_1,N59_1_1,Nonese,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.1,Nonese-Infant.Abx,Mother,No.BSI,enterobacter cloacae,No.NEC,Sputum,enterobacter cloacae,0,PICC_LE,None
+N59,ZJH_N59_1_2,N59_1_2,Axilla,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Axilla-Week.1,Axilla-Infant.Abx,Mother,No.BSI,enterobacter cloacae,No.NEC,Sputum,enterobacter cloacae,0,PICC_LE,None
+N59,ZJH_N59_1_3,N59_1_3,Groin,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.1,Groin-Infant.Abx,Mother,No.BSI,enterobacter cloacae,No.NEC,Sputum,enterobacter cloacae,0,PICC_LE,None
+N59,ZJH_N59_1_4,N59_1_4,Stool,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.1,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.1,Stool-Infant.Abx,Mother,No.BSI,enterobacter cloacae,No.NEC,Sputum,enterobacter cloacae,0,PICC_LE,None
+N59,ZJH_N59_2_1,N59_2_1,Nonese,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Nonese-Week.3,Nonese-Infant.Abx,Mother,No.BSI,enterobacter cloacae,No.NEC,Sputum,enterobacter cloacae,0,PICC_LE,None
+N59,ZJH_N59_2_3,N59_2_3,Groin,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Groin-Week.3,Groin-Infant.Abx,Mother,No.BSI,enterobacter cloacae,No.NEC,Sputum,enterobacter cloacae,0,PICC_LE,None
+N59,ZJH_N59_2_4,N59_2_4,Stool,Hangzhou,29 4/7,28-32 Weeks,29.571429 ,Week.3,Infant.Abx,None.Mat.Abx,Low.Infant.Abx,High.Infant.Abx,High.Infant.Abx,Stool-Week.3,Stool-Infant.Abx,Mother,No.BSI,enterobacter cloacae,No.NEC,Sputum,enterobacter cloacae,0,PICC_LE,None
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,
