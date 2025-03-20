@@ -38,7 +38,7 @@ y = bray_curtis_dist[np.triu_indices_from(bray_curtis_dist, k=1)]  # Take upper 
 predictors = metadata_df.drop(columns=["body_site", "postnatal_age"])  
 
 # Encode categorical variables
-categorical_features = ["PostNatalAntibiotics", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
+categorical_features = ["Location", "SampleType", "SampleCollectionWeek", "GestationCohort", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
 for col in categorical_features:
     predictors[col] = LabelEncoder().fit_transform(predictors[col])
 
