@@ -9,14 +9,16 @@ This repository contains the code and documentation for microbiome data analysis
 ```
 ZCH_UCMC_Manuscript/
 ├── README.md                  # This file
-├── data/                      # Data directory
+├── metadata/                          # Metadata directory
 │   ├── AllNICUSampleKeyRevised*.csv   # Sample metadata
 │   ├── SampleKeyAbx*.csv              # Antibiotics data
 │   └── HumanReactiveKraken2.csv       # Human reactive species list
-├── KrakenAlignments/          # Kraken2 alignment results
+├── data/                        
 │   └── Kraken2/               # Kraken2 taxonomic classifications
-├── R_scripts/                 # R analysis scripts
-│   └── import_initial_analysis.R     # Main analysis script
+├── R_scripts/                                  # R analysis scripts
+│   └── nicu_utils.R                            # Utilities for data analysis and visualization
+│   └── import_initial_species_analysis.R       # Main analysis script
+│   └── bsi_microbiome_comparison.R             # Correlation between BSI microbes with skin and gut microbiome
 ├── bash_scripts/              # Bash processing scripts
 └── results/                   # Analysis results 
     ├── figures/               # Generated figures
