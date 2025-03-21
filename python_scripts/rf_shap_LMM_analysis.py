@@ -301,7 +301,7 @@ for target_microbe in key_organisms:
             print(f"⚠️ Could not extract coefficients: model has no params attribute")
 
         # Save individual model results
-        with open(f"model_results_{target_microbe}.txt", "w") as f:
+        with open(f"../results/model_results_{target_microbe}.txt", "w") as f:
             f.write(str(result_summary))
             f.write(f"\nModel type: {model_type}")
 
@@ -314,12 +314,12 @@ for target_microbe in key_organisms:
 if mixedlm_results:
     try:
         combined_results = pd.concat(mixedlm_results, ignore_index=True)
-        combined_results.to_csv("model_summary_all_microbes.csv", index=False)
+        combined_results.to_csv("../results/model_summary_all_microbes.csv", index=False)
         print(f"✅ Saved results for {len(mixedlm_results)} microbes")
     except Exception as e:
         print(f"❌ Failed to save combined results: {str(e)}")
         # Try to save individual dataframes
         for i, df in enumerate(mixedlm_results):
-            df.to_csv(f"model_results_part_{i}.csv", index=False)
+            df.to_csv(f"../results/model_results_part_{i}.csv", index=False)
 else:
     print("⚠️ No mixed model results to save.")
