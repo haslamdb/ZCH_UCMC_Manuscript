@@ -20,6 +20,12 @@ ZCH_UCMC_Manuscript/
 │   ├── import_initial_species_analysis.R  # Primary species-level analysis script
 │   ├── bsi_microbiome_comparison.R        # Correlation between BSI microbes and microbiome
 │   └── genus_analysis.R       # Genus-level taxonomic analysis
+├── python_scripts/            # Python analysis scripts
+│   ├── microbiome_transform.py         # Transformation functions for microbiome data
+│   ├── rf_shap_LMM_analysis.py         # Random Forest and SHAP analysis with mixed effects models
+│   ├── microbiome_shap_analysis_Kfold.py # K-fold cross-validation version of SHAP analysis
+│   ├── feature_selection_rf.py         # Random forest for feature selection
+│   └── shap_feature_selection.py       # SHAP-based feature importance analysis
 ├── bash_scripts/              # Bash processing scripts
 │   └── process_reads.sh       # Process raw reads with Kraken2 and Bracken
 └── results/                   # Analysis results directory
@@ -38,7 +44,8 @@ The analysis pipeline consists of several stages:
 5. **Differential Abundance Analysis**: Statistical testing to identify differentially abundant taxa
 6. **Ordination Analysis**: PCA and other methods to visualize community similarities/differences
 7. **BSI Correlation Analysis**: Comparison of bloodstream infection data with microbiome composition
-8. **Visualization**: Generation of figures for publication
+8. **Machine Learning Analysis**: Random Forest and SHAP analysis to identify important clinical features
+9. **Visualization**: Generation of figures for publication
 
 ## Script Descriptions
 
@@ -88,6 +95,53 @@ This script performs genus-level analysis of the microbiome data:
 - Performs PCA analysis for different sample types and conditions
 - Calculates effect sizes and fold changes between groups
 
+### Python Scripts
+
+#### `microbiome_transform.py`
+
+This module provides functions for transforming microbiome count data:
+
+- CLR (Centered Log-Ratio) transformation for compositional data
+- TSS (Total Sum Scaling) normalization
+- VST (Variance-Stabilizing Transformation)
+- Log transformation with pseudocount handling
+- Rarefaction (subsampling) to normalize sequencing depth
+
+#### `rf_shap_LMM_analysis.py`
+
+This script performs advanced analysis combining machine learning and mixed-effects models:
+
+- Automatically selects appropriate transformation for microbiome data
+- Implements Random Forest regression for abundance prediction
+- Calculates SHAP (SHapley Additive exPlanations) values to identify important features
+- Fits mixed-effects models with subject-level random effects
+- Creates visualizations of feature importance with SHAP plots
+- Generates summary statistics and effect estimations
+
+#### `microbiome_shap_analysis_Kfold.py`
+
+An extension of the SHAP analysis with K-fold cross-validation:
+
+- Implements K-fold cross-validation for more robust feature importance
+- Aggregates SHAP values across folds to reduce overfitting
+- Includes additional validation steps and model diagnostics
+
+#### `feature_selection_rf.py`
+
+This script uses Random Forest for feature selection in microbiome data:
+
+- Computes Bray-Curtis distances between samples
+- Uses feature importance from Random Forest to identify key predictors
+- Creates visualizations of important features
+
+#### `shap_feature_selection.py`
+
+This script focuses on SHAP-based feature importance for microbiome differences:
+
+- Implements SHAP analysis for feature importance
+- Creates summary plots and dependence plots for key features
+- Integrates with distance-based analyses
+
 ### Bash Scripts
 
 #### `process_reads.sh`
@@ -116,6 +170,15 @@ This script processes the raw sequencing data:
 - pheatmap: For heatmaps
 - VennDiagram: For creating Venn diagrams
 - EnhancedVolcano: For volcano plots
+
+### Python Packages
+- pandas: For data manipulation
+- numpy: For numerical operations
+- scikit-learn: For machine learning models
+- shap: For model interpretability and feature importance
+- statsmodels: For statistical modeling
+- matplotlib and seaborn: For visualization
+- scipy: For scientific computing and statistics
 
 ### External Tools
 - Kraken2: For taxonomic classification
@@ -164,6 +227,18 @@ This script processes the raw sequencing data:
    source("R_scripts/genus_analysis.R")
    ```
 
+5. Run the Python-based machine learning analysis:
+   ```bash
+   python python_scripts/rf_shap_LMM_analysis.py
+   ```
+
+6. Transform microbiome data using the transformation module:
+   ```python
+   import microbiome_transform as mt
+   # Example usage
+   transformed_data = mt.clr_transform(microbiome_df)
+   ```
+
 ### Interpreting Results
 
 The analysis generates several key results:
@@ -173,6 +248,8 @@ The analysis generates several key results:
 3. **Community Structure**: PCA visualizations showing similarities and differences in microbial communities
 4. **BSI Correlations**: Analysis of relationships between bloodstream infections and microbiome composition
 5. **Effect Size Analysis**: Quantification of the magnitude of differences between comparison groups
+6. **Feature Importance**: SHAP and Random Forest analyses highlighting key clinical predictors of microbiome composition
+7. **Mixed Effects Models**: Statistical models accounting for subject-level random effects
 
 ## License
 
