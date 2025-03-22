@@ -226,8 +226,6 @@ def run_db_rda(distance_matrix, metadata, formula, permutations=999):
     pcoa_result = pcoa(distance_matrix)
     
     # Extract the PCoA axes that explain significant variation
-    # Typically, we'd use Kaiser criterion (eigenvalue > 1) or broken stick model
-    # For simplicity, we'll use axes that explain at least 1% of variation
     pcoa_coords = pcoa_result.samples.copy()
     
     # Calculate total explained variance
@@ -235,14 +233,29 @@ def run_db_rda(distance_matrix, metadata, formula, permutations=999):
     
     # Filter to PCoA axes explaining at least 1% of variation
     significant_axes = pcoa_result.proportion_explained[pcoa_result.proportion_explained > 0.01]
-    significant_indices = significant_axes.index
+    
+    # Get the column indices that correspond to significant axes
+    # Convert string indices to integer positions if needed
+    significant_indices = []
+    for idx in significant_axes.index:
+        # If idx is a string like 'PC1', get its position in the columns
+        if isinstance(idx, str):
+            col_names = pcoa_coords.columns.tolist()
+            if idx in col_names:
+                significant_indices.append(col_names.index(idx))
+        else:
+            significant_indices.append(idx)
     
     print(f"Using {len(significant_axes)} PCoA axes that explain {significant_axes.sum():.1%} of variation")
+    print(f"Significant indices type: {type(significant_indices[0])}")
     
-    # Extract significant PCo axes for RDA
+    # Create a new DataFrame with the significant axes
+    # Use numeric indexing to access columns
+    selected_columns = [pcoa_coords.columns[i] for i in significant_indices]
     pcoa_df = pd.DataFrame(
-        pcoa_coords.loc[:, significant_indices],
-        index=distance_matrix.ids
+        pcoa_coords[selected_columns].values,
+        index=distance_matrix.ids,
+        columns=[f"PCo{i+1}" for i in range(len(selected_columns))]  # Rename columns to avoid string indices
     )
     
     # Make sure metadata index matches PCoA IDs
@@ -254,44 +267,78 @@ def run_db_rda(distance_matrix, metadata, formula, permutations=999):
         if var not in metadata.columns:
             raise ValueError(f"Variable '{var}' in formula not found in metadata")
     
-    # Prepare data for rda
-    # Convert formula to R formula
-    r_formula = robjects.Formula(formula)
+    # Debug prints
+    print(f"pcoa_df shape: {pcoa_df.shape}")
+    print(f"metadata shape: {metadata.shape}")
+    print(f"pcoa_df columns: {pcoa_df.columns.tolist()}")
+    print(f"metadata columns: {metadata.columns.tolist()[:5]}...")
     
-    # Run RDA
+    # Try alternative approach with manual matrix construction
     try:
-        rda_result = rda(formula=formula, data=metadata, scale=True)
+        print("Using manual approach for RDA...")
+        # Create the design matrix for the formula
+        design_matrix = pd.DataFrame(index=metadata.index)
+        
+        for var in formula.replace('~', '').split('+'):
+            var = var.strip()
+            if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
+                # For categorical, create dummy variables
+                dummies = pd.get_dummies(metadata[var], prefix=var)
+                design_matrix = pd.concat([design_matrix, dummies], axis=1)
+            else:
+                # For numerical, just add as is
+                design_matrix[var] = metadata[var]
+        
+        # Convert to R matrices
+        # Ensure both matrices have row names set to their indices
+        pcoa_df.index.name = None  # Remove index name if present
+        design_matrix.index.name = None
+        
+        # Convert to R objects explicitly setting row names
+        r_pcoa = pandas2ri.py2rpy(pcoa_df)
+        r_design = pandas2ri.py2rpy(design_matrix)
+        
+        # Print R matrix dimensions for debugging
+        print(f"R pcoa dimensions: {robjects.r('dim')(r_pcoa)[0]} x {robjects.r('dim')(r_pcoa)[1]}")
+        print(f"R design dimensions: {robjects.r('dim')(r_design)[0]} x {robjects.r('dim')(r_design)[1]}")
+        
+        # Use vegan's rda directly with matrices
+        rda_result = vegan.rda(r_pcoa, r_design, scale=True)
         return rda_result
     except Exception as e:
-        print(f"Original RDA error: {str(e)}")
+        print(f"RDA approach failed: {str(e)}")
+        print("Trying simpler approach...")
         
-        # Try an alternative approach with manual matrix construction
+        # Try an even simpler approach
         try:
-            print("Trying alternative RDA approach...")
-            # Create the design matrix for the formula
-            design_matrix = pd.DataFrame(index=metadata.index)
+            # Create simple dataframes with numeric column names
+            Y = pcoa_df.copy()
+            Y.columns = [f"Y{i+1}" for i in range(len(Y.columns))]
             
+            # Create a simplified design matrix with minimal processing
+            X = pd.DataFrame(index=metadata.index)
             for var in formula.replace('~', '').split('+'):
                 var = var.strip()
-                if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
-                    # For categorical, create dummy variables
-                    dummies = pd.get_dummies(metadata[var], prefix=var)
-                    design_matrix = pd.concat([design_matrix, dummies], axis=1)
-                else:
-                    # For numerical, just add as is
-                    design_matrix[var] = metadata[var]
+                if var in metadata.columns:
+                    # Convert categorical to numeric coding if needed
+                    if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
+                        # Simple numeric encoding
+                        categories = metadata[var].astype('category').cat.codes
+                        X[var] = categories
+                    else:
+                        X[var] = metadata[var]
             
-            # Convert to R matrices
-            r_pcoa = pandas2ri.py2rpy(pcoa_df)
-            r_design = pandas2ri.py2rpy(design_matrix)
+            # Convert to R objects
+            r_Y = pandas2ri.py2rpy(Y)
+            r_X = pandas2ri.py2rpy(X)
             
-            # Use vegan's rda directly with matrices
-            rda_result = vegan.rda(r_pcoa, r_design, scale=True)
+            print("Calling vegan.rda with simplified matrices...")
+            rda_result = vegan.rda(r_Y, r_X, scale=True)
             return rda_result
         except Exception as e2:
-            print(f"Alternative RDA approach failed: {str(e2)}")
-            raise
-
+            print(f"Simplified RDA approach also failed: {str(e2)}")
+            raise ValueError(f"Could not perform RDA analysis: {str(e)} then {str(e2)}")
+        
 def variance_partitioning(distance_matrix, metadata, variables, permutations=999):
     """
     Perform variance partitioning to determine unique and shared contributions.
