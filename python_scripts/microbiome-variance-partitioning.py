@@ -15,8 +15,15 @@ import statsmodels.formula.api as smf
 import warnings
 import scipy.spatial.distance as ssd
 from functools import partial
-import vegan  # Note: requires python-vegan or rpy2 with vegan installed in R
-from vegan import rda, varpart, adonis2
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+from rpy2.robjects import pandas2ri
+
+# Activate pandas conversion for R
+pandas2ri.activate()
+
+# Import vegan through rpy2
+vegan = importr('vegan')
 import pickle
 import re
 
