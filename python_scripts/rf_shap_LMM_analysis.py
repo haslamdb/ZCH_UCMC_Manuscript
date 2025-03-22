@@ -140,6 +140,17 @@ for target_microbe in key_organisms:
             except Exception as e2:
                 print(f"⚠️ Error creating alternative SHAP plot: {e2}")
 
+        # SHAP Feature Importance - New Line+Dot Plot (similar to PyCaret style)
+        shap_values_mean = np.abs(shap_values.values).mean(axis=0)
+        shap_importance = pd.DataFrame({
+            "Feature": X_encoded.columns,
+            "SHAP Importance": shap_values_mean
+        }).sort_values(by="SHAP Importance", ascending=True)
+        
+        # Save this microbe's SHAP importance to the combined results
+        shap_importance["Microbe"] = target_microbe
+        all_shap_importance.append(shap_importance)
+
         # Create line+dot plot (PyCaret style) for feature importance
         plt.figure(figsize=(12, 8))
         top_n = min(15, len(shap_importance))
