@@ -175,11 +175,39 @@ def run_permanova(distance_matrix, metadata, formula, permutations=999):
     # Make sure metadata index matches distance matrix IDs
     metadata = metadata.loc[distance_matrix.ids]
     
-    # Run PERMANOVA using adonis2 from vegan
-    result = adonis2(formula=formula, data=metadata, permutations=permutations, 
-                     method="bray", by="terms", parallel=1)
+    # Convert the distance matrix to an R matrix
+    dist_matrix = distance_matrix.data
+    ids = distance_matrix.ids
+    r_dist_matrix = robjects.r.matrix(robjects.FloatVector(dist_matrix.flatten()), 
+                                     nrow=len(ids))
     
-    return result
+    # Set dimension names
+    r_ids = robjects.StrVector(ids)
+    robjects.r.dimnames(r_dist_matrix).rx2(1)[...] = r_ids
+    robjects.r.dimnames(r_dist_matrix).rx2(2)[...] = r_ids
+    
+    # Convert to R distance object
+    r_dist = robjects.r('as.dist')(r_dist_matrix)
+    
+    # Run PERMANOVA using adonis2 from vegan
+    # Make sure variables in formula are present in metadata
+    for var in formula.replace('~', '').split('+'):
+        var = var.strip()
+        if var not in metadata.columns:
+            raise ValueError(f"Variable '{var}' in formula not found in metadata")
+    
+    # Convert formula to R formula
+    r_formula = robjects.Formula(formula)
+    
+    # Run adonis2 with the distance matrix and metadata
+    result = vegan.adonis2(r_dist, data=metadata, permutations=permutations, 
+                          method="bray", by="terms", parallel=1)
+    
+    # Convert R result to pandas DataFrame
+    result_df = pandas2ri.rpy2py_dataframe(result)
+    
+    return result_df
+
 
 def run_db_rda(distance_matrix, metadata, formula, permutations=999):
     """
@@ -218,12 +246,51 @@ def run_db_rda(distance_matrix, metadata, formula, permutations=999):
     )
     
     # Make sure metadata index matches PCoA IDs
-    metadata = metadata.loc[pcoa_df.index]
+    metadata = metadata.loc[pcoa_df.index].copy()
+    
+    # Ensure all variables in formula are in metadata
+    for var in formula.replace('~', '').split('+'):
+        var = var.strip()
+        if var not in metadata.columns:
+            raise ValueError(f"Variable '{var}' in formula not found in metadata")
+    
+    # Prepare data for rda
+    # Convert formula to R formula
+    r_formula = robjects.Formula(formula)
     
     # Run RDA
-    rda_result = rda(formula=formula, data=metadata, scale=True)
-    
-    return rda_result
+    try:
+        rda_result = rda(formula=formula, data=metadata, scale=True)
+        return rda_result
+    except Exception as e:
+        print(f"Original RDA error: {str(e)}")
+        
+        # Try an alternative approach with manual matrix construction
+        try:
+            print("Trying alternative RDA approach...")
+            # Create the design matrix for the formula
+            design_matrix = pd.DataFrame(index=metadata.index)
+            
+            for var in formula.replace('~', '').split('+'):
+                var = var.strip()
+                if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
+                    # For categorical, create dummy variables
+                    dummies = pd.get_dummies(metadata[var], prefix=var)
+                    design_matrix = pd.concat([design_matrix, dummies], axis=1)
+                else:
+                    # For numerical, just add as is
+                    design_matrix[var] = metadata[var]
+            
+            # Convert to R matrices
+            r_pcoa = pandas2ri.py2rpy(pcoa_df)
+            r_design = pandas2ri.py2rpy(design_matrix)
+            
+            # Use vegan's rda directly with matrices
+            rda_result = vegan.rda(r_pcoa, r_design, scale=True)
+            return rda_result
+        except Exception as e2:
+            print(f"Alternative RDA approach failed: {str(e2)}")
+            raise
 
 def variance_partitioning(distance_matrix, metadata, variables, permutations=999):
     """
@@ -252,40 +319,52 @@ def variance_partitioning(distance_matrix, metadata, variables, permutations=999
         index=distance_matrix.ids
     )
     
-    # For each variable, create a formula
-    variable_matrices = {}
-    for var in variables:
-        # Make sure metadata index matches PCoA IDs
-        var_data = metadata.loc[pcoa_df.index, [var]]
+    # Make sure metadata index matches PCoA IDs
+    metadata = metadata.loc[pcoa_df.index].copy()
+    
+    # For each variable, create a design matrix
+    variable_matrices = []
+    for i, var in enumerate(variables):
+        # Check if variable exists in metadata
+        if var not in metadata.columns:
+            raise ValueError(f"Variable '{var}' not found in metadata")
         
         # Create design matrix for this variable
-        if pd.api.types.is_categorical_dtype(var_data[var]) or var_data[var].dtype == 'object':
+        if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
             # For categorical variables, create dummy variables
-            var_dummies = pd.get_dummies(var_data[var], prefix=var)
-            variable_matrices[var] = var_dummies
+            var_dummies = pd.get_dummies(metadata[var], prefix=var)
+            var_matrix = pandas2ri.py2rpy(var_dummies)
         else:
             # For numerical variables, just use as is
-            variable_matrices[var] = var_data
+            var_data = metadata[[var]]
+            var_matrix = pandas2ri.py2rpy(var_data)
+        
+        variable_matrices.append(var_matrix)
     
     # Prepare data for varpart function
-    y = pcoa_df  # Response (community composition)
+    y = pandas2ri.py2rpy(pcoa_df)  # Response (community composition)
     
     # Run variance partitioning
-    if len(variables) == 2:
-        result = varpart(y, variable_matrices[variables[0]], variable_matrices[variables[1]])
-    elif len(variables) == 3:
-        result = varpart(y, variable_matrices[variables[0]], 
-                         variable_matrices[variables[1]], 
-                         variable_matrices[variables[2]])
-    elif len(variables) == 4:
-        result = varpart(y, variable_matrices[variables[0]], 
-                         variable_matrices[variables[1]], 
-                         variable_matrices[variables[2]],
-                         variable_matrices[variables[3]])
-    else:
-        raise ValueError("Variance partitioning supports 2-4 variables")
-    
-    return result
+    try:
+        if len(variables) == 2:
+            result = varpart(y, variable_matrices[0], variable_matrices[1])
+        elif len(variables) == 3:
+            result = varpart(y, variable_matrices[0], variable_matrices[1], variable_matrices[2])
+        elif len(variables) == 4:
+            result = varpart(y, variable_matrices[0], variable_matrices[1], 
+                            variable_matrices[2], variable_matrices[3])
+        else:
+            raise ValueError("Variance partitioning supports 2-4 variables")
+        
+        return result
+    except Exception as e:
+        print(f"Variance partitioning error: {str(e)}")
+        # Add more debug information
+        print(f"Variables: {variables}")
+        for i, var in enumerate(variables):
+            print(f"Variable {i+1} ({var}) has {metadata[var].nunique()} unique values")
+        raise
+
 
 def plot_permanova_results(permanova_result, output_file=None):
     """
