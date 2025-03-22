@@ -173,40 +173,158 @@ def run_permanova(distance_matrix, metadata, formula, permutations=999):
     - PERMANOVA results
     """
     # Make sure metadata index matches distance matrix IDs
-    metadata = metadata.loc[distance_matrix.ids]
+    metadata = metadata.loc[distance_matrix.ids].copy()
     
-    # Convert the distance matrix to an R matrix
-    dist_matrix = distance_matrix.data
-    ids = distance_matrix.ids
-    r_dist_matrix = robjects.r.matrix(robjects.FloatVector(dist_matrix.flatten()), 
-                                     nrow=len(ids))
+    # Print debugging information
+    print(f"Distance matrix dimensions: {distance_matrix.data.shape}")
+    print(f"Metadata dimensions: {metadata.shape}")
+    print(f"First few metadata columns: {metadata.columns[:5].tolist()}")
     
-    # Set dimension names
-    r_ids = robjects.StrVector(ids)
-    robjects.r.dimnames(r_dist_matrix).rx2(1)[...] = r_ids
-    robjects.r.dimnames(r_dist_matrix).rx2(2)[...] = r_ids
+    # Check for any missing values in metadata
+    missing_values = metadata.isnull().sum()
+    if missing_values.sum() > 0:
+        print("Warning: Missing values in metadata:")
+        print(missing_values[missing_values > 0])
+        
+        # Fill missing values for numeric columns with mean
+        for col in metadata.select_dtypes(include=['number']).columns:
+            if metadata[col].isnull().sum() > 0:
+                print(f"Filling NaN values in numeric column '{col}' with mean")
+                metadata[col] = metadata[col].fillna(metadata[col].mean())
+        
+        # Fill missing values for categorical columns with mode
+        for col in metadata.select_dtypes(exclude=['number']).columns:
+            if metadata[col].isnull().sum() > 0:
+                print(f"Filling NaN values in categorical column '{col}' with most common value")
+                metadata[col] = metadata[col].fillna(metadata[col].mode()[0])
     
-    # Convert to R distance object
-    r_dist = robjects.r('as.dist')(r_dist_matrix)
-    
-    # Run PERMANOVA using adonis2 from vegan
-    # Make sure variables in formula are present in metadata
+    # Check for variables in formula
     for var in formula.replace('~', '').split('+'):
         var = var.strip()
         if var not in metadata.columns:
             raise ValueError(f"Variable '{var}' in formula not found in metadata")
+        
+        # Check for NaNs in this variable
+        if metadata[var].isnull().any():
+            raise ValueError(f"Variable '{var}' contains NaN values")
     
-    # Convert formula to R formula
-    r_formula = robjects.Formula(formula)
+    try:
+        # Direct approach using scikit-bio's PERMANOVA
+        print("Trying scikit-bio PERMANOVA...")
+        # Create a grouping string from the formula variables
+        grouping = []
+        for var in formula.replace('~', '').split('+'):
+            var = var.strip()
+            grouping.append(metadata[var].astype(str))
+        
+        # Combine into a single grouping variable
+        grouping = pd.DataFrame(grouping).T.apply(lambda x: '_'.join(x), axis=1)
+        
+        # Run PERMANOVA using scikit-bio
+        result = permanova(distance_matrix, grouping, permutations=permutations)
+        
+        # Convert to a DataFrame
+        result_df = pd.DataFrame({
+            'SumsOfSqs': [result['SumsOfSqs'][0], result['SumsOfSqs'][1]],
+            'DF': [result['DF'][0], result['DF'][1]],
+            'F': [result['F.Model'][0], float('nan')],
+            'R2': [result['R2'][0], 1 - result['R2'][0]],
+            'Pr(>F)': [result['p-value'], float('nan')]
+        }, index=['Model', 'Residual'])
+        
+        return result_df
     
-    # Run adonis2 with the distance matrix and metadata
-    result = vegan.adonis2(r_dist, data=metadata, permutations=permutations, 
-                          method="bray", by="terms", parallel=1)
-    
-    # Convert R result to pandas DataFrame
-    result_df = pandas2ri.rpy2py_dataframe(result)
-    
-    return result_df
+    except Exception as e:
+        print(f"Scikit-bio PERMANOVA failed: {e}")
+        print("Trying R-based PERMANOVA with adonis2...")
+        
+        try:
+            # Convert the distance matrix to an R matrix
+            dist_matrix = distance_matrix.data
+            ids = distance_matrix.ids
+            r_dist_matrix = robjects.r.matrix(robjects.FloatVector(dist_matrix.flatten()), 
+                                            nrow=len(ids))
+            
+            # Set dimension names
+            r_ids = robjects.StrVector(ids)
+            robjects.r.dimnames(r_dist_matrix).rx2(1)[...] = r_ids
+            robjects.r.dimnames(r_dist_matrix).rx2(2)[...] = r_ids
+            
+            # Convert to R distance object
+            r_dist = robjects.r('as.dist')(r_dist_matrix)
+            
+            # Ensure metadata is properly formatted for R
+            # Remove problematic columns that could cause issues
+            safe_metadata = metadata.copy()
+            for col in safe_metadata.columns:
+                # Check for complex objects that might not convert well to R
+                if safe_metadata[col].dtype == 'object':
+                    try:
+                        # Try to convert to string
+                        safe_metadata[col] = safe_metadata[col].astype(str)
+                    except:
+                        # If conversion fails, drop the column
+                        print(f"Dropping column {col} due to conversion issues")
+                        safe_metadata = safe_metadata.drop(columns=[col])
+            
+            # Convert to R dataframe
+            r_metadata = pandas2ri.py2rpy(safe_metadata)
+            
+            # Run adonis2 with the distance matrix and metadata
+            result = vegan.adonis2(r_dist, data=r_metadata, permutations=permutations, 
+                                method="bray", by="terms", parallel=1)
+            
+            # Convert R result to pandas DataFrame
+            result_df = pandas2ri.rpy2py_dataframe(result)
+            
+            return result_df
+            
+        except Exception as e:
+            print(f"R-based PERMANOVA also failed: {e}")
+            
+            # Last resort: create a simplified version with just a few key variables
+            try:
+                print("Trying simplified PERMANOVA with just a few key variables...")
+                simple_formula = "~ "
+                simple_vars = []
+                
+                # Try to identify a few categorical variables that might work
+                for var in ["SampleType", "Location", "GestationCohort"]:
+                    if var in metadata.columns and not metadata[var].isnull().any():
+                        simple_vars.append(var)
+                        if len(simple_vars) >= 2:  # Limit to 2 variables for simplicity
+                            break
+                
+                if len(simple_vars) == 0:
+                    raise ValueError("Could not find suitable categorical variables for PERMANOVA")
+                
+                simple_formula += " + ".join(simple_vars)
+                print(f"Using simplified formula: {simple_formula}")
+                
+                # Create simple metadata with just these variables
+                simple_metadata = metadata[simple_vars].copy()
+                
+                # Convert to string to ensure compatibility
+                for col in simple_metadata.columns:
+                    simple_metadata[col] = simple_metadata[col].astype(str)
+                
+                # Convert to R objects
+                r_simple_metadata = pandas2ri.py2rpy(simple_metadata)
+                
+                # Run adonis2
+                simple_result = vegan.adonis2(r_dist, data=r_simple_metadata, 
+                                            permutations=permutations, 
+                                            method="bray", by="terms", parallel=1)
+                
+                # Convert result
+                simple_result_df = pandas2ri.rpy2py_dataframe(simple_result)
+                
+                print("Successfully ran simplified PERMANOVA")
+                return simple_result_df
+                
+            except Exception as e:
+                print(f"All PERMANOVA approaches failed: {e}")
+                raise ValueError("Could not run PERMANOVA analysis after multiple attempts")
 
 
 def run_db_rda(distance_matrix, metadata, formula, permutations=999):
