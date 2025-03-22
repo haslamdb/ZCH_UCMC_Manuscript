@@ -244,7 +244,7 @@ for target_microbe in key_organisms:
         shap_importance = pd.DataFrame({
             "Feature": X_encoded.columns,
             "SHAP Importance": shap_values_mean
-        }).sort_values(by="SHAP Importance", ascending=False)
+        }).sort_values(by="SHAP Importance", ascending=True)
         
         # Save this microbe's SHAP importance to the combined results
         shap_importance["Microbe"] = target_microbe

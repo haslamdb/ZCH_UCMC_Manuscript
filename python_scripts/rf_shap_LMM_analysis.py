@@ -62,7 +62,8 @@ print(f"Data Shape After Merge: {data.shape}")
 
 # List of microbes to analyze
 key_organisms = ["Klebsiella.pneumoniae", "Staphylococcus.aureus", "Escherichia.coli", "Klebsiella.oxytoca",
-                 "Staphylococcus.epidermidis", "Streptococcus.pyogenes"]
+                 "Staphylococcus.epidermidis", "Streptococcus.pyogenes", "Staphylococcs.capitus", 
+                 "Enterococcus.faecium", "Enterococcus.faecalis", "Serratia.marcescens", "Listeria monocytogenes"]
 
 # Store results for all microbes
 all_shap_importance = []
@@ -139,23 +140,35 @@ for target_microbe in key_organisms:
             except Exception as e2:
                 print(f"⚠️ Error creating alternative SHAP plot: {e2}")
 
-        # SHAP Feature Importance Bar Plot
-        shap_values_mean = np.abs(shap_values.values).mean(axis=0)
-        shap_importance = pd.DataFrame({
-            "Feature": X_encoded.columns,
-            "SHAP Importance": shap_values_mean
-        }).sort_values(by="SHAP Importance", ascending=False)
-        
-        # Save this microbe's SHAP importance to the combined results
-        shap_importance["Microbe"] = target_microbe
-        all_shap_importance.append(shap_importance)
-
-        plt.figure(figsize=(10, 6))
+        # Create line+dot plot (PyCaret style) for feature importance
+        plt.figure(figsize=(12, 8))
         top_n = min(15, len(shap_importance))
-        sns.barplot(x="SHAP Importance", y="Feature", data=shap_importance.head(top_n), palette="viridis")
+        top_features = shap_importance.head(top_n)
+        
+        # Create horizontal line + dot plot
+        plt.hlines(y=range(top_n), 
+                 xmin=0, 
+                 xmax=top_features["SHAP Importance"].values,
+                 color="skyblue", 
+                 alpha=0.7, 
+                 linewidth=2)
+        
+        plt.plot(top_features["SHAP Importance"].values, 
+                range(top_n), 
+                "o", 
+                markersize=10, 
+                color="blue", 
+                alpha=0.8)
+        
+        # Add feature names
+        plt.yticks(range(top_n), top_features["Feature"].values)
         plt.xlabel("SHAP Importance Score")
-        plt.ylabel("Features")
         plt.title(f"Clinical Variables Associated with {target_microbe} Abundance")
+        
+        # Add values next to dots
+        for i, importance in enumerate(top_features["SHAP Importance"].values):
+            plt.text(importance + 0.001, i, f"{importance:.4f}", va='center')
+            
         plt.tight_layout()
         plt.savefig(f"../results/shap_feature_importance_{target_microbe}.pdf", bbox_inches="tight")
         plt.close()
