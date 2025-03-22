@@ -27,6 +27,42 @@ vegan = importr('vegan')
 import pickle
 import re
 
+
+# Define wrappers for R functions
+def adonis2(formula, data, permutations=999, method="bray", by="terms", parallel=1):
+    """
+    Wrapper for vegan's adonis2 function
+    """
+    # Convert formula to R formula
+    r_formula = robjects.Formula(formula)
+    
+    # Run adonis2
+    result = vegan.adonis2(r_formula, data=data, permutations=permutations, 
+                          method=method, by=by, parallel=parallel)
+    
+    return result
+
+def rda(formula, data, scale=True):
+    """
+    Wrapper for vegan's rda function
+    """
+    # Convert formula to R formula
+    r_formula = robjects.Formula(formula)
+    
+    # Run rda
+    result = vegan.rda(r_formula, data=data, scale=scale)
+    
+    return result
+
+def varpart(y, *args):
+    """
+    Wrapper for vegan's varpart function
+    """
+    # Run varpart
+    result = vegan.varpart(y, *args)
+    
+    return result
+
 # Silence common warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 
