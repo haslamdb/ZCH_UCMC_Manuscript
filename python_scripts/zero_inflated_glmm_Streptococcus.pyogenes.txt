@@ -1,0 +1,95 @@
+=== Zero-Inflated GLMM for Streptococcus.pyogenes ===
+Zero proportion: 53.92%
+
+--- Part 1: Mixed logistic (presence/absence) ---
+                      Mixed Linear Model Regression Results
+==================================================================================
+Model:                     MixedLM          Dependent Variable:          presence 
+No. Observations:          536              Method:                      REML     
+No. Groups:                68               Scale:                       0.2212   
+Min. group size:           3                Log-Likelihood:              -390.8688
+Max. group size:           12               Converged:                   No       
+Mean group size:           7.9                                                    
+----------------------------------------------------------------------------------
+                                        Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+----------------------------------------------------------------------------------
+Intercept                                0.176    0.220  0.801 0.423 -0.255  0.607
+C(SampleType)[T.Groin]                  -0.195    0.052 -3.750 0.000 -0.296 -0.093
+C(SampleType)[T.Stool]                   0.034    0.048  0.707 0.479 -0.061  0.129
+C(Location)[T.Hangzhou]                 -0.016    0.073 -0.224 0.823 -0.159  0.126
+C(GestationCohort)[T.28-32 Weeks]       -0.056    0.100 -0.562 0.574 -0.253  0.140
+C(GestationCohort)[T.33-36 Weeks]       -0.063    0.126 -0.501 0.616 -0.311  0.184
+C(SampleCollectionWeek)[T.Week.3]        0.073    0.042  1.756 0.079 -0.008  0.155
+C(MaternalAntibiotics)[T.None.Mat.Abx]   0.040    0.065  0.616 0.538 -0.087  0.166
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]  0.044    0.079  0.558 0.577 -0.111  0.199
+C(PostNatalAbxCohort)[T.No.Infant.Abx]   0.215    0.073  2.929 0.003  0.071  0.358
+C(BSI_30D)[T.BSI ]                      -0.297    0.290 -1.026 0.305 -0.865  0.270
+C(BSI_30D)[T.BSI and No.BSI]             0.226    0.273  0.828 0.408 -0.309  0.762
+C(BSI_30D)[T.No.BSI]                     0.120    0.090  1.330 0.183 -0.057  0.297
+C(BSI_30D)[T.No.BSI ]                   -0.079    0.320 -0.246 0.806 -0.706  0.548
+C(BSI_30D)[T.No.BSI  ]                   0.484    0.377  1.283 0.200 -0.255  1.223
+C(BSI_30D)[T.PICC]                       0.349    0.220  1.584 0.113 -0.083  0.781
+C(NEC_30D)[T.No.NEC]                     0.198    0.143  1.382 0.167 -0.083  0.478
+C(AnyMilk)[T.Mother]                    -0.038    0.090 -0.427 0.669 -0.214  0.138
+C(AnyMilk)[T.No.Milk]                   -0.060    0.123 -0.487 0.626 -0.301  0.181
+C(PICC)[T.PICC_LE]                      -0.079    0.078 -1.016 0.310 -0.232  0.073
+C(PICC)[T.PICC_Neck]                     0.261    0.196  1.332 0.183 -0.123  0.645
+C(PICC)[T.PICC_UE]                      -0.056    0.068 -0.822 0.411 -0.190  0.078
+C(PICC)[T.axillary]                     -0.039    0.167 -0.234 0.815 -0.365  0.287
+C(PICC)[T.peripheral_UE]                 0.034    0.141  0.241 0.809 -0.243  0.311
+C(UVC)[T.UVC]                           -0.099    0.084 -1.180 0.238 -0.265  0.066
+Group Var                                0.010    0.016                           
+==================================================================================
+
+
+--- Part 2: Log-linear OLS (abundance when present) ---
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:             log_counts   R-squared:                       0.149
+Model:                            OLS   Adj. R-squared:                  0.061
+Method:                 Least Squares   F-statistic:                     1.695
+Date:                Sat, 22 Mar 2025   Prob (F-statistic):             0.0282
+Time:                        10:04:20   Log-Likelihood:                -355.01
+No. Observations:                 247   AIC:                             758.0
+Df Residuals:                     223   BIC:                             842.2
+Df Model:                          23                                         
+Covariance Type:            nonrobust                                         
+===========================================================================================================
+                                              coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------------------------------
+Intercept                                   3.4913      0.848      4.117      0.000       1.820       5.162
+C(SampleType)[T.Groin]                      0.2406      0.194      1.242      0.215      -0.141       0.622
+C(SampleType)[T.Stool]                      0.2451      0.159      1.541      0.125      -0.068       0.559
+C(Location)[T.Hangzhou]                     0.2368      0.248      0.955      0.341      -0.252       0.726
+C(GestationCohort)[T.28-32 Weeks]          -0.0298      0.350     -0.085      0.932      -0.719       0.659
+C(GestationCohort)[T.33-36 Weeks]           0.2351      0.418      0.562      0.574      -0.589       1.059
+C(SampleCollectionWeek)[T.Week.3]           0.1439      0.144      0.998      0.319      -0.140       0.428
+C(MaternalAntibiotics)[T.None.Mat.Abx]     -0.1093      0.202     -0.542      0.589      -0.507       0.288
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]    -0.0606      0.288     -0.210      0.834      -0.628       0.507
+C(PostNatalAbxCohort)[T.No.Infant.Abx]      0.4914      0.263      1.867      0.063      -0.027       1.010
+C(BSI_30D)[T.BSI ]                      -7.835e-16   9.04e-16     -0.867      0.387   -2.56e-15    9.97e-16
+C(BSI_30D)[T.BSI and No.BSI]               -1.7442      0.978     -1.784      0.076      -3.671       0.182
+C(BSI_30D)[T.No.BSI]                        0.3979      0.363      1.097      0.274      -0.317       1.113
+C(BSI_30D)[T.No.BSI ]                       1.3347      0.972      1.374      0.171      -0.580       3.249
+C(BSI_30D)[T.No.BSI  ]                      0.9626      1.198      0.803      0.423      -1.399       3.324
+C(BSI_30D)[T.PICC]                          1.2042      0.653      1.844      0.066      -0.083       2.491
+C(NEC_30D)[T.No.NEC]                        0.5982      0.593      1.010      0.314      -0.570       1.766
+C(AnyMilk)[T.Mother]                       -0.0693      0.258     -0.269      0.788      -0.577       0.439
+C(AnyMilk)[T.No.Milk]                      -0.4644      0.378     -1.228      0.221      -1.210       0.281
+C(PICC)[T.PICC_LE]                         -0.2608      0.227     -1.148      0.252      -0.709       0.187
+C(PICC)[T.PICC_Neck]                        0.7523      0.549      1.370      0.172      -0.330       1.834
+C(PICC)[T.PICC_UE]                          0.1264      0.191      0.661      0.510      -0.251       0.503
+C(PICC)[T.axillary]                         1.3484      0.626      2.154      0.032       0.115       2.582
+C(PICC)[T.peripheral_UE]                    0.7502      0.485      1.546      0.124      -0.206       1.707
+C(UVC)[T.UVC]                               0.5945      0.279      2.131      0.034       0.045       1.144
+==============================================================================
+Omnibus:                       16.991   Durbin-Watson:                   2.015
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):               18.907
+Skew:                           0.592   Prob(JB):                     7.84e-05
+Kurtosis:                       3.659   Cond. No.                     1.63e+17
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The smallest eigenvalue is 5.13e-32. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.

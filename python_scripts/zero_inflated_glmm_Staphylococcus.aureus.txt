@@ -1,0 +1,83 @@
+=== Zero-Inflated GLMM for Staphylococcus.aureus ===
+Zero proportion: 0.19%
+
+--- Part 1: Mixed logistic (presence/absence) ---
+                      Mixed Linear Model Regression Results
+==================================================================================
+Model:                      MixedLM          Dependent Variable:          presence
+No. Observations:           536              Method:                      REML    
+No. Groups:                 68               Scale:                       0.0019  
+Min. group size:            3                Log-Likelihood:              835.5078
+Max. group size:            12               Converged:                   Yes     
+Mean group size:            7.9                                                   
+----------------------------------------------------------------------------------
+                                        Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+----------------------------------------------------------------------------------
+Intercept                                1.011    0.019 53.936 0.000  0.975  1.048
+C(SampleType)[T.Groin]                  -0.007    0.005 -1.437 0.151 -0.016  0.002
+C(SampleType)[T.Stool]                  -0.000    0.004 -0.030 0.976 -0.009  0.009
+C(Location)[T.Hangzhou]                 -0.002    0.006 -0.265 0.791 -0.014  0.011
+C(GestationCohort)[T.28-32 Weeks]       -0.010    0.008 -1.156 0.248 -0.026  0.007
+C(GestationCohort)[T.33-36 Weeks]       -0.004    0.011 -0.423 0.672 -0.025  0.016
+C(SampleCollectionWeek)[T.Week.3]       -0.004    0.004 -1.069 0.285 -0.012  0.003
+C(MaternalAntibiotics)[T.None.Mat.Abx]   0.001    0.005  0.194 0.846 -0.010  0.012
+C(PostNatalAbxCohort)[T.Low.Infant.Abx] -0.003    0.007 -0.502 0.615 -0.017  0.010
+C(PostNatalAbxCohort)[T.No.Infant.Abx]  -0.004    0.006 -0.659 0.510 -0.016  0.008
+C(BSI_30D)[T.BSI ]                      -0.012    0.025 -0.501 0.616 -0.061  0.036
+C(BSI_30D)[T.BSI and No.BSI]            -0.000    0.023 -0.010 0.992 -0.045  0.045
+C(BSI_30D)[T.No.BSI]                     0.001    0.008  0.064 0.949 -0.015  0.016
+C(BSI_30D)[T.No.BSI ]                    0.002    0.027  0.056 0.956 -0.052  0.055
+C(BSI_30D)[T.No.BSI  ]                   0.021    0.033  0.624 0.532 -0.044  0.085
+C(BSI_30D)[T.PICC]                       0.009    0.019  0.459 0.646 -0.028  0.045
+C(NEC_30D)[T.No.NEC]                     0.002    0.012  0.191 0.848 -0.022  0.026
+C(AnyMilk)[T.Mother]                    -0.006    0.007 -0.805 0.421 -0.021  0.009
+C(AnyMilk)[T.No.Milk]                   -0.006    0.010 -0.587 0.557 -0.027  0.014
+C(PICC)[T.PICC_LE]                       0.008    0.007  1.208 0.227 -0.005  0.021
+C(PICC)[T.PICC_Neck]                     0.006    0.017  0.353 0.724 -0.027  0.039
+C(PICC)[T.PICC_UE]                       0.010    0.006  1.820 0.069 -0.001  0.021
+C(PICC)[T.axillary]                      0.008    0.014  0.546 0.585 -0.020  0.035
+C(PICC)[T.peripheral_UE]                 0.005    0.012  0.443 0.658 -0.018  0.029
+C(UVC)[T.UVC]                           -0.022    0.007 -3.130 0.002 -0.035 -0.008
+Group Var                                0.000    0.002                           
+==================================================================================
+
+
+--- Part 2: Linear mixed model on log-counts (abundance when present) ---
+                      Mixed Linear Model Regression Results
+==================================================================================
+Model:                      MixedLM         Dependent Variable:         log_counts
+No. Observations:           535             Method:                     REML      
+No. Groups:                 68              Scale:                      3.2735    
+Min. group size:            3               Log-Likelihood:             -1094.0130
+Max. group size:            12              Converged:                  Yes       
+Mean group size:            7.9                                                   
+----------------------------------------------------------------------------------
+                                        Coef.  Std.Err.   z    P>|z| [0.025 0.975]
+----------------------------------------------------------------------------------
+Intercept                               11.448    0.960 11.927 0.000  9.567 13.329
+C(SampleType)[T.Groin]                  -1.204    0.201 -5.991 0.000 -1.598 -0.810
+C(SampleType)[T.Stool]                  -1.642    0.187 -8.800 0.000 -2.008 -1.276
+C(Location)[T.Hangzhou]                 -0.410    0.310 -1.323 0.186 -1.017  0.197
+C(GestationCohort)[T.28-32 Weeks]        0.687    0.429  1.600 0.110 -0.155  1.529
+C(GestationCohort)[T.33-36 Weeks]        0.056    0.559  0.099 0.921 -1.040  1.151
+C(SampleCollectionWeek)[T.Week.3]       -0.759    0.162 -4.698 0.000 -1.076 -0.442
+C(MaternalAntibiotics)[T.None.Mat.Abx]   0.277    0.286  0.968 0.333 -0.284  0.837
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]  0.148    0.340  0.435 0.664 -0.519  0.814
+C(PostNatalAbxCohort)[T.No.Infant.Abx]   0.682    0.319  2.138 0.033  0.057  1.307
+C(BSI_30D)[T.BSI ]                       0.258    1.247  0.207 0.836 -2.186  2.703
+C(BSI_30D)[T.BSI and No.BSI]             0.860    1.166  0.737 0.461 -1.426  3.146
+C(BSI_30D)[T.No.BSI]                     0.254    0.385  0.660 0.509 -0.500  1.007
+C(BSI_30D)[T.No.BSI ]                    1.745    1.371  1.272 0.203 -0.943  4.432
+C(BSI_30D)[T.No.BSI  ]                  -1.168    1.572 -0.743 0.458 -4.250  1.914
+C(BSI_30D)[T.PICC]                       0.143    0.930  0.154 0.878 -1.680  1.967
+C(NEC_30D)[T.No.NEC]                     0.597    0.627  0.952 0.341 -0.632  1.826
+C(AnyMilk)[T.Mother]                    -0.225    0.406 -0.553 0.580 -1.020  0.571
+C(AnyMilk)[T.No.Milk]                    0.109    0.545  0.199 0.842 -0.960  1.178
+C(PICC)[T.PICC_LE]                       0.029    0.346  0.084 0.933 -0.648  0.706
+C(PICC)[T.PICC_Neck]                    -0.003    0.849 -0.004 0.997 -1.668  1.662
+C(PICC)[T.PICC_UE]                       0.480    0.311  1.543 0.123 -0.129  1.089
+C(PICC)[T.axillary]                      0.879    0.731  1.203 0.229 -0.553  2.312
+C(PICC)[T.peripheral_UE]                 0.649    0.604  1.073 0.283 -0.536  1.833
+C(UVC)[T.UVC]                            0.923    0.369  2.504 0.012  0.201  1.645
+Group Var                                0.596    0.119                           
+==================================================================================
