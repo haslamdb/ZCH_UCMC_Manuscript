@@ -230,10 +230,10 @@ print("Creating ordination plots...")
 try:
     # Set a reasonable number of iterations and check convergence
     print("Running PCoA analysis...")
+    # FIXED: Removed the 'fsvd' parameter which was causing the error
     pcoa_result = ordination.pcoa(
         distance_matrix,
-        number_of_dimensions=5,  # Explicitly request 5 dimensions
-        fsvd=False  # Use exact SVD rather than fast SVD for better stability
+        number_of_dimensions=5  # Explicitly request 5 dimensions
     )
     
     # Check if PCoA was successful
