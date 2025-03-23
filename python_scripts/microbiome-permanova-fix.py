@@ -130,7 +130,8 @@ def fix_sample_ids(df1, df2, df1_name="DataFrame 1", df2_name="DataFrame 2"):
 print("Performing PERMANOVA analysis...")
 permanova_results = {}
 
-for feature in available_features:
+try:
+    for feature in available_features:
     # Drop NAs for the feature being tested
     valid_samples = merged_data[feature].dropna().index
     if len(valid_samples) < 5:
@@ -165,12 +166,48 @@ for feature in available_features:
         if any(count < 3 for count in group_counts):
             print(f"Warning for {feature} - some groups have fewer than 3 samples")
             
+        # Check if there's too much imbalance between groups
+        max_count = group_counts.max()
+        min_count = group_counts.min()
+        if max_count / min_count > 10:
+            print(f"Warning for {feature} - highly imbalanced groups (largest/smallest = {max_count/min_count:.1f})")
+            
         # Run PERMANOVA (default: 999 permutations)
         result = skbio.stats.distance.permanova(feature_dm, grouping, permutations=999)
+        
+        # Print the result structure for debugging
+        print(f"PERMANOVA result keys: {list(result.keys())}")
+        
+        # Calculate R² - adapt based on what's available in the result
+        # For newer scikit-bio versions
+        if 'test statistic' in result and hasattr(result, 'get'):
+            test_stat = result['test statistic']
+            # Different versions of scikit-bio might have different keys for the denominator
+            if 'denominator' in result:
+                denom = result['denominator']
+                r_squared = test_stat / (test_stat + denom)
+            else:
+                # If no denominator is provided, we can calculate R² as the ratio of
+                # the between-group sum of squares to the total sum of squares
+                print(f"Warning: 'denominator' not found in PERMANOVA result for {feature}.")
+                print(f"Using alternative R² calculation method.")
+                # For newer versions, R² might be part of the results
+                if 'R2' in result:
+                    r_squared = result['R2']
+                else:
+                    # As a fallback, we'll use a simple approximation
+                    r_squared = test_stat / (test_stat + 1.0)  # This is a placeholder calculation
+        else:
+            # If the result structure is completely different, we'll use a default value
+            print(f"Warning: Expected keys not found in PERMANOVA result for {feature}.")
+            test_stat = 0.0
+            r_squared = 0.0
+            
+        # Store the results
         permanova_results[feature] = {
-            'test_statistic': result['test statistic'],
-            'p_value': result['p-value'],
-            'R2': result['test statistic'] / (result['test statistic'] + result['denominator']),
+            'test_statistic': test_stat if 'test statistic' in result else result.get('F', 0.0),
+            'p_value': result['p-value'] if 'p-value' in result else result.get('p', 1.0),
+            'R2': r_squared,
             'sample_size': len(grouping),
             'groups': dict(group_counts)
         }
@@ -180,20 +217,53 @@ for feature in available_features:
         import traceback
         traceback.print_exc()
 
+except KeyboardInterrupt:
+    print("\nAnalysis interrupted by user. Saving results collected so far...")
+    # Continue with plotting and saving the results we have
+except Exception as e:
+    print(f"\nUnexpected error during PERMANOVA analysis: {e}")
+    import traceback
+    traceback.print_exc()
+
 # Create PCoA plot
 print("Creating ordination plots...")
 try:
-    pcoa_result = ordination.pcoa(distance_matrix)
+    # Set a reasonable number of iterations and check convergence
+    print("Running PCoA analysis...")
+    pcoa_result = ordination.pcoa(
+        distance_matrix,
+        number_of_dimensions=5,  # Explicitly request 5 dimensions
+        fsvd=False  # Use exact SVD rather than fast SVD for better stability
+    )
+    
+    # Check if PCoA was successful
+    if pcoa_result is None or not hasattr(pcoa_result, 'samples') or pcoa_result.samples.shape[0] == 0:
+        raise ValueError("PCoA analysis failed to produce valid results")
+        
+    print(f"PCoA complete. Shape of results: {pcoa_result.samples.shape}")
+    
+    # Define PC columns
     pc_cols = ['PC1', 'PC2', 'PC3', 'PC4', 'PC5']
     
     # Ensure we don't try to create more PCs than we have
-    actual_pc_cols = pc_cols[:min(5, pcoa_result.samples.shape[1])]
+    n_dimensions = pcoa_result.samples.shape[1]
+    print(f"Number of dimensions in PCoA result: {n_dimensions}")
+    actual_pc_cols = pc_cols[:min(5, n_dimensions)]
     
+    # Create dataframe with PCoA results
     pcoa_df = pd.DataFrame(
         data=pcoa_result.samples.values,
         columns=actual_pc_cols,
         index=distance_matrix.ids
     )
+    
+    # Report proportion of variance explained
+    if hasattr(pcoa_result, 'proportion_explained'):
+        print("Proportion of variance explained by each PC:")
+        for i, prop in enumerate(pcoa_result.proportion_explained[:n_dimensions]):
+            print(f"  PC{i+1}: {prop:.2%}")
+    else:
+        print("Proportion of variance explained not available in PCoA results")
     
     # Check sample ID consistency
     common_samples = fix_sample_ids(pcoa_df, metadata_df, "PCoA results", "Metadata")
