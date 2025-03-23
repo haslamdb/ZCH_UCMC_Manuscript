@@ -5,6 +5,7 @@ import seaborn as sns
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 from scipy.spatial.distance import squareform, pdist
+import skbio
 import skbio.stats.ordination as ordination
 from skbio.stats.distance import DistanceMatrix
 from skbio.stats.composition import clr
