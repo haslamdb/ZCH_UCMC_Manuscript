@@ -25,7 +25,9 @@ ZCH_UCMC_Manuscript/
 │   ├── rf_shap_LMM_analysis.py         # Random Forest and SHAP analysis with mixed effects models
 │   ├── microbiome_shap_analysis_Kfold.py # K-fold cross-validation version of SHAP analysis
 │   ├── feature_selection_rf.py         # Random forest for feature selection
-│   └── shap_feature_selection.py       # SHAP-based feature importance analysis
+│   ├── shap_feature_selection.py       # SHAP-based feature importance analysis
+│   ├── tSNE_plot.py                    # t-SNE visualization for microbiome data
+│   └── zero-inflated-glmm.py           # Zero-inflated mixed models for microbiome count data
 ├── bash_scripts/              # Bash processing scripts
 │   └── process_reads.sh       # Process raw reads with Kraken2 and Bracken
 └── results/                   # Analysis results directory
@@ -130,9 +132,21 @@ An extension of the SHAP analysis with K-fold cross-validation:
 
 This script uses Random Forest for feature selection in microbiome data:
 
-- Computes Bray-Curtis distances between samples
-- Uses feature importance from Random Forest to identify key predictors
-- Creates visualizations of important features
+- Computes Bray-Curtis distances between samples as the response variable
+- Uses feature importance from Random Forest to identify key clinical predictors
+- Creates visualizations of important features driving microbiome differences
+- Includes PyCaret-style line+dot plots for feature importance ranking
+- Handles categorical variables through appropriate encoding
+- Outputs ranked tables of feature importance for downstream analysis
+
+Usage:
+```bash
+python python_scripts/feature_selection_rf.py
+```
+
+Output:
+- `feature_importance_plot.pdf`: Visual representation of clinical variables ranked by importance
+- Console output with diagnostic information on microbiome transformation and model performance
 
 #### `shap_feature_selection.py`
 
@@ -141,6 +155,39 @@ This script focuses on SHAP-based feature importance for microbiome differences:
 - Implements SHAP analysis for feature importance
 - Creates summary plots and dependence plots for key features
 - Integrates with distance-based analyses
+
+#### `tSNE_plot.py`
+
+This script generates t-SNE (t-Distributed Stochastic Neighbor Embedding) visualizations for microbiome data:
+
+- Creates 2D projections to visualize high-dimensional microbiome data
+- Generates organism-specific t-SNE plots colored by abundance
+- Creates metadata-based t-SNE visualizations (by sample type, location, etc.)
+- Produces both individual and combined visualization outputs in PDF and PNG formats
+- Handles large datasets efficiently with appropriate perplexity settings
+- Allows customization of plot appearance and coloring schemes
+
+Usage:
+```bash
+python python_scripts/tSNE_plot.py
+```
+
+Output:
+- `tsne_[organism_name].pdf/png`: Individual organism abundance visualizations
+- `tsne_all_key_organisms.pdf/png`: Combined visualization of key organisms
+- `tsne_[metadata_variable].pdf/png`: Visualizations colored by metadata variables
+- `tsne_all_metadata_variables.pdf`: Combined metadata visualization
+- `all_key_organisms_multipage.pdf`: Multi-page PDF with all organism visualizations
+
+#### `zero-inflated-glmm.py`
+
+This script implements zero-inflated generalized linear mixed models for count data:
+
+- Handles the high proportion of zeros typical in microbiome datasets
+- Implements a two-part model (presence/absence + abundance when present)
+- Incorporates subject-level random effects
+- Provides coefficient estimates and significance tests
+- Creates visualizations of model results
 
 ### Bash Scripts
 
@@ -179,6 +226,7 @@ This script processes the raw sequencing data:
 - statsmodels: For statistical modeling
 - matplotlib and seaborn: For visualization
 - scipy: For scientific computing and statistics
+- sklearn.manifold: For t-SNE implementation
 
 ### External Tools
 - Kraken2: For taxonomic classification
@@ -232,7 +280,17 @@ This script processes the raw sequencing data:
    python python_scripts/rf_shap_LMM_analysis.py
    ```
 
-6. Transform microbiome data using the transformation module:
+6. Generate feature importance rankings:
+   ```bash
+   python python_scripts/feature_selection_rf.py
+   ```
+
+7. Create t-SNE visualizations:
+   ```bash
+   python python_scripts/tSNE_plot.py
+   ```
+
+8. Transform microbiome data using the transformation module:
    ```python
    import microbiome_transform as mt
    # Example usage
@@ -245,7 +303,7 @@ The analysis generates several key results:
 
 1. **Diversity Analysis**: Comparison of microbial diversity between different locations, antibiotic exposures, and gestational age groups
 2. **Taxonomic Differences**: Identification of bacterial species that differ significantly between groups
-3. **Community Structure**: PCA visualizations showing similarities and differences in microbial communities
+3. **Community Structure**: PCA and t-SNE visualizations showing similarities and differences in microbial communities
 4. **BSI Correlations**: Analysis of relationships between bloodstream infections and microbiome composition
 5. **Effect Size Analysis**: Quantification of the magnitude of differences between comparison groups
 6. **Feature Importance**: SHAP and Random Forest analyses highlighting key clinical predictors of microbiome composition

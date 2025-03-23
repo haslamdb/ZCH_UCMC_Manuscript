@@ -57,7 +57,6 @@ microbiome_tss = mt.tss_transform(microbiome_df)
 microbiome_vst = mt.vst_transform_r(microbiome_df) # this will fail if zero counts in all features
 microbiome_vst = mt.debug_vst_transform(microbiome_df) # has to be run from command prompt, not powershell
 
-
 # Merge microbiome data and metadata on Sample ID
 # here we're using clr transformed data
 data = microbiome_clr.merge(metadata_df, left_index=True, right_index=True)
