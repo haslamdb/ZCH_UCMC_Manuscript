@@ -1,0 +1,190 @@
+# NICU Microbiome Analysis Configuration
+# Unified configuration file for all analysis parameters
+
+# Project paths
+paths:
+  project_dir: "."  # Base project directory
+  data_dir: "${project_dir}/data"
+  results_dir: "${project_dir}/results"
+  kraken_dir: "${project_dir}/KrakenAlignments/Kraken2"
+  figures_dir: "${results_dir}/figures"
+  models_dir: "${results_dir}/models"
+  reports_dir: "${results_dir}/reports"
+
+# Input files
+input_files:
+  # Main metadata file
+  sample_key: "${data_dir}/AllNICUSampleKeyRevised20250206_for_HangzhouCincinnatiSamples.csv"
+  
+  # BSI data
+  bsi_data: "${data_dir}/BSIData20250206.csv"
+  
+  # Human reactive species 
+  human_reactive: "${data_dir}/HumanReactiveKraken2.csv"
+  
+  # Species abundance files pattern (for glob matching)
+  species_abundance_pattern: "*_species_abundance.txt"
+  
+  # Microbiome count data
+  microbiome_counts: "${data_dir}/NICUSpeciesReduced.csv"
+
+# Data processing parameters
+data_processing:
+  # Minimum read count threshold to keep samples
+  min_sample_reads: 10000
+  
+  # Noise removal threshold (proportion)
+  noise_removal_threshold: 0.001
+  
+  # Proportion of samples a species must be present in to be kept
+  min_species_prevalence: 0.05  # 5% of samples
+  
+  # Rarefaction depth (default: set to minimum across samples if null)
+  rarefaction_depth: null
+  
+  # Transformation methods
+  transformations:
+    # Pseudocount to add for CLR transformation
+    clr_pseudocount: 1
+    
+    # Log transformation pseudocount
+    log_pseudocount: 1
+
+# Statistical analysis parameters
+statistics:
+  # Significance thresholds
+  alpha_threshold: 0.05
+  fdr_threshold: 0.1
+  
+  # Random seed for reproducibility
+  random_seed: 42
+  
+  # Number of permutations for permutation tests
+  num_permutations: 999
+  
+  # Random forest parameters
+  rf_params:
+    n_estimators: 100
+    min_samples_leaf: 5
+    
+  # PERMANOVA parameters
+  permanova:
+    permutations: 999
+    method: "bray"
+
+# Mixed effects model parameters
+mixed_effects:
+  # Subject ID column for random effects
+  subject_id_col: "Subject"
+  
+  # Maximum iterations for model convergence
+  max_iter: 1000
+  
+  # Optimizer method
+  optimizer: "lbfgs"
+
+# Zero-inflated model parameters
+zero_inflated:
+  # Zero proportion threshold
+  zero_threshold: 0.25
+  
+  # Minimum non-zero observations required
+  min_nonzero_obs: 10
+
+# Visualization parameters
+visualization:
+  # Default color palettes
+  color_palettes:
+    categorical: ["#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F", 
+                  "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC"]
+    diverging: ["#000033", "#4575b4", "#74add1", "#abd9e9", "#e0f3f8", 
+               "#fee090", "#fdae61", "#f46d43", "#d73027", "firebrick"]
+    sequential: ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", 
+                "#4292c6", "#2171b5", "#08519c", "#08306b"]
+  
+  # Figure sizes in inches (width, height)
+  figure_sizes:
+    default: [10, 6]
+    wide: [12, 6]
+    square: [8, 8]
+    tall: [6, 10]
+  
+  # DPI for saving figures
+  dpi: 300
+  
+  # Font sizes
+  font_sizes:
+    title: 16
+    axes: 12
+    ticks: 10
+    legend: 10
+
+# t-SNE parameters
+tsne:
+  perplexity: 30
+  n_iterations: 1000
+  n_components: 2
+  random_seed: 42
+
+# PCA parameters
+pca:
+  n_components: 5
+  scale: true
+
+# Database paths (for Kraken2/Bracken)
+database:
+  kneaddata_db: "/path/to/kneaddata_db"
+  kraken_db: "/path/to/kraken_db"
+  bracken_db: "${kraken_db}/database150mers.kmer_distrib"
+
+# Species of interest
+key_organisms:
+  - "Klebsiella.pneumoniae"
+  - "Staphylococcus.aureus"
+  - "Escherichia.coli"
+  - "Klebsiella.oxytoca"
+  - "Staphylococcus.epidermidis"
+  - "Streptococcus.pyogenes"
+  - "Staphylococcus.capitis"
+  - "Enterococcus.faecium"
+  - "Enterococcus.faecalis"
+  - "Candida.parapsilosis"
+  - "Serratia.marcescens"
+
+# Metadata features for modeling
+metadata_features:
+  categorical:
+    - "SampleType"
+    - "Location"
+    - "GestationCohort"
+    - "SampleCollectionWeek"
+    - "MaternalAntibiotics"
+    - "PostNatalAbxCohort"
+    - "BSI_30D"
+    - "NEC_30D"
+    - "AnyMilk"
+    - "PICC"
+    - "UVC"
+    - "Delivery"
+  
+  numerical:
+    - "GestationalAge"
+    - "GestationTime"
+
+# Analysis-specific parameters
+analysis:
+  # bsi_microbiome_comparison.R parameters
+  bsi_comparison:
+    remove_salinibacter: true
+    remove_human: true
+    body_sites_to_include: ["Stool", "Groin", "Axilla"]
+  
+  # dbRDA.R parameters
+  dbrda:
+    distance_method: "bray"
+    transformation: "hellinger"
+  
+  # shap analysis parameters
+  shap_analysis:
+    k_folds: 5
+    min_shrink: 0.3
