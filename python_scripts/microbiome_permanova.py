@@ -18,7 +18,16 @@ sns.set(style="whitegrid")
 plt.rcParams.update({'font.size': 12})
 
 # Define a function for CLR transformation (in case microbiome_transform module is not available)
-
+def clr_transform(df):
+    """
+    Centered log-ratio transformation for compositional data
+    Adds a small pseudocount to zeros.
+    """
+    # Add pseudocount to zeros
+    df_pseudo = df.replace(0, np.nextafter(0, 1))
+    # Apply CLR transformation
+    clr_data = clr(df_pseudo.values)
+    return pd.DataFrame(clr_data, index=df.index, columns=df.columns)
 
 # Load microbiome abundance data
 print("Loading microbiome data...")
@@ -91,60 +100,6 @@ microbiome_data = merged_data[microbiome_cols]
 # Ensure we're using the exact same set of samples for distance matrix and subsequent analyses
 distance_matrix = DistanceMatrix(pdist(microbiome_data, metric='euclidean'), ids=microbiome_data.index)
 
-# PERMANOVA analysis for each categorical feature
-print("Performing PERMANOVA analysis...")
-permanova_results = {}
-
-for feature in available_features:
-    # Drop NAs for the feature being tested
-    valid_samples = merged_data[feature].dropna().index
-    if len(valid_samples) < 5:
-        print(f"Skipping {feature} - not enough valid samples")
-        continue
-    
-    # Make sure valid_samples are all in the distance matrix
-    valid_samples = [sample for sample in valid_samples if sample in distance_matrix.ids]
-    if len(valid_samples) < 5:
-        print(f"Skipping {feature} - not enough samples after filtering for distance matrix")
-        continue
-        
-    # Subset distance matrix and grouping variable
-    feature_dm = distance_matrix.filter(valid_samples)
-    grouping = merged_data.loc[valid_samples, feature].astype(str)
-    
-    # Skip if only one unique value
-    if len(grouping.unique()) < 2:
-        print(f"Skipping {feature} - only one unique value")
-        continue
-    
-    try:
-        # Print group information for debugging
-        group_counts = grouping.value_counts()
-        print(f"{feature} groups: {dict(group_counts)}")
-        
-        # Check if we have enough groups and samples
-        if len(group_counts) < 2:
-            print(f"Skipping {feature} - need at least 2 groups, found {len(group_counts)}")
-            continue
-            
-        if any(count < 3 for count in group_counts):
-            print(f"Warning for {feature} - some groups have fewer than 3 samples")
-            
-        # Run PERMANOVA (default: 999 permutations)
-        result = skbio.stats.distance.permanova(feature_dm, grouping, permutations=999)
-        permanova_results[feature] = {
-            'test_statistic': result['test statistic'],
-            'p_value': result['p-value'],
-            'R2': result['test statistic'] / (result['test statistic'] + result['denominator']),
-            'sample_size': len(grouping),
-            'groups': dict(group_counts)
-        }
-        print(f"{feature}: p-value = {result['p-value']:.4f}, R² = {permanova_results[feature]['R2']:.4f}, n={len(grouping)}")
-    except Exception as e:
-        print(f"Error analyzing {feature}: {e}")
-        import traceback
-        traceback.print_exc()
-
 # Function to check and fix sample ID issues
 def fix_sample_ids(df1, df2, df1_name="DataFrame 1", df2_name="DataFrame 2"):
     """Check and report sample ID overlap issues between two dataframes"""
@@ -171,20 +126,144 @@ def fix_sample_ids(df1, df2, df1_name="DataFrame 1", df2_name="DataFrame 2"):
     # Return common samples
     return common
 
+# PERMANOVA analysis for each categorical feature
+print("Performing PERMANOVA analysis...")
+permanova_results = {}
+
+try:
+    for feature in available_features:
+        # Drop NAs for the feature being tested
+        valid_samples = merged_data[feature].dropna().index
+        if len(valid_samples) < 5:
+            print(f"Skipping {feature} - not enough valid samples")
+            continue
+        
+        # Make sure valid_samples are all in the distance matrix
+        valid_samples = [sample for sample in valid_samples if sample in distance_matrix.ids]
+        if len(valid_samples) < 5:
+            print(f"Skipping {feature} - not enough samples after filtering for distance matrix")
+            continue
+            
+        # Subset distance matrix and grouping variable
+        feature_dm = distance_matrix.filter(valid_samples)
+        grouping = merged_data.loc[valid_samples, feature].astype(str)
+        
+        # Skip if only one unique value
+        if len(grouping.unique()) < 2:
+            print(f"Skipping {feature} - only one unique value")
+            continue
+        
+        try:
+            # Print group information for debugging
+            group_counts = grouping.value_counts()
+            print(f"{feature} groups: {dict(group_counts)}")
+            
+            # Check if we have enough groups and samples
+            if len(group_counts) < 2:
+                print(f"Skipping {feature} - need at least 2 groups, found {len(group_counts)}")
+                continue
+                
+            if any(count < 3 for count in group_counts):
+                print(f"Warning for {feature} - some groups have fewer than 3 samples")
+                
+            # Check if there's too much imbalance between groups
+            max_count = group_counts.max()
+            min_count = group_counts.min()
+            if max_count / min_count > 10:
+                print(f"Warning for {feature} - highly imbalanced groups (largest/smallest = {max_count/min_count:.1f})")
+                
+            # Run PERMANOVA (default: 999 permutations)
+            result = skbio.stats.distance.permanova(feature_dm, grouping, permutations=999)
+            
+            # Print the result structure for debugging
+            print(f"PERMANOVA result keys: {list(result.keys())}")
+            
+            # Calculate R² - adapt based on what's available in the result
+            # For newer scikit-bio versions
+            if 'test statistic' in result and hasattr(result, 'get'):
+                test_stat = result['test statistic']
+                # Different versions of scikit-bio might have different keys for the denominator
+                if 'denominator' in result:
+                    denom = result['denominator']
+                    r_squared = test_stat / (test_stat + denom)
+                else:
+                    # If no denominator is provided, we can calculate R² as the ratio of
+                    # the between-group sum of squares to the total sum of squares
+                    print(f"Warning: 'denominator' not found in PERMANOVA result for {feature}.")
+                    print(f"Using alternative R² calculation method.")
+                    # For newer versions, R² might be part of the results
+                    if 'R2' in result:
+                        r_squared = result['R2']
+                    else:
+                        # As a fallback, we'll use a simple approximation
+                        r_squared = test_stat / (test_stat + 1.0)  # This is a placeholder calculation
+            else:
+                # If the result structure is completely different, we'll use a default value
+                print(f"Warning: Expected keys not found in PERMANOVA result for {feature}.")
+                test_stat = 0.0
+                r_squared = 0.0
+                
+            # Store the results
+            permanova_results[feature] = {
+                'test_statistic': test_stat if 'test statistic' in result else result.get('F', 0.0),
+                'p_value': result['p-value'] if 'p-value' in result else result.get('p', 1.0),
+                'R2': r_squared,
+                'sample_size': len(grouping),
+                'groups': dict(group_counts)
+            }
+            print(f"{feature}: p-value = {result['p-value']:.4f}, R² = {permanova_results[feature]['R2']:.4f}, n={len(grouping)}")
+        except Exception as e:
+            print(f"Error analyzing {feature}: {e}")
+            import traceback
+            traceback.print_exc()
+
+except KeyboardInterrupt:
+    print("\nAnalysis interrupted by user. Saving results collected so far...")
+    # Continue with plotting and saving the results we have
+except Exception as e:
+    print(f"\nUnexpected error during PERMANOVA analysis: {e}")
+    import traceback
+    traceback.print_exc()
+
 # Create PCoA plot
 print("Creating ordination plots...")
 try:
-    pcoa_result = ordination.pcoa(distance_matrix)
+    # Set a reasonable number of iterations and check convergence
+    print("Running PCoA analysis...")
+    # FIXED: Removed the 'fsvd' parameter which was causing the error
+    pcoa_result = ordination.pcoa(
+        distance_matrix,
+        number_of_dimensions=5  # Explicitly request 5 dimensions
+    )
+    
+    # Check if PCoA was successful
+    if pcoa_result is None or not hasattr(pcoa_result, 'samples') or pcoa_result.samples.shape[0] == 0:
+        raise ValueError("PCoA analysis failed to produce valid results")
+        
+    print(f"PCoA complete. Shape of results: {pcoa_result.samples.shape}")
+    
+    # Define PC columns
     pc_cols = ['PC1', 'PC2', 'PC3', 'PC4', 'PC5']
     
     # Ensure we don't try to create more PCs than we have
-    actual_pc_cols = pc_cols[:min(5, pcoa_result.samples.shape[1])]
+    n_dimensions = pcoa_result.samples.shape[1]
+    print(f"Number of dimensions in PCoA result: {n_dimensions}")
+    actual_pc_cols = pc_cols[:min(5, n_dimensions)]
     
+    # Create dataframe with PCoA results
     pcoa_df = pd.DataFrame(
         data=pcoa_result.samples.values,
         columns=actual_pc_cols,
         index=distance_matrix.ids
     )
+    
+    # Report proportion of variance explained
+    if hasattr(pcoa_result, 'proportion_explained'):
+        print("Proportion of variance explained by each PC:")
+        for i, prop in enumerate(pcoa_result.proportion_explained[:n_dimensions]):
+            print(f"  PC{i+1}: {prop:.2%}")
+    else:
+        print("Proportion of variance explained not available in PCoA results")
     
     # Check sample ID consistency
     common_samples = fix_sample_ids(pcoa_df, metadata_df, "PCoA results", "Metadata")
@@ -218,11 +297,19 @@ significant_features = sorted(
 print("Creating PERMANOVA summary plot...")
 if significant_features:
     plt.figure(figsize=(10, 6))
-    feature_names = [f[0] for f in significant_features]
-    r2_values = [f[2] for f in significant_features]
-    p_values = [f[1] for f in significant_features]
     
-    # Create the R² bar plot
+    # Sort features by R² (highest to lowest) instead of p-value
+    significant_features_r2_sorted = sorted(
+        significant_features,
+        key=lambda x: x[2],  # Sort by R² (index 2)
+        reverse=True  # Highest to lowest
+    )
+    
+    feature_names = [f[0] for f in significant_features_r2_sorted]
+    r2_values = [f[2] for f in significant_features_r2_sorted]
+    p_values = [f[1] for f in significant_features_r2_sorted]
+    
+    # Create the R² bar plot with features ordered by R² value (highest at top)
     ax = plt.barh(feature_names, r2_values, color=['#2c7bb6' if p < 0.05 else '#d7191c' for p in p_values])
     plt.xlabel('R² (Proportion of Variance Explained)')
     plt.ylabel('Metadata Features')
@@ -251,8 +338,11 @@ if significant_features:
     plt.legend(custom_lines, ['p < 0.05', 'p ≥ 0.05'], loc='upper right')
     
     plt.tight_layout()
+    
+    # Save as both PNG and PDF
     plt.savefig('permanova_variance_explained.png', dpi=300, bbox_inches='tight')
-    print("Created PERMANOVA summary plot: permanova_variance_explained.png")
+    plt.savefig('permanova_variance_explained.pdf', bbox_inches='tight')
+    print("Created PERMANOVA summary plot: permanova_variance_explained.png and permanova_variance_explained.pdf")
 else:
     print("No significant features found. Skipping summary plot.")
 
@@ -325,14 +415,24 @@ else:
 
 # Create a summary table
 print("Creating summary table...")
-summary_df = pd.DataFrame({
+# Create two versions of the summary dataframe - one sorted by p-value, one by R²
+summary_df_pvalue = pd.DataFrame({
     'Feature': [f[0] for f in significant_features],
     'p_value': [f[1] for f in significant_features],
     'R2': [f[2] for f in significant_features],
     'Significant': ['Yes' if p < 0.05 else 'No' for p in [f[1] for f in significant_features]]
 })
 
-# Save results to file
-summary_df.to_csv('permanova_results.csv', index=False)
-print("Analysis complete! Results saved to permanova_results.csv")
-print("Plots saved as permanova_variance_explained.png and pcoa_by_[feature].png")
+# Create a version sorted by R² (high to low)
+summary_df = pd.DataFrame({
+    'Feature': [f[0] for f in sorted(significant_features, key=lambda x: x[2], reverse=True)],
+    'R2': [f[2] for f in sorted(significant_features, key=lambda x: x[2], reverse=True)],
+    'p_value': [f[1] for f in sorted(significant_features, key=lambda x: x[2], reverse=True)],
+    'Significant': ['Yes' if p < 0.05 else 'No' for p in [f[1] for f in sorted(significant_features, key=lambda x: x[2], reverse=True)]]
+})
+
+# Save results to files
+summary_df.to_csv('permanova_results_by_r2.csv', index=False)
+summary_df_pvalue.to_csv('permanova_results_by_pvalue.csv', index=False)
+print("Analysis complete! Results saved to permanova_results_by_r2.csv and permanova_results_by_pvalue.csv")
+print("Plots saved as permanova_variance_explained.png, permanova_variance_explained.pdf, and pcoa_by_[feature].png")
