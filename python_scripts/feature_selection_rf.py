@@ -54,7 +54,9 @@ print(metadata_df.isnull().sum())
 # transform using CLR, VST, or other method from microbiome_transform module
 microbiome_clr = mt.clr_transform(microbiome_df)
 microbiome_tss = mt.tss_transform(microbiome_df)
-microbiome_vst = mt.vst_transform_r(microbiome_df)
+microbiome_vst = mt.vst_transform_r(microbiome_df) # this will fail if zero counts in all features
+microbiome_vst = mt.debug_vst_transform(microbiome_df) # has to be run from command prompt, not powershell
+
 
 # Merge microbiome data and metadata on Sample ID
 # here we're using clr transformed data
@@ -112,15 +114,18 @@ plt.figure(figsize=(12, 8))
 top_n = min(15, len(feature_importances))
 top_features = feature_importances.head(top_n)
 
+top_features = top_features.iloc[::-1]
+
+
 # Create horizontal line + dot plot
 plt.hlines(y=range(top_n), 
            xmin=0, 
-           xmax=top_features["Importance"].values,  # Changed from "Feature Importance" to "Importance"
+           xmax=top_features["Importance"].values,  
            color="skyblue", 
            alpha=0.7, 
            linewidth=2)
 
-plt.plot(top_features["Importance"].values,  # Changed from "Feature Importance" to "Importance"
+plt.plot(top_features["Importance"].values,  
          range(top_n), 
          "o", 
          markersize=10, 
@@ -130,12 +135,14 @@ plt.plot(top_features["Importance"].values,  # Changed from "Feature Importance"
 # Add feature names
 plt.yticks(range(top_n), top_features["Feature"].values)
 plt.xlabel("Feature Importance Score")
-plt.title("Clinical Variables Associated with Microbiome Composition Differences")  # Fixed typo in "Composition"
-
+plt.title("Clinical Variables Associated with Microbiome Composition Differences")  
 # Add values next to dots
-for i, importance in enumerate(top_features["Importance"].values):  # Changed from "Feature Importance" to "Importance"
+for i, importance in enumerate(top_features["Importance"].values):  
     plt.text(importance + 0.001, i, f"{importance:.4f}", va='center')
     
 plt.tight_layout()
-plt.savefig("../results/feature_importance_plot.pdf", bbox_inches="tight")  # Changed filename to match content
+plt.savefig("../results/feature_importance_plot.pdf", bbox_inches="tight")  
+plt.show()
 plt.close()
+
+#
