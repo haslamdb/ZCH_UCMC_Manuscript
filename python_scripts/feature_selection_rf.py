@@ -74,7 +74,8 @@ y = bray_curtis_dist[np.triu_indices_from(bray_curtis_dist, k=1)]  # Take upper 
 
 # Encode categorical variables
 categorical_features = ["SampleType", "Location", "GestationCohort", "SampleCollectionWeek", 
-                        "MaternalAntibiotics", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
+                        "MaternalAntibiotics", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", 
+                        "PICC", "UVC", "Delivery"]
 
 predictors = metadata_df[categorical_features]
 

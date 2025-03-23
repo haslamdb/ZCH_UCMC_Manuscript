@@ -15,45 +15,77 @@ community_mat <- read.csv("data/NICUSpeciesReduced.csv")
 
 # Create a metadata data.frame
 metadata <- read.csv("metadata/AllNICUSampleKey20250206.csv")
-rownames(metadata) <- rownames(community_mat)
+metadata <- subset(metadata, metadata$SampleID %in% community_mat$SampleID)
+
+community_mat <- subset(community_mat, community_mat$SampleID %in% metadata$SampleID)
 
 ##################################################
-# 3) Run dbRDA with capscale
+# 3) Prepare the data for dbRDA
 ##################################################
-# capscale(formula, data, distance) is typically used like:
-#    capscale(community_data ~ predictors, data = metadata, distance = "...")
-# If you want partial dbRDA (controlling for certain variables),
-# use: capscale(community_data ~ Var1 + Condition(Var2), ...)
+# Create a community data matrix (species matrix) without the SampleID column
+# First, save the SampleID for later reference
+sample_ids <- community_mat$SampleID
 
-# For full dbRDA on Var1, Var2, Var3:
-dbrda_result <- capscale(community_mat ~ Var1 + Var2 + Var3,
+# Remove the SampleID column from the community matrix
+species_data <- community_mat[, !colnames(community_mat) %in% c("SampleID", "SubjectID", "Subject")]
+
+# Make sure the metadata and community matrix are in the same order
+metadata <- metadata[match(sample_ids, metadata$SampleID), ]
+
+##################################################
+# 4) Run partial dbRDA with capscale to control for Subject
+##################################################
+# Using Condition(SubjectID) to control for repeated measures
+dbrda_result <- capscale(species_data ~ SampleType + Location + GestationCohort + 
+                         SampleCollectionWeek + MaternalAntibiotics + PostNatalAbxCohort + 
+                         BSI_30D + NEC_30D + AnyMilk + PICC + UVC + 
+                         Condition(Subject), 
                          data = metadata,
                          distance = "bray")
 
 ##################################################
-# 4) Review the results
+# 5) Review the results
 ##################################################
 # Print a summary of the dbRDA
 summary(dbrda_result)
 
 # Test the significance of the model (or each term) via permutation
-anova(dbrda_result, permutations = 999)       # tests the overall dbRDA
-anova(dbrda_result, by="terms", permutations=999)  # tests each predictor
+# For overall model test
+anova(dbrda_result, permutations = 999)
+
+# For individual terms test
+anova(dbrda_result, by="terms", permutations=999)
 
 # Inspect the proportion of variance explained by constraints vs. unconstrained
 dbrda_result
 
 ##################################################
-# 5) Basic visualization
+# 6) Basic visualization
 ##################################################
 # Ordination biplot with sites (samples) and biplot arrows for the constraints
 plot(dbrda_result, 
      display = c("sites", "bp", "cn"),  # 'bp' = biplot arrows, 'cn' = centroids
      main = "Distance-based Redundancy Analysis (dbRDA)")
 
-# Alternatively, you can extract coordinates for custom plotting:
+# Extract coordinates for custom plotting:
 dbRDA_sites <- scores(dbrda_result, display = "sites")  # sample scores
 dbRDA_species <- scores(dbrda_result, display = "species")  # taxa scores
 dbRDA_biplot <- scores(dbrda_result, display = "bp")    # biplot arrows
 
-# Now you can use ggplot2 or base R graphics to plot 'dbRDA_sites' etc. 
+# Optional: Create a better visualization with ggplot2
+library(ggplot2)
+library(ggrepel)
+
+# # Convert site scores to a data frame and add metadata
+sites_df <- as.data.frame(dbRDA_sites)
+sites_df$SampleID <- sample_ids
+sites_df$SubjectID <- metadata$SubjectID
+sites_df$SampleType <- metadata$SampleType  # Add other relevant variables
+
+# # Create the plot
+ggplot(sites_df, aes(x = CAP1, y = CAP2, color = SampleType)) +
+  geom_point(size = 3, alpha = 0.7) +
+  geom_text_repel(aes(label = SampleID), size = 3) +
+  theme_minimal() +
+  labs(title = "dbRDA of Microbiome Data (Controlled for Subject)",
+       x = "dbRDA1", y = "dbRDA2")

@@ -2,39 +2,40 @@
 ==================================================================================
 Model:                    MixedLM       Dependent Variable:       MicrobeAbundance
 No. Observations:         536           Method:                   REML            
-No. Groups:               68            Scale:                    11.8912         
-Min. group size:          3             Log-Likelihood:           -1434.2275      
+No. Groups:               68            Scale:                    11.8591         
+Min. group size:          3             Log-Likelihood:           -1432.7417      
 Max. group size:          12            Converged:                Yes             
 Mean group size:          7.9                                                     
 ----------------------------------------------------------------------------------
                                         Coef.  Std.Err.   z    P>|z| [0.025 0.975]
 ----------------------------------------------------------------------------------
-Intercept                                4.338    1.937  2.239 0.025  0.541  8.135
-C(SampleType)[T.Groin]                   2.549    0.383  6.651 0.000  1.798  3.300
-C(SampleType)[T.Stool]                   4.150    0.356 11.660 0.000  3.452  4.847
-C(Location)[T.Hangzhou]                  0.551    0.618  0.892 0.373 -0.660  1.763
-C(GestationCohort)[T.28-32 Weeks]       -0.858    0.863 -0.994 0.320 -2.549  0.834
-C(GestationCohort)[T.33-36 Weeks]        0.034    1.123  0.030 0.976 -2.167  2.235
-C(SampleCollectionWeek)[T.Week.3]        3.158    0.308 10.241 0.000  2.553  3.762
-C(MaternalAntibiotics)[T.None.Mat.Abx]  -0.659    0.582 -1.133 0.257 -1.800  0.481
-C(PostNatalAbxCohort)[T.Low.Infant.Abx] -2.287    0.673 -3.398 0.001 -3.606 -0.968
-C(PostNatalAbxCohort)[T.No.Infant.Abx]  -1.273    0.640 -1.991 0.047 -2.527 -0.020
-C(BSI_30D)[T.BSI ]                      -1.815    2.476 -0.733 0.463 -6.668  3.038
-C(BSI_30D)[T.BSI and No.BSI]             2.799    2.304  1.215 0.224 -1.717  7.315
-C(BSI_30D)[T.No.BSI]                     0.726    0.763  0.952 0.341 -0.770  2.222
-C(BSI_30D)[T.No.BSI ]                   -3.487    2.738 -1.273 0.203 -8.854  1.880
-C(BSI_30D)[T.Other]                      1.146    3.099  0.370 0.712 -4.929  7.221
-C(BSI_30D)[T.PICC]                      -1.009    1.842 -0.548 0.584 -4.620  2.602
-C(NEC_30D)[T.No.NEC]                    -0.384    1.265 -0.304 0.761 -2.864  2.095
-C(AnyMilk)[T.Mother]                    -0.586    0.842 -0.696 0.486 -2.237  1.064
-C(AnyMilk)[T.No.Milk]                   -1.710    1.086 -1.574 0.116 -3.839  0.420
-C(PICC)[T.PICC_LE]                       1.131    0.726  1.559 0.119 -0.291  2.554
-C(PICC)[T.PICC_Neck]                    -0.765    1.752 -0.437 0.662 -4.199  2.668
-C(PICC)[T.PICC_UE]                       1.743    0.655  2.659 0.008  0.459  3.028
-C(PICC)[T.axillary]                     -0.022    1.450 -0.015 0.988 -2.863  2.820
-C(PICC)[T.peripheral_UE]                 2.429    1.193  2.036 0.042  0.090  4.768
-C(UVC)[T.UVC]                           -1.349    0.724 -1.862 0.063 -2.768  0.071
-Group Var                                3.395    0.329                           
+Intercept                                4.434    1.936  2.290 0.022  0.639  8.229
+C(SampleType)[T.Groin]                   2.536    0.383  6.625 0.000  1.786  3.286
+C(SampleType)[T.Stool]                   4.156    0.355 11.691 0.000  3.459  4.853
+C(Location)[T.Hangzhou]                  0.892    0.662  1.348 0.178 -0.405  2.190
+C(GestationCohort)[T.28-32 Weeks]       -0.979    0.867 -1.129 0.259 -2.680  0.721
+C(GestationCohort)[T.33-36 Weeks]       -0.074    1.126 -0.065 0.948 -2.280  2.133
+C(SampleCollectionWeek)[T.Week.3]        3.142    0.308 10.197 0.000  2.538  3.746
+C(MaternalAntibiotics)[T.None.Mat.Abx]  -0.623    0.582 -1.070 0.285 -1.764  0.518
+C(PostNatalAbxCohort)[T.Low.Infant.Abx] -2.412    0.679 -3.555 0.000 -3.742 -1.082
+C(PostNatalAbxCohort)[T.No.Infant.Abx]  -1.484    0.657 -2.259 0.024 -2.771 -0.196
+C(BSI_30D)[T.BSI ]                      -1.324    2.498 -0.530 0.596 -6.220  3.571
+C(BSI_30D)[T.BSI and No.BSI]             2.773    2.303  1.204 0.229 -1.741  7.287
+C(BSI_30D)[T.No.BSI]                     0.927    0.776  1.195 0.232 -0.593  2.448
+C(BSI_30D)[T.No.BSI ]                   -2.530    2.814 -0.899 0.368 -8.045  2.984
+C(BSI_30D)[T.Other]                      0.788    3.110  0.253 0.800 -5.307  6.883
+C(BSI_30D)[T.PICC]                      -1.133    1.842 -0.615 0.538 -4.743  2.477
+C(NEC_30D)[T.No.NEC]                    -0.166    1.275 -0.130 0.896 -2.664  2.332
+C(AnyMilk)[T.Mother]                    -0.478    0.842 -0.568 0.570 -2.127  1.172
+C(AnyMilk)[T.No.Milk]                   -1.823    1.088 -1.676 0.094 -3.956  0.309
+C(PICC)[T.PICC_LE]                       0.691    0.782  0.883 0.377 -0.842  2.224
+C(PICC)[T.PICC_Neck]                    -1.397    1.793 -0.779 0.436 -4.912  2.118
+C(PICC)[T.PICC_UE]                       1.480    0.677  2.185 0.029  0.153  2.808
+C(PICC)[T.axillary]                     -0.457    1.485 -0.308 0.758 -3.366  2.453
+C(PICC)[T.peripheral_UE]                 1.775    1.280  1.387 0.166 -0.733  4.283
+C(UVC)[T.UVC]                           -1.402    0.726 -1.930 0.054 -2.825  0.021
+C(Delivery)[T.Vaginal]                  -0.927    0.663 -1.399 0.162 -2.227  0.372
+Group Var                                3.420    0.325                           
 ==================================================================================
 
 Model type: MixedLM

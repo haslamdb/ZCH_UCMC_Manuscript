@@ -81,7 +81,7 @@ print(f"Final merged dataset shape: {merged_data.shape} with {len(merged_data.in
 categorical_features = [
     "SampleType", "Location", "GestationCohort", "SampleCollectionWeek", 
     "MaternalAntibiotics", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", 
-    "AnyMilk", "PICC", "UVC"
+    "AnyMilk", "PICC", "UVC", "Delivery"
 ]
 
 # Check which features actually exist in the metadata
