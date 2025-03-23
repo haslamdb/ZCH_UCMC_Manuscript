@@ -185,19 +185,57 @@ print(importance)
 write.csv(importance, file = "dbRDA_Importance.csv")
 
 # Create a bar plot of variance explained by each variable
-barplot(importance$Variance_Explained, 
-        names.arg = importance$Variable, 
-        las = 2,  # Rotate labels for better readability
-        cex.names = 0.7,  # Smaller font for variable names
-        main = "Proportion of Constrained Variance Explained by Each Variable")
+# Sort data by Variance_Explained in descending order
+# Sort data by Variance_Explained in descending order (highest values first)
+# Sort data by Variance_Explained in descending order
+importance_sorted <- importance[order(-importance$Variance_Explained),]
 
-# Add significance indicators (p < 0.05)
-significant <- importance$P_value < 0.05
-text(x = seq_along(importance$Variable)[significant] * 1.2 - 0.5, 
-     y = importance$Variance_Explained[significant] + 0.01,
-     labels = "*", 
-     col = "red", 
-     cex = 1.5)
+# Create PDF device
+pdf("results/dbRDA_variance_explained_plot.pdf", width = 10, height = 8)
+
+# Create a horizontal line + dot plot
+# Use reverse ordering for y-axis to get highest values at top
+plot(importance_sorted$Variance_Explained, 
+     seq(nrow(importance_sorted), 1, -1),  # Reverse y-axis ordering
+     xlim = c(0, max(importance_sorted$Variance_Explained) * 1.1),
+     yaxt = "n",  # Hide y-axis, we'll create our own
+     ylab = "",
+     xlab = "Proportion of Variance Explained",
+     main = "Proportion of Constrained Variance Explained by Each Variable",
+     type = "n")  # Don't plot points yet
+
+# Add horizontal lines from y-axis to each point
+segments(0, seq(nrow(importance_sorted), 1, -1), 
+         importance_sorted$Variance_Explained, seq(nrow(importance_sorted), 1, -1),
+         col = "skyblue", lwd = 2)
+
+# Add points for each value
+points(importance_sorted$Variance_Explained, seq(nrow(importance_sorted), 1, -1),
+       pch = 16, col = "blue", cex = 1.5)
+
+# Create y-axis with variable names - now with reversed ordering
+axis(2, at = seq(nrow(importance_sorted), 1, -1), 
+     labels = importance_sorted$Variable, 
+     las = 2, cex.axis = 0.7)
+
+# Add significance indicators - using the reversed y positions
+significant <- importance_sorted$P_value < 0.05
+significant_positions <- which(significant)
+if(length(significant_positions) > 0) {
+  text(importance_sorted$Variance_Explained[significant] + max(importance_sorted$Variance_Explained) * 0.02, 
+       seq(nrow(importance_sorted), 1, -1)[significant_positions], 
+       labels = "*", 
+       col = "red", 
+       cex = 1.5)
+}
+
+# Add grid lines for better readability
+grid(nx = NULL, ny = NULL, lty = 2, col = "lightgray")
+
+# Close the PDF device
+dev.off()
+
+
 # Sort by variance explained (descending)
 importance <- importance[order(-importance$Variance_Explained), ]
 print(importance)
