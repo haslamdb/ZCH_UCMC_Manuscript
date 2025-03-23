@@ -132,90 +132,90 @@ permanova_results = {}
 
 try:
     for feature in available_features:
-    # Drop NAs for the feature being tested
-    valid_samples = merged_data[feature].dropna().index
-    if len(valid_samples) < 5:
-        print(f"Skipping {feature} - not enough valid samples")
-        continue
-    
-    # Make sure valid_samples are all in the distance matrix
-    valid_samples = [sample for sample in valid_samples if sample in distance_matrix.ids]
-    if len(valid_samples) < 5:
-        print(f"Skipping {feature} - not enough samples after filtering for distance matrix")
-        continue
+        # Drop NAs for the feature being tested
+        valid_samples = merged_data[feature].dropna().index
+        if len(valid_samples) < 5:
+            print(f"Skipping {feature} - not enough valid samples")
+            continue
         
-    # Subset distance matrix and grouping variable
-    feature_dm = distance_matrix.filter(valid_samples)
-    grouping = merged_data.loc[valid_samples, feature].astype(str)
-    
-    # Skip if only one unique value
-    if len(grouping.unique()) < 2:
-        print(f"Skipping {feature} - only one unique value")
-        continue
-    
-    try:
-        # Print group information for debugging
-        group_counts = grouping.value_counts()
-        print(f"{feature} groups: {dict(group_counts)}")
-        
-        # Check if we have enough groups and samples
-        if len(group_counts) < 2:
-            print(f"Skipping {feature} - need at least 2 groups, found {len(group_counts)}")
+        # Make sure valid_samples are all in the distance matrix
+        valid_samples = [sample for sample in valid_samples if sample in distance_matrix.ids]
+        if len(valid_samples) < 5:
+            print(f"Skipping {feature} - not enough samples after filtering for distance matrix")
             continue
             
-        if any(count < 3 for count in group_counts):
-            print(f"Warning for {feature} - some groups have fewer than 3 samples")
-            
-        # Check if there's too much imbalance between groups
-        max_count = group_counts.max()
-        min_count = group_counts.min()
-        if max_count / min_count > 10:
-            print(f"Warning for {feature} - highly imbalanced groups (largest/smallest = {max_count/min_count:.1f})")
-            
-        # Run PERMANOVA (default: 999 permutations)
-        result = skbio.stats.distance.permanova(feature_dm, grouping, permutations=999)
+        # Subset distance matrix and grouping variable
+        feature_dm = distance_matrix.filter(valid_samples)
+        grouping = merged_data.loc[valid_samples, feature].astype(str)
         
-        # Print the result structure for debugging
-        print(f"PERMANOVA result keys: {list(result.keys())}")
+        # Skip if only one unique value
+        if len(grouping.unique()) < 2:
+            print(f"Skipping {feature} - only one unique value")
+            continue
         
-        # Calculate R² - adapt based on what's available in the result
-        # For newer scikit-bio versions
-        if 'test statistic' in result and hasattr(result, 'get'):
-            test_stat = result['test statistic']
-            # Different versions of scikit-bio might have different keys for the denominator
-            if 'denominator' in result:
-                denom = result['denominator']
-                r_squared = test_stat / (test_stat + denom)
-            else:
-                # If no denominator is provided, we can calculate R² as the ratio of
-                # the between-group sum of squares to the total sum of squares
-                print(f"Warning: 'denominator' not found in PERMANOVA result for {feature}.")
-                print(f"Using alternative R² calculation method.")
-                # For newer versions, R² might be part of the results
-                if 'R2' in result:
-                    r_squared = result['R2']
+        try:
+            # Print group information for debugging
+            group_counts = grouping.value_counts()
+            print(f"{feature} groups: {dict(group_counts)}")
+            
+            # Check if we have enough groups and samples
+            if len(group_counts) < 2:
+                print(f"Skipping {feature} - need at least 2 groups, found {len(group_counts)}")
+                continue
+                
+            if any(count < 3 for count in group_counts):
+                print(f"Warning for {feature} - some groups have fewer than 3 samples")
+                
+            # Check if there's too much imbalance between groups
+            max_count = group_counts.max()
+            min_count = group_counts.min()
+            if max_count / min_count > 10:
+                print(f"Warning for {feature} - highly imbalanced groups (largest/smallest = {max_count/min_count:.1f})")
+                
+            # Run PERMANOVA (default: 999 permutations)
+            result = skbio.stats.distance.permanova(feature_dm, grouping, permutations=999)
+            
+            # Print the result structure for debugging
+            print(f"PERMANOVA result keys: {list(result.keys())}")
+            
+            # Calculate R² - adapt based on what's available in the result
+            # For newer scikit-bio versions
+            if 'test statistic' in result and hasattr(result, 'get'):
+                test_stat = result['test statistic']
+                # Different versions of scikit-bio might have different keys for the denominator
+                if 'denominator' in result:
+                    denom = result['denominator']
+                    r_squared = test_stat / (test_stat + denom)
                 else:
-                    # As a fallback, we'll use a simple approximation
-                    r_squared = test_stat / (test_stat + 1.0)  # This is a placeholder calculation
-        else:
-            # If the result structure is completely different, we'll use a default value
-            print(f"Warning: Expected keys not found in PERMANOVA result for {feature}.")
-            test_stat = 0.0
-            r_squared = 0.0
-            
-        # Store the results
-        permanova_results[feature] = {
-            'test_statistic': test_stat if 'test statistic' in result else result.get('F', 0.0),
-            'p_value': result['p-value'] if 'p-value' in result else result.get('p', 1.0),
-            'R2': r_squared,
-            'sample_size': len(grouping),
-            'groups': dict(group_counts)
-        }
-        print(f"{feature}: p-value = {result['p-value']:.4f}, R² = {permanova_results[feature]['R2']:.4f}, n={len(grouping)}")
-    except Exception as e:
-        print(f"Error analyzing {feature}: {e}")
-        import traceback
-        traceback.print_exc()
+                    # If no denominator is provided, we can calculate R² as the ratio of
+                    # the between-group sum of squares to the total sum of squares
+                    print(f"Warning: 'denominator' not found in PERMANOVA result for {feature}.")
+                    print(f"Using alternative R² calculation method.")
+                    # For newer versions, R² might be part of the results
+                    if 'R2' in result:
+                        r_squared = result['R2']
+                    else:
+                        # As a fallback, we'll use a simple approximation
+                        r_squared = test_stat / (test_stat + 1.0)  # This is a placeholder calculation
+            else:
+                # If the result structure is completely different, we'll use a default value
+                print(f"Warning: Expected keys not found in PERMANOVA result for {feature}.")
+                test_stat = 0.0
+                r_squared = 0.0
+                
+            # Store the results
+            permanova_results[feature] = {
+                'test_statistic': test_stat if 'test statistic' in result else result.get('F', 0.0),
+                'p_value': result['p-value'] if 'p-value' in result else result.get('p', 1.0),
+                'R2': r_squared,
+                'sample_size': len(grouping),
+                'groups': dict(group_counts)
+            }
+            print(f"{feature}: p-value = {result['p-value']:.4f}, R² = {permanova_results[feature]['R2']:.4f}, n={len(grouping)}")
+        except Exception as e:
+            print(f"Error analyzing {feature}: {e}")
+            import traceback
+            traceback.print_exc()
 
 except KeyboardInterrupt:
     print("\nAnalysis interrupted by user. Saving results collected so far...")
