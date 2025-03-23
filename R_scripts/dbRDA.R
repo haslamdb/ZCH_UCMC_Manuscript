@@ -89,3 +89,5 @@ ggplot(sites_df, aes(x = CAP1, y = CAP2, color = SampleType)) +
   theme_minimal() +
   labs(title = "dbRDA of Microbiome Data (Controlled for Subject)",
        x = "dbRDA1", y = "dbRDA2")
+
+save.image(file = "dbRDA.RData")
