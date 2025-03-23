@@ -6,3 +6,4 @@
 data/raw/*
 credentials.txt
 results/variance_analysis/variance_analysis_results.pkl
+dbRDA.RData

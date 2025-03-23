@@ -32,11 +32,34 @@ species_data <- community_mat[, !colnames(community_mat) %in% c("SampleID", "Sub
 # Make sure the metadata and community matrix are in the same order
 metadata <- metadata[match(sample_ids, metadata$SampleID), ]
 
+# Add these before running the capscale function
+
+# Option 1: Hellinger transformation
+# Good for abundance data, downweights rare species
+species_data_hellinger <- decostand(species_data, method = "hellinger")
+
+# Option 2: CLR (Centered Log-Ratio) transformation
+# For compositional data, handles zero values with pseudocounts
+# First add a small pseudocount to zeros
+species_data_clr <- decostand(species_data + 0.5, method = "clr")
+
+# Option 3: Wisconsin double standardization
+# Commonly used for community data
+species_data_wisconsin <- wisconsin(species_data)
+
+# Option 4: Log transformation
+# Reduces the impact of extremely abundant taxa
+species_data_log <- log1p(species_data)  # log(x+1) to handle zeros
+
+
+
+
+
 ##################################################
 # 4) Run partial dbRDA with capscale to control for Subject
 ##################################################
 # Using Condition(SubjectID) to control for repeated measures
-dbrda_result <- capscale(species_data ~ SampleType + Location + GestationCohort + 
+dbrda_result <- capscale(species_data_hellinger ~ SampleType + Location + GestationCohort + 
                          SampleCollectionWeek + MaternalAntibiotics + PostNatalAbxCohort + 
                          BSI_30D + NEC_30D + AnyMilk + PICC + UVC + Delivery +
                          Condition(Subject), 
@@ -48,6 +71,23 @@ dbrda_result <- capscale(species_data ~ SampleType + Location + GestationCohort 
 ##################################################
 # Print a summary of the dbRDA
 summary(dbrda_result)
+
+# Get a summary of the analysis including residuals information
+summary_result <- summary(dbrda_result)
+print(summary_result)
+
+# Extract the proportion of variation explained vs. residual
+constrained <- sum(dbrda_result$CCA$eig)
+unconstrained <- sum(dbrda_result$CA$eig)
+total <- constrained + unconstrained
+print(paste("Proportion constrained:", round(constrained/total, 4)))
+print(paste("Proportion residual (unexplained):", round(unconstrained/total, 4)))
+
+# Extract residuals distance of each sample from the model
+residuals_dist <- sqrt(rowSums(scores(dbrda_result, display="lc", choices=1:ncol(scores(dbrda_result, display="lc")))^2))
+sample_residuals <- data.frame(SampleID = sample_ids, Residual = residuals_dist)
+sample_residuals <- sample_residuals[order(-sample_residuals$Residual), ]
+head(sample_residuals, 10)  # Show 10 samples with largest residuals
 
 # Test the significance of the model (or each term) via permutation
 # For overall model test
@@ -80,14 +120,110 @@ library(ggrepel)
 sites_df <- as.data.frame(dbRDA_sites)
 sites_df$SampleID <- sample_ids
 sites_df$SubjectID <- metadata$SubjectID
-sites_df$SampleType <- metadata$SampleType  # Add other relevant variables
+sites_df$SampleType <- metadata$SampleType 
+sites_df$SampleCollectionWeek <- metadata$SampleCollectionWeek
+sites_df$Location <- metadata$Location
+
 
 # # Create the plot
-ggplot(sites_df, aes(x = CAP1, y = CAP2, color = SampleType)) +
+ggplot(sites_df, aes(x = CAP1, y = CAP2, color = SampleType, shape = SampleCollectionWeek)) +
   geom_point(size = 3, alpha = 0.7) +
   geom_text_repel(aes(label = SampleID), size = 3) +
   theme_minimal() +
   labs(title = "dbRDA of Microbiome Data (Controlled for Subject)",
        x = "dbRDA1", y = "dbRDA2")
+
+
+# Plot variance partitioning
+# Plot eigenvalues
+
+# 1. Extract the eigenvalues and calculate proportion of variance explained
+eigenvals <- eigenvals(dbrda_result)
+explainedvar <- eigenvals / sum(eigenvals)
+barplot(explainedvar[1:10], names.arg = paste0("Axis ", 1:10),
+        main = "Proportion of Variance Explained by Each Axis")
+
+# 2. Run the permutation test for individual terms
+set.seed(123)  # For reproducibility
+perm_test <- anova(dbrda_result, by="terms", permutations=999)
+print(perm_test)
+
+# 3. Calculate the proportion of constrained variance explained by each variable
+
+# Look at the structure of perm_test to see the actual column names
+print(names(perm_test))
+
+# Check the full output to understand the structure
+print(perm_test)
+
+# Modified approach - using the correct column names
+# Usually the R² or SumOfSqs column represents the variance explained
+importance <- data.frame(
+  Variable = rownames(perm_test)[-nrow(perm_test)],  # Exclude the last row (residual)
+  F_value = perm_test$F[-nrow(perm_test)],
+  P_value = perm_test$`Pr(>F)`[-nrow(perm_test)]
+)
+
+# If SumOfSqs exists, use it as a proxy for variance explained
+if("SumOfSqs" %in% names(perm_test)) {
+  importance$Variance_Explained <- perm_test$SumOfSqs[-nrow(perm_test)] / 
+    sum(perm_test$SumOfSqs[-nrow(perm_test)])
+} else if("R2" %in% names(perm_test)) {
+  importance$Variance_Explained <- perm_test$R2[-nrow(perm_test)] / 
+    sum(perm_test$R2[-nrow(perm_test)])
+} else {
+  # If neither exists, we'll just use F-values as a proxy
+  importance$Variance_Explained <- perm_test$F[-nrow(perm_test)] / 
+    sum(perm_test$F[-nrow(perm_test)])
+  print("Note: Using F-values as proxy for variance explained")
+}
+
+# Sort by variance explained (descending)
+importance <- importance[order(-importance$Variance_Explained), ]
+print(importance)
+
+write.csv(importance, file = "dbRDA_Importance.csv")
+
+# Create a bar plot of variance explained by each variable
+barplot(importance$Variance_Explained, 
+        names.arg = importance$Variable, 
+        las = 2,  # Rotate labels for better readability
+        cex.names = 0.7,  # Smaller font for variable names
+        main = "Proportion of Constrained Variance Explained by Each Variable")
+
+# Add significance indicators (p < 0.05)
+significant <- importance$P_value < 0.05
+text(x = seq_along(importance$Variable)[significant] * 1.2 - 0.5, 
+     y = importance$Variance_Explained[significant] + 0.01,
+     labels = "*", 
+     col = "red", 
+     cex = 1.5)
+# Sort by variance explained (descending)
+importance <- importance[order(-importance$Variance_Explained), ]
+print(importance)
+
+# 4. Create a bar plot of variance explained by each variable
+barplot(importance$Variance_Explained, 
+        names.arg = importance$Variable, 
+        las = 2,  # Rotate labels for better readability
+        cex.names = 0.7,  # Smaller font for variable names
+        main = "Proportion of Constrained Variance Explained by Each Variable")
+
+# 5. For categorical variables with multiple levels, look at scores of centroids
+centroids <- scores(dbrda_result, display = "cn")
+if(!is.null(centroids)) {
+  print("Centroid distances from origin:")
+  # Calculate distance of each centroid from the origin
+  centroid_distances <- sqrt(rowSums(centroids^2))
+  centroid_importance <- data.frame(
+    Level = names(centroid_distances),
+    Distance = centroid_distances
+  )
+  # Sort by distance (descending)
+  centroid_importance <- centroid_importance[order(-centroid_importance$Distance), ]
+  print(centroid_importance)
+}
+
+
 
 save.image(file = "dbRDA.RData")
