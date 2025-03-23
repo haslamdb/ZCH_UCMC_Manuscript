@@ -107,7 +107,6 @@ plt.ylabel("Features")
 plt.title("Top Features Driving Microbiome Differences")
 plt.show()
 
-
 # Create line+dot plot (PyCaret style) for feature importance
 plt.figure(figsize=(12, 8))
 top_n = min(15, len(feature_importances))
@@ -115,29 +114,28 @@ top_features = feature_importances.head(top_n)
 
 # Create horizontal line + dot plot
 plt.hlines(y=range(top_n), 
-            xmin=0, 
-            xmax=top_features["Feature Importance"].values,
-            color="skyblue", 
-            alpha=0.7, 
-            linewidth=2)
+           xmin=0, 
+           xmax=top_features["Importance"].values,  # Changed from "Feature Importance" to "Importance"
+           color="skyblue", 
+           alpha=0.7, 
+           linewidth=2)
 
-plt.plot(top_features["Feature Importance"].values, 
-        range(top_n), 
-        "o", 
-        markersize=10, 
-        color="blue", 
-        alpha=0.8)
+plt.plot(top_features["Importance"].values,  # Changed from "Feature Importance" to "Importance"
+         range(top_n), 
+         "o", 
+         markersize=10, 
+         color="blue", 
+         alpha=0.8)
 
 # Add feature names
 plt.yticks(range(top_n), top_features["Feature"].values)
 plt.xlabel("Feature Importance Score")
-plt.title(f"Clinical Variables Associated with Microbiome Compostion Differences")
+plt.title("Clinical Variables Associated with Microbiome Composition Differences")  # Fixed typo in "Composition"
 
 # Add values next to dots
-for i, importance in enumerate(top_features["Feature Importance"].values):
+for i, importance in enumerate(top_features["Importance"].values):  # Changed from "Feature Importance" to "Importance"
     plt.text(importance + 0.001, i, f"{importance:.4f}", va='center')
     
 plt.tight_layout()
-plt.savefig(f"../results/shap_feature_importance.pdf", bbox_inches="tight")
+plt.savefig("../results/feature_importance_plot.pdf", bbox_inches="tight")  # Changed filename to match content
 plt.close()
-

@@ -32,29 +32,84 @@ def tss_transform(df):
     """
     return df.div(df.sum(axis=1), axis=0)
 
-def vst_transform_r(input_csv, output_csv="microbiome_abundance_vst.csv"):
+def vst_transform_r(df, r_path=None, output_csv="microbiome_abundance_vst.csv"):
     """
     Perform Variance-Stabilizing Transformation (VST) using DESeq2 in R.
     
     Parameters:
-    - input_csv: Path to input CSV file (raw microbiome counts)
+    - df: Pandas DataFrame with microbiome counts
+    - r_path: Path to Rscript executable (e.g., "C:/Program Files/R/R-4.2.2/bin/Rscript.exe")
     - output_csv: Path to output CSV file (VST-transformed data)
 
     Returns:
-    - None (saves transformed data as CSV)
+    - Transformed DataFrame
     """
+    import os
+    import subprocess
+    import tempfile
+    
+    # Save input DataFrame to a temporary CSV
+    temp_dir = tempfile.mkdtemp()
+    input_csv = os.path.join(temp_dir, "temp_input.csv")
+    df.to_csv(input_csv)
+    
+    # Create R script with full path
+    r_script_path = os.path.join(temp_dir, "vst_transform.R")
     r_script = f"""
     library(DESeq2)
     df <- read.csv("{input_csv}", row.names=1)
-    dds <- DESeqDataSetFromMatrix(countData = df, colData = NULL, design = ~ 1)
+    # Convert to integer matrix as required by DESeq2
+    df <- round(as.matrix(df))
+    # Create DESeq2 dataset
+    dds <- DESeqDataSetFromMatrix(countData = df, colData = data.frame(row.names=colnames(df)), design = ~ 1)
+    # Apply VST transformation
     vsd <- varianceStabilizingTransformation(dds)
+    # Save results
     write.csv(assay(vsd), "{output_csv}")
     """
-    with open("vst_transform.R", "w") as f:
+    
+    with open(r_script_path, "w") as f:
         f.write(r_script)
     
-    subprocess.run(["Rscript", "vst_transform.R"], check=True)
-    print(f"VST-transformed data saved to {output_csv}")
+    # Execute R script
+    try:
+        r_command = "Rscript" if r_path is None else r_path
+        cmd = [r_command, r_script_path]
+        
+        # Run the subprocess with full error output
+        process = subprocess.run(
+            cmd, 
+            check=False,  # Don't raise exception yet
+            capture_output=True,
+            text=True
+        )
+        
+        if process.returncode != 0:
+            print(f"R Error Output:\n{process.stderr}")
+            raise RuntimeError(f"R script failed with exit code {process.returncode}")
+            
+        print(f"VST-transformed data saved to {output_csv}")
+        
+        # Read and return the transformed data
+        return pd.read_csv(output_csv, index_col=0)
+        
+    except FileNotFoundError:
+        print("\nERROR: Rscript executable not found! Please provide the full path to Rscript.exe")
+        print("Example usage:")
+        print('vst_transform_r(df, r_path="C:/Program Files/R/R-4.2.2/bin/Rscript.exe")')
+        print("\nAlternative Python-only method:")
+        print("Consider using the Python package 'skbio' for similar transformations:")
+        print("from skbio.stats.composition import clr")
+        print("transformed_data = clr(df + 1)  # CLR transform with pseudocount")
+        return None
+    finally:
+        # Clean up temporary files
+        try:
+            os.remove(input_csv)
+            os.remove(r_script_path)
+            os.rmdir(temp_dir)
+        except:
+            pass  # Ignore cleanup errors
 
 def log_transform(df, pseudocount=1):
     """
