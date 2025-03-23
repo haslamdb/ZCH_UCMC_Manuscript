@@ -302,7 +302,7 @@ if significant_features:
     significant_features_r2_sorted = sorted(
         significant_features,
         key=lambda x: x[2],  # Sort by R² (index 2)
-        reverse=True  # Highest to lowest
+        reverse=False  # Highest to lowest
     )
     
     feature_names = [f[0] for f in significant_features_r2_sorted]
