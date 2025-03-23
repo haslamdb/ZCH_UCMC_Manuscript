@@ -38,7 +38,7 @@ metadata <- metadata[match(sample_ids, metadata$SampleID), ]
 # Using Condition(SubjectID) to control for repeated measures
 dbrda_result <- capscale(species_data ~ SampleType + Location + GestationCohort + 
                          SampleCollectionWeek + MaternalAntibiotics + PostNatalAbxCohort + 
-                         BSI_30D + NEC_30D + AnyMilk + PICC + UVC + 
+                         BSI_30D + NEC_30D + AnyMilk + PICC + UVC + Delivery +
                          Condition(Subject), 
                          data = metadata,
                          distance = "bray")
