@@ -10,39 +10,31 @@ from skbio.stats.distance import DistanceMatrix
 from skbio.stats.composition import clr
 import statsmodels.api as sm
 from statsmodels.formula.api import ols
+import microbiome_transform as mt
 
 # Optional: Set plotting style
 sns.set(style="whitegrid")
 plt.rcParams.update({'font.size': 12})
 
 # Define a function for CLR transformation (in case microbiome_transform module is not available)
-def clr_transform(df):
-    """
-    Centered log-ratio transformation for compositional data
-    Adds a small pseudocount to zeros.
-    """
-    # Add pseudocount to zeros
-    df_pseudo = df.replace(0, np.nextafter(0, 1))
-    # Apply CLR transformation
-    clr_data = clr(df_pseudo.values)
-    return pd.DataFrame(clr_data, index=df.index, columns=df.columns)
+
 
 # Load microbiome abundance data
 print("Loading microbiome data...")
 try:
     # Try with the imported module first
     import microbiome_transform as mt
-    microbiome_df = pd.read_csv("microbiome_abundance.csv", index_col=0)
+    microbiome_df = pd.read_csv("../data/NICUSpeciesReduced.csv", index_col=0)
     microbiome_clr = mt.clr_transform(microbiome_df)
 except (ImportError, NameError):
     # Fall back to our defined function
     print("microbiome_transform module not found, using built-in CLR function")
-    microbiome_df = pd.read_csv("microbiome_abundance.csv", index_col=0)
+    microbiome_df = pd.read_csv("../data/NICUSpeciesReduced.csv", index_col=0)
     microbiome_clr = clr_transform(microbiome_df)
 
 # Load metadata
 print("Loading metadata...")
-metadata_df = pd.read_csv("metadata.csv", index_col=0)
+metadata_df = pd.read_csv("../metadata/AllNICUSampleKey20250206.csv", index_col=0)
 
 # Merge transformed microbiome data and metadata on Sample ID
 print("Merging datasets...")
