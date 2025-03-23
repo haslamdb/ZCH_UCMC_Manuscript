@@ -14,15 +14,47 @@ import seaborn as sns
 import microbiome_transform as mt
 
 # Load microbiome abundance data (rows: samples, columns: species/genus)
-microbiome_df = pd.read_csv("microbiome_abundance.csv", index_col=0)
+def select_best_transformation(df):
+    """
+    Automatically selects the best microbiome transformation based on data properties.
+    
+    Parameters:
+    - df: Pandas DataFrame (raw microbiome count data)
 
-# Load metadata
-metadata_df = pd.read_csv("metadata.csv", index_col=0)
+    Returns:
+    - Transformed DataFrame
+    """
+    zero_fraction = (df == 0).sum().sum() / df.size  # % of zero values
+    total_reads_variation = df.sum(axis=1).std() / df.sum(axis=1).mean()  # Variability in sequencing depth
+
+    if zero_fraction > 0.30:  
+        print("⚠️ High zero fraction detected! Using CLR Transformation.")
+        return mt.clr_transform(df)
+    elif total_reads_variation > 0.5:  
+        print("⚠️ Large sequencing depth variation detected! Applying Rarefaction.")
+        return mt.rarefaction(df)
+    else:
+        print("✅ Data appears normalized, applying Total Sum Scaling (TSS).")
+        return mt.tss_transform(df)
+
+# Load microbiome count data
+microbiome_df = pd.read_csv("../data/NICUSpeciesReduced.csv", index_col=0)
+
+# Auto-select and apply transformation
+microbiome_transformed = select_best_transformation(microbiome_df)
+
+# Load clinical metadata
+metadata_df = pd.read_csv("../metadata/AllNICUSampleKey20250206.csv", index_col=0)
+subject_id_col = "Subject"  
+
+# Check for missing values in metadata
+print(metadata_df.isnull().sum())
+
 
 # transform using CLR, VST, or other method from microbiome_transform module
 microbiome_clr = mt.clr_transform(microbiome_df)
 microbiome_tss = mt.tss_transform(microbiome_df)
-microbiome_vst = mt.vst_transform(microbiome_df)
+microbiome_vst = mt.vst_transform_r(microbiome_df)
 
 # Merge microbiome data and metadata on Sample ID
 # here we're using clr transformed data
@@ -37,10 +69,14 @@ y = bray_curtis_dist[np.triu_indices_from(bray_curtis_dist, k=1)]  # Take upper 
 
 # Prepare metadata for regression (drop body site and postnatal age to remove dominance)
 # predictors = metadata_df.drop(columns=["body_site", "postnatal_age"])  
-predictors = metadata_df # no dropped columns
+
 
 # Encode categorical variables
-categorical_features = ["Location", "SampleType", "SampleCollectionWeek", "GestationCohort", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
+categorical_features = ["SampleType", "Location", "GestationCohort", "SampleCollectionWeek", 
+                        "MaternalAntibiotics", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
+
+predictors = metadata_df[categorical_features]
+
 for col in categorical_features:
     predictors[col] = LabelEncoder().fit_transform(predictors[col])
 
@@ -70,3 +106,38 @@ plt.xlabel("Feature Importance Score")
 plt.ylabel("Features")
 plt.title("Top Features Driving Microbiome Differences")
 plt.show()
+
+
+# Create line+dot plot (PyCaret style) for feature importance
+plt.figure(figsize=(12, 8))
+top_n = min(15, len(feature_importances))
+top_features = feature_importances.head(top_n)
+
+# Create horizontal line + dot plot
+plt.hlines(y=range(top_n), 
+            xmin=0, 
+            xmax=top_features["Feature Importance"].values,
+            color="skyblue", 
+            alpha=0.7, 
+            linewidth=2)
+
+plt.plot(top_features["Feature Importance"].values, 
+        range(top_n), 
+        "o", 
+        markersize=10, 
+        color="blue", 
+        alpha=0.8)
+
+# Add feature names
+plt.yticks(range(top_n), top_features["Feature"].values)
+plt.xlabel("Feature Importance Score")
+plt.title(f"Clinical Variables Associated with Microbiome Compostion Differences")
+
+# Add values next to dots
+for i, importance in enumerate(top_features["Feature Importance"].values):
+    plt.text(importance + 0.001, i, f"{importance:.4f}", va='center')
+    
+plt.tight_layout()
+plt.savefig(f"../results/shap_feature_importance.pdf", bbox_inches="tight")
+plt.close()
+
