@@ -2,13 +2,18 @@
 
 ## Introduction
 
-This repository contains the code and data analysis pipeline for a comparative microbiome study of neonatal intensive care units (NICUs) in Cincinnati and Hangzhou. The project investigates the relationships between infant microbiome composition and various clinical factors, including:
+This repository contains the code and data analysis pipeline for a comparative microbiome study of neonatal intensive care units (NICUs) in Cincinnati and Hangzhou. The project investigates the relationships between epidemiology of bloodstream infections (BSI) and infant microbiome composition and various clinical factors, including:
 
 - Geographic location (Cincinnati vs. Hangzhou)
+- Sample collection site (axilla, groin, stool)
+- Sample collection time (Week 1, Week 3)
 - Antibiotic exposure (postnatal and maternal)
 - Gestational age
-- Sample collection site (axilla, groin, stool)
-- Bloodstream infections
+- Birth mode
+- Breast milk intake
+- Intravenous access method (PICC, UVC, peripheral IV)
+
+
 
 The analysis examines taxonomic composition, diversity metrics, and associations with clinical variables through a combination of statistical approaches and machine learning techniques.
 
@@ -49,7 +54,7 @@ Key steps:
 - Estimates relative abundance with Bracken
 - Organizes outputs into structured directories
 
-The script leverages the kraken_tools pipeline for consistent processing. Output files include taxonomic classifications at different levels (e.g., species, genus) that serve as input for downstream analyses.
+The script leverages the kraken_tools pipeline (https://github.com/haslamdb/kraken_tools) for consistent processing. Output files include taxonomic classifications at different levels (e.g., species, genus) that serve as input for downstream analyses.
 
 ### 2. Core R Analysis Scripts
 
