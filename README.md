@@ -104,7 +104,7 @@ Key analyses:
 - Calculates observed-to-expected ratios for BSI organisms
 - Performs PCA to visualize relationships between BSI organisms and microbiome composition
 - Generates visualizations showing BSI-differential organisms
-- Creates location-specific analyses of Staphylococcus, Klebsiella, and other clinically important organisms
+- Creates location-specific analyses of *Staphylococcus aureus*, *Klebsiella pneumoniae*, and other clinically important organisms
 
 This analysis helps identify connections between bloodstream pathogens and microbiome composition, potentially revealing early warning markers or protective microbial signatures.
 
