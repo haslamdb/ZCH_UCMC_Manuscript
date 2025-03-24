@@ -210,7 +210,7 @@ These visualizations help identify clustering patterns in the data that may not 
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/ZCH_UCMC_Manuscript.git
+   git clone https://github.com/haslamdb/ZCH_UCMC_Manuscript.git
    cd ZCH_UCMC_Manuscript
    ```
 
