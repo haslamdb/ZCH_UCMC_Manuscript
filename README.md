@@ -1,8 +1,16 @@
 # ZCH_UCMC_Manuscript
 
-## Repository for NICU Microbiome Analysis
+## Introduction
 
-This repository contains the code and documentation for microbiome data analysis comparing samples from NICUs in Cincinnati and Hangzhou. Bloodstream microbiology data is compared to microbiome composition. Microbiome analysis examines bacterial composition, diversity metrics, and associations with factors such as antibiotics exposure, gestational age, and sample collection site/timing.
+This repository contains the code and data analysis pipeline for a comparative microbiome study of neonatal intensive care units (NICUs) in Cincinnati and Hangzhou. The project investigates the relationships between infant microbiome composition and various clinical factors, including:
+
+- Geographic location (Cincinnati vs. Hangzhou)
+- Antibiotic exposure (postnatal and maternal)
+- Gestational age
+- Sample collection site (axilla, groin, stool)
+- Bloodstream infections
+
+The analysis examines taxonomic composition, diversity metrics, and associations with clinical variables through a combination of statistical approaches and machine learning techniques.
 
 ## Repository Structure
 
@@ -16,225 +24,182 @@ ZCH_UCMC_Manuscript/
 ├── data/                      # Data directory
 │   └── Kraken2/               # Kraken2 taxonomic classifications
 ├── R_scripts/                 # R analysis scripts
-│   ├── nicu_utils.R           # Utility functions for data analysis and visualization
-│   ├── import_initial_species_analysis.R  # Primary species-level analysis script
-│   ├── bsi_microbiome_comparison.R        # Correlation between BSI microbes and microbiome
-│   └── genus_analysis.R       # Genus-level taxonomic analysis
 ├── python_scripts/            # Python analysis scripts
-│   ├── microbiome_transform.py         # Transformation functions for microbiome data
-│   ├── rf_shap_LMM_analysis.py         # Random Forest and SHAP analysis with mixed effects models
-│   ├── microbiome_shap_analysis_Kfold.py # K-fold cross-validation version of SHAP analysis
-│   ├── feature_selection_rf.py         # Random forest for feature selection
-│   ├── shap_feature_selection.py       # SHAP-based feature importance analysis
-│   ├── tSNE_plot.py                    # t-SNE visualization for microbiome data
-│   └── zero-inflated-glmm.py           # Zero-inflated mixed models for microbiome count data
 ├── bash_scripts/              # Bash processing scripts
-│   └── process_reads.sh       # Process raw reads with Kraken2 and Bracken
 └── results/                   # Analysis results directory
     ├── figures/               # Generated figures
     └── tables/                # Generated data tables
 ```
 
-## Data Processing Pipeline
+## Analysis Pipeline
 
-The analysis pipeline consists of several stages:
+### 1. Raw Data Processing
 
-1. **Raw Data Processing**: Process FASTQ files to filter host DNA and assign taxonomic classifications
-2. **Taxonomic Classification**: Raw sequencing data is processed using Kraken2 to assign taxonomic classifications
-3. **Data Import & Filtering**: Taxonomic data is imported, filtered, and normalized
-4. **Diversity Analysis**: Alpha diversity metrics are calculated and compared across groups
-5. **Differential Abundance Analysis**: Statistical testing to identify differentially abundant taxa
-6. **Ordination Analysis**: PCA and other methods to visualize community similarities/differences
-7. **BSI Correlation Analysis**: Comparison of bloodstream infection data with microbiome composition
-8. **Machine Learning Analysis**: Random Forest and SHAP analysis to identify important clinical features
-9. **Visualization**: Generation of figures for publication
+#### `bash_scripts/process_reads.sh`
 
-## Script Descriptions
+This script processes raw FASTQ sequencing files to prepare them for microbiome analysis:
 
-### R Scripts
+```bash
+bash bash_scripts/process_reads.sh <input_dir> <output_dir> <metadata_file>
+```
 
-#### `nicu_utils.R`
+Key steps:
+- Removes host (human) DNA using kneaddata
+- Performs taxonomic classification with Kraken2
+- Estimates relative abundance with Bracken
+- Organizes outputs into structured directories
 
-This script contains utility functions used throughout the analysis:
+The script leverages the kraken_tools pipeline for consistent processing. Output files include taxonomic classifications at different levels (e.g., species, genus) that serve as input for downstream analyses.
 
-- Color palettes and visualization themes
-- Statistical analysis functions for effect size calculations
-- Data processing functions for normalization and filtering
-- Custom plotting functions and parameters
-- Helper functions for fold change calculations and transformations
+### 2. Core R Analysis Scripts
 
-#### `import_initial_species_analysis.R`
+#### `R_scripts/nicu_utils.R`
 
-This script performs the core analysis of microbiome data from the NICU study at the species level:
+This utility script provides common functions used throughout the R analyses:
 
-- Imports sample metadata and taxonomic abundance data
-- Filters and normalizes species counts
-- Calculates diversity metrics (Shannon, Simpson, etc.)
-- Performs statistical comparisons between groups (location, antibiotics, gestational age)
-- Identifies differentially abundant species
-- Creates publication-quality visualizations
-- Runs ordination analysis to visualize community structure
+- Custom color palettes and visualization themes
+- Statistical functions for effect size calculations
+- Data processing functions (normalization, filtering)
+- Helper functions for fold change calculations
 
-#### `bsi_microbiome_comparison.R`
+This script is sourced by other R scripts and serves as a foundation for consistent analysis approaches.
 
-This script focuses on the relationship between bloodstream infections and microbiome composition:
+#### `R_scripts/import_initial_species_analysis.R`
 
-- Merges BSI (bloodstream infection) data with microbiome data
-- Calculates Bray-Curtis distances between samples
-- Computes observed-to-expected ratios for BSI organisms
-- Performs PCA analysis to visualize similarities/differences
-- Creates heatmaps and boxplots of BSI-differential organisms
-- Conducts statistical tests for BSI-microbiome associations
+This script performs the initial processing and exploratory analysis of microbiome data at the species level:
 
-#### `genus_analysis.R`
+```R
+source("R_scripts/import_initial_species_analysis.R")
+```
 
-This script performs genus-level analysis of the microbiome data:
+Key analyses:
+- Imports and merges sample metadata with Kraken2 taxonomic data
+- Filters and normalizes species abundance data
+- Calculates diversity metrics (Shannon, Simpson, Fisher's alpha)
+- Performs statistical comparisons between groups
+  - Location (Cincinnati vs. Hangzhou)
+  - Antibiotic exposure
+  - Gestational age cohorts
+- Creates diversity visualization plots
+- Performs ordination analyses (PCA) to visualize community structure
 
-- Filters and processes genus-level taxonomy data
-- Runs generalized linear mixed-effects models (GLMM) for various comparisons
+The output includes filtered species tables, diversity metrics for each sample, and visualization files that identify key differences between groups.
+
+#### `R_scripts/bsi_microbiome_comparison.R`
+
+This script focuses on the relationship between bloodstream infections (BSI) and the microbiome:
+
+```R
+source("R_scripts/bsi_microbiome_comparison.R")
+```
+
+Key analyses:
+- Merges BSI data with microbiome species data
+- Computes Bray-Curtis distance matrices to measure sample similarity
+- Calculates observed-to-expected ratios for BSI organisms
+- Performs PCA to visualize relationships between BSI organisms and microbiome composition
+- Generates visualizations showing BSI-differential organisms
+- Creates location-specific analyses of Staphylococcus, Klebsiella, and other clinically important organisms
+
+This analysis helps identify connections between bloodstream pathogens and microbiome composition, potentially revealing early warning markers or protective microbial signatures.
+
+### 3. Machine Learning and Advanced Visualization
+
+#### `python_scripts/rf_shap_LMM_analysis.py`
+
+This script implements a machine learning approach to identify key clinical features associated with microbiome composition:
+
+```bash
+python python_scripts/rf_shap_LMM_analysis.py
+```
+
+Key analyses:
+- Automatically selects appropriate data transformation based on microbiome properties
+- Builds Random Forest regression models to predict organism abundance
+- Calculates SHAP (SHapley Additive exPlanations) values to quantify feature importance
+- Fits mixed-effects models with subject-level random effects to account for repeated measures
+- Visualizes feature importance with SHAP plots
+- Generates summary statistics and effect estimations for clinical variables
+
+This analysis provides interpretable insights into which clinical factors most strongly influence the abundance of specific microbes.
+
+#### `python_scripts/tSNE_plot.py`
+
+This script creates dimensionality reduction visualizations to explore microbiome patterns:
+
+```bash
+python python_scripts/tSNE_plot.py
+```
+
+Key features:
+- Generates t-SNE (t-Distributed Stochastic Neighbor Embedding) plots to visualize high-dimensional data
+- Creates organism-specific visualizations colored by abundance
+- Produces metadata-based visualizations (by sample type, location, etc.)
+- Outputs both individual and combined visualizations in PDF and PNG formats
+- Creates multi-page visualization documents for comprehensive exploration
+
+These visualizations help identify clustering patterns in the data that may not be apparent in traditional statistical analyses.
+
+### 4. Supplementary Analyses
+
+#### Genus-Level Analysis
+
+`R_scripts/genus_analysis.R` - Performs analysis at the genus taxonomic level:
+- Filters and processes genus-level abundance data
+- Runs generalized linear mixed-effects models (GLMM)
 - Analyzes effects of antibiotics, gestational age, and maternal factors
-- Creates genus-specific visualizations
-- Performs PCA analysis for different sample types and conditions
-- Calculates effect sizes and fold changes between groups
+- Calculates effect sizes between comparison groups
 
-### Python Scripts
+#### Cross-Validation and Feature Selection Scripts
 
-#### `microbiome_transform.py`
+- `python_scripts/microbiome_shap_analysis_Kfold.py`: Extends the SHAP analysis with K-fold cross-validation for more robust feature importance
+- `python_scripts/feature_selection_rf.py`: Uses Random Forest for feature selection based on Bray-Curtis distances
+- `python_scripts/shap_feature_selection.py`: Focuses on SHAP-based feature importance for microbiome differences
 
-This module provides functions for transforming microbiome count data:
+#### Advanced Statistical Modeling
 
+`python_scripts/zero-inflated-glmm.py`: Implements zero-inflated generalized linear mixed models:
+- Addresses the high proportion of zeros typical in microbiome data
+- Implements a two-part model (presence/absence + abundance when present)
+- Incorporates subject-level random effects
+- Provides coefficient estimates and significance tests
+
+#### Data Transformation Utilities
+
+`python_scripts/microbiome_transform.py`: Module providing functions for microbiome data transformation:
 - CLR (Centered Log-Ratio) transformation for compositional data
 - TSS (Total Sum Scaling) normalization
 - VST (Variance-Stabilizing Transformation)
 - Log transformation with pseudocount handling
 - Rarefaction (subsampling) to normalize sequencing depth
 
-#### `rf_shap_LMM_analysis.py`
-
-This script performs advanced analysis combining machine learning and mixed-effects models:
-
-- Automatically selects appropriate transformation for microbiome data
-- Implements Random Forest regression for abundance prediction
-- Calculates SHAP (SHapley Additive exPlanations) values to identify important features
-- Fits mixed-effects models with subject-level random effects
-- Creates visualizations of feature importance with SHAP plots
-- Generates summary statistics and effect estimations
-
-#### `microbiome_shap_analysis_Kfold.py`
-
-An extension of the SHAP analysis with K-fold cross-validation:
-
-- Implements K-fold cross-validation for more robust feature importance
-- Aggregates SHAP values across folds to reduce overfitting
-- Includes additional validation steps and model diagnostics
-
-#### `feature_selection_rf.py`
-
-This script uses Random Forest for feature selection in microbiome data:
-
-- Computes Bray-Curtis distances between samples as the response variable
-- Uses feature importance from Random Forest to identify key clinical predictors
-- Creates visualizations of important features driving microbiome differences
-- Includes PyCaret-style line+dot plots for feature importance ranking
-- Handles categorical variables through appropriate encoding
-- Outputs ranked tables of feature importance for downstream analysis
-
-Usage:
-```bash
-python python_scripts/feature_selection_rf.py
-```
-
-Output:
-- `feature_importance_plot.pdf`: Visual representation of clinical variables ranked by importance
-- Console output with diagnostic information on microbiome transformation and model performance
-
-#### `shap_feature_selection.py`
-
-This script focuses on SHAP-based feature importance for microbiome differences:
-
-- Implements SHAP analysis for feature importance
-- Creates summary plots and dependence plots for key features
-- Integrates with distance-based analyses
-
-#### `tSNE_plot.py`
-
-This script generates t-SNE (t-Distributed Stochastic Neighbor Embedding) visualizations for microbiome data:
-
-- Creates 2D projections to visualize high-dimensional microbiome data
-- Generates organism-specific t-SNE plots colored by abundance
-- Creates metadata-based t-SNE visualizations (by sample type, location, etc.)
-- Produces both individual and combined visualization outputs in PDF and PNG formats
-- Handles large datasets efficiently with appropriate perplexity settings
-- Allows customization of plot appearance and coloring schemes
-
-Usage:
-```bash
-python python_scripts/tSNE_plot.py
-```
-
-Output:
-- `tsne_[organism_name].pdf/png`: Individual organism abundance visualizations
-- `tsne_all_key_organisms.pdf/png`: Combined visualization of key organisms
-- `tsne_[metadata_variable].pdf/png`: Visualizations colored by metadata variables
-- `tsne_all_metadata_variables.pdf`: Combined metadata visualization
-- `all_key_organisms_multipage.pdf`: Multi-page PDF with all organism visualizations
-
-#### `zero-inflated-glmm.py`
-
-This script implements zero-inflated generalized linear mixed models for count data:
-
-- Handles the high proportion of zeros typical in microbiome datasets
-- Implements a two-part model (presence/absence + abundance when present)
-- Incorporates subject-level random effects
-- Provides coefficient estimates and significance tests
-- Creates visualizations of model results
-
-### Bash Scripts
-
-#### `process_reads.sh`
-
-This script processes the raw sequencing data:
-
-- Takes raw FASTQ files as input
-- Removes human DNA using kneaddata
-- Performs taxonomic classification using Kraken2
-- Estimates abundance with Bracken
-- Organizes outputs into structured directories
-- Uses the kraken_tools pipeline for consistent processing
-
 ## Dependencies
 
 ### R Packages
-- vegan: For diversity analyses and ordination
-- ggplot2: For creating visualizations
-- reshape2: For data reshaping
-- FactoMineR and factoextra: For PCA and visualization
-- dplyr: For data manipulation
-- sda: For effect size calculations
-- lme4: For mixed-effects models
-- NBZIMM: For zero-inflated negative binomial regression
-- tidyverse: For data wrangling
-- pheatmap: For heatmaps
-- VennDiagram: For creating Venn diagrams
-- EnhancedVolcano: For volcano plots
+- vegan: Ecological diversity analysis and ordination
+- ggplot2: Data visualization
+- FactoMineR and factoextra: PCA and visualization
+- dplyr: Data manipulation
+- lme4: Mixed-effects models
+- NBZIMM: Zero-inflated negative binomial regression
+- tidyverse: Data wrangling
+- pheatmap: Heatmap visualization
 
 ### Python Packages
-- pandas: For data manipulation
-- numpy: For numerical operations
-- scikit-learn: For machine learning models
-- shap: For model interpretability and feature importance
-- statsmodels: For statistical modeling
-- matplotlib and seaborn: For visualization
-- scipy: For scientific computing and statistics
-- sklearn.manifold: For t-SNE implementation
+- pandas: Data manipulation
+- numpy: Numerical operations
+- scikit-learn: Machine learning models
+- shap: Model interpretability and feature importance
+- statsmodels: Statistical modeling
+- matplotlib and seaborn: Visualization
+- scipy: Scientific computing
 
 ### External Tools
-- Kraken2: For taxonomic classification
-- Bracken: For abundance estimation
-- kneaddata: For host DNA removal
-- kraken_tools: For pipeline execution (https://github.com/haslamdb/kraken_tools)
+- Kraken2: Taxonomic classification
+- Bracken: Abundance estimation
+- kneaddata: Host DNA removal
 
-## Usage Instructions
+## Getting Started
 
 ### Setting Up the Repository
 
@@ -253,90 +218,48 @@ This script processes the raw sequencing data:
    - Sample metadata in `metadata/`
    - Kraken2 results in `KrakenAlignments/Kraken2/`
 
-### Running the Analysis
+### Running the Full Analysis Pipeline
 
-1. Process raw reads (if needed):
+1. Process raw reads:
    ```bash
    bash bash_scripts/process_reads.sh <input_dir> <output_dir> <metadata_file>
    ```
 
-2. Run the species-level analysis:
+2. Run species-level analysis:
    ```R
    source("R_scripts/import_initial_species_analysis.R")
    ```
 
-3. Run the BSI-microbiome comparison:
+3. Run BSI-microbiome comparison:
    ```R
    source("R_scripts/bsi_microbiome_comparison.R")
    ```
 
-4. Run the genus-level analysis:
-   ```R
-   source("R_scripts/genus_analysis.R")
-   ```
-
-5. Run the Python-based machine learning analysis:
+4. Run machine learning analysis:
    ```bash
    python python_scripts/rf_shap_LMM_analysis.py
    ```
 
-6. Generate feature importance rankings:
-   ```bash
-   python python_scripts/feature_selection_rf.py
-   ```
-
-7. Create t-SNE visualizations:
+5. Generate t-SNE visualizations:
    ```bash
    python python_scripts/tSNE_plot.py
    ```
 
-8. Transform microbiome data using the transformation module:
-   ```python
-   import microbiome_transform as mt
-   # Example usage
-   transformed_data = mt.clr_transform(microbiome_df)
+6. Run additional analyses as needed:
+   ```R
+   source("R_scripts/genus_analysis.R")
    ```
-
-### Interpreting Results
-
-The analysis generates several key results:
-
-1. **Diversity Analysis**: Comparison of microbial diversity between different locations, antibiotic exposures, and gestational age groups
-2. **Taxonomic Differences**: Identification of bacterial species that differ significantly between groups
-3. **Community Structure**: PCA and t-SNE visualizations showing similarities and differences in microbial communities
-4. **BSI Correlations**: Analysis of relationships between bloodstream infections and microbiome composition
-5. **Effect Size Analysis**: Quantification of the magnitude of differences between comparison groups
-6. **Feature Importance**: SHAP and Random Forest analyses highlighting key clinical predictors of microbiome composition
-7. **Mixed Effects Models**: Statistical models accounting for subject-level random effects
+   
+   ```bash
+   python python_scripts/feature_selection_rf.py
+   python python_scripts/zero-inflated-glmm.py
+   ```
 
 ## License
 
-MIT License
-
-Copyright (c) 2025 David Haslam
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-## Citation
-
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contact
 
-dbhaslam@interface-labs.com
+dbhaslam@interface-labs.com  
 david.haslam@cchmc.org
