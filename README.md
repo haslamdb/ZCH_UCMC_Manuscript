@@ -1,270 +1,312 @@
-# Analysis of ZCH and UCMC BSI-Microbiome Associations
+# Kraken Tools
 
-## Introduction
+A comprehensive Python package for analyzing taxonomic profiles from Kraken2 and Bracken, with tools for data processing, statistical analysis, and visualization.
 
-This repository contains the code and data analysis pipeline for a comparative microbiome study of neonatal intensive care units (NICUs) in Cincinnati and Hangzhou. The project investigates the relationships between epidemiology of bloodstream infections (BSI) and infant microbiome composition and various clinical factors, including:
+## Overview
 
-- Geographic location (Cincinnati vs. Hangzhou)
-- Sample collection site (axilla, groin, stool)
-- Sample collection time (Week 1, Week 3)
-- Antibiotic exposure (postnatal and maternal)
-- Gestational age
-- Birth mode
-- Breast milk intake
-- Intravenous access method (PICC, UVC, peripheral IV)
+Kraken Tools provides an end-to-end solution for microbiome analysis:
 
+1. **Preprocessing**: Run quality control and host depletion with KneadData
+2. **Taxonomic Classification**: Process sequences through Kraken2 and estimate abundances with Bracken
+3. **Data Processing**: Merge, normalize, and filter taxonomic abundance data
+4. **Exploratory Analysis**: Alpha/beta diversity, taxonomic visualization, PCA/PCoA analysis
+5. **Differential Analysis**: Multiple methods for identifying significant differences between groups
+   - PERMANOVA analysis for community-level differences
+   - ALDEx2, ANCOM, ANCOM-BC for taxon-level differences
+   - Feature selection with Random Forest
+6. **Advanced Modeling**:
+   - GLMM (Generalized Linear Mixed Models) for complex experimental designs
+   - Random Forest with SHAP values for feature importance
+   - Linear Mixed Models for specific taxa
 
+## Installation
 
-The analysis examines taxonomic composition, diversity metrics, and associations with clinical variables through a combination of statistical approaches and machine learning techniques.
-
-## Repository Structure
-
-```
-ZCH_UCMC_Manuscript/
-├── README.md                  # This file
-├── metadata/                  # Metadata directory
-│   ├── AllNICUSampleKeyRevised*.csv   # Sample metadata
-│   ├── BSIData*.csv                   # Bloodstream infection count data
-│   └── HumanReactiveKraken2.csv       # Human reactive species list
-├── data/                      # Data directory
-│   └── Kraken2/               # Kraken2 taxonomic classifications
-├── R_scripts/                 # R analysis scripts
-├── python_scripts/            # Python analysis scripts
-├── bash_scripts/              # Bash processing scripts
-└── results/                   # Analysis results directory
-    ├── figures/               # Generated figures
-    └── tables/                # Generated data tables
-```
-
-## Analysis Pipeline
-
-### 1. Raw Data Processing
-
-#### `bash_scripts/process_reads.sh`
-
-This script processes raw FASTQ sequencing files to prepare them for microbiome analysis:
+### Conda Environment Setup (Recommended)
 
 ```bash
-bash bash_scripts/process_reads.sh <input_dir> <output_dir> <metadata_file>
+# Clone the repository
+git clone https://github.com/haslamdb/kraken_tools.git
+cd kraken_tools
+
+# Create a Conda environment
+conda create -n kraken_tools python=3.12 -y
+conda activate kraken_tools
+
+# Install dependencies
+conda install -c conda-forge -c bioconda pandas numpy scipy scikit-bio scikit-learn scikit-posthocs statsmodels matplotlib seaborn matplotlib-venn tqdm psutil shap
+conda install -c bioconda kraken2 bracken kneaddata
+
+# Install the package
+pip install -e .
 ```
 
-Key steps:
-- Removes host (human) DNA using kneaddata
-- Performs taxonomic classification with Kraken2
-- Estimates relative abundance with Bracken
-- Organizes outputs into structured directories
-
-The script leverages the kraken_tools pipeline (https://github.com/haslamdb/kraken_tools) for consistent processing. Output files include taxonomic classifications at different levels (e.g., species, genus) that serve as input for downstream analyses.
-
-### 2. Core R Analysis Scripts
-
-#### `R_scripts/nicu_utils.R`
-
-This utility script provides common functions used throughout the R analyses:
-
-- Custom color palettes and visualization themes
-- Statistical functions for effect size calculations
-- Data processing functions (normalization, filtering)
-- Helper functions for fold change calculations
-
-This script is sourced by other R scripts and serves as a foundation for consistent analysis approaches.
-
-#### `R_scripts/import_initial_species_analysis.R`
-
-This script performs the initial processing and exploratory analysis of microbiome data at the species level:
-
-```R
-source("R_scripts/import_initial_species_analysis.R")
-```
-
-Key analyses:
-- Imports and merges sample metadata with Kraken2 taxonomic data
-- Filters and normalizes species abundance data
-- Calculates diversity metrics (Shannon, Simpson, Fisher's alpha)
-- Performs statistical comparisons between groups
-  - Location (Cincinnati vs. Hangzhou)
-  - Antibiotic exposure
-  - Gestational age cohorts
-- Creates diversity visualization plots
-- Performs ordination analyses (PCA) to visualize community structure
-
-The output includes filtered species tables, diversity metrics for each sample, and visualization files that identify key differences between groups.
-
-#### `R_scripts/bsi_microbiome_comparison.R`
-
-This script focuses on the relationship between bloodstream infections (BSI) and the microbiome:
-
-```R
-source("R_scripts/bsi_microbiome_comparison.R")
-```
-
-Key analyses:
-- Merges BSI data with microbiome species data
-- Computes Bray-Curtis distance matrices to measure sample similarity
-- Calculates observed-to-expected ratios for BSI organisms
-- Performs PCA to visualize relationships between BSI organisms and microbiome composition
-- Generates visualizations showing BSI-differential organisms
-- Creates location-specific analyses of *Staphylococcus aureus*, *Klebsiella pneumoniae*, and other clinically important organisms
-
-This analysis helps identify connections between bloodstream pathogens and microbiome composition, potentially revealing early warning markers or protective microbial signatures.
-
-### 3. Machine Learning and Advanced Visualization
-
-#### `python_scripts/rf_shap_LMM_analysis.py`
-
-This script implements a machine learning approach to identify key clinical features associated with microbiome composition:
+### Standard Installation
 
 ```bash
-python python_scripts/rf_shap_LMM_analysis.py
+# Install directly using pip (once published to PyPI)
+pip install kraken-tools
+
+# Note: External tools (Kraken2, Bracken, KneadData) must be installed separately
 ```
 
-Key analyses:
-- Automatically selects appropriate data transformation based on microbiome properties
-- Builds Random Forest regression models to predict organism abundance
-- Calculates SHAP (SHapley Additive exPlanations) values to quantify feature importance
-- Fits mixed-effects models with subject-level random effects to account for repeated measures
-- Visualizes feature importance with SHAP plots
-- Generates summary statistics and effect estimations for clinical variables
+## Workflow Overview
 
-This analysis provides interpretable insights into which clinical factors most strongly influence the abundance of specific microbes.
+![Workflow Diagram](docs/workflow-diagram.png)
 
-#### `python_scripts/tSNE_plot.py`
+## Command-Line Usage
 
-This script creates dimensionality reduction visualizations to explore microbiome patterns:
+### 1. Full Pipeline (Raw Reads to Analysis)
+
+Run the complete analysis pipeline in one command:
 
 ```bash
-python python_scripts/tSNE_plot.py
+kraken-tools full-pipeline \
+    --input-fastq reads_1.fastq.gz reads_2.fastq.gz \
+    --paired \
+    --kneaddata-dbs /path/to/kneaddata_db \
+    --kraken-db /path/to/kraken_db \
+    --bracken-db /path/to/kraken_db/database150mers.kmer_distrib \
+    --sample-key metadata.csv \
+    --output-dir results/ \
+    --group-col "Group" \
+    --min-abundance 0.01 \
+    --min-prevalence 0.1 \
+    --threads 8
 ```
 
-Key features:
-- Generates t-SNE (t-Distributed Stochastic Neighbor Embedding) plots to visualize high-dimensional data
-- Creates organism-specific visualizations colored by abundance
-- Produces metadata-based visualizations (by sample type, location, etc.)
-- Outputs both individual and combined visualizations in PDF and PNG formats
-- Creates multi-page visualization documents for comprehensive exploration
+### 2. Step by Step Analysis
 
-These visualizations help identify clustering patterns in the data that may not be apparent in traditional statistical analyses.
+#### Step 1: Preprocessing with KneadData
 
-### 4. Supplementary Analyses
+Quality control and host sequence removal:
 
-#### Genus-Level Analysis
+```bash
+kraken-tools preprocess \
+    --input-fastq reads_1.fastq.gz reads_2.fastq.gz \
+    --paired \
+    --kneaddata-dbs /path/to/kneaddata_db \
+    --output-dir results/preprocessed/ \
+    --threads 8
+```
 
-`R_scripts/genus_analysis.R` - Performs analysis at the genus taxonomic level:
-- Filters and processes genus-level abundance data
-- Runs generalized linear mixed-effects models (GLMM)
-- Analyzes effects of antibiotics, gestational age, and maternal factors
-- Calculates effect sizes between comparison groups
+#### Step 2: Taxonomic Classification (Kraken2 + Bracken)
 
-#### Cross-Validation and Feature Selection Scripts
+Classify sequences and estimate abundances:
 
-- `python_scripts/microbiome_shap_analysis_Kfold.py`: Extends the SHAP analysis with K-fold cross-validation for more robust feature importance
-- `python_scripts/feature_selection_rf.py`: Uses Random Forest for feature selection based on Bray-Curtis distances
-- `python_scripts/shap_feature_selection.py`: Focuses on SHAP-based feature importance for microbiome differences
+```bash
+kraken-tools classify \
+    --input-fastq clean_reads.fastq \
+    --kraken-db /path/to/kraken_db \
+    --bracken-db /path/to/kraken_db/database150mers.kmer_distrib \
+    --output-dir results/taxonomy/ \
+    --taxonomic-level S \
+    --threads 8
+```
 
-#### Advanced Statistical Modeling
+#### Step 3: Data Processing
 
-`python_scripts/zero-inflated-glmm.py`: Implements zero-inflated generalized linear mixed models:
-- Addresses the high proportion of zeros typical in microbiome data
-- Implements a two-part model (presence/absence + abundance when present)
-- Incorporates subject-level random effects
-- Provides coefficient estimates and significance tests
+Merge, normalize, and filter abundance data:
 
-#### Data Transformation Utilities
+```bash
+kraken-tools process \
+    --kreport-dir kraken_reports/ \
+    --bracken-dir bracken_files/ \
+    --sample-key metadata.csv \
+    --output-dir results/processed/ \
+    --min-abundance 0.01 \
+    --min-prevalence 0.1
+```
 
-`python_scripts/microbiome_transform.py`: Module providing functions for microbiome data transformation:
-- CLR (Centered Log-Ratio) transformation for compositional data
-- TSS (Total Sum Scaling) normalization
-- VST (Variance-Stabilizing Transformation)
-- Log transformation with pseudocount handling
-- Rarefaction (subsampling) to normalize sequencing depth
+#### Step 4: Exploratory Analysis
 
-## Dependencies
+Basic taxonomic and diversity analysis:
 
-### R Packages
-- vegan: Ecological diversity analysis and ordination
-- ggplot2: Data visualization
-- FactoMineR and factoextra: PCA and visualization
-- dplyr: Data manipulation
-- lme4: Mixed-effects models
-- NBZIMM: Zero-inflated negative binomial regression
-- tidyverse: Data wrangling
-- pheatmap: Heatmap visualization
+```bash
+kraken-tools analyze \
+    --abundance-file processed_abundance.tsv \
+    --sample-key metadata.csv \
+    --output-dir results/analysis/ \
+    --group-col "Group"
+```
 
-### Python Packages
-- pandas: Data manipulation
-- numpy: Numerical operations
-- scikit-learn: Machine learning models
-- shap: Model interpretability and feature importance
-- statsmodels: Statistical modeling
-- matplotlib and seaborn: Visualization
-- scipy: Scientific computing
+#### Step 5: Differential Abundance Testing
 
-### External Tools
-- Kraken2: Taxonomic classification
-- Bracken: Abundance estimation
-- kneaddata: Host DNA removal
+Multiple methods for identifying significant taxa:
 
-## Getting Started
+```bash
+kraken-tools diff-abundance \
+    --abundance-file processed_abundance.tsv \
+    --sample-key metadata.csv \
+    --output-dir results/diff_abundance/ \
+    --group-col "Group" \
+    --methods aldex2,ancom,ancom-bc
+```
 
-### Setting Up the Repository
+#### Step 6: PERMANOVA Analysis
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/haslamdb/ZCH_UCMC_Manuscript.git
-   cd ZCH_UCMC_Manuscript
-   ```
+Test for overall community differences:
 
-2. Create the required directory structure:
-   ```bash
-   mkdir -p data results/figures results/tables KrakenAlignments/Kraken2
-   ```
+```bash
+kraken-tools permanova \
+    --abundance-file processed_abundance.tsv \
+    --sample-key metadata.csv \
+    --output-dir results/permanova/ \
+    --group-col "Group" \
+    --categorical-vars "Treatment,TimePoint" \
+    --distance-metric "bray"
+```
 
-3. Place your input data in the appropriate directories:
-   - Sample metadata in `metadata/`
-   - Kraken2 results in `KrakenAlignments/Kraken2/`
+#### Step 7: Feature Selection with Random Forest
 
-### Running the Full Analysis Pipeline
+Identify important variables driving microbiome differences:
 
-1. Process raw reads:
-   ```bash
-   bash bash_scripts/process_reads.sh <input_dir> <output_dir> <metadata_file>
-   ```
+```bash
+kraken-tools feature-selection \
+    --abundance-file processed_abundance.tsv \
+    --sample-key metadata.csv \
+    --output-dir results/feature_selection/ \
+    --predictors "Treatment,TimePoint,Subject,Age" \
+    --n-estimators 100
+```
 
-2. Run species-level analysis:
-   ```R
-   source("R_scripts/import_initial_species_analysis.R")
-   ```
+#### Step 8: GLMM Analysis
 
-3. Run BSI-microbiome comparison:
-   ```R
-   source("R_scripts/bsi_microbiome_comparison.R")
-   ```
+Complex modeling with mixed effects:
 
-4. Run machine learning analysis:
-   ```bash
-   python python_scripts/rf_shap_LMM_analysis.py
-   ```
+```bash
+kraken-tools glmm \
+    --abundance-file processed_abundance.tsv \
+    --sample-key metadata.csv \
+    --output-dir results/glmm/ \
+    --formula "Count ~ Group + (1|Subject)" \
+    --model negbin
+```
 
-5. Generate t-SNE visualizations:
-   ```bash
-   python python_scripts/tSNE_plot.py
-   ```
+#### Step 9: Random Forest with SHAP Analysis
 
-6. Run additional analyses as needed:
-   ```R
-   source("R_scripts/genus_analysis.R")
-   ```
-   
-   ```bash
-   python python_scripts/feature_selection_rf.py
-   python python_scripts/zero-inflated-glmm.py
-   ```
+Detailed feature importance analysis for specific taxa:
+
+```bash
+kraken-tools rf-shap \
+    --abundance-file processed_abundance.tsv \
+    --sample-key metadata.csv \
+    --output-dir results/rf_shap/ \
+    --target-taxa "Bacteroides.fragilis,Escherichia.coli" \
+    --predictors "Treatment,TimePoint,Age" \
+    --random-effects "Subject"
+```
+
+## Sample Key Format
+
+The sample key CSV file should contain:
+
+- A column with sample identifiers matching the file names in the input directories
+- Additional columns for grouping and metadata
+
+**Example**:
+```csv
+SampleName,Group,Treatment,TimePoint,Subject
+sample1,Control,Placebo,Day0,Subject1
+sample2,Treatment,Drug,Day0,Subject2
+sample3,Control,Placebo,Day7,Subject1
+sample4,Treatment,Drug,Day7,Subject2
+```
+
+## Output Structure
+
+The output directory will have the following structure:
+
+```
+output_dir/
+├── PreprocessedData/            # KneadData results
+│   └── kneaddata_output/        # Clean reads after host removal
+├── TaxonomyData/                # Taxonomic classification results
+│   ├── kraken_reports/          # Kraken2 reports
+│   └── bracken_output/          # Bracken abundance files
+├── ProcessedData/               # Processed abundance data
+│   ├── KrakenProcessed/         # Processed Kraken reports
+│   └── BrackenProcessed/        # Processed Bracken files
+├── ExploratoryAnalysis/         # Basic analysis results
+│   ├── taxonomy_heatmap.svg     # Taxonomic heatmap
+│   ├── taxonomy_pca.svg         # PCA/PCoA plots
+│   └── diversity/               # Alpha/beta diversity
+├── DifferentialAbundance/       # Differential abundance results
+│   ├── aldex2_results.csv       # ALDEx2 results
+│   ├── ancom_results.csv        # ANCOM results
+│   └── ancom_bc_results.csv     # ANCOM-BC results
+├── PERMANOVA/                   # PERMANOVA analysis
+│   ├── permanova_results.csv    # Statistical results
+│   └── pcoa_plots/              # PCoA visualization
+├── FeatureSelection/            # Random Forest results
+│   ├── feature_importance.pdf   # Feature importance plots
+│   └── feature_importance.csv   # Feature ranking data
+├── GLMM/                        # GLMM analysis results
+│   ├── glmm_results.csv         # Model results
+│   └── coefficient_plots/       # Coefficient visualizations
+└── RF_SHAP/                     # Random Forest with SHAP
+    ├── shap_summary/            # SHAP summary plots
+    └── mixed_models/            # Linear mixed model results
+```
+
+## Python API Usage
+
+For more flexibility, you can use the Python API:
+
+```python
+from kraken_tools import run_full_pipeline
+
+# Run complete analysis
+abundance_file, success = run_full_pipeline(
+    sample_key="metadata.csv",
+    kreport_dir="kraken_reports/",
+    bracken_dir="bracken_files/",
+    output_dir="results/",
+    group_col="Group",
+    min_abundance=0.01,
+    min_prevalence=0.1,
+    log_file="kraken_analysis.log"
+)
+
+# Run differential abundance analysis
+from kraken_tools.analysis.differential import run_differential_abundance_analysis
+
+results = run_differential_abundance_analysis(
+    abundance_df=abundance_df,
+    metadata_df=metadata_df,
+    output_dir="diff_abundance/",
+    group_col="Group",
+    methods=["aldex2", "ancom-bc"],
+    logger=logger
+)
+```
+
+## Detailed Documentation
+
+For more detailed information on each analysis step, see the individual documentation files:
+
+- [Preprocessing with KneadData](docs/preprocessing.md)
+- [Taxonomic Classification](docs/taxonomy_classification.md)
+- [Data Processing](docs/data_processing.md)
+- [Exploratory Analysis](docs/exploratory_analysis.md)
+- [Differential Abundance Analysis](docs/differential_abundance.md)
+- [PERMANOVA Analysis](docs/permanova.md)
+- [Feature Selection](docs/feature_selection.md)
+- [GLMM Analysis](docs/glmm_analysis.md)
+- [Random Forest with SHAP](docs/rf_shap_analysis.md)
+
+## Troubleshooting
+
+See the [Troubleshooting Guide](docs/troubleshooting.md) for common issues and solutions.
+
+## Citation
+
+If you use Kraken Tools in your research, please cite:
+
+- The original Kraken2 paper: Wood DE, Lu J, Langmead B. Improved metagenomic analysis with Kraken 2. Genome Biol. 2019;20:257.
+- Bracken: Lu J, Breitwieser FP, Thielen P, Salzberg SL. Bracken: estimating species abundance in metagenomics data. PeerJ Comput Sci. 2017;3:e104.
+- KneadData: McIver LJ, et al. bioBakery: a meta'omic analysis environment. Bioinformatics. 2018;34(7):1235-1237.
+- This tool: Haslam D. (2025). Kraken Tools: A comprehensive framework for taxonomic analysis.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-dbhaslam@interface-labs.com  
-david.haslam@cchmc.org
+This project is licensed under the MIT License - see the LICENSE file for details.

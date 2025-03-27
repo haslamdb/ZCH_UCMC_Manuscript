@@ -23,7 +23,7 @@ subject_id_col = "Subject"
 print(metadata_df.isnull().sum())
 
 categorical_features = ["SampleType", "Location", "GestationCohort", "SampleCollectionWeek", 
-                        "MaternalAntibiotics", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC"]
+                        "MaternalAntibiotics", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", "PICC", "UVC", "BirthMode"]
 
 # Keep only required columns
 metadata_df = metadata_df[categorical_features + [subject_id_col]]
@@ -40,7 +40,8 @@ print(f"Data Shape After Merge: {data.shape}")
 # List of microbes to analyze
 key_organisms = ["Klebsiella.pneumoniae", "Staphylococcus.aureus", "Escherichia.coli", "Klebsiella.oxytoca",
                  "Staphylococcus.epidermidis", "Streptococcus.pyogenes", "Staphylococcs.capitus", 
-                 "Enterococcus.faecium", "Enterococcus.faecalis", "Serratia.marcescens", "Listeria monocytogenes"]
+                 "Enterococcus.faecium", "Enterococcus.faecalis", "Serratia.marcescens", "Listeria monocytogenes",
+                 "Corynebacterium.aurimucosum", "Corynebacterium.pseudogenitalium"]
 
 
 import pandas as pd

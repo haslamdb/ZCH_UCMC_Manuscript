@@ -64,7 +64,8 @@ print(f"Data Shape After Merge: {data.shape}")
 # List of microbes to analyze
 key_organisms = ["Klebsiella.pneumoniae", "Staphylococcus.aureus", "Escherichia.coli", "Klebsiella.oxytoca",
                  "Staphylococcus.epidermidis", "Streptococcus.pyogenes", "Staphylococcs.capitis", 
-                 "Enterococcus.faecium", "Enterococcus.faecalis", "Serratia.marcescens", "Listeria monocytogenes"]
+                 "Enterococcus.faecium", "Enterococcus.faecalis", "Serratia.marcescens", "Listeria monocytogenes",
+                 "Corynebacterium.aurimucosum", "Corynebacterium.pseudogenitalium"]
 
 # Store results for all microbes
 all_shap_importance = []
