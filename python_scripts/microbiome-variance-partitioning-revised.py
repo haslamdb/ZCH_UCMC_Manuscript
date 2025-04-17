@@ -326,6 +326,140 @@ def run_permanova(distance_matrix, metadata, formula, permutations=999):
                 raise ValueError("Could not run PERMANOVA analysis after multiple attempts")
 
 
+
+def lmm_on_microbiome_principal_components(microbiome_df, metadata_df, n_components=3):
+    """
+    Apply Linear Mixed Model to principal components of microbiome data.
+    
+    Parameters:
+    - microbiome_df: DataFrame with microbiome abundance data (normalized)
+    - metadata_df: DataFrame with sample metadata
+    - n_components: Number of principal components to analyze (default: 3)
+    
+    Returns:
+    - Dictionary of LMM results for each principal component
+    """
+    from sklearn.decomposition import PCA
+    import statsmodels.formula.api as smf
+    
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    print(f"Using {len(common_samples)} samples with both microbiome and metadata")
+    
+    # Perform PCA on the microbiome data
+    pca = PCA(n_components=n_components)
+    pca_result = pca.fit_transform(microbiome_df)
+    
+    # Create a DataFrame with PC scores
+    pc_df = pd.DataFrame(
+        pca_result, 
+        index=microbiome_df.index,
+        columns=[f"PC{i+1}" for i in range(n_components)]
+    )
+    
+    # Report variance explained
+    print("Variance explained by each PC:")
+    for i, var in enumerate(pca.explained_variance_ratio_):
+        print(f"  PC{i+1}: {var:.2%}")
+    
+    # Combine PC scores with metadata
+    combined_df = pd.merge(pc_df, metadata_df, left_index=True, right_index=True)
+    
+    # Define the categorical features to include in the model
+    categorical_features = [
+        "Location", "SampleType", "SampleCollectionWeek", 
+        "GestationCohort", "PostNatalAbxCohort", 
+        "MaternalAntibiotics", "AnyMilk", "PICC", "UVC", "Delivery"
+    ]
+    
+    # Filter to features that exist in the data
+    model_features = [feat for feat in categorical_features if feat in combined_df.columns]
+    
+    # Add Subject ID for random effects
+    if "Subject" in combined_df.columns:
+        subject_col = "Subject"
+    else:
+        # Look for similar column names
+        subject_candidates = [col for col in combined_df.columns if "subject" in col.lower()]
+        subject_col = subject_candidates[0] if subject_candidates else None
+    
+    # Store results for each PC
+    lmm_results = {}
+    
+    # Run LMM for each principal component
+    for pc in pc_df.columns:
+        print(f"\nFitting LMM for {pc}:")
+        
+        # Create formula with fixed effects
+        formula_parts = []
+        for feat in model_features:
+            # For categorical variables, use C() notation
+            if combined_df[feat].dtype == 'object' or combined_df[feat].dtype.name == 'category':
+                formula_parts.append(f"C({feat})")
+            else:
+                formula_parts.append(feat)
+        
+        formula = f"{pc} ~ {' + '.join(formula_parts)}"
+        print(f"Formula: {formula}")
+        
+        # If we have a subject column, add random effects
+        if subject_col:
+            try:
+                # Fit mixed model
+                model = smf.mixedlm(formula, combined_df, groups=combined_df[subject_col])
+                result = model.fit()
+                print(f"Successfully fit mixed model with random effects for {subject_col}")
+            except Exception as e:
+                print(f"Error fitting mixed model: {e}")
+                print("Falling back to OLS without random effects")
+                result = smf.ols(formula, combined_df).fit()
+        else:
+            # If no subject column, use OLS
+            print("No subject column found. Using OLS without random effects.")
+            result = smf.ols(formula, combined_df).fit()
+            
+        print(result.summary())
+        
+        # Extract and store coefficients
+        coefs = pd.DataFrame({
+            'Variable': result.params.index,
+            'Coefficient': result.params.values,
+            'P-value': result.pvalues.values,
+            'Significant': result.pvalues < 0.05
+        })
+        
+        # Sort by p-value
+        coefs = coefs.sort_values('P-value')
+        
+        # Save to results
+        lmm_results[pc] = {
+            'model': result,
+            'coefficients': coefs,
+            'r_squared': result.rsquared if hasattr(result, 'rsquared') else None,
+            'aic': result.aic if hasattr(result, 'aic') else None
+        }
+        
+        # Save coefficients to CSV
+        coefs.to_csv(f"lmm_coefficients_{pc}.csv", index=False)
+        
+        # Create coefficient plot
+        plt.figure(figsize=(10, 8))
+        significant_vars = coefs[coefs['Significant']]
+        if len(significant_vars) > 0:
+            # Plot only significant variables
+            sns.barplot(x='Coefficient', y='Variable', data=significant_vars, palette='viridis')
+            plt.title(f'Significant Variables for {pc}')
+            plt.tight_layout()
+            plt.savefig(f"lmm_coefficients_{pc}_plot.png", dpi=300, bbox_inches='tight')
+            plt.close()
+    
+    return lmm_results
+
+
+
 def run_db_rda(distance_matrix, metadata, formula, permutations=999):
     """
     Run distance-based Redundancy Analysis (db-RDA).
@@ -939,3 +1073,39 @@ if __name__ == "__main__":
     )
     
     print("Analysis complete! Results saved to 'results/variance_analysis' directory.")
+    
+    # ADD THE NEW LMM ANALYSIS HERE:
+    print("\nRunning LMM analysis on the entire microbiome community...")
+    
+    # Get the normalized microbiome data from the results
+    normalized_df = results["normalized_df"]
+    
+    # Run LMM on principal components
+    lmm_results = lmm_on_microbiome_principal_components(
+        microbiome_df=normalized_df,
+        metadata_df=metadata_df,
+        n_components=5
+    )
+    
+    # Save the full results object
+    with open("results/variance_analysis/lmm_microbiome_community_results.pkl", "wb") as f:
+        pickle.dump(lmm_results, f)
+    
+    # Create a summary table of key results
+    summary_rows = []
+    for pc, results in lmm_results.items():
+        # Get top 3 significant predictors
+        top_predictors = results['coefficients'][results['coefficients']['Significant']]
+        top_3 = top_predictors.head(3)['Variable'].tolist() if len(top_predictors) > 0 else []
+        
+        summary_rows.append({
+            'PC': pc,
+            'R-squared': results['r_squared'],
+            'AIC': results['aic'],
+            'Significant Variables': len(top_predictors),
+            'Top Predictors': ', '.join(top_3)
+        })
+    
+    summary_df = pd.DataFrame(summary_rows)
+    summary_df.to_csv("results/variance_analysis/lmm_microbiome_community_summary.csv", index=False)
+    print("\nLMM analysis complete! Results saved to CSV files and plots.")
