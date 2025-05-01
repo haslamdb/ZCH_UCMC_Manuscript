@@ -204,7 +204,8 @@ if __name__ == "__main__":
     os.makedirs("results/network_plots", exist_ok=True)
     
     # Load LMM results
-    results_file = "results/variance_analysis/lmm_microbiome_community_results.pkl"
+    # results_file = "results/variance_analysis/lmm_microbiome_community_results.pkl"
+    results_file = "results/variance_analysis/variance_analysis_results.pkl"
     lmm_results = load_lmm_results(results_file)
     
     # Create network visualization
