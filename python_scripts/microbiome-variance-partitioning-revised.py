@@ -555,7 +555,198 @@ def lmm_on_microbiome_principal_components(microbiome_df, metadata_df, n_compone
     
     return lmm_results
 
-
+def glmm_on_microbiome_composition(microbiome_df, metadata_df, n_components=5, output_dir="results"):
+    """
+    Apply Generalized Linear Mixed Model to principal components of microbiome data.
+    
+    Parameters:
+    - microbiome_df: DataFrame with microbiome abundance data (normalized)
+    - metadata_df: DataFrame with sample metadata
+    - n_components: Number of principal components to analyze
+    
+    Returns:
+    - Dictionary of GLMM results for each principal component
+    """
+    from sklearn.decomposition import PCA
+    import statsmodels.api as sm
+    from statsmodels.formula.api import mixedlm
+    from statsmodels.genmod.families import Gaussian
+    import os
+    
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    print(f"Using {len(common_samples)} samples with both microbiome and metadata")
+    
+    # Perform PCA on the microbiome data
+    pca = PCA(n_components=n_components)
+    pca_result = pca.fit_transform(microbiome_df)
+    
+    # Create a DataFrame with PC scores
+    pc_df = pd.DataFrame(
+        pca_result, 
+        index=microbiome_df.index,
+        columns=[f"PC{i+1}" for i in range(n_components)]
+    )
+    
+    # Report variance explained
+    print("Variance explained by each PC:")
+    for i, var in enumerate(pca.explained_variance_ratio_):
+        print(f"  PC{i+1}: {var:.2%}")
+    
+    # Combine PC scores with metadata
+    combined_df = pd.merge(pc_df, metadata_df, left_index=True, right_index=True)
+    
+    # Define the categorical features to include in the model
+    categorical_features = [
+        "Location", "SampleType", "SampleCollectionWeek", 
+        "GestationCohort", "PostNatalAbxCohort", 
+        "MaternalAntibiotics", "AnyMilk", "PICC", "UVC", "Delivery"
+    ]
+    
+    # Filter to features that exist in the data
+    model_features = [feat for feat in categorical_features if feat in combined_df.columns]
+    
+    # Convert categorical features to category dtype
+    for feat in model_features:
+        if feat in combined_df.columns and not pd.api.types.is_numeric_dtype(combined_df[feat]):
+            combined_df[feat] = combined_df[feat].astype('category')
+    
+    # Add Subject ID for random effects
+    if "Subject" in combined_df.columns:
+        subject_col = "Subject"
+    else:
+        subject_candidates = [col for col in combined_df.columns if "subject" in col.lower()]
+        subject_col = subject_candidates[0] if subject_candidates else None
+    
+    # Store results for each PC
+    glmm_results = {}
+    
+    # Run GLMM for each principal component
+    for pc in pc_df.columns:
+        print(f"\nFitting GLMM for {pc}:")
+        
+        # Create formula with fixed effects - ensuring proper categorical encoding
+        formula_parts = []
+        for feat in model_features:
+            formula_parts.append(f"C({feat})")
+        
+        formula = f"{pc} ~ {' + '.join(formula_parts)}"
+        print(f"Formula: {formula}")
+        
+        # If we have a subject column, use it for random effects
+        if subject_col:
+            try:
+                # Fit generalized linear mixed model with Gaussian family
+                model = mixedlm(formula, combined_df, groups=combined_df[subject_col])
+                result = model.fit(method='bfgs', maxiter=1000)
+                print(f"Successfully fit GLMM with random effects for {subject_col}")
+                
+            except Exception as e:
+                print(f"Error fitting GLMM: {e}")
+                print("Falling back to regular mixed model")
+                try:
+                    model = mixedlm(formula, combined_df, groups=combined_df[subject_col])
+                    result = model.fit()
+                except:
+                    print("Mixed model failed, using GLM without random effects")
+                    result = sm.GLM.from_formula(formula, data=combined_df, 
+                                               family=Gaussian()).fit()
+        else:
+            # If no subject column, use GLM without random effects
+            print("No subject column found. Using GLM without random effects.")
+            result = sm.GLM.from_formula(formula, data=combined_df, 
+                                       family=Gaussian()).fit()
+        
+        print(result.summary())
+        
+        # Extract and store coefficients
+        coefs = pd.DataFrame({
+            'Variable': result.params.index,
+            'Coefficient': result.params.values,
+            'Std_Error': result.bse.values,
+            'Z_stat': result.tvalues.values,
+            'P-value': result.pvalues.values,
+            'CI_Lower': result.conf_int()[0],
+            'CI_Upper': result.conf_int()[1],
+            'Significant': result.pvalues < 0.05
+        })
+        
+        # Sort by p-value
+        coefs = coefs.sort_values('P-value')
+        
+        # Save to results
+        glmm_results[pc] = {
+            'model': result,
+            'coefficients': coefs,
+            'aic': result.aic if hasattr(result, 'aic') else None,
+            'bic': result.bic if hasattr(result, 'bic') else None
+        }
+        
+        # Save coefficients to CSV
+        coefs.to_csv(os.path.join(output_dir, f"glmm_coefficients_{pc}.csv"), index=False)
+        
+        # Create coefficient plot
+        plt.figure(figsize=(10, 8))
+        significant_vars = coefs[coefs['Significant']]
+        if len(significant_vars) > 0:
+            # Plot only significant variables
+            ax = sns.barplot(x='Coefficient', y='Variable', data=significant_vars, palette='viridis')
+            
+            # Add error bars
+            for i, row in enumerate(significant_vars.itertuples()):
+                ax.errorbar(row.Coefficient, i, xerr=[[row.Coefficient - row.CI_Lower], 
+                                                     [row.CI_Upper - row.Coefficient]], 
+                           fmt='none', color='black', capsize=5)
+            
+            plt.title(f'Significant Variables for {pc} (GLMM)')
+            plt.xlabel('Coefficient Estimate')
+            plt.tight_layout()
+            plt.savefig(os.path.join(output_dir, f"glmm_coefficients_{pc}_plot.png"), 
+                       dpi=300, bbox_inches='tight')
+            plt.close()
+    
+    # Create a summary plot showing all PCs
+    plt.figure(figsize=(12, 10))
+    
+    # Collect all significant variables across PCs
+    all_significant = set()
+    for pc, results in glmm_results.items():
+        significant = results['coefficients'][results['coefficients']['Significant']]
+        all_significant.update(significant['Variable'].tolist())
+    
+    # Remove intercepts and reference categories
+    all_significant = [var for var in all_significant if 'Intercept' not in var]
+    
+    # Create a matrix of coefficients
+    coef_matrix = pd.DataFrame(index=sorted(all_significant), 
+                              columns=[f'PC{i+1}' for i in range(n_components)])
+    
+    for pc, results in glmm_results.items():
+        for var in all_significant:
+            if var in results['coefficients']['Variable'].values:
+                value = results['coefficients'][results['coefficients']['Variable'] == var]['Coefficient'].values[0]
+                significance = results['coefficients'][results['coefficients']['Variable'] == var]['Significant'].values[0]
+                coef_matrix.loc[var, pc] = value if significance else np.nan
+    
+    # Create heatmap
+    plt.figure(figsize=(12, 10))
+    sns.heatmap(coef_matrix.astype(float), cmap='coolwarm', center=0, 
+                annot=True, fmt='.3f', cbar_kws={'label': 'Coefficient'})
+    plt.title('GLMM Coefficients Across Principal Components')
+    plt.xlabel('Principal Components')
+    plt.ylabel('Variables')
+    plt.tight_layout()
+    plt.savefig(os.path.join(output_dir, "glmm_coefficients_heatmap.png"), 
+               dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    return glmm_results
 
 def run_db_rda(distance_matrix, metadata, formula, permutations=999):
     """
@@ -986,6 +1177,243 @@ def plot_variance_partitioning(varpart_result, variables, output_file=None):
     
     return fig
 
+
+def glmm_on_distance_matrix(microbiome_df, metadata_df, distance_method="bray", output_dir="results"):
+    """
+    Apply Generalized Linear Mixed Model directly on distance matrix for microbiome data.
+    Uses zero-inflated approach when appropriate.
+    
+    Parameters:
+    - microbiome_df: DataFrame with microbiome abundance data (raw counts)
+    - metadata_df: DataFrame with sample metadata
+    - distance_method: Method for calculating distances
+    - output_dir: Directory to save results
+    
+    Returns:
+    - Dictionary with GLMM results
+    """
+    import os
+    from scipy.spatial.distance import squareform
+    import statsmodels.api as sm
+    from statsmodels.formula.api import mixedlm
+    from sklearn.preprocessing import StandardScaler
+    
+    # Create output directory
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    print(f"Using {len(common_samples)} samples with both microbiome and metadata")
+    
+    # Normalize microbiome data
+    normalized_df, norm_method = select_best_normalization(microbiome_df)
+    
+    # Calculate distance matrix
+    dist_matrix = calculate_distance_matrix(normalized_df, method=distance_method)
+    
+    # Convert distance matrix to long format for modeling
+    # This creates pairwise distances between all samples
+    dist_array = squareform(dist_matrix.data)
+    n_samples = len(dist_matrix.ids)
+    
+    # Create dataframe for modeling with pairwise distances
+    pairs_data = []
+    for i in range(n_samples):
+        for j in range(i+1, n_samples):
+            sample1_id = dist_matrix.ids[i]
+            sample2_id = dist_matrix.ids[j]
+            distance = dist_matrix.data[i, j]
+            
+            # Get metadata for both samples
+            meta1 = metadata_df.loc[sample1_id]
+            meta2 = metadata_df.loc[sample2_id]
+            
+            # Create a row for each pair with difference in categorical variables
+            row = {
+                'Distance': distance,
+                'Sample1': sample1_id,
+                'Sample2': sample2_id,
+                'Subject1': meta1.get('Subject', 'Unknown'),
+                'Subject2': meta2.get('Subject', 'Unknown')
+            }
+            
+            # Add differences or indicators for categorical variables
+            categorical_features = [
+                "Location", "SampleType", "SampleCollectionWeek", 
+                "GestationCohort", "PostNatalAbxCohort", "MaternalAntibiotics", 
+                "AnyMilk", "PICC", "UVC", "Delivery"
+            ]
+            
+            for feat in categorical_features:
+                if feat in meta1.index and feat in meta2.index:
+                    # Create indicator if values are different
+                    row[f'{feat}_Different'] = int(meta1[feat] != meta2[feat])
+                    # Store actual values for potential interaction effects
+                    row[f'{feat}_Sample1'] = str(meta1[feat])
+                    row[f'{feat}_Sample2'] = str(meta2[feat])
+            
+            pairs_data.append(row)
+    
+    pairs_df = pd.DataFrame(pairs_data)
+    
+    # Check for zero-inflation in distances
+    zero_proportion = (pairs_df['Distance'] == 0).mean()
+    print(f"Proportion of zero distances: {zero_proportion:.2%}")
+    
+    if zero_proportion > 0.1:  # More than 10% zeros
+        print("Using zero-inflated modeling approach")
+        # Implement zero-inflated GLMM
+        results = fit_zero_inflated_glmm(pairs_df, categorical_features, output_dir)
+    else:
+        print("Using standard GLMM approach")
+        results = fit_standard_glmm(pairs_df, categorical_features, output_dir)
+    
+    return results
+
+def fit_zero_inflated_glmm(pairs_df, categorical_features, output_dir):
+    """
+    Fit zero-inflated GLMM for distance data.
+    """
+    import statsmodels.api as sm
+    from statsmodels.discrete.count_model import ZeroInflatedGeneralizedPoisson
+    import numpy as np
+    
+    # Create formula
+    difference_vars = [f'{feat}_Different' for feat in categorical_features 
+                      if f'{feat}_Different' in pairs_df.columns]
+    
+    formula = "Distance ~ " + " + ".join(difference_vars)
+    
+    # Transform distances to discrete counts for zero-inflated model
+    # Scale distances to reasonable count range
+    max_dist = pairs_df['Distance'].max()
+    pairs_df['Distance_Counts'] = np.round(pairs_df['Distance'] * 1000).astype(int)
+    
+    try:
+        # Try zero-inflated negative binomial first (better for overdispersed data)
+        print("Fitting zero-inflated negative binomial model...")
+        model = sm.ZeroInflatedNegativeBinomialP.from_formula(
+            formula.replace('Distance', 'Distance_Counts'),
+            data=pairs_df,
+            exog_infl=sm.add_constant(pairs_df[difference_vars])
+        )
+        result = model.fit(maxiter=1000, method='bfgs')
+        model_type = "Zero-Inflated Negative Binomial"
+    except:
+        try:
+            # Fall back to zero-inflated Poisson
+            print("Fitting zero-inflated Poisson model...")
+            model = sm.ZeroInflatedPoisson.from_formula(
+                formula.replace('Distance', 'Distance_Counts'),
+                data=pairs_df,
+                exog_infl=sm.add_constant(pairs_df[difference_vars])
+            )
+            result = model.fit(maxiter=1000)
+            model_type = "Zero-Inflated Poisson"
+        except:
+            # Fall back to standard GLM with Tweedie distribution
+            print("Falling back to Tweedie GLM...")
+            import statsmodels.genmod.families as families
+            model = sm.GLM.from_formula(
+                formula,
+                data=pairs_df,
+                family=families.Tweedie(var_power=1.5)
+            )
+            result = model.fit()
+            model_type = "Tweedie GLM"
+    
+    # Save results
+    with open(os.path.join(output_dir, "zero_inflated_glmm_results.txt"), "w") as f:
+        f.write(f"Model Type: {model_type}\n\n")
+        f.write(str(result.summary()))
+    
+    # Extract coefficients
+    coef_df = pd.DataFrame({
+        'Variable': result.params.index,
+        'Coefficient': result.params.values,
+        'P-value': result.pvalues.values,
+        'Significant': result.pvalues < 0.05
+    })
+    
+    coef_df.to_csv(os.path.join(output_dir, "zero_inflated_glmm_coefficients.csv"), index=False)
+    
+    # Create coefficient plot
+    plt.figure(figsize=(10, 8))
+    significant_vars = coef_df[coef_df['Significant'] & (coef_df['Variable'] != 'Intercept')]
+    
+    if len(significant_vars) > 0:
+        ax = sns.barplot(x='Coefficient', y='Variable', data=significant_vars, palette='viridis')
+        plt.title(f'Significant Variables ({model_type})')
+        plt.xlabel('Coefficient Estimate')
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, "zero_inflated_glmm_coefficients_plot.png"), 
+                   dpi=300, bbox_inches='tight')
+        plt.close()
+    
+    return {
+        'model': result,
+        'coefficients': coef_df,
+        'model_type': model_type
+    }
+
+def fit_standard_glmm(pairs_df, categorical_features, output_dir):
+    """
+    Fit standard GLMM for distance data.
+    """
+    from statsmodels.formula.api import mixedlm
+    import statsmodels.api as sm
+    
+    # Create formula
+    difference_vars = [f'{feat}_Different' for feat in categorical_features 
+                      if f'{feat}_Different' in pairs_df.columns]
+    
+    formula = "Distance ~ " + " + ".join(difference_vars)
+    
+    # Try to use subject information for random effects
+    if 'Subject1' in pairs_df.columns and 'Subject2' in pairs_df.columns:
+        # Create a grouping variable for mixed effects
+        pairs_df['PairGroup'] = pairs_df['Subject1'] + "_" + pairs_df['Subject2']
+        
+        try:
+            print("Fitting mixed effects model with subject pairing...")
+            model = mixedlm(formula, pairs_df, groups=pairs_df['PairGroup'])
+            result = model.fit()
+            model_type = "Mixed Effects Model"
+        except:
+            print("Mixed model failed, using standard GLM...")
+            model = sm.GLM.from_formula(formula, data=pairs_df)
+            result = model.fit()
+            model_type = "Generalized Linear Model"
+    else:
+        print("Using standard GLM (no subject information)...")
+        model = sm.GLM.from_formula(formula, data=pairs_df)
+        result = model.fit()
+        model_type = "Generalized Linear Model"
+    
+    # Save results
+    with open(os.path.join(output_dir, "standard_glmm_results.txt"), "w") as f:
+        f.write(f"Model Type: {model_type}\n\n")
+        f.write(str(result.summary()))
+    
+    # Extract coefficients
+    coef_df = pd.DataFrame({
+        'Variable': result.params.index,
+        'Coefficient': result.params.values,
+        'P-value': result.pvalues.values,
+        'Significant': result.pvalues < 0.05
+    })
+    
+    coef_df.to_csv(os.path.join(output_dir, "standard_glmm_coefficients.csv"), index=False)
+    
+    return {
+        'model': result,
+        'coefficients': coef_df,
+        'model_type': model_type
+    }
+
 def analyze_microbiome_variance(microbiome_df, metadata_df, 
                                distance_method="bray",
                                output_dir="results",
@@ -1230,3 +1658,57 @@ if __name__ == "__main__":
     print("\nLMM analysis complete! Results saved to CSV files and plots.")
     
     print("Analysis complete!")
+
+# Run GLMM analysis on the entire microbiome community
+    print("\nRunning GLMM analysis on the entire microbiome community...")
+    
+    # Get the normalized microbiome data from the results
+    normalized_df = results["normalized_df"]
+    
+    # Run GLMM on principal components
+    glmm_results = glmm_on_microbiome_composition(
+        microbiome_df=normalized_df,
+        metadata_df=metadata_df,
+        n_components=5,
+        output_dir="results/variance_analysis/glmm"
+    )
+    
+    # Save the full results object
+    with open("results/variance_analysis/glmm/glmm_microbiome_community_results.pkl", "wb") as f:
+        pickle.dump(glmm_results, f)
+    
+    # Create a summary table of key results
+    glmm_summary_rows = []
+    for pc, results in glmm_results.items():
+        # Get top 3 significant predictors
+        top_predictors = results['coefficients'][results['coefficients']['Significant']]
+        top_3 = top_predictors.head(3)['Variable'].tolist() if len(top_predictors) > 0 else []
+        
+        glmm_summary_rows.append({
+            'PC': pc,
+            'AIC': results['aic'],
+            'BIC': results['bic'],
+            'Significant Variables': len(top_predictors),
+            'Top Predictors': ', '.join(top_3)
+        })
+    
+    glmm_summary_df = pd.DataFrame(glmm_summary_rows)
+    glmm_summary_df.to_csv("results/variance_analysis/glmm/glmm_microbiome_community_summary.csv", index=False)
+    print("\nGLMM analysis complete! Results saved to CSV files and plots.")
+
+
+        # Run GLMM directly on distance matrix
+    print("\nRunning GLMM analysis on distance matrix...")
+    
+    glmm_distance_results = glmm_on_distance_matrix(
+        microbiome_df=microbiome_df,
+        metadata_df=metadata_df,
+        distance_method="bray",
+        output_dir="results/variance_analysis/glmm_distance"
+    )
+    
+    # Save the results
+    with open("results/variance_analysis/glmm_distance/glmm_distance_results.pkl", "wb") as f:
+        pickle.dump(glmm_distance_results, f)
+    
+    print("GLMM distance-based analysis complete!")
