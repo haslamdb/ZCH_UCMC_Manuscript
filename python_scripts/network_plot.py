@@ -203,22 +203,29 @@ if __name__ == "__main__":
     # Create output directory
     os.makedirs("results/network_plots", exist_ok=True)
     
-    # Load LMM results
-    # results_file = "results/variance_analysis/lmm_microbiome_community_results.pkl"
-    results_file = "results/variance_analysis/variance_analysis_results.pkl"
-    lmm_results = load_lmm_results(results_file)
-    
-    # Create network visualization
-    network = create_interaction_network(
-        lmm_results=lmm_results,
-        output_file="results/network_plots/clinical_factor_interactions_network.png",
-        threshold=0.01
-    )
-    
-    # Create heatmap visualization
-    heatmap_data = create_heatmap_from_lmm(
-        lmm_results=lmm_results,
-        output_file="results/network_plots/clinical_factor_heatmap.png"
-    )
+    # Load LMM results - fallback to original file if needed
+    # Try the new file first
+    try:
+        results_file = "results/variance_analysis/lmm_microbiome_community_results.pkl"
+        lmm_results = load_lmm_results(results_file)
+        
+        # Create network visualization
+        network = create_interaction_network(
+            lmm_results=lmm_results,
+            output_file="results/network_plots/clinical_factor_interactions_network.png",
+            threshold=0.01
+        )
+        
+        # Create heatmap visualization
+        heatmap_data = create_heatmap_from_lmm(
+            lmm_results=lmm_results,
+            output_file="results/network_plots/clinical_factor_heatmap.png"
+        )
+    except Exception as e:
+        print(f"Error using variance_analysis_results.pkl: {e}")
+        print("The variance_analysis_results.pkl file has a different structure than expected.")
+        print("This script requires the lmm_microbiome_community_results.pkl file with specific keys.")
+        print("Available keys in variance_analysis_results.pkl: normalized_df, normalization_method, distance_matrix, permanova_result, db_rda_result, varpart_result")
+        print("\nPlease use the original lmm_microbiome_community_results.pkl file or modify the script to handle the new structure.")
     
     print("Network visualization completed!")
