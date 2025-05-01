@@ -558,12 +558,11 @@ def lmm_on_microbiome_principal_components(microbiome_df, metadata_df, n_compone
 def glmm_on_microbiome_composition(microbiome_df, metadata_df, n_components=5, output_dir="results"):
     """
     Apply Generalized Linear Mixed Model to principal components of microbiome data.
-    
+
     Parameters:
     - microbiome_df: DataFrame with microbiome abundance data (normalized)
     - metadata_df: DataFrame with sample metadata
     - n_components: Number of principal components to analyze
-    
     Returns:
     - Dictionary of GLMM results for each principal component
     """
@@ -572,114 +571,123 @@ def glmm_on_microbiome_composition(microbiome_df, metadata_df, n_components=5, o
     from statsmodels.formula.api import mixedlm
     from statsmodels.genmod.families import Gaussian
     import os
-    
+
     # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
-    
+
     # Get common samples
     common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
     microbiome_df = microbiome_df.loc[common_samples]
     metadata_df = metadata_df.loc[common_samples]
-    
+
     print(f"Using {len(common_samples)} samples with both microbiome and metadata")
-    
+
     # Perform PCA on the microbiome data
     pca = PCA(n_components=n_components)
     pca_result = pca.fit_transform(microbiome_df)
-    
+
     # Create a DataFrame with PC scores
     pc_df = pd.DataFrame(
-        pca_result, 
+        pca_result,
         index=microbiome_df.index,
         columns=[f"PC{i+1}" for i in range(n_components)]
     )
-    
+
     # Report variance explained
     print("Variance explained by each PC:")
     for i, var in enumerate(pca.explained_variance_ratio_):
         print(f"  PC{i+1}: {var:.2%}")
-    
+
     # Combine PC scores with metadata
     combined_df = pd.merge(pc_df, metadata_df, left_index=True, right_index=True)
-    
+
     # Define the categorical features to include in the model
     categorical_features = [
-        "Location", "SampleType", "SampleCollectionWeek", 
-        "GestationCohort", "PostNatalAbxCohort", 
+        "Location", "SampleType", "SampleCollectionWeek",
+        "GestationCohort", "PostNatalAbxCohort",
         "MaternalAntibiotics", "AnyMilk", "PICC", "UVC", "Delivery"
     ]
-    
+
     # Filter to features that exist in the data
     model_features = [feat for feat in categorical_features if feat in combined_df.columns]
-    
+
     # Convert categorical features to category dtype
     for feat in model_features:
         if feat in combined_df.columns and not pd.api.types.is_numeric_dtype(combined_df[feat]):
             combined_df[feat] = combined_df[feat].astype('category')
-    
+
     # Add Subject ID for random effects
     if "Subject" in combined_df.columns:
         subject_col = "Subject"
     else:
         subject_candidates = [col for col in combined_df.columns if "subject" in col.lower()]
         subject_col = subject_candidates[0] if subject_candidates else None
-    
+
     # Store results for each PC
     glmm_results = {}
-    
+
     # Run GLMM for each principal component
     for pc in pc_df.columns:
         print(f"\nFitting GLMM for {pc}:")
-        
+
         # Create formula with fixed effects - ensuring proper categorical encoding
         formula_parts = []
         for feat in model_features:
             formula_parts.append(f"C({feat})")
-        
+
         formula = f"{pc} ~ {' + '.join(formula_parts)}"
         print(f"Formula: {formula}")
-        
+
         # If we have a subject column, use it for random effects
         if subject_col:
             try:
                 # Fit generalized linear mixed model with Gaussian family
                 model = mixedlm(formula, combined_df, groups=combined_df[subject_col])
+                # Increased maxiter and trying bfgs first as it might be more robust
                 result = model.fit(method='bfgs', maxiter=1000)
                 print(f"Successfully fit GLMM with random effects for {subject_col}")
-                
+
             except Exception as e:
-                print(f"Error fitting GLMM: {e}")
-                print("Falling back to regular mixed model")
+                print(f"Error fitting GLMM with bfgs: {e}")
+                print("Trying default optimizer...")
                 try:
+                    # Fallback to default optimizer
                     model = mixedlm(formula, combined_df, groups=combined_df[subject_col])
-                    result = model.fit()
-                except:
-                    print("Mixed model failed, using GLM without random effects")
-                    result = sm.GLM.from_formula(formula, data=combined_df, 
+                    result = model.fit(maxiter=500) # Added maxiter here too
+                    print(f"Successfully fit GLMM with default optimizer")
+                except Exception as e2:
+                    print(f"Error fitting GLMM with default optimizer: {e2}")
+                    print("Falling back to GLM without random effects")
+                    # Use GLM as final fallback
+                    result = sm.GLM.from_formula(formula, data=combined_df,
                                                family=Gaussian()).fit()
         else:
             # If no subject column, use GLM without random effects
             print("No subject column found. Using GLM without random effects.")
-            result = sm.GLM.from_formula(formula, data=combined_df, 
+            result = sm.GLM.from_formula(formula, data=combined_df,
                                        family=Gaussian()).fit()
-        
+
         print(result.summary())
-        
+
         # Extract and store coefficients
         coefs = pd.DataFrame({
             'Variable': result.params.index,
             'Coefficient': result.params.values,
             'Std_Error': result.bse.values,
-            'Z_stat': result.tvalues.values,
+            # Use tvalues for mixedlm, zvalues for GLM
+            'Stat': result.tvalues.values if hasattr(result, 'tvalues') else result.zvalues.values,
             'P-value': result.pvalues.values,
             'CI_Lower': result.conf_int()[0],
             'CI_Upper': result.conf_int()[1],
             'Significant': result.pvalues < 0.05
         })
-        
+        # Rename Stat column based on model type
+        coefs = coefs.rename(columns={'Stat': 'Z_stat' if 'GLM' in str(type(result)) else 'T_stat'})
+
+
         # Sort by p-value
         coefs = coefs.sort_values('P-value')
-        
+
         # Save to results
         glmm_results[pc] = {
             'model': result,
@@ -687,65 +695,81 @@ def glmm_on_microbiome_composition(microbiome_df, metadata_df, n_components=5, o
             'aic': result.aic if hasattr(result, 'aic') else None,
             'bic': result.bic if hasattr(result, 'bic') else None
         }
-        
+
         # Save coefficients to CSV
         coefs.to_csv(os.path.join(output_dir, f"glmm_coefficients_{pc}.csv"), index=False)
-        
+
         # Create coefficient plot
         plt.figure(figsize=(10, 8))
-        significant_vars = coefs[coefs['Significant']]
+        # Filter out intercept for plotting
+        significant_vars = coefs[(coefs['Significant']) & (coefs['Variable'] != 'Intercept')]
         if len(significant_vars) > 0:
-            # Plot only significant variables
+            # Plot only significant variables (excluding intercept)
             ax = sns.barplot(x='Coefficient', y='Variable', data=significant_vars, palette='viridis')
-            
-            # Add error bars
+
+            # Add error bars using confidence intervals
             for i, row in enumerate(significant_vars.itertuples()):
-                ax.errorbar(row.Coefficient, i, xerr=[[row.Coefficient - row.CI_Lower], 
-                                                     [row.CI_Upper - row.Coefficient]], 
+                ax.errorbar(row.Coefficient, i, xerr=[[row.Coefficient - row.CI_Lower],
+                                                     [row.CI_Upper - row.Coefficient]],
                            fmt='none', color='black', capsize=5)
-            
+
             plt.title(f'Significant Variables for {pc} (GLMM)')
             plt.xlabel('Coefficient Estimate')
             plt.tight_layout()
-            plt.savefig(os.path.join(output_dir, f"glmm_coefficients_{pc}_plot.png"), 
+            plt.savefig(os.path.join(output_dir, f"glmm_coefficients_{pc}_plot.png"),
                        dpi=300, bbox_inches='tight')
             plt.close()
-    
+
     # Create a summary plot showing all PCs
-    plt.figure(figsize=(12, 10))
-    
-    # Collect all significant variables across PCs
+    # Collect all significant variables across PCs (excluding intercept)
     all_significant = set()
     for pc, results in glmm_results.items():
-        significant = results['coefficients'][results['coefficients']['Significant']]
+        significant = results['coefficients'][(results['coefficients']['Significant']) & (results['coefficients']['Variable'] != 'Intercept')]
         all_significant.update(significant['Variable'].tolist())
-    
-    # Remove intercepts and reference categories
+
+    # Remove intercepts and reference categories (redundant check, but safe)
     all_significant = [var for var in all_significant if 'Intercept' not in var]
-    
-    # Create a matrix of coefficients
-    coef_matrix = pd.DataFrame(index=sorted(all_significant), 
-                              columns=[f'PC{i+1}' for i in range(n_components)])
-    
-    for pc, results in glmm_results.items():
-        for var in all_significant:
-            if var in results['coefficients']['Variable'].values:
-                value = results['coefficients'][results['coefficients']['Variable'] == var]['Coefficient'].values[0]
-                significance = results['coefficients'][results['coefficients']['Variable'] == var]['Significant'].values[0]
-                coef_matrix.loc[var, pc] = value if significance else np.nan
-    
-    # Create heatmap
-    plt.figure(figsize=(12, 10))
-    sns.heatmap(coef_matrix.astype(float), cmap='coolwarm', center=0, 
-                annot=True, fmt='.3f', cbar_kws={'label': 'Coefficient'})
-    plt.title('GLMM Coefficients Across Principal Components')
-    plt.xlabel('Principal Components')
-    plt.ylabel('Variables')
-    plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, "glmm_coefficients_heatmap.png"), 
-               dpi=300, bbox_inches='tight')
-    plt.close()
-    
+
+    if all_significant: # Only create heatmap if there are significant variables
+        # Create a matrix of coefficients
+        coef_matrix = pd.DataFrame(index=sorted(list(all_significant)),
+                                  columns=[f'PC{i+1}' for i in range(n_components)])
+
+        for pc, results in glmm_results.items():
+            for var in all_significant:
+                if var in results['coefficients']['Variable'].values:
+                    # Get coefficient only if significant
+                    row = results['coefficients'][results['coefficients']['Variable'] == var]
+                    if row['Significant'].values[0]:
+                         coef_matrix.loc[var, pc] = row['Coefficient'].values[0]
+                    else:
+                         coef_matrix.loc[var, pc] = np.nan # Use NaN for non-significant
+
+        # Drop rows/columns that are all NaN (if any)
+        coef_matrix.dropna(axis=0, how='all', inplace=True)
+        coef_matrix.dropna(axis=1, how='all', inplace=True)
+
+        if not coef_matrix.empty:
+            # Create heatmap
+            plt.figure(figsize=(max(10, coef_matrix.shape[1]*1.5), max(8, coef_matrix.shape[0]*0.5))) # Dynamic sizing
+            sns.heatmap(coef_matrix.astype(float), cmap='coolwarm', center=0,
+                        annot=True, fmt='.3f', cbar_kws={'label': 'Coefficient (Significant Only)'},
+                        linewidths=.5, linecolor='lightgray', annot_kws={"size": 8}) # Added lines and smaller font
+            plt.title('GLMM Coefficients Across Principal Components (p < 0.05)')
+            plt.xlabel('Principal Components')
+            plt.ylabel('Variables')
+            plt.xticks(rotation=0) # Keep PC labels horizontal
+            plt.yticks(rotation=0) # Keep variable labels horizontal
+            plt.tight_layout()
+            plt.savefig(os.path.join(output_dir, "glmm_coefficients_heatmap.png"),
+                       dpi=300, bbox_inches='tight')
+            plt.close()
+        else:
+            print("No significant variables found across PCs to create heatmap.")
+    else:
+        print("No significant variables found across PCs to create heatmap.")
+
+
     return glmm_results
 
 def run_db_rda(distance_matrix, metadata, formula, permutations=999):
