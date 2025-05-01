@@ -21,9 +21,9 @@ library(sda)        # For effect size calculation
 # Set your working directory in script or through setwd() call
 # Project paths (user can modify this section)
 PROJECT_DIR <- "."  # Set this to your project directory
-DATA_DIR <- file.path(PROJECT_DIR, "data")
+DATA_DIR <- "~/Documents/Code/Metagenomics/Yanping/NICU_Microbiome/Hangzhou/NoHumanDNA20220929"
 RESULTS_DIR <- file.path(PROJECT_DIR, "results")
-KRAKEN_DIR <- file.path(PROJECT_DIR, "KrakenAlignments/Kraken2")
+KRAKEN_DIR <- "~/Documents/Alignments/KrakenAlignments/Kraken2"
 
 # Create directories if they don't exist
 dir.create(DATA_DIR, showWarnings = FALSE)
@@ -299,7 +299,7 @@ scale_colour_tableau <- function() {
 print("Loading and processing sample metadata...")
 
 # Import the sample key
-sample_key_file <- file.path(DATA_DIR, "AllNICUSampleKeyRevised20250206_for_HangzhouCincinnatiSamples.csv")
+sample_key_file <- file.path(DATA_DIR, "AllNICUSampleKey20250206.csv")
 NewSampleKey <- read.csv(sample_key_file, header = TRUE, stringsAsFactors = FALSE)
 NewSampleKey$PostNatalAntibiotics <- factor(NewSampleKey$PostNatalAntibiotics, levels = c("No.Infant.Abx", "Infant.Abx"))
 NewSampleKey$PostNatalAntibioticsNew <- factor(NewSampleKey$PostNatalAntibioticsNew, 
@@ -331,7 +331,7 @@ AllSampleKey <- subset(AllSampleKey, !duplicated(AllSampleKey$SampleID) &
                       AllSampleKey$SampleType %in% c("Stool", "Groin", "Axilla"))
 
 # Import human reactive species data
-human_reactive_file <- file.path(DATA_DIR, "HumanReactiveKraken2.csv")
+human_reactive_file <- "~/Documents/Code/Metagenomics/HumanReactiveKraken2.csv"
 HumanReactiveSpecies <- read.csv(human_reactive_file)
 
 # Clean species names for matching
