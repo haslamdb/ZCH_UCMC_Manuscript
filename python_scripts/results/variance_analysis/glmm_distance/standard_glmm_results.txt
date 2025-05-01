@@ -1,0 +1,26 @@
+Model Type: Mixed Effects Model
+
+                  Mixed Linear Model Regression Results
+==========================================================================
+Model:                  MixedLM       Dependent Variable:       Distance  
+No. Observations:       143380        Method:                   REML      
+No. Groups:             4620          Scale:                    0.0299    
+Min. group size:        1             Log-Likelihood:           46915.4329
+Max. group size:        126           Converged:                Yes       
+Mean group size:        31.0                                              
+--------------------------------------------------------------------------
+                               Coef.  Std.Err.    z    P>|z| [0.025 0.975]
+--------------------------------------------------------------------------
+Intercept                       0.686    0.002 455.442 0.000  0.683  0.689
+Location_Different              0.036    0.001  35.716 0.000  0.034  0.038
+SampleType_Different            0.100    0.001 102.826 0.000  0.098  0.102
+SampleCollectionWeek_Different  0.033    0.001  36.024 0.000  0.031  0.035
+GestationCohort_Different       0.012    0.001  11.160 0.000  0.010  0.014
+PostNatalAbxCohort_Different    0.005    0.001   5.144 0.000  0.003  0.007
+MaternalAntibiotics_Different   0.009    0.001   7.889 0.000  0.006  0.011
+AnyMilk_Different               0.002    0.001   2.143 0.032  0.000  0.005
+PICC_Different                  0.010    0.001   8.795 0.000  0.008  0.012
+UVC_Different                   0.006    0.001   4.707 0.000  0.004  0.009
+Delivery_Different             -0.002    0.001  -2.108 0.035 -0.005 -0.000
+Group Var                       0.001    0.000                            
+==========================================================================

@@ -1662,8 +1662,8 @@ if __name__ == "__main__":
 # Run GLMM analysis on the entire microbiome community
     print("\nRunning GLMM analysis on the entire microbiome community...")
     
-    # Get the normalized microbiome data from the results
-    normalized_df = results["normalized_df"]
+    # Use the normalized_df from the main scope (already defined above)
+    # normalized_df is already available, no need to extract it from results
     
     # Run GLMM on principal components
     glmm_results = glmm_on_microbiome_composition(
