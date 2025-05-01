@@ -1,6 +1,6 @@
 PC,R-squared,AIC,Significant Variables,Top Predictors
-PC1,,,6,"C(SampleType)[T.Stool], C(SampleType)[T.Groin], C(SampleCollectionWeek)[T.Week.3]"
-PC2,,,5,"C(SampleCollectionWeek)[T.Week.3], C(Location)[T.Hangzhou], C(GestationCohort)[T.33-36 Weeks]"
-PC3,,,5,"C(SampleType)[T.Stool], C(SampleCollectionWeek)[T.Week.3], C(SampleType)[T.Groin]"
-PC4,,,4,"C(UVC)[T.UVC], C(SampleType)[T.Groin], C(PostNatalAbxCohort)[T.Low.Infant.Abx]"
-PC5,,,7,"C(PICC)[T.PICC_UE], C(GestationCohort)[T.33-36 Weeks], C(Location)[T.Hangzhou]"
+PC1,,,10,"C(SampleType)[T.Stool], C(SampleCollectionWeek)[T.Week.3], C(Location)[T.Hangzhou]"
+PC2,,,4,"C(SampleType)[T.Stool], C(SampleCollectionWeek)[T.Week.3], C(SampleType)[T.Groin]"
+PC3,,,4,"C(Location)[T.Hangzhou], C(UVC)[T.UVC], C(SampleType)[T.Groin]"
+PC4,,,4,"C(SampleType)[T.Stool], C(SampleType)[T.Groin], C(MaternalAntibiotics)[T.None.Mat.Abx]"
+PC5,,,2,"C(SampleCollectionWeek)[T.Week.3], C(PICC)[T.PICC_UE]"
