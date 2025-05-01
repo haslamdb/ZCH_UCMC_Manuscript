@@ -326,6 +326,132 @@ def run_permanova(distance_matrix, metadata, formula, permutations=999):
                 raise ValueError("Could not run PERMANOVA analysis after multiple attempts")
 
 
+def create_interaction_heatmap(microbiome_df, metadata_df, key_variables, output_file="clinical_factor_interactions_heatmap.png"):
+    """
+    Create a heatmap showing how clinical factors interact in explaining microbiome variance.
+    """
+    from sklearn.preprocessing import StandardScaler
+    from scipy.spatial.distance import pdist, squareform
+    import itertools
+    
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    # Normalize microbiome data
+    normalized_df, _ = select_best_normalization(microbiome_df)
+    
+    # Calculate distance matrix
+    dist_matrix = calculate_distance_matrix(normalized_df, method="bray")
+    
+    # Create interaction matrix
+    n_vars = len(key_variables)
+    interaction_matrix = np.zeros((n_vars, n_vars))
+    
+    # For each pair of variables, calculate shared variance
+    for i in range(n_vars):
+        for j in range(i, n_vars):
+            var1 = key_variables[i]
+            var2 = key_variables[j]
+            
+            if i == j:
+                # Single variable effect
+                formula = f"~{var1}"
+            else:
+                # Interaction effect
+                formula = f"~{var1} + {var2} + {var1}:{var2}"
+            
+            try:
+                result = run_permanova(dist_matrix, metadata_df, formula)
+                if i == j:
+                    r2 = result.loc[var1, 'R2'] if var1 in result.index else 0
+                else:
+                    # Get interaction R2
+                    interaction_term = f"{var1}:{var2}"
+                    if interaction_term in result.index:
+                        r2 = result.loc[interaction_term, 'R2']
+                    else:
+                        r2 = 0
+                
+                interaction_matrix[i, j] = r2
+                interaction_matrix[j, i] = r2
+            except:
+                interaction_matrix[i, j] = 0
+                interaction_matrix[j, i] = 0
+    
+    # Create heatmap
+    plt.figure(figsize=(12, 10))
+    sns.heatmap(interaction_matrix, 
+                xticklabels=key_variables,
+                yticklabels=key_variables,
+                cmap='viridis',
+                annot=True,
+                fmt='.3f',
+                square=True,
+                cbar_kws={'label': 'R² (Variance Explained)'})
+    
+    plt.title('Clinical Factor Interactions in Microbiome Variation')
+    plt.xticks(rotation=45, ha='right')
+    plt.yticks(rotation=0)
+    plt.tight_layout()
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    return interaction_matrix
+
+def create_interaction_network(interaction_matrix, key_variables, output_file="clinical_factor_interactions_network.png", threshold=0.01):
+    """
+    Create a network diagram showing clinical factor interactions.
+    """
+    import networkx as nx
+    
+    # Create graph
+    G = nx.Graph()
+    
+    # Add nodes
+    for var in key_variables:
+        G.add_node(var)
+    
+    # Add edges based on interaction strength
+    for i in range(len(key_variables)):
+        for j in range(i+1, len(key_variables)):
+            if interaction_matrix[i, j] > threshold:
+                G.add_edge(key_variables[i], key_variables[j], 
+                          weight=interaction_matrix[i, j],
+                          r2=interaction_matrix[i, j])
+    
+    # Create layout
+    pos = nx.spring_layout(G, k=2, iterations=50)
+    
+    # Draw network
+    plt.figure(figsize=(14, 10))
+    
+    # Draw edges with varying thickness based on R²
+    edges = G.edges()
+    weights = [G[u][v]['weight'] * 20 for u, v in edges]
+    
+    nx.draw_networkx_edges(G, pos, width=weights, alpha=0.6, edge_color='gray')
+    
+    # Draw nodes
+    nx.draw_networkx_nodes(G, pos, node_size=3000, node_color='lightblue', 
+                          edgecolors='darkblue', linewidths=2)
+    
+    # Add node labels
+    nx.draw_networkx_labels(G, pos, font_size=12, font_weight='bold')
+    
+    # Add edge labels (R² values)
+    edge_labels = nx.get_edge_attributes(G, 'r2')
+    edge_labels = {k: f'{v:.3f}' for k, v in edge_labels.items()}
+    nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=10)
+    
+    plt.title('Clinical Factor Interaction Network\n(Edge weights = R² values)', fontsize=16, pad=20)
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig(output_file, dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()
+    
+    return G
 
 def lmm_on_microbiome_principal_components(microbiome_df, metadata_df, n_components=3):
     """
@@ -1074,7 +1200,7 @@ if __name__ == "__main__":
     
     print("Analysis complete! Results saved to 'results/variance_analysis' directory.")
     
-    # ADD THE NEW LMM ANALYSIS HERE:
+    # new LMM analysis
     print("\nRunning LMM analysis on the entire microbiome community...")
     
     # Get the normalized microbiome data from the results
@@ -1109,3 +1235,29 @@ if __name__ == "__main__":
     summary_df = pd.DataFrame(summary_rows)
     summary_df.to_csv("results/variance_analysis/lmm_microbiome_community_summary.csv", index=False)
     print("\nLMM analysis complete! Results saved to CSV files and plots.")
+
+    print("\nCreating clinical factor interaction visualizations...")
+    
+    # Create interaction heatmap
+    interaction_matrix = create_interaction_heatmap(
+        microbiome_df=microbiome_df,
+        metadata_df=metadata_df,
+        key_variables=key_variables,
+        output_file="results/variance_analysis/clinical_factor_interactions_heatmap.png"
+    )
+    
+    # Create interaction network
+    network = create_interaction_network(
+        interaction_matrix=interaction_matrix,
+        key_variables=key_variables,
+        output_file="results/variance_analysis/clinical_factor_interactions_network.png",
+        threshold=0.01
+    )
+    
+    # Save interaction matrix
+    interaction_df = pd.DataFrame(interaction_matrix, 
+                                index=key_variables, 
+                                columns=key_variables)
+    interaction_df.to_csv("results/variance_analysis/clinical_factor_interactions_matrix.csv")
+    
+    print("Interaction visualizations complete!")
