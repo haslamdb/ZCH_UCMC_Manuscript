@@ -1,0 +1,1706 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+import scipy.stats as stats
+from skbio.stats.distance import permanova, DistanceMatrix
+from skbio.stats.ordination import pcoa
+import microbiome_transform as mt
+import os
+from tqdm import tqdm
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+import warnings
+import scipy.spatial.distance as ssd
+from functools import partial
+import rpy2.robjects as robjects
+from rpy2.robjects.packages import importr
+from rpy2.robjects import pandas2ri
+import pickle
+import re
+
+# Activate pandas conversion for R
+pandas2ri.activate()
+
+# Import vegan through rpy2
+vegan = importr('vegan')
+
+# Define wrappers for R functions
+def adonis2(formula, data, permutations=999, method="bray", by="terms", parallel=1):
+    """
+    Wrapper for vegan's adonis2 function
+    """
+    # Convert formula to R formula
+    r_formula = robjects.Formula(formula)
+    
+    # Run adonis2
+    result = vegan.adonis2(r_formula, data=data, permutations=permutations, 
+                          method=method, by=by, parallel=parallel)
+    
+    return result
+
+def rda(formula, data, scale=True):
+    """
+    Wrapper for vegan's rda function
+    """
+    # Convert formula to R formula
+    r_formula = robjects.Formula(formula)
+    
+    # Run rda
+    result = vegan.rda(r_formula, data=data, scale=scale)
+    
+    return result
+
+def varpart(y, *args):
+    """
+    Wrapper for vegan's varpart function
+    """
+    # Run varpart
+    result = vegan.varpart(y, *args)
+    
+    return result
+
+# Silence common warnings
+warnings.filterwarnings("ignore", category=UserWarning)
+
+def select_best_normalization(df, verbose=True):
+    """
+    Selects the most appropriate normalization method based on data characteristics.
+    
+    Parameters:
+    - df: DataFrame with samples as rows, taxa as columns
+    - verbose: Whether to print diagnostic messages
+    
+    Returns:
+    - Normalized DataFrame and the name of the method used
+    """
+    # Calculate data characteristics
+    zero_fraction = (df == 0).sum().sum() / df.size
+    total_reads = df.sum(axis=1)
+    cv_depth = total_reads.std() / total_reads.mean()
+    
+    if verbose:
+        print(f"Data diagnostics:")
+        print(f"  - Dimensions: {df.shape[0]} samples × {df.shape[1]} taxa")
+        print(f"  - Zero fraction: {zero_fraction:.2%}")
+        print(f"  - Mean sequencing depth: {total_reads.mean():.1f} ± {total_reads.std():.1f}")
+        print(f"  - Coefficient of variation in sequencing depth: {cv_depth:.2f}")
+    
+    # Decision logic for normalization method
+    if zero_fraction > 0.80:
+        if verbose:
+            print("⚠️ Data is extremely sparse (>80% zeros). Using presence/absence transformation.")
+        # Convert to presence/absence
+        normalized_df = (df > 0).astype(int)
+        method = "presence_absence"
+    elif zero_fraction > 0.50:
+        if verbose:
+            print("⚠️ Data is very sparse (>50% zeros). Using Hellinger transformation.")
+        # Hellinger transformation (square root of relative abundance)
+        normalized_df = np.sqrt(df.div(df.sum(axis=1), axis=0))
+        method = "hellinger"
+    elif cv_depth > 0.5:
+        if verbose:
+            print("⚠️ Large variation in sequencing depth. Using rarefaction.")
+        # Rarefaction to minimum depth
+        try:
+            min_depth = int(total_reads.min())
+            if min_depth < 1000:
+                min_depth = 1000  # Set minimum threshold
+            normalized_df = mt.rarefaction(df, min_depth=min_depth)
+            method = "rarefaction"
+        except Exception as e:
+            print(f"Error in rarefaction: {e}. Falling back to TSS normalization.")
+            normalized_df = mt.tss_transform(df)
+            method = "tss"
+    else:
+        if verbose:
+            print("✅ Using Centered Log Ratio (CLR) transformation.")
+        # CLR transformation
+        normalized_df = mt.clr_transform(df)
+        method = "clr"
+    
+    return normalized_df, method
+
+def calculate_distance_matrix(normalized_df, method="bray", binary=False):
+    """
+    Calculate distance matrix using specified method.
+    
+    Parameters:
+    - normalized_df: Normalized DataFrame
+    - method: Distance metric ('bray', 'jaccard', 'unifrac', etc.)
+    - binary: Whether to use presence/absence data
+    
+    Returns:
+    - DistanceMatrix object
+    """
+    if method == "bray":
+        # Bray-Curtis dissimilarity
+        distances = ssd.pdist(normalized_df, metric="braycurtis")
+        dist_matrix = ssd.squareform(distances)
+    elif method == "jaccard":
+        # Jaccard distance
+        if binary:
+            binary_df = (normalized_df > 0).astype(int)
+            distances = ssd.pdist(binary_df, metric="jaccard")
+        else:
+            distances = ssd.pdist(normalized_df, metric="jaccard")
+        dist_matrix = ssd.squareform(distances)
+    elif method == "euclidean":
+        # Euclidean distance (good for CLR-transformed data)
+        distances = ssd.pdist(normalized_df, metric="euclidean")
+        dist_matrix = ssd.squareform(distances)
+    else:
+        raise ValueError(f"Unsupported distance method: {method}")
+    
+    # Create SkBio DistanceMatrix object
+    return DistanceMatrix(dist_matrix, ids=normalized_df.index)
+
+def run_permanova(distance_matrix, metadata, formula, permutations=999):
+    """
+    Run PERMANOVA to determine factors that explain variation in microbial community.
+    
+    Parameters:
+    - distance_matrix: DistanceMatrix object
+    - metadata: DataFrame with sample metadata
+    - formula: Formula string (e.g., "~ Location + SampleType")
+    - permutations: Number of permutations for significance testing
+    
+    Returns:
+    - PERMANOVA results
+    """
+    # Make sure metadata index matches distance matrix IDs
+    metadata = metadata.loc[distance_matrix.ids].copy()
+    
+    # Print debugging information
+    print(f"Distance matrix dimensions: {distance_matrix.data.shape}")
+    print(f"Metadata dimensions: {metadata.shape}")
+    print(f"First few metadata columns: {metadata.columns[:5].tolist()}")
+    
+    # Check for any missing values in metadata
+    missing_values = metadata.isnull().sum()
+    if missing_values.sum() > 0:
+        print("Warning: Missing values in metadata:")
+        print(missing_values[missing_values > 0])
+        
+        # Fill missing values for numeric columns with mean
+        for col in metadata.select_dtypes(include=['number']).columns:
+            if metadata[col].isnull().sum() > 0:
+                print(f"Filling NaN values in numeric column '{col}' with mean")
+                metadata[col] = metadata[col].fillna(metadata[col].mean())
+        
+        # Fill missing values for categorical columns with mode
+        for col in metadata.select_dtypes(exclude=['number']).columns:
+            if metadata[col].isnull().sum() > 0:
+                print(f"Filling NaN values in categorical column '{col}' with most common value")
+                metadata[col] = metadata[col].fillna(metadata[col].mode()[0])
+    
+    # Check for variables in formula
+    for var in formula.replace('~', '').split('+'):
+        var = var.strip()
+        if var not in metadata.columns:
+            raise ValueError(f"Variable '{var}' in formula not found in metadata")
+        
+        # Check for NaNs in this variable
+        if metadata[var].isnull().any():
+            raise ValueError(f"Variable '{var}' contains NaN values")
+    
+    try:
+        # Direct approach using scikit-bio's PERMANOVA
+        print("Trying scikit-bio PERMANOVA...")
+        # Create a grouping string from the formula variables
+        grouping = []
+        for var in formula.replace('~', '').split('+'):
+            var = var.strip()
+            grouping.append(metadata[var].astype(str))
+        
+        # Combine into a single grouping variable
+        grouping = pd.DataFrame(grouping).T.apply(lambda x: '_'.join(x), axis=1)
+        
+        # Run PERMANOVA using scikit-bio
+        result = permanova(distance_matrix, grouping, permutations=permutations)
+        
+        # Convert to a DataFrame
+        result_df = pd.DataFrame({
+            'SumsOfSqs': [result['SumsOfSqs'][0], result['SumsOfSqs'][1]],
+            'DF': [result['DF'][0], result['DF'][1]],
+            'F': [result['F.Model'][0], float('nan')],
+            'R2': [result['R2'][0], 1 - result['R2'][0]],
+            'Pr(>F)': [result['p-value'], float('nan')]
+        }, index=['Model', 'Residual'])
+        
+        return result_df
+    
+    except Exception as e:
+        print(f"Scikit-bio PERMANOVA failed: {e}")
+        print("Trying R-based PERMANOVA with adonis2...")
+        
+        try:
+            # Convert the distance matrix to an R matrix
+            dist_matrix = distance_matrix.data
+            ids = distance_matrix.ids
+            r_dist_matrix = robjects.r.matrix(robjects.FloatVector(dist_matrix.flatten()), 
+                                            nrow=len(ids))
+            
+            # Set dimension names
+            r_ids = robjects.StrVector(ids)
+            robjects.r.dimnames(r_dist_matrix).rx2(1)[...] = r_ids
+            robjects.r.dimnames(r_dist_matrix).rx2(2)[...] = r_ids
+            
+            # Convert to R distance object
+            r_dist = robjects.r('as.dist')(r_dist_matrix)
+            
+            # Ensure metadata is properly formatted for R
+            # Remove problematic columns that could cause issues
+            safe_metadata = metadata.copy()
+            for col in safe_metadata.columns:
+                # Check for complex objects that might not convert well to R
+                if safe_metadata[col].dtype == 'object':
+                    try:
+                        # Try to convert to string
+                        safe_metadata[col] = safe_metadata[col].astype(str)
+                    except:
+                        # If conversion fails, drop the column
+                        print(f"Dropping column {col} due to conversion issues")
+                        safe_metadata = safe_metadata.drop(columns=[col])
+            
+            # Convert to R dataframe
+            r_metadata = pandas2ri.py2rpy(safe_metadata)
+            
+            # Run adonis2 with the distance matrix and metadata
+            result = vegan.adonis2(r_dist, data=r_metadata, permutations=permutations, 
+                                method="bray", by="terms", parallel=1)
+            
+            # Convert R result to pandas DataFrame
+            result_df = pandas2ri.rpy2py_dataframe(result)
+            
+            return result_df
+            
+        except Exception as e:
+            print(f"R-based PERMANOVA also failed: {e}")
+            
+            # Last resort: create a simplified version with just a few key variables
+            try:
+                print("Trying simplified PERMANOVA with just a few key variables...")
+                simple_formula = "~ "
+                simple_vars = []
+                
+                # Try to identify a few categorical variables that might work
+                for var in ["SampleType", "Location", "GestationCohort"]:
+                    if var in metadata.columns and not metadata[var].isnull().any():
+                        simple_vars.append(var)
+                        if len(simple_vars) >= 2:  # Limit to 2 variables for simplicity
+                            break
+                
+                if len(simple_vars) == 0:
+                    raise ValueError("Could not find suitable categorical variables for PERMANOVA")
+                
+                simple_formula += " + ".join(simple_vars)
+                print(f"Using simplified formula: {simple_formula}")
+                
+                # Create simple metadata with just these variables
+                simple_metadata = metadata[simple_vars].copy()
+                
+                # Convert to string to ensure compatibility
+                for col in simple_metadata.columns:
+                    simple_metadata[col] = simple_metadata[col].astype(str)
+                
+                # Convert to R objects
+                r_simple_metadata = pandas2ri.py2rpy(simple_metadata)
+                
+                # Run adonis2
+                simple_result = vegan.adonis2(r_dist, data=r_simple_metadata, 
+                                            permutations=permutations, 
+                                            method="bray", by="terms", parallel=1)
+                
+                # Convert result
+                simple_result_df = pandas2ri.rpy2py_dataframe(simple_result)
+                
+                print("Successfully ran simplified PERMANOVA")
+                return simple_result_df
+                
+            except Exception as e:
+                print(f"All PERMANOVA approaches failed: {e}")
+                raise ValueError("Could not run PERMANOVA analysis after multiple attempts")
+
+
+def create_interaction_heatmap(microbiome_df, metadata_df, key_variables, output_file="clinical_factor_interactions_heatmap.png"):
+    """
+    Create a heatmap showing how clinical factors interact in explaining microbiome variance.
+    """
+    from sklearn.preprocessing import StandardScaler
+    from scipy.spatial.distance import pdist, squareform
+    import itertools
+    
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    # Normalize microbiome data
+    normalized_df, _ = select_best_normalization(microbiome_df)
+    
+    # Calculate distance matrix
+    dist_matrix = calculate_distance_matrix(normalized_df, method="bray")
+    
+    # Create interaction matrix
+    n_vars = len(key_variables)
+    interaction_matrix = np.zeros((n_vars, n_vars))
+    
+    # For each pair of variables, calculate shared variance
+    for i in range(n_vars):
+        for j in range(i, n_vars):
+            var1 = key_variables[i]
+            var2 = key_variables[j]
+            
+            if i == j:
+                # Single variable effect
+                formula = f"~{var1}"
+            else:
+                # Interaction effect
+                formula = f"~{var1} + {var2} + {var1}:{var2}"
+            
+            try:
+                result = run_permanova(dist_matrix, metadata_df, formula)
+                if i == j:
+                    r2 = result.loc[var1, 'R2'] if var1 in result.index else 0
+                else:
+                    # Get interaction R2
+                    interaction_term = f"{var1}:{var2}"
+                    if interaction_term in result.index:
+                        r2 = result.loc[interaction_term, 'R2']
+                    else:
+                        r2 = 0
+                
+                interaction_matrix[i, j] = r2
+                interaction_matrix[j, i] = r2
+            except:
+                interaction_matrix[i, j] = 0
+                interaction_matrix[j, i] = 0
+    
+    # Create heatmap
+    plt.figure(figsize=(12, 10))
+    sns.heatmap(interaction_matrix, 
+                xticklabels=key_variables,
+                yticklabels=key_variables,
+                cmap='viridis',
+                annot=True,
+                fmt='.3f',
+                square=True,
+                cbar_kws={'label': 'R² (Variance Explained)'})
+    
+    plt.title('Clinical Factor Interactions in Microbiome Variation')
+    plt.xticks(rotation=45, ha='right')
+    plt.yticks(rotation=0)
+    plt.tight_layout()
+    plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    return interaction_matrix
+
+def create_interaction_network(interaction_matrix, key_variables, output_file="clinical_factor_interactions_network.png", threshold=0.01):
+    """
+    Create a network diagram showing clinical factor interactions.
+    """
+    import networkx as nx
+    
+    # Create graph
+    G = nx.Graph()
+    
+    # Add nodes
+    for var in key_variables:
+        G.add_node(var)
+    
+    # Add edges based on interaction strength
+    for i in range(len(key_variables)):
+        for j in range(i+1, len(key_variables)):
+            if interaction_matrix[i, j] > threshold:
+                G.add_edge(key_variables[i], key_variables[j], 
+                          weight=interaction_matrix[i, j],
+                          r2=interaction_matrix[i, j])
+    
+    # Create layout
+    pos = nx.spring_layout(G, k=2, iterations=50)
+    
+    # Draw network
+    plt.figure(figsize=(14, 10))
+    
+    # Draw edges with varying thickness based on R²
+    edges = G.edges()
+    weights = [G[u][v]['weight'] * 20 for u, v in edges]
+    
+    nx.draw_networkx_edges(G, pos, width=weights, alpha=0.6, edge_color='gray')
+    
+    # Draw nodes
+    nx.draw_networkx_nodes(G, pos, node_size=3000, node_color='lightblue', 
+                          edgecolors='darkblue', linewidths=2)
+    
+    # Add node labels
+    nx.draw_networkx_labels(G, pos, font_size=12, font_weight='bold')
+    
+    # Add edge labels (R² values)
+    edge_labels = nx.get_edge_attributes(G, 'r2')
+    edge_labels = {k: f'{v:.3f}' for k, v in edge_labels.items()}
+    nx.draw_networkx_edge_labels(G, pos, edge_labels, font_size=10)
+    
+    plt.title('Clinical Factor Interaction Network\n(Edge weights = R² values)', fontsize=16, pad=20)
+    plt.axis('off')
+    plt.tight_layout()
+    plt.savefig(output_file, dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()
+    
+    return G
+
+def lmm_on_microbiome_principal_components(microbiome_df, metadata_df, n_components=3):
+    """
+    Apply Linear Mixed Model to principal components of microbiome data.
+    
+    Parameters:
+    - microbiome_df: DataFrame with microbiome abundance data (normalized)
+    - metadata_df: DataFrame with sample metadata
+    - n_components: Number of principal components to analyze (default: 3)
+    
+    Returns:
+    - Dictionary of LMM results for each principal component
+    """
+    from sklearn.decomposition import PCA
+    import statsmodels.formula.api as smf
+    
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    print(f"Using {len(common_samples)} samples with both microbiome and metadata")
+    
+    # Perform PCA on the microbiome data
+    pca = PCA(n_components=n_components)
+    pca_result = pca.fit_transform(microbiome_df)
+    
+    # Create a DataFrame with PC scores
+    pc_df = pd.DataFrame(
+        pca_result, 
+        index=microbiome_df.index,
+        columns=[f"PC{i+1}" for i in range(n_components)]
+    )
+    
+    # Report variance explained
+    print("Variance explained by each PC:")
+    for i, var in enumerate(pca.explained_variance_ratio_):
+        print(f"  PC{i+1}: {var:.2%}")
+    
+    # Combine PC scores with metadata
+    combined_df = pd.merge(pc_df, metadata_df, left_index=True, right_index=True)
+    
+    # Define the categorical features to include in the model
+    categorical_features = [
+        "Location", "SampleType", "SampleCollectionWeek", 
+        "GestationCohort", "PostNatalAbxCohort", 
+        "MaternalAntibiotics", "AnyMilk", "PICC", "UVC", "Delivery"
+    ]
+    
+    # Filter to features that exist in the data
+    model_features = [feat for feat in categorical_features if feat in combined_df.columns]
+    
+    # Add Subject ID for random effects
+    if "Subject" in combined_df.columns:
+        subject_col = "Subject"
+    else:
+        # Look for similar column names
+        subject_candidates = [col for col in combined_df.columns if "subject" in col.lower()]
+        subject_col = subject_candidates[0] if subject_candidates else None
+    
+    # Store results for each PC
+    lmm_results = {}
+    
+    # Run LMM for each principal component
+    for pc in pc_df.columns:
+        print(f"\nFitting LMM for {pc}:")
+        
+        # Create formula with fixed effects
+        formula_parts = []
+        for feat in model_features:
+            # For categorical variables, use C() notation
+            if combined_df[feat].dtype == 'object' or combined_df[feat].dtype.name == 'category':
+                formula_parts.append(f"C({feat})")
+            else:
+                formula_parts.append(feat)
+        
+        formula = f"{pc} ~ {' + '.join(formula_parts)}"
+        print(f"Formula: {formula}")
+        
+        # If we have a subject column, add random effects
+        if subject_col:
+            try:
+                # Fit mixed model
+                model = smf.mixedlm(formula, combined_df, groups=combined_df[subject_col])
+                result = model.fit()
+                print(f"Successfully fit mixed model with random effects for {subject_col}")
+            except Exception as e:
+                print(f"Error fitting mixed model: {e}")
+                print("Falling back to OLS without random effects")
+                result = smf.ols(formula, combined_df).fit()
+        else:
+            # If no subject column, use OLS
+            print("No subject column found. Using OLS without random effects.")
+            result = smf.ols(formula, combined_df).fit()
+            
+        print(result.summary())
+        
+        # Extract and store coefficients
+        coefs = pd.DataFrame({
+            'Variable': result.params.index,
+            'Coefficient': result.params.values,
+            'P-value': result.pvalues.values,
+            'Significant': result.pvalues < 0.05
+        })
+        
+        # Sort by p-value
+        coefs = coefs.sort_values('P-value')
+        
+        # Save to results
+        lmm_results[pc] = {
+            'model': result,
+            'coefficients': coefs,
+            'r_squared': result.rsquared if hasattr(result, 'rsquared') else None,
+            'aic': result.aic if hasattr(result, 'aic') else None
+        }
+        
+        # Save coefficients to CSV
+        coefs.to_csv(f"lmm_coefficients_{pc}.csv", index=False)
+        
+        # Create coefficient plot
+        plt.figure(figsize=(10, 8))
+        significant_vars = coefs[coefs['Significant']]
+        if len(significant_vars) > 0:
+            # Plot only significant variables
+            sns.barplot(x='Coefficient', y='Variable', data=significant_vars, palette='viridis')
+            plt.title(f'Significant Variables for {pc}')
+            plt.tight_layout()
+            plt.savefig(f"lmm_coefficients_{pc}_plot.png", dpi=300, bbox_inches='tight')
+            plt.close()
+    
+    return lmm_results
+
+def glmm_on_microbiome_composition(microbiome_df, metadata_df, n_components=5, output_dir="results_new"):
+    """
+    Apply Generalized Linear Mixed Model to principal components of microbiome data.
+
+    Parameters:
+    - microbiome_df: DataFrame with microbiome abundance data (normalized)
+    - metadata_df: DataFrame with sample metadata
+    - n_components: Number of principal components to analyze
+    Returns:
+    - Dictionary of GLMM results for each principal component
+    """
+    from sklearn.decomposition import PCA
+    import statsmodels.api as sm
+    from statsmodels.formula.api import mixedlm
+    from statsmodels.genmod.families import Gaussian
+    import os
+
+    # Create output directory if it doesn't exist
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+
+    print(f"Using {len(common_samples)} samples with both microbiome and metadata")
+
+    # Perform PCA on the microbiome data
+    pca = PCA(n_components=n_components)
+    pca_result = pca.fit_transform(microbiome_df)
+
+    # Create a DataFrame with PC scores
+    pc_df = pd.DataFrame(
+        pca_result,
+        index=microbiome_df.index,
+        columns=[f"PC{i+1}" for i in range(n_components)]
+    )
+
+    # Report variance explained
+    print("Variance explained by each PC:")
+    for i, var in enumerate(pca.explained_variance_ratio_):
+        print(f"  PC{i+1}: {var:.2%}")
+
+    # Combine PC scores with metadata
+    combined_df = pd.merge(pc_df, metadata_df, left_index=True, right_index=True)
+
+    # Define the categorical features to include in the model
+    categorical_features = [
+        "Location", "SampleType", "SampleCollectionWeek",
+        "GestationCohort", "PostNatalAbxCohort",
+        "MaternalAntibiotics", "AnyMilk", "PICC", "UVC", "Delivery"
+    ]
+
+    # Filter to features that exist in the data
+    model_features = [feat for feat in categorical_features if feat in combined_df.columns]
+
+    # Convert categorical features to category dtype
+    for feat in model_features:
+        if feat in combined_df.columns and not pd.api.types.is_numeric_dtype(combined_df[feat]):
+            combined_df[feat] = combined_df[feat].astype('category')
+
+    # Add Subject ID for random effects
+    if "Subject" in combined_df.columns:
+        subject_col = "Subject"
+    else:
+        subject_candidates = [col for col in combined_df.columns if "subject" in col.lower()]
+        subject_col = subject_candidates[0] if subject_candidates else None
+
+    # Store results for each PC
+    glmm_results = {}
+
+    # Run GLMM for each principal component
+    for pc in pc_df.columns:
+        print(f"\nFitting GLMM for {pc}:")
+
+        # Create formula with fixed effects - ensuring proper categorical encoding
+        formula_parts = []
+        for feat in model_features:
+            formula_parts.append(f"C({feat})")
+
+        formula = f"{pc} ~ {' + '.join(formula_parts)}"
+        print(f"Formula: {formula}")
+
+        # If we have a subject column, use it for random effects
+        if subject_col:
+            try:
+                # Fit generalized linear mixed model with Gaussian family
+                model = mixedlm(formula, combined_df, groups=combined_df[subject_col])
+                # Increased maxiter and trying bfgs first as it might be more robust
+                result = model.fit(method='bfgs', maxiter=1000)
+                print(f"Successfully fit GLMM with random effects for {subject_col}")
+
+            except Exception as e:
+                print(f"Error fitting GLMM with bfgs: {e}")
+                print("Trying default optimizer...")
+                try:
+                    # Fallback to default optimizer
+                    model = mixedlm(formula, combined_df, groups=combined_df[subject_col])
+                    result = model.fit(maxiter=500) # Added maxiter here too
+                    print(f"Successfully fit GLMM with default optimizer")
+                except Exception as e2:
+                    print(f"Error fitting GLMM with default optimizer: {e2}")
+                    print("Falling back to GLM without random effects")
+                    # Use GLM as final fallback
+                    result = sm.GLM.from_formula(formula, data=combined_df,
+                                               family=Gaussian()).fit()
+        else:
+            # If no subject column, use GLM without random effects
+            print("No subject column found. Using GLM without random effects.")
+            result = sm.GLM.from_formula(formula, data=combined_df,
+                                       family=Gaussian()).fit()
+
+        print(result.summary())
+
+        # Extract and store coefficients
+        coefs = pd.DataFrame({
+            'Variable': result.params.index,
+            'Coefficient': result.params.values,
+            'Std_Error': result.bse.values,
+            # Use tvalues for mixedlm, zvalues for GLM
+            'Stat': result.tvalues.values if hasattr(result, 'tvalues') else result.zvalues.values,
+            'P-value': result.pvalues.values,
+            'CI_Lower': result.conf_int()[0],
+            'CI_Upper': result.conf_int()[1],
+            'Significant': result.pvalues < 0.05
+        })
+        # Rename Stat column based on model type
+        coefs = coefs.rename(columns={'Stat': 'Z_stat' if 'GLM' in str(type(result)) else 'T_stat'})
+
+
+        # Sort by p-value
+        coefs = coefs.sort_values('P-value')
+
+        # Save to results
+        glmm_results[pc] = {
+            'model': result,
+            'coefficients': coefs,
+            'aic': result.aic if hasattr(result, 'aic') else None,
+            'bic': result.bic if hasattr(result, 'bic') else None
+        }
+
+        # Save coefficients to CSV
+        coefs.to_csv(os.path.join(output_dir, f"glmm_coefficients_{pc}.csv"), index=False)
+
+        # Create coefficient plot
+        plt.figure(figsize=(10, 8))
+        # Filter out intercept for plotting
+        significant_vars = coefs[(coefs['Significant']) & (coefs['Variable'] != 'Intercept')]
+        if len(significant_vars) > 0:
+            # Plot only significant variables (excluding intercept)
+            ax = sns.barplot(x='Coefficient', y='Variable', data=significant_vars, palette='viridis')
+
+            # Add error bars using confidence intervals
+            for i, row in enumerate(significant_vars.itertuples()):
+                ax.errorbar(row.Coefficient, i, xerr=[[row.Coefficient - row.CI_Lower],
+                                                     [row.CI_Upper - row.Coefficient]],
+                           fmt='none', color='black', capsize=5)
+
+            plt.title(f'Significant Variables for {pc} (GLMM)')
+            plt.xlabel('Coefficient Estimate')
+            plt.tight_layout()
+            plt.savefig(os.path.join(output_dir, f"glmm_coefficients_{pc}_plot.png"),
+                       dpi=300, bbox_inches='tight')
+            plt.close()
+
+    # Create a summary plot showing all PCs
+    # Collect all significant variables across PCs (excluding intercept)
+    all_significant = set()
+    for pc, results in glmm_results.items():
+        significant = results['coefficients'][(results['coefficients']['Significant']) & (results['coefficients']['Variable'] != 'Intercept')]
+        all_significant.update(significant['Variable'].tolist())
+
+    # Remove intercepts and reference categories (redundant check, but safe)
+    all_significant = [var for var in all_significant if 'Intercept' not in var]
+
+    if all_significant: # Only create heatmap if there are significant variables
+        # Create a matrix of coefficients
+        coef_matrix = pd.DataFrame(index=sorted(list(all_significant)),
+                                  columns=[f'PC{i+1}' for i in range(n_components)])
+
+        for pc, results in glmm_results.items():
+            for var in all_significant:
+                if var in results['coefficients']['Variable'].values:
+                    # Get coefficient only if significant
+                    row = results['coefficients'][results['coefficients']['Variable'] == var]
+                    if row['Significant'].values[0]:
+                         coef_matrix.loc[var, pc] = row['Coefficient'].values[0]
+                    else:
+                         coef_matrix.loc[var, pc] = np.nan # Use NaN for non-significant
+
+        # Drop rows/columns that are all NaN (if any)
+        coef_matrix.dropna(axis=0, how='all', inplace=True)
+        coef_matrix.dropna(axis=1, how='all', inplace=True)
+
+        if not coef_matrix.empty:
+            # Create heatmap
+            plt.figure(figsize=(max(10, coef_matrix.shape[1]*1.5), max(8, coef_matrix.shape[0]*0.5))) # Dynamic sizing
+            sns.heatmap(coef_matrix.astype(float), cmap='coolwarm', center=0,
+                        annot=True, fmt='.3f', cbar_kws={'label': 'Coefficient (Significant Only)'},
+                        linewidths=.5, linecolor='lightgray', annot_kws={"size": 8}) # Added lines and smaller font
+            plt.title('GLMM Coefficients Across Principal Components (p < 0.05)')
+            plt.xlabel('Principal Components')
+            plt.ylabel('Variables')
+            plt.xticks(rotation=0) # Keep PC labels horizontal
+            plt.yticks(rotation=0) # Keep variable labels horizontal
+            plt.tight_layout()
+            plt.savefig(os.path.join(output_dir, "glmm_coefficients_heatmap.png"),
+                       dpi=300, bbox_inches='tight')
+            plt.close()
+        else:
+            print("No significant variables found across PCs to create heatmap.")
+    else:
+        print("No significant variables found across PCs to create heatmap.")
+
+
+    return glmm_results
+
+def run_db_rda(distance_matrix, metadata, formula, permutations=999):
+    """
+    Run distance-based Redundancy Analysis (db-RDA).
+    
+    Parameters:
+    - distance_matrix: DistanceMatrix object
+    - metadata: DataFrame with sample metadata
+    - formula: Formula string (e.g., "~ Location + SampleType")
+    - permutations: Number of permutations for significance testing
+    
+    Returns:
+    - db-RDA results
+    """
+    # Perform Principal Coordinates Analysis (PCoA) on distance matrix
+    pcoa_result = pcoa(distance_matrix)
+    
+    # Extract the PCoA axes that explain significant variation
+    pcoa_coords = pcoa_result.samples.copy()
+    
+    # Calculate total explained variance
+    total_explained = pcoa_result.proportion_explained.sum()
+    
+    # Filter to PCoA axes explaining at least 1% of variation
+    significant_axes = pcoa_result.proportion_explained[pcoa_result.proportion_explained > 0.01]
+    
+    # Get the column indices that correspond to significant axes
+    # Convert string indices to integer positions if needed
+    significant_indices = []
+    for idx in significant_axes.index:
+        # If idx is a string like 'PC1', get its position in the columns
+        if isinstance(idx, str):
+            col_names = pcoa_coords.columns.tolist()
+            if idx in col_names:
+                significant_indices.append(col_names.index(idx))
+        else:
+            significant_indices.append(idx)
+    
+    print(f"Using {len(significant_axes)} PCoA axes that explain {significant_axes.sum():.1%} of variation")
+    print(f"Significant indices type: {type(significant_indices[0])}")
+    
+    # Create a new DataFrame with the significant axes
+    # Use numeric indexing to access columns
+    selected_columns = [pcoa_coords.columns[i] for i in significant_indices]
+    pcoa_df = pd.DataFrame(
+        pcoa_coords[selected_columns].values,
+        index=distance_matrix.ids,
+        columns=[f"PCo{i+1}" for i in range(len(selected_columns))]  # Rename columns to avoid string indices
+    )
+    
+    # Make sure metadata index matches PCoA IDs
+    metadata = metadata.loc[pcoa_df.index].copy()
+    
+    # Ensure all variables in formula are in metadata
+    for var in formula.replace('~', '').split('+'):
+        var = var.strip()
+        if var not in metadata.columns:
+            raise ValueError(f"Variable '{var}' in formula not found in metadata")
+    
+    # Debug prints
+    print(f"pcoa_df shape: {pcoa_df.shape}")
+    print(f"metadata shape: {metadata.shape}")
+    print(f"pcoa_df columns: {pcoa_df.columns.tolist()}")
+    print(f"metadata columns: {metadata.columns.tolist()[:5]}...")
+    
+    # Try alternative approach with manual matrix construction
+    try:
+        print("Using manual approach for RDA...")
+        # Create the design matrix for the formula
+        design_matrix = pd.DataFrame(index=metadata.index)
+        
+        for var in formula.replace('~', '').split('+'):
+            var = var.strip()
+            if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
+                # For categorical, create dummy variables
+                dummies = pd.get_dummies(metadata[var], prefix=var)
+                design_matrix = pd.concat([design_matrix, dummies], axis=1)
+            else:
+                # For numerical, just add as is
+                design_matrix[var] = metadata[var]
+        
+        # Convert to R matrices
+        # Ensure both matrices have row names set to their indices
+        pcoa_df.index.name = None  # Remove index name if present
+        design_matrix.index.name = None
+        
+        # Convert to R objects explicitly setting row names
+        r_pcoa = pandas2ri.py2rpy(pcoa_df)
+        r_design = pandas2ri.py2rpy(design_matrix)
+        
+        # Print R matrix dimensions for debugging
+        print(f"R pcoa dimensions: {robjects.r('dim')(r_pcoa)[0]} x {robjects.r('dim')(r_pcoa)[1]}")
+        print(f"R design dimensions: {robjects.r('dim')(r_design)[0]} x {robjects.r('dim')(r_design)[1]}")
+        
+        # Use vegan's rda directly with matrices
+        rda_result = vegan.rda(r_pcoa, r_design, scale=True)
+        return rda_result
+    except Exception as e:
+        print(f"RDA approach failed: {str(e)}")
+        print("Trying simpler approach...")
+        
+        # Try an even simpler approach
+        try:
+            # Create simple dataframes with numeric column names
+            Y = pcoa_df.copy()
+            Y.columns = [f"Y{i+1}" for i in range(len(Y.columns))]
+            
+            # Create a simplified design matrix with minimal processing
+            X = pd.DataFrame(index=metadata.index)
+            for var in formula.replace('~', '').split('+'):
+                var = var.strip()
+                if var in metadata.columns:
+                    # Convert categorical to numeric coding if needed
+                    if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
+                        # Simple numeric encoding
+                        categories = metadata[var].astype('category').cat.codes
+                        X[var] = categories
+                    else:
+                        X[var] = metadata[var]
+            
+            # Convert to R objects
+            r_Y = pandas2ri.py2rpy(Y)
+            r_X = pandas2ri.py2rpy(X)
+            
+            print("Calling vegan.rda with simplified matrices...")
+            rda_result = vegan.rda(r_Y, r_X, scale=True)
+            return rda_result
+        except Exception as e2:
+            print(f"Simplified RDA approach also failed: {str(e2)}")
+            raise ValueError(f"Could not perform RDA analysis: {str(e)} then {str(e2)}")
+        
+def variance_partitioning(distance_matrix, metadata, variables, permutations=999):
+    """
+    Perform variance partitioning to determine unique and shared contributions.
+    
+    Parameters:
+    - distance_matrix: DistanceMatrix object
+    - metadata: DataFrame with sample metadata
+    - variables: List of variables to partition
+    - permutations: Number of permutations for significance testing
+    
+    Returns:
+    - Variance partitioning results
+    """
+    # Perform Principal Coordinates Analysis (PCoA)
+    pcoa_result = pcoa(distance_matrix)
+    
+    # Extract significant PCoA axes
+    pcoa_coords = pcoa_result.samples.copy()
+    significant_axes = pcoa_result.proportion_explained[pcoa_result.proportion_explained > 0.01]
+    significant_indices = significant_axes.index
+    
+    # Extract significant PCo axes
+    pcoa_df = pd.DataFrame(
+        pcoa_coords.loc[:, significant_indices],
+        index=distance_matrix.ids
+    )
+    
+    # Make sure metadata index matches PCoA IDs
+    metadata = metadata.loc[pcoa_df.index].copy()
+    
+    # For each variable, create a design matrix
+    variable_matrices = []
+    for i, var in enumerate(variables):
+        # Check if variable exists in metadata
+        if var not in metadata.columns:
+            raise ValueError(f"Variable '{var}' not found in metadata")
+        
+        # Create design matrix for this variable
+        if pd.api.types.is_categorical_dtype(metadata[var]) or metadata[var].dtype == 'object':
+            # For categorical variables, create dummy variables
+            var_dummies = pd.get_dummies(metadata[var], prefix=var)
+            var_matrix = pandas2ri.py2rpy(var_dummies)
+        else:
+            # For numerical variables, just use as is
+            var_data = metadata[[var]]
+            var_matrix = pandas2ri.py2rpy(var_data)
+        
+        variable_matrices.append(var_matrix)
+    
+    # Prepare data for varpart function
+    y = pandas2ri.py2rpy(pcoa_df)  # Response (community composition)
+    
+    # Run variance partitioning
+    try:
+        if len(variables) == 2:
+            result = varpart(y, variable_matrices[0], variable_matrices[1])
+        elif len(variables) == 3:
+            result = varpart(y, variable_matrices[0], variable_matrices[1], variable_matrices[2])
+        elif len(variables) == 4:
+            result = varpart(y, variable_matrices[0], variable_matrices[1], 
+                            variable_matrices[2], variable_matrices[3])
+        else:
+            raise ValueError("Variance partitioning supports 2-4 variables")
+        
+        return result
+    except Exception as e:
+        print(f"Variance partitioning error: {str(e)}")
+        # Add more debug information
+        print(f"Variables: {variables}")
+        for i, var in enumerate(variables):
+            print(f"Variable {i+1} ({var}) has {metadata[var].nunique()} unique values")
+        raise
+
+
+def plot_permanova_results(permanova_result, output_file=None):
+    """
+    Create a visualization of PERMANOVA results showing explained variance.
+    
+    Parameters:
+    - permanova_result: PERMANOVA result from adonis2
+    - output_file: Path to save the plot
+    
+    Returns:
+    - matplotlib figure
+    """
+    # Extract R-squared values and p-values
+    variables = permanova_result.index[:-1]  # Exclude 'Residual'
+    r_squared = permanova_result.loc[variables, 'R2']
+    p_values = permanova_result.loc[variables, 'Pr(>F)']
+    
+    # Sort by R-squared in descending order
+    sorted_idx = r_squared.argsort()[::-1]
+    variables = variables[sorted_idx]
+    r_squared = r_squared[sorted_idx]
+    p_values = p_values[sorted_idx]
+    
+    # Create bar plot
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.bar(variables, r_squared * 100, color='skyblue')
+    
+    # Add significance markers
+    for i, (var, p) in enumerate(zip(variables, p_values)):
+        significance = ''
+        if p < 0.001:
+            significance = '***'
+        elif p < 0.01:
+            significance = '**'
+        elif p < 0.05:
+            significance = '*'
+        
+        if significance:
+            ax.text(i, r_squared[i] * 100 + 0.5, significance, 
+                   ha='center', va='bottom', fontweight='bold')
+    
+    # Add residual variance
+    residual = permanova_result.loc['Residual', 'R2'] * 100
+    ax.axhline(y=100 - residual, color='red', linestyle='--', 
+               label=f'Explained variance ({100 - residual:.1f}%)')
+    
+    # Customize the plot
+    ax.set_ylabel('Variance Explained (%)')
+    ax.set_xlabel('Variables')
+    ax.set_title('PERMANOVA Results: Explained Community Variance by Variable')
+    ax.set_ylim(0, max(r_squared * 100) * 1.2)
+    
+    # Add values on top of bars
+    for i, bar in enumerate(bars):
+        height = bar.get_height()
+        ax.text(bar.get_x() + bar.get_width()/2., height + 0.1,
+               f'{height:.1f}%', ha='center', va='bottom')
+    
+    # Add p-value legend
+    ax.text(0.05, 0.05, '* p < 0.05, ** p < 0.01, *** p < 0.001',
+           transform=ax.transAxes, fontsize=10, verticalalignment='bottom')
+    
+    plt.legend()
+    plt.tight_layout()
+    
+    if output_file:
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    
+    return fig
+
+def plot_db_rda(rda_result, metadata, output_file=None):
+    """
+    Create triplot for db-RDA results.
+    
+    Parameters:
+    - rda_result: RDA result
+    - metadata: DataFrame with sample metadata
+    - output_file: Path to save the plot
+    
+    Returns:
+    - matplotlib figure
+    """
+    # Extract site scores, species scores, and biplot (constraint) scores
+    site_scores = rda_result['sites']
+    biplot_scores = rda_result['biplot']
+    
+    # Create biplot of first two RDA axes
+    fig, ax = plt.subplots(figsize=(10, 8))
+    
+    # Plot site scores
+    scatter = ax.scatter(site_scores[:, 0], site_scores[:, 1], c='blue', alpha=0.7)
+    
+    # Color by a categorical variable if available
+    color_by = None
+    for col in ['SampleType', 'Location', 'PostNatalAntibiotics', 'GestationCohort']:
+        if col in metadata.columns:
+            color_by = col
+            break
+    
+    if color_by:
+        # Color points by the selected categorical variable
+        categories = metadata[color_by].astype('category')
+        colors = dict(zip(categories.cat.categories, 
+                          plt.cm.tab10(np.linspace(0, 1, len(categories.cat.categories)))))
+        
+        for category, color in colors.items():
+            mask = metadata[color_by] == category
+            ax.scatter(site_scores[mask, 0], site_scores[mask, 1], 
+                      c=[color], label=category, alpha=0.7)
+        
+        plt.legend(title=color_by)
+    
+    # Plot biplot scores (environmental variables)
+    biplot_scale = 0.5 * max(abs(site_scores[:, 0].max()), abs(site_scores[:, 1].max()))
+    for i in range(biplot_scores.shape[0]):
+        ax.arrow(0, 0, biplot_scores[i, 0] * biplot_scale, biplot_scores[i, 1] * biplot_scale,
+                color='red', width=0.01, head_width=0.05, length_includes_head=True)
+        ax.text(biplot_scores[i, 0] * biplot_scale * 1.1, 
+                biplot_scores[i, 1] * biplot_scale * 1.1,
+                rda_result['biplot_names'][i], color='darkred', fontweight='bold')
+    
+    # Add axis labels and title
+    prop_explained_1 = rda_result['CCA$eig'][0] / sum(rda_result['tot.chi'])
+    prop_explained_2 = rda_result['CCA$eig'][1] / sum(rda_result['tot.chi'])
+    
+    ax.set_xlabel(f'RDA1 ({prop_explained_1:.1%} explained)')
+    ax.set_ylabel(f'RDA2 ({prop_explained_2:.1%} explained)')
+    ax.set_title('Distance-based Redundancy Analysis (db-RDA)')
+    
+    # Add grid lines
+    ax.axhline(y=0, color='gray', linestyle='--', alpha=0.7)
+    ax.axvline(x=0, color='gray', linestyle='--', alpha=0.7)
+    
+    plt.tight_layout()
+    
+    if output_file:
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    
+    return fig
+
+def plot_variance_partitioning(varpart_result, variables, output_file=None):
+    """
+    Create a Venn diagram visualization of variance partitioning results.
+    
+    Parameters:
+    - varpart_result: Variance partitioning result
+    - variables: List of variables used in partitioning
+    - output_file: Path to save the plot
+    
+    Returns:
+    - matplotlib figure
+    """
+    from matplotlib_venn import venn2, venn3
+    
+    fig, ax = plt.subplots(figsize=(8, 8))
+    
+    if len(variables) == 2:
+        # For 2 variables, extract the fractions
+        # [a, b, ab]
+        fractions = [
+            varpart_result['part']['indfract.X1'],  # unique to X1
+            varpart_result['part']['indfract.X2'],  # unique to X2
+            varpart_result['part']['fract'].iloc[2]  # shared
+        ]
+        
+        # Create Venn diagram
+        venn2(subsets=(fractions[0], fractions[1], fractions[2]), 
+              set_labels=variables, ax=ax)
+        
+    elif len(variables) == 3:
+        # For 3 variables, extract the fractions
+        # [a, b, c, ab, ac, bc, abc]
+        fractions = [
+            varpart_result['part']['indfract.X1'],  # unique to X1
+            varpart_result['part']['indfract.X2'],  # unique to X2
+            varpart_result['part']['indfract.X3'],  # unique to X3
+            varpart_result['part']['fract'].iloc[3],  # X1 and X2
+            varpart_result['part']['fract'].iloc[5],  # X1 and X3
+            varpart_result['part']['fract'].iloc[6],  # X2 and X3
+            varpart_result['part']['fract'].iloc[7]   # X1, X2, and X3
+        ]
+        
+        # Create Venn diagram
+        venn3(subsets=(fractions[0], fractions[1], fractions[3], 
+                      fractions[2], fractions[4], fractions[5], fractions[6]),
+              set_labels=variables, ax=ax)
+    
+    else:
+        # For 4+ variables, create a bar plot instead
+        components = []
+        values = []
+        
+        # Individual fractions
+        for i, var in enumerate(variables):
+            components.append(f"{var} (unique)")
+            values.append(varpart_result['part'][f'indfract.X{i+1}'])
+        
+        # Add joint fractions for simplicity
+        if len(variables) == 4:
+            joint_vars = [
+                (0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3),
+                (0, 1, 2), (0, 1, 3), (0, 2, 3), (1, 2, 3),
+                (0, 1, 2, 3)
+            ]
+            
+            for indices in joint_vars:
+                var_names = [variables[i] for i in indices]
+                components.append(" + ".join(var_names))
+                # This will need customization depending on the varpart output structure
+                # Below is a simplified approach
+                values.append(0.01)  # Placeholder
+        
+        # Create bar plot
+        ax.bar(range(len(components)), values)
+        ax.set_xticks(range(len(components)))
+        ax.set_xticklabels(components, rotation=90)
+        ax.set_ylabel('Proportion of Variance Explained')
+        ax.set_title('Variance Partitioning Results')
+    
+    plt.title('Variance Partitioning of Microbiome Composition')
+    
+    if output_file:
+        plt.savefig(output_file, dpi=300, bbox_inches='tight')
+    
+    return fig
+
+
+def glmm_on_distance_matrix(microbiome_df, metadata_df, distance_method="bray", output_dir="results_new"):
+    """
+    Apply Generalized Linear Mixed Model directly on distance matrix for microbiome data.
+    Uses zero-inflated approach when appropriate.
+    
+    Parameters:
+    - microbiome_df: DataFrame with microbiome abundance data (raw counts)
+    - metadata_df: DataFrame with sample metadata
+    - distance_method: Method for calculating distances
+    - output_dir: Directory to save results
+    
+    Returns:
+    - Dictionary with GLMM results
+    """
+    import os
+    from scipy.spatial.distance import squareform
+    import statsmodels.api as sm
+    from statsmodels.formula.api import mixedlm
+    from sklearn.preprocessing import StandardScaler
+    
+    # Create output directory
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Get common samples
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    print(f"Using {len(common_samples)} samples with both microbiome and metadata")
+    
+    # Normalize microbiome data
+    normalized_df, norm_method = select_best_normalization(microbiome_df)
+    
+    # Calculate distance matrix
+    dist_matrix = calculate_distance_matrix(normalized_df, method=distance_method)
+    
+    # Convert distance matrix to long format for modeling
+    # This creates pairwise distances between all samples
+    dist_array = squareform(dist_matrix.data)
+    n_samples = len(dist_matrix.ids)
+    
+    # Create dataframe for modeling with pairwise distances
+    pairs_data = []
+    for i in range(n_samples):
+        for j in range(i+1, n_samples):
+            sample1_id = dist_matrix.ids[i]
+            sample2_id = dist_matrix.ids[j]
+            distance = dist_matrix.data[i, j]
+            
+            # Get metadata for both samples
+            meta1 = metadata_df.loc[sample1_id]
+            meta2 = metadata_df.loc[sample2_id]
+            
+            # Create a row for each pair with difference in categorical variables
+            row = {
+                'Distance': distance,
+                'Sample1': sample1_id,
+                'Sample2': sample2_id,
+                'Subject1': meta1.get('Subject', 'Unknown'),
+                'Subject2': meta2.get('Subject', 'Unknown')
+            }
+            
+            # Add differences or indicators for categorical variables
+            categorical_features = [
+                "Location", "SampleType", "SampleCollectionWeek", 
+                "GestationCohort", "PostNatalAbxCohort", "MaternalAntibiotics", 
+                "AnyMilk", "PICC", "UVC", "Delivery"
+            ]
+            
+            for feat in categorical_features:
+                if feat in meta1.index and feat in meta2.index:
+                    # Create indicator if values are different
+                    row[f'{feat}_Different'] = int(meta1[feat] != meta2[feat])
+                    # Store actual values for potential interaction effects
+                    row[f'{feat}_Sample1'] = str(meta1[feat])
+                    row[f'{feat}_Sample2'] = str(meta2[feat])
+            
+            pairs_data.append(row)
+    
+    pairs_df = pd.DataFrame(pairs_data)
+    
+    # Check for zero-inflation in distances
+    zero_proportion = (pairs_df['Distance'] == 0).mean()
+    print(f"Proportion of zero distances: {zero_proportion:.2%}")
+    
+    if zero_proportion > 0.1:  # More than 10% zeros
+        print("Using zero-inflated modeling approach")
+        # Implement zero-inflated GLMM
+        results = fit_zero_inflated_glmm(pairs_df, categorical_features, output_dir)
+    else:
+        print("Using standard GLMM approach")
+        results = fit_standard_glmm(pairs_df, categorical_features, output_dir)
+    
+    return results
+
+def fit_zero_inflated_glmm(pairs_df, categorical_features, output_dir):
+    """
+    Fit zero-inflated GLMM for distance data.
+    """
+    import statsmodels.api as sm
+    from statsmodels.discrete.count_model import ZeroInflatedGeneralizedPoisson
+    import numpy as np
+    
+    # Create formula
+    difference_vars = [f'{feat}_Different' for feat in categorical_features 
+                      if f'{feat}_Different' in pairs_df.columns]
+    
+    formula = "Distance ~ " + " + ".join(difference_vars)
+    
+    # Transform distances to discrete counts for zero-inflated model
+    # Scale distances to reasonable count range
+    max_dist = pairs_df['Distance'].max()
+    pairs_df['Distance_Counts'] = np.round(pairs_df['Distance'] * 1000).astype(int)
+    
+    try:
+        # Try zero-inflated negative binomial first (better for overdispersed data)
+        print("Fitting zero-inflated negative binomial model...")
+        model = sm.ZeroInflatedNegativeBinomialP.from_formula(
+            formula.replace('Distance', 'Distance_Counts'),
+            data=pairs_df,
+            exog_infl=sm.add_constant(pairs_df[difference_vars])
+        )
+        result = model.fit(maxiter=1000, method='bfgs')
+        model_type = "Zero-Inflated Negative Binomial"
+    except:
+        try:
+            # Fall back to zero-inflated Poisson
+            print("Fitting zero-inflated Poisson model...")
+            model = sm.ZeroInflatedPoisson.from_formula(
+                formula.replace('Distance', 'Distance_Counts'),
+                data=pairs_df,
+                exog_infl=sm.add_constant(pairs_df[difference_vars])
+            )
+            result = model.fit(maxiter=1000)
+            model_type = "Zero-Inflated Poisson"
+        except:
+            # Fall back to standard GLM with Tweedie distribution
+            print("Falling back to Tweedie GLM...")
+            import statsmodels.genmod.families as families
+            model = sm.GLM.from_formula(
+                formula,
+                data=pairs_df,
+                family=families.Tweedie(var_power=1.5)
+            )
+            result = model.fit()
+            model_type = "Tweedie GLM"
+    
+    # Save results
+    with open(os.path.join(output_dir, "zero_inflated_glmm_results.txt"), "w") as f:
+        f.write(f"Model Type: {model_type}\n\n")
+        f.write(str(result.summary()))
+    
+    # Extract coefficients
+    coef_df = pd.DataFrame({
+        'Variable': result.params.index,
+        'Coefficient': result.params.values,
+        'P-value': result.pvalues.values,
+        'Significant': result.pvalues < 0.05
+    })
+    
+    coef_df.to_csv(os.path.join(output_dir, "zero_inflated_glmm_coefficients.csv"), index=False)
+    
+    # Create coefficient plot
+    plt.figure(figsize=(10, 8))
+    significant_vars = coef_df[coef_df['Significant'] & (coef_df['Variable'] != 'Intercept')]
+    
+    if len(significant_vars) > 0:
+        ax = sns.barplot(x='Coefficient', y='Variable', data=significant_vars, palette='viridis')
+        plt.title(f'Significant Variables ({model_type})')
+        plt.xlabel('Coefficient Estimate')
+        plt.tight_layout()
+        plt.savefig(os.path.join(output_dir, "zero_inflated_glmm_coefficients_plot.png"), 
+                   dpi=300, bbox_inches='tight')
+        plt.close()
+    
+    return {
+        'model': result,
+        'coefficients': coef_df,
+        'model_type': model_type
+    }
+
+def fit_standard_glmm(pairs_df, categorical_features, output_dir):
+    """
+    Fit standard GLMM for distance data.
+    """
+    from statsmodels.formula.api import mixedlm
+    import statsmodels.api as sm
+    
+    # Create formula
+    difference_vars = [f'{feat}_Different' for feat in categorical_features 
+                      if f'{feat}_Different' in pairs_df.columns]
+    
+    formula = "Distance ~ " + " + ".join(difference_vars)
+    
+    # Try to use subject information for random effects
+    if 'Subject1' in pairs_df.columns and 'Subject2' in pairs_df.columns:
+        # Create a grouping variable for mixed effects
+        pairs_df['PairGroup'] = pairs_df['Subject1'] + "_" + pairs_df['Subject2']
+        
+        try:
+            print("Fitting mixed effects model with subject pairing...")
+            model = mixedlm(formula, pairs_df, groups=pairs_df['PairGroup'])
+            result = model.fit()
+            model_type = "Mixed Effects Model"
+        except:
+            print("Mixed model failed, using standard GLM...")
+            model = sm.GLM.from_formula(formula, data=pairs_df)
+            result = model.fit()
+            model_type = "Generalized Linear Model"
+    else:
+        print("Using standard GLM (no subject information)...")
+        model = sm.GLM.from_formula(formula, data=pairs_df)
+        result = model.fit()
+        model_type = "Generalized Linear Model"
+    
+    # Save results
+    with open(os.path.join(output_dir, "standard_glmm_results.txt"), "w") as f:
+        f.write(f"Model Type: {model_type}\n\n")
+        f.write(str(result.summary()))
+    
+    # Extract coefficients
+    coef_df = pd.DataFrame({
+        'Variable': result.params.index,
+        'Coefficient': result.params.values,
+        'P-value': result.pvalues.values,
+        'Significant': result.pvalues < 0.05
+    })
+    
+    coef_df.to_csv(os.path.join(output_dir, "standard_glmm_coefficients.csv"), index=False)
+    
+    return {
+        'model': result,
+        'coefficients': coef_df,
+        'model_type': model_type
+    }
+
+def analyze_microbiome_variance(microbiome_df, metadata_df, 
+                               distance_method="bray",
+                               output_dir="results_new",
+                               key_variables=None):
+    """
+    Comprehensive analysis of factors explaining microbiome variance.
+    
+    Parameters:
+    - microbiome_df: DataFrame with microbiome abundance data
+    - metadata_df: DataFrame with sample metadata
+    - distance_method: Method for calculating distances
+    - output_dir: Directory to save results
+    - key_variables: List of key variables to include (if None, will detect automatically)
+    
+    Returns:
+    - Dictionary with analysis results
+    """
+    # Create output directory
+    os.makedirs(output_dir, exist_ok=True)
+    
+    # Get common samples between microbiome and metadata
+    common_samples = list(set(microbiome_df.index) & set(metadata_df.index))
+    microbiome_df = microbiome_df.loc[common_samples]
+    metadata_df = metadata_df.loc[common_samples]
+    
+    print(f"Using {len(common_samples)} samples with both microbiome and metadata")
+    
+    # Normalize microbiome data
+    normalized_df, norm_method = select_best_normalization(microbiome_df)
+    print(f"Applied {norm_method} normalization to microbiome data")
+    
+    # Save normalized data
+    normalized_df.to_csv(os.path.join(output_dir, f"microbiome_normalized_{norm_method}.csv"))
+    
+    # Calculate distance matrix
+    binary = norm_method == "presence_absence"
+    dist_matrix = calculate_distance_matrix(normalized_df, method=distance_method, binary=binary)
+    print(f"Calculated {distance_method} distances between samples")
+    
+    # Identify potentially important variables if not specified
+    if key_variables is None:
+        key_variables = []
+        
+        for col in metadata_df.columns:
+            # Skip columns with too many missing values
+            if metadata_df[col].isnull().mean() > 0.2:
+                continue
+                
+            # Skip columns with unique values for each sample
+            if metadata_df[col].nunique() == len(metadata_df):
+                continue
+                
+            # Skip columns with only one value
+            if metadata_df[col].nunique() <= 1:
+                continue
+                
+            # For categorical variables, ensure enough samples per category
+            if pd.api.types.is_categorical_dtype(metadata_df[col]) or metadata_df[col].dtype == 'object':
+                if metadata_df[col].value_counts().min() < 3:
+                    continue
+            
+            key_variables.append(col)
+        
+        print(f"Identified {len(key_variables)} potentially important variables: {', '.join(key_variables)}")
+    
+    # Create formula for PERMANOVA
+    formula = " + ".join([f"{var}" for var in key_variables])
+    formula = f"~{formula}"
+    print(f"Using formula: {formula}")
+    
+    # Run PERMANOVA
+    try:
+        permanova_result = run_permanova(dist_matrix, metadata_df, formula)
+        print("PERMANOVA Results:")
+        print(permanova_result)
+        
+        # Save PERMANOVA results
+        with open(os.path.join(output_dir, "permanova_result.txt"), "w") as f:
+            f.write(str(permanova_result))
+        
+        # Plot PERMANOVA results
+        fig = plot_permanova_results(permanova_result, 
+                                    output_file=os.path.join(output_dir, "permanova_plot.png"))
+    except Exception as e:
+        print(f"Error running PERMANOVA: {e}")
+        permanova_result = None
+    
+    # Run db-RDA
+    try:
+        db_rda_result = run_db_rda(dist_matrix, metadata_df, formula)
+        print("db-RDA Results:")
+        print(db_rda_result)
+        
+        # Save db-RDA results
+        with open(os.path.join(output_dir, "db_rda_result.txt"), "w") as f:
+            f.write(str(db_rda_result))
+        
+        # Plot db-RDA results
+        fig = plot_db_rda(db_rda_result, metadata_df, 
+                         output_file=os.path.join(output_dir, "db_rda_plot.png"))
+    except Exception as e:
+        print(f"Error running db-RDA: {e}")
+        db_rda_result = None
+    
+    # Run variance partitioning for top variables
+    if permanova_result is not None:
+        # Get top variables by R-squared
+        variables = permanova_result.index[:-1]  # Exclude 'Residual'
+        r_squared = permanova_result.loc[variables, 'R2']
+        p_values = permanova_result.loc[variables, 'Pr(>F)']
+        
+        # Filter to significant variables with highest R-squared
+        sig_vars = [var for var, p in zip(variables, p_values) if p < 0.05]
+        
+        if len(sig_vars) >= 2:
+            # Limit to top 3-4 variables for variance partitioning
+            top_vars = sig_vars[:min(4, len(sig_vars))]
+            
+            try:
+                varpart_result = variance_partitioning(dist_matrix, metadata_df, top_vars)
+                print("Variance Partitioning Results:")
+                print(varpart_result)
+                
+                # Save variance partitioning results
+                with open(os.path.join(output_dir, "varpart_result.txt"), "w") as f:
+                    f.write(str(varpart_result))
+                
+                # Plot variance partitioning
+                if len(top_vars) <= 3:  # Venn diagram only works for 2-3 variables
+                    fig = plot_variance_partitioning(varpart_result, top_vars,
+                                                   output_file=os.path.join(output_dir, "varpart_plot.png"))
+            except Exception as e:
+                print(f"Error running variance partitioning: {e}")
+                varpart_result = None
+        else:
+            print("Not enough significant variables for variance partitioning")
+            varpart_result = None
+    else:
+        varpart_result = None
+    
+    # Return results
+    results = {
+        "normalized_df": normalized_df,
+        "normalization_method": norm_method,
+        "distance_matrix": dist_matrix,
+        "permanova_result": permanova_result,
+        "db_rda_result": db_rda_result,
+        "varpart_result": varpart_result
+    }
+    
+    # Save results object
+    with open(os.path.join(output_dir, "variance_analysis_results.pkl"), "wb") as f:
+        pickle.dump(results, f)
+    
+    return results
+
+
+if __name__ == '__main__':
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='Microbiome Variance Partitioning CLI (integrated)')
+    subparsers = parser.add_subparsers(dest='command', required=True)
+
+    # Full analysis command
+    run_parser = subparsers.add_parser('run', help='Run full analysis')
+    run_parser.add_argument('--abundance', required=True, help='Abundance CSV path')
+    run_parser.add_argument('--metadata', required=True, help='Metadata CSV path')
+    run_parser.add_argument('--output-dir', default='results_new/variance_analysis', help='Output directory')
+    run_parser.add_argument('--distance-method', default='bray', help='Distance metric for analyses')
+
+    # Subcommands for individual steps
+    perma_parser = subparsers.add_parser('permanova', help='Run PERMANOVA')
+    perma_parser.add_argument('--distance-matrix', required=True, help='Distance matrix pickle')
+    perma_parser.add_argument('--metadata', required=True, help='Metadata CSV path')
+    perma_parser.add_argument('--formula', required=True, help='Formula string')
+
+    db_parser = subparsers.add_parser('db_rda', help='Run db-RDA')
+    db_parser.add_argument('--distance-matrix', required=True, help='Distance matrix pickle')
+    db_parser.add_argument('--metadata', required=True, help='Metadata CSV path')
+    db_parser.add_argument('--formula', required=True, help='Formula string')
+
+    var_parser = subparsers.add_parser('varpart', help='Run variance partitioning')
+    var_parser.add_argument('--distance-matrix', required=True, help='Distance matrix pickle')
+    var_parser.add_argument('--metadata', required=True, help='Metadata CSV path')
+    var_parser.add_argument('--variables', nargs='+', required=True, help='Variables list')
+
+    args = parser.parse_args()
+
+    # Load data based on command
+    if args.command == 'run':
+        # Load data
+        micro = pd.read_csv(args.abundance, index_col=0)
+        meta = pd.read_csv(args.metadata, index_col=0)
+        os.makedirs(args.output_dir, exist_ok=True)
+        results = analyze_microbiome_variance(
+            microbiome_df=micro,
+            metadata_df=meta,
+            distance_method=args.distance_method,
+            output_dir=args.output_dir,
+            key_variables=None
+        )
+        # Then run LMM and GLMM
+        lmm_res = lmm_on_microbiome_principal_components(
+            microbiome_df=results['normalized_df'],
+            metadata_df=meta,
+            n_components=5
+        )
+        pickle.dump(lmm_res, open(Path(args.output_dir)/'lmm_results.pkl','wb'))
+        glmm_res = glmm_on_microbiome_composition(
+            microbiome_df=results['normalized_df'],
+            metadata_df=meta,
+            n_components=5,
+            output_dir=args.output_dir
+        )
+        pickle.dump(glmm_res, open(Path(args.output_dir)/'glmm_results.pkl','wb'))
+        print(f'Full analysis complete. Results in {args.output_dir}')
+
+    elif args.command == 'permanova':
+        dm = pickle.load(open(args.distance_matrix,'rb'))
+        meta = pd.read_csv(args.metadata, index_col=0)
+        res = run_permanova(dm, meta, args.formula)
+        print(res)
+
+    elif args.command == 'db_rda':
+        dm = pickle.load(open(args.distance_matrix,'rb'))
+        meta = pd.read_csv(args.metadata, index_col=0)
+        rda_res = run_db_rda(dm, meta, args.formula)
+        print(rda_res)
+
+    elif args.command == 'varpart':
+        dm = pickle.load(open(args.distance_matrix,'rb'))
+        meta = pd.read_csv(args.metadata, index_col=0)
+        vp = variance_partitioning(dm, meta, args.variables)
+        print(vp)
+
+    else:
+        parser.print_help()
