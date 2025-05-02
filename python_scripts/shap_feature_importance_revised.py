@@ -8,6 +8,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.inspection import permutation_importance
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
+import shap  # Add this import
 
 print("Starting feature importance analysis...")
 
@@ -103,12 +104,66 @@ sns.barplot(x='Importance', y='Feature', data=feature_importance)
 plt.title('Feature Importance for Sample Type Prediction')
 plt.tight_layout()
 plt.savefig('results/feature_importance_plot.pdf')
+plt.close()
 
 plt.figure(figsize=(10, 6))
 sns.barplot(x='Importance', y='Feature', data=perm_importance_df)
 plt.title('Permutation Feature Importance for Sample Type Prediction')
 plt.tight_layout()
 plt.savefig('results/permutation_importance_plot.pdf')
+plt.close()
 
 print("Generated and saved feature importance plots")
+
+# SHAP analysis
+print("Performing SHAP analysis...")
+explainer = shap.TreeExplainer(model)
+shap_values = explainer.shap_values(X_test)
+
+# Get SHAP feature importance
+# For multiclass classification, shap_values is a list with one array per class
+# We'll compute the average absolute SHAP value across all samples and classes
+if isinstance(shap_values, list):
+    # Multi-class case
+    shap_importance_per_class = []
+    for i, class_shap_values in enumerate(shap_values):
+        class_importance = np.abs(class_shap_values).mean(axis=0)
+        shap_importance_per_class.append(class_importance)
+    
+    # Average across classes
+    shap_importance_vals = np.mean(shap_importance_per_class, axis=0)
+else:
+    # Binary case
+    shap_importance_vals = np.abs(shap_values).mean(axis=0)
+
+# Create SHAP importance dataframe
+shap_importance = pd.DataFrame({
+    'Feature': predictors.columns,
+    'Importance': shap_importance_vals
+})
+shap_importance = shap_importance.sort_values('Importance', ascending=False)
+
+print("SHAP feature importance:")
+print(shap_importance)
+
+# Save SHAP results
+shap_importance.to_csv("results/shap_importance_sampletype.csv", index=False)
+
+# Plot SHAP feature importance
+plt.figure(figsize=(10, 6))
+ax = sns.barplot(x='Importance', y='Feature', data=shap_importance)
+plt.title('Feature Importance for Sample Type Prediction (SHAP)')
+plt.tight_layout()
+plt.savefig('results/feature_importance_plot_SampleType.pdf')
+plt.close()
+print("Saved feature importance plot to results/feature_importance_plot_SampleType.pdf")
+
+# Create SHAP summary plot - note this is more complex with multiclass
+plt.figure(figsize=(12, 10))
+shap.summary_plot(shap_values, X_test, feature_names=predictors.columns, class_names=model.classes_, show=False)
+plt.tight_layout()
+plt.savefig('results/shap_summary_SampleType.pdf')
+plt.close()
+print("Saved SHAP summary plot to results/shap_summary_SampleType.pdf")
+
 print("Feature importance analysis completed successfully.")
