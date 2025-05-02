@@ -1,0 +1,298 @@
+Variable,Coefficient,P-value,Model_Type,Microbe
+Intercept,4.433984065832843,0.02203550752192943,MixedLM,Klebsiella.pneumoniae
+C(SampleType)[T.Groin],2.5361793394491317,3.467805047172784e-11,MixedLM,Klebsiella.pneumoniae
+C(SampleType)[T.Stool],4.155821831404927,1.4110550366347649e-31,MixedLM,Klebsiella.pneumoniae
+C(Location)[T.Hangzhou],0.8923937733452537,0.17762428264764907,MixedLM,Klebsiella.pneumoniae
+C(GestationCohort)[T.28-32 Weeks],-0.9792870617810521,0.25894108075722666,MixedLM,Klebsiella.pneumoniae
+C(GestationCohort)[T.33-36 Weeks],-0.07352505999158547,0.9479330768294122,MixedLM,Klebsiella.pneumoniae
+C(SampleCollectionWeek)[T.Week.3],3.141782782116257,2.047316637307384e-24,MixedLM,Klebsiella.pneumoniae
+C(MaternalAntibiotics)[T.None.Mat.Abx],-0.6229217414058091,0.2847547378930867,MixedLM,Klebsiella.pneumoniae
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],-2.4120441802258665,0.00037820357525426753,MixedLM,Klebsiella.pneumoniae
+C(PostNatalAbxCohort)[T.No.Infant.Abx],-1.483589906308278,0.02389159004195896,MixedLM,Klebsiella.pneumoniae
+C(BSI_30D)[T.BSI ],-1.3244208677886498,0.5959374829060677,MixedLM,Klebsiella.pneumoniae
+C(BSI_30D)[T.BSI and No.BSI],2.7732164336370557,0.22856890511953354,MixedLM,Klebsiella.pneumoniae
+C(BSI_30D)[T.No.BSI],0.9270686528832358,0.23206401431613632,MixedLM,Klebsiella.pneumoniae
+C(BSI_30D)[T.No.BSI ],-2.5303132143467413,0.3684971714811157,MixedLM,Klebsiella.pneumoniae
+C(BSI_30D)[T.Other],0.7882307204344016,0.7999011550411516,MixedLM,Klebsiella.pneumoniae
+C(BSI_30D)[T.PICC],-1.1331680405940028,0.5384254636208299,MixedLM,Klebsiella.pneumoniae
+C(NEC_30D)[T.No.NEC],-0.16608697611897533,0.8963181896746355,MixedLM,Klebsiella.pneumoniae
+C(AnyMilk)[T.Mother],-0.4777684146855837,0.570217767926911,MixedLM,Klebsiella.pneumoniae
+C(AnyMilk)[T.No.Milk],-1.8232586190506694,0.09379698457686164,MixedLM,Klebsiella.pneumoniae
+C(PICC)[T.PICC_LE],0.691090029195185,0.377046464932409,MixedLM,Klebsiella.pneumoniae
+C(PICC)[T.PICC_Neck],-1.3967998276313272,0.4360639254649006,MixedLM,Klebsiella.pneumoniae
+C(PICC)[T.PICC_UE],1.4804957447614069,0.02886618192854856,MixedLM,Klebsiella.pneumoniae
+C(PICC)[T.axillary],-0.456773935994807,0.75832109936231,MixedLM,Klebsiella.pneumoniae
+C(PICC)[T.peripheral_UE],1.7746227189311106,0.1655087301679915,MixedLM,Klebsiella.pneumoniae
+C(UVC)[T.UVC],-1.4017625034753807,0.05354850382777779,MixedLM,Klebsiella.pneumoniae
+C(Delivery)[T.Vaginal],-0.9272219864005466,0.1619304847877241,MixedLM,Klebsiella.pneumoniae
+Group Var,0.2884046802554874,0.002220010775662472,MixedLM,Klebsiella.pneumoniae
+Intercept,10.417093467034602,1.2207879178880867e-30,MixedLM,Staphylococcus.aureus
+C(SampleType)[T.Groin],-1.1572618606065732,7.561488746078013e-10,MixedLM,Staphylococcus.aureus
+C(SampleType)[T.Stool],-1.4851987687958812,2.0117908378746723e-17,MixedLM,Staphylococcus.aureus
+C(Location)[T.Hangzhou],-0.5374893546931907,0.0842821017731575,MixedLM,Staphylococcus.aureus
+C(GestationCohort)[T.28-32 Weeks],0.6111667034502268,0.13307673680232524,MixedLM,Staphylococcus.aureus
+C(GestationCohort)[T.33-36 Weeks],-0.05633406657656002,0.9150642984208938,MixedLM,Staphylococcus.aureus
+C(SampleCollectionWeek)[T.Week.3],-0.9409428188868492,5.011901943947287e-10,MixedLM,Staphylococcus.aureus
+C(MaternalAntibiotics)[T.None.Mat.Abx],0.3159186880519996,0.242925665235184,MixedLM,Staphylococcus.aureus
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],0.3221572153616103,0.3175098331652272,MixedLM,Staphylococcus.aureus
+C(PostNatalAbxCohort)[T.No.Infant.Abx],0.744166381969656,0.015997840172726138,MixedLM,Staphylococcus.aureus
+C(BSI_30D)[T.BSI ],0.242478938515924,0.8378092511750943,MixedLM,Staphylococcus.aureus
+C(BSI_30D)[T.BSI and No.BSI],1.0484696224318517,0.3406382840946768,MixedLM,Staphylococcus.aureus
+C(BSI_30D)[T.No.BSI],0.23295281217007055,0.5261931039325,MixedLM,Staphylococcus.aureus
+C(BSI_30D)[T.No.BSI ],1.4141973203798772,0.2863326858222176,MixedLM,Staphylococcus.aureus
+C(BSI_30D)[T.Other],-0.7072691230127338,0.6328998370731935,MixedLM,Staphylococcus.aureus
+C(BSI_30D)[T.PICC],0.32471886663375166,0.7116270802355156,MixedLM,Staphylococcus.aureus
+C(NEC_30D)[T.No.NEC],0.4298497393077376,0.470761526187935,MixedLM,Staphylococcus.aureus
+C(AnyMilk)[T.Mother],-0.2146582382839649,0.5769971090661744,MixedLM,Staphylococcus.aureus
+C(AnyMilk)[T.No.Milk],0.2304167927318137,0.6540654743062779,MixedLM,Staphylococcus.aureus
+C(PICC)[T.PICC_LE],0.40017791933006963,0.25796032207918407,MixedLM,Staphylococcus.aureus
+C(PICC)[T.PICC_Neck],0.20151546660628145,0.8068241520885977,MixedLM,Staphylococcus.aureus
+C(PICC)[T.PICC_UE],0.6989761789309061,0.02190008342211732,MixedLM,Staphylococcus.aureus
+C(PICC)[T.axillary],1.2183710561464136,0.08439058592892869,MixedLM,Staphylococcus.aureus
+C(PICC)[T.peripheral_UE],0.8777216169414649,0.14855643820926262,MixedLM,Staphylococcus.aureus
+C(UVC)[T.UVC],0.8335039431586309,0.017661033495171893,MixedLM,Staphylococcus.aureus
+C(Delivery)[T.Vaginal],0.5002723272740766,0.10788939859965556,MixedLM,Staphylococcus.aureus
+Group Var,0.19269909768631985,0.0044916546541582565,MixedLM,Staphylococcus.aureus
+Intercept,9.234766681989758,8.024196614972078e-08,MixedLM,Escherichia.coli
+C(SampleType)[T.Groin],2.0710337112839534,3.779207151737397e-09,MixedLM,Escherichia.coli
+C(SampleType)[T.Stool],3.7450866815243202,1.7452896341088314e-30,MixedLM,Escherichia.coli
+C(Location)[T.Hangzhou],-0.9450278912060167,0.11303801936758089,MixedLM,Escherichia.coli
+C(GestationCohort)[T.28-32 Weeks],-1.675611751705539,0.030190132227290264,MixedLM,Escherichia.coli
+C(GestationCohort)[T.33-36 Weeks],-0.7385854467326163,0.45734906775010653,MixedLM,Escherichia.coli
+C(SampleCollectionWeek)[T.Week.3],2.3477658267961914,9.735032214581029e-17,MixedLM,Escherichia.coli
+C(MaternalAntibiotics)[T.None.Mat.Abx],-0.5572579283481869,0.2816337008726122,MixedLM,Escherichia.coli
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],-1.0585990179705123,0.08189537534839157,MixedLM,Escherichia.coli
+C(PostNatalAbxCohort)[T.No.Infant.Abx],-0.7144431379520598,0.22414372920183223,MixedLM,Escherichia.coli
+C(BSI_30D)[T.BSI ],-3.3009767097688036,0.1405376379142724,MixedLM,Escherichia.coli
+C(BSI_30D)[T.BSI and No.BSI],2.244790806530663,0.28596120370507205,MixedLM,Escherichia.coli
+C(BSI_30D)[T.No.BSI],0.3986603791975777,0.5674304116287465,MixedLM,Escherichia.coli
+C(BSI_30D)[T.No.BSI ],-4.314771658861939,0.09352587059905605,MixedLM,Escherichia.coli
+C(BSI_30D)[T.Other],-1.1646117665018452,0.6765335613382449,MixedLM,Escherichia.coli
+C(BSI_30D)[T.PICC],-0.43944163181041035,0.7907406557905747,MixedLM,Escherichia.coli
+C(NEC_30D)[T.No.NEC],-1.8491399805383675,0.10361098099820258,MixedLM,Escherichia.coli
+C(AnyMilk)[T.Mother],0.35115619998374326,0.6329952892455829,MixedLM,Escherichia.coli
+C(AnyMilk)[T.No.Milk],-0.3798919618793695,0.6954383519663934,MixedLM,Escherichia.coli
+C(PICC)[T.PICC_LE],-1.316599324301099,0.05430123618029189,MixedLM,Escherichia.coli
+C(PICC)[T.PICC_Neck],-1.5023736628074968,0.34380237041139894,MixedLM,Escherichia.coli
+C(PICC)[T.PICC_UE],-0.4839811067254146,0.4085872071695883,MixedLM,Escherichia.coli
+C(PICC)[T.axillary],-2.2104195276504974,0.09400224755638323,MixedLM,Escherichia.coli
+C(PICC)[T.peripheral_UE],-2.4162410479346477,0.035057538099688784,MixedLM,Escherichia.coli
+C(UVC)[T.UVC],-2.1274891687249,0.0009620625292139684,MixedLM,Escherichia.coli
+C(Delivery)[T.Vaginal],-0.8597120466593496,0.14674388593772997,MixedLM,Escherichia.coli
+Group Var,0.22579463316801848,0.0027452096588252545,MixedLM,Escherichia.coli
+Intercept,2.985817050492099,0.045784336511297034,MixedLM,Klebsiella.oxytoca
+C(SampleType)[T.Groin],2.361293867252495,1.097852996965749e-15,MixedLM,Klebsiella.oxytoca
+C(SampleType)[T.Stool],3.288795018713332,2.6568701058896757e-33,MixedLM,Klebsiella.oxytoca
+C(Location)[T.Hangzhou],-0.7786895854135519,0.1253032924203268,MixedLM,Klebsiella.oxytoca
+C(GestationCohort)[T.28-32 Weeks],0.20633575675671426,0.7592437168472941,MixedLM,Klebsiella.oxytoca
+C(GestationCohort)[T.33-36 Weeks],0.31210382417771426,0.7181105988253631,MixedLM,Klebsiella.oxytoca
+C(SampleCollectionWeek)[T.Week.3],1.8752727788345163,2.6920714804583843e-15,MixedLM,Klebsiella.oxytoca
+C(MaternalAntibiotics)[T.None.Mat.Abx],-1.1134484602226764,0.016142799853856367,MixedLM,Klebsiella.oxytoca
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],0.0336789269850056,0.9485977033973976,MixedLM,Klebsiella.oxytoca
+C(PostNatalAbxCohort)[T.No.Infant.Abx],-0.6448226792798853,0.20256218558043304,MixedLM,Klebsiella.oxytoca
+C(BSI_30D)[T.BSI ],-0.21495004481912836,0.9110648166942642,MixedLM,Klebsiella.oxytoca
+C(BSI_30D)[T.BSI and No.BSI],0.9300504215463966,0.6005213766848213,MixedLM,Klebsiella.oxytoca
+C(BSI_30D)[T.No.BSI],0.40343320664747984,0.5000881622434963,MixedLM,Klebsiella.oxytoca
+C(BSI_30D)[T.No.BSI ],1.6983641855000795,0.43331841838353335,MixedLM,Klebsiella.oxytoca
+C(BSI_30D)[T.Other],2.7182615226109617,0.25694346094730836,MixedLM,Klebsiella.oxytoca
+C(BSI_30D)[T.PICC],-1.6303824990045284,0.2508356328602248,MixedLM,Klebsiella.oxytoca
+C(NEC_30D)[T.No.NEC],-0.41739840082644775,0.6723668357317266,MixedLM,Klebsiella.oxytoca
+C(AnyMilk)[T.Mother],0.6699977592510316,0.3008375381596172,MixedLM,Klebsiella.oxytoca
+C(AnyMilk)[T.No.Milk],0.7828896316312605,0.34953707204130335,MixedLM,Klebsiella.oxytoca
+C(PICC)[T.PICC_LE],0.07629556720019272,0.8977051197098326,MixedLM,Klebsiella.oxytoca
+C(PICC)[T.PICC_Neck],-3.5380573623712603,0.009233499808199654,MixedLM,Klebsiella.oxytoca
+C(PICC)[T.PICC_UE],0.8809425037541387,0.08711502866791439,MixedLM,Klebsiella.oxytoca
+C(PICC)[T.axillary],-0.6301134627650983,0.5832743855497049,MixedLM,Klebsiella.oxytoca
+C(PICC)[T.peripheral_UE],0.20308823681754998,0.8368755457529258,MixedLM,Klebsiella.oxytoca
+C(UVC)[T.UVC],-2.4887696595325,1.0649287519191516e-05,MixedLM,Klebsiella.oxytoca
+C(Delivery)[T.Vaginal],-0.6256488477764922,0.22140140297068878,MixedLM,Klebsiella.oxytoca
+Group Var,0.29577385616385177,0.0014682403831413689,MixedLM,Klebsiella.oxytoca
+Intercept,7.263713413607754,5.590555807894297e-07,MixedLM,Staphylococcus.epidermidis
+C(SampleType)[T.Groin],-0.6946841284476293,0.03311267590535684,MixedLM,Staphylococcus.epidermidis
+C(SampleType)[T.Stool],-2.1346746758301895,2.0379607751239575e-12,MixedLM,Staphylococcus.epidermidis
+C(Location)[T.Hangzhou],-1.3425106066497965,0.00683682250524307,MixedLM,Staphylococcus.epidermidis
+C(GestationCohort)[T.28-32 Weeks],0.5736189431455223,0.36957756779042505,MixedLM,Staphylococcus.epidermidis
+C(GestationCohort)[T.33-36 Weeks],-0.5450293595697843,0.5069642402165749,MixedLM,Staphylococcus.epidermidis
+C(SampleCollectionWeek)[T.Week.3],-1.0591216452584251,5.271024109456234e-05,MixedLM,Staphylococcus.epidermidis
+C(MaternalAntibiotics)[T.None.Mat.Abx],0.6701826639158314,0.11057817698951962,MixedLM,Staphylococcus.epidermidis
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],0.9354311481616028,0.07028486104448087,MixedLM,Staphylococcus.epidermidis
+C(PostNatalAbxCohort)[T.No.Infant.Abx],1.671397685299269,0.0006710388690305703,MixedLM,Staphylococcus.epidermidis
+C(BSI_30D)[T.BSI ],-0.7096248908435171,0.7101184117471611,MixedLM,Staphylococcus.epidermidis
+C(BSI_30D)[T.BSI and No.BSI],1.1691152786593353,0.5216588939620954,MixedLM,Staphylococcus.epidermidis
+C(BSI_30D)[T.No.BSI],0.09131212422274063,0.8783402668669467,MixedLM,Staphylococcus.epidermidis
+C(BSI_30D)[T.No.BSI ],2.805979401175494,0.1848581957527451,MixedLM,Staphylococcus.epidermidis
+C(BSI_30D)[T.Other],-0.3419444065272161,0.8871523148302504,MixedLM,Staphylococcus.epidermidis
+C(BSI_30D)[T.PICC],0.9322726481852037,0.507887855506473,MixedLM,Staphylococcus.epidermidis
+C(NEC_30D)[T.No.NEC],1.2237932244069822,0.1959101918033208,MixedLM,Staphylococcus.epidermidis
+C(AnyMilk)[T.Mother],-0.22638109827880795,0.7018238533285774,MixedLM,Staphylococcus.epidermidis
+C(AnyMilk)[T.No.Milk],1.18114480977615,0.1427701620745647,MixedLM,Staphylococcus.epidermidis
+C(PICC)[T.PICC_LE],-0.05222278057789154,0.92330836623623,MixedLM,Staphylococcus.epidermidis
+C(PICC)[T.PICC_Neck],-0.1777459168504395,0.8914691679926142,MixedLM,Staphylococcus.epidermidis
+C(PICC)[T.PICC_UE],0.2214451462906513,0.6308063786939463,MixedLM,Staphylococcus.epidermidis
+C(PICC)[T.axillary],-0.7041753400282001,0.528381740525597,MixedLM,Staphylococcus.epidermidis
+C(PICC)[T.peripheral_UE],0.03730311324822042,0.9693526146889859,MixedLM,Staphylococcus.epidermidis
+C(UVC)[T.UVC],1.2592496504311415,0.017171267877831766,MixedLM,Staphylococcus.epidermidis
+C(Delivery)[T.Vaginal],0.14179049492254975,0.7728461617490912,MixedLM,Staphylococcus.epidermidis
+Group Var,0.07492299770744713,0.040602682577874506,MixedLM,Staphylococcus.epidermidis
+Intercept,-0.590354553291203,0.5907889648472966,MixedLM,Streptococcus.pyogenes
+C(SampleType)[T.Groin],-0.779289276367743,0.002023944053386168,MixedLM,Streptococcus.pyogenes
+C(SampleType)[T.Stool],0.4592413914763977,0.050962686396197894,MixedLM,Streptococcus.pyogenes
+C(Location)[T.Hangzhou],-0.0011228946634089711,0.9976636091823281,MixedLM,Streptococcus.pyogenes
+C(GestationCohort)[T.28-32 Weeks],-0.24418676154439692,0.6244314915859346,MixedLM,Streptococcus.pyogenes
+C(GestationCohort)[T.33-36 Weeks],-0.2189952738558557,0.7281958444155718,MixedLM,Streptococcus.pyogenes
+C(SampleCollectionWeek)[T.Week.3],0.2784510299748477,0.16905244428759947,MixedLM,Streptococcus.pyogenes
+C(MaternalAntibiotics)[T.None.Mat.Abx],0.23624607134809247,0.46634982318657203,MixedLM,Streptococcus.pyogenes
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],0.3189140292470734,0.4224869614264317,MixedLM,Streptococcus.pyogenes
+C(PostNatalAbxCohort)[T.No.Infant.Abx],1.207713389791626,0.0014047184650991685,MixedLM,Streptococcus.pyogenes
+C(BSI_30D)[T.BSI ],-1.0657832651043282,0.46610990528323226,MixedLM,Streptococcus.pyogenes
+C(BSI_30D)[T.BSI and No.BSI],0.8394034590180578,0.5404437724657554,MixedLM,Streptococcus.pyogenes
+C(BSI_30D)[T.No.BSI],0.6935840150404887,0.12644372830493517,MixedLM,Streptococcus.pyogenes
+C(BSI_30D)[T.No.BSI ],0.08003102098047166,0.9608231756580782,MixedLM,Streptococcus.pyogenes
+C(BSI_30D)[T.Other],2.8057133155625955,0.13126279390302178,MixedLM,Streptococcus.pyogenes
+C(BSI_30D)[T.PICC],2.3273447811235344,0.03257495116030054,MixedLM,Streptococcus.pyogenes
+C(NEC_30D)[T.No.NEC],0.97550817009295,0.1759045273466261,MixedLM,Streptococcus.pyogenes
+C(AnyMilk)[T.Mother],-0.1050748642922178,0.8158551950191436,MixedLM,Streptococcus.pyogenes
+C(AnyMilk)[T.No.Milk],-0.3987776615226816,0.5176870937947665,MixedLM,Streptococcus.pyogenes
+C(PICC)[T.PICC_LE],-0.3643540260779956,0.3803402128446044,MixedLM,Streptococcus.pyogenes
+C(PICC)[T.PICC_Neck],1.5981491564626606,0.10810033889645074,MixedLM,Streptococcus.pyogenes
+C(PICC)[T.PICC_UE],-0.15854791989248096,0.6561315841971391,MixedLM,Streptococcus.pyogenes
+C(PICC)[T.axillary],0.2642126297422557,0.753944603156298,MixedLM,Streptococcus.pyogenes
+C(PICC)[T.peripheral_UE],0.4806577115325928,0.5232139334272005,MixedLM,Streptococcus.pyogenes
+C(UVC)[T.UVC],-0.14364110482685735,0.7309102612458568,MixedLM,Streptococcus.pyogenes
+C(Delivery)[T.Vaginal],0.04344741196127892,0.9084179546952823,MixedLM,Streptococcus.pyogenes
+Group Var,0.06627827373740106,0.12166351818424671,MixedLM,Streptococcus.pyogenes
+Intercept,-0.38100297168113695,0.7764602846901912,MixedLM,Enterococcus.faecium
+C(SampleType)[T.Groin],0.33333402978838933,0.3050291372079017,MixedLM,Enterococcus.faecium
+C(SampleType)[T.Stool],2.215849297227546,2.719682761485521e-13,MixedLM,Enterococcus.faecium
+C(Location)[T.Hangzhou],-1.8229160260293216,0.00011368343882249656,MixedLM,Enterococcus.faecium
+C(GestationCohort)[T.28-32 Weeks],0.8615292535496338,0.1675682333521883,MixedLM,Enterococcus.faecium
+C(GestationCohort)[T.33-36 Weeks],-0.8508784242933444,0.2759792844992386,MixedLM,Enterococcus.faecium
+C(SampleCollectionWeek)[T.Week.3],0.9223267067114108,0.0003862629156233859,MixedLM,Enterococcus.faecium
+C(MaternalAntibiotics)[T.None.Mat.Abx],0.24491354424552236,0.5282795569961964,MixedLM,Enterococcus.faecium
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],0.48939728804674837,0.321508011136159,MixedLM,Enterococcus.faecium
+C(PostNatalAbxCohort)[T.No.Infant.Abx],1.3792857799512128,0.0029246529974311423,MixedLM,Enterococcus.faecium
+C(BSI_30D)[T.BSI ],-1.5907140778558395,0.37702503995723946,MixedLM,Enterococcus.faecium
+C(BSI_30D)[T.BSI and No.BSI],-0.7439978123615968,0.6538119195020733,MixedLM,Enterococcus.faecium
+C(BSI_30D)[T.No.BSI],0.768309836966615,0.16963094097498832,MixedLM,Enterococcus.faecium
+C(BSI_30D)[T.No.BSI ],-5.772514033372783,0.00399679796119542,MixedLM,Enterococcus.faecium
+C(BSI_30D)[T.Other],-0.8758370413887865,0.7057978048859275,MixedLM,Enterococcus.faecium
+C(BSI_30D)[T.PICC],3.5583988456736297,0.007435227239102651,MixedLM,Enterococcus.faecium
+C(NEC_30D)[T.No.NEC],1.15522860640528,0.1928012282064281,MixedLM,Enterococcus.faecium
+C(AnyMilk)[T.Mother],1.0420637981278555,0.058230267350408094,MixedLM,Enterococcus.faecium
+C(AnyMilk)[T.No.Milk],2.1462663737346706,0.0045782994299934975,MixedLM,Enterococcus.faecium
+C(PICC)[T.PICC_LE],0.6470714952242981,0.19637645368783674,MixedLM,Enterococcus.faecium
+C(PICC)[T.PICC_Neck],5.533454321405194,4.486601852993778e-06,MixedLM,Enterococcus.faecium
+C(PICC)[T.PICC_UE],0.018148653753666883,0.9657331907285178,MixedLM,Enterococcus.faecium
+C(PICC)[T.axillary],0.9012626440839289,0.3838288160284603,MixedLM,Enterococcus.faecium
+C(PICC)[T.peripheral_UE],3.5506470813895357,0.00011098965660912157,MixedLM,Enterococcus.faecium
+C(UVC)[T.UVC],0.1681665433857645,0.7362037837890768,MixedLM,Enterococcus.faecium
+C(Delivery)[T.Vaginal],0.9383047788856762,0.04282210938131789,MixedLM,Enterococcus.faecium
+Group Var,0.02728591534104533,0.25603989902883917,MixedLM,Enterococcus.faecium
+Intercept,2.675745606579973,0.10818636074458313,MixedLM,Enterococcus.faecalis
+C(SampleType)[T.Groin],1.713574590455805,6.033305300863697e-07,MixedLM,Enterococcus.faecalis
+C(SampleType)[T.Stool],4.205116266664109,1.1260783067264293e-39,MixedLM,Enterococcus.faecalis
+C(Location)[T.Hangzhou],-3.2945066225917214,8.336538414770402e-09,MixedLM,Enterococcus.faecalis
+C(GestationCohort)[T.28-32 Weeks],-0.20559276039815574,0.7870827551665107,MixedLM,Enterococcus.faecalis
+C(GestationCohort)[T.33-36 Weeks],-1.8134238574043464,0.06259874419353315,MixedLM,Enterococcus.faecalis
+C(SampleCollectionWeek)[T.Week.3],1.5839247691861982,9.4401603582272e-09,MixedLM,Enterococcus.faecalis
+C(MaternalAntibiotics)[T.None.Mat.Abx],0.757349451690885,0.13046292380807928,MixedLM,Enterococcus.faecalis
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],1.06777265920911,0.07022721554791794,MixedLM,Enterococcus.faecalis
+C(PostNatalAbxCohort)[T.No.Infant.Abx],1.2297057758507888,0.03054238288362508,MixedLM,Enterococcus.faecalis
+C(BSI_30D)[T.BSI ],1.9589730591778067,0.3721738807162869,MixedLM,Enterococcus.faecalis
+C(BSI_30D)[T.BSI and No.BSI],-1.5637995944341336,0.43700548810517514,MixedLM,Enterococcus.faecalis
+C(BSI_30D)[T.No.BSI],1.8299047414207825,0.006665439777835331,MixedLM,Enterococcus.faecalis
+C(BSI_30D)[T.No.BSI ],-2.229451120211453,0.3605476181400755,MixedLM,Enterococcus.faecalis
+C(BSI_30D)[T.Other],2.8555738502771133,0.29177963583604793,MixedLM,Enterococcus.faecalis
+C(BSI_30D)[T.PICC],1.034025854637858,0.5206069277819177,MixedLM,Enterococcus.faecalis
+C(NEC_30D)[T.No.NEC],-0.7401112517074491,0.503073971193847,MixedLM,Enterococcus.faecalis
+C(AnyMilk)[T.Mother],0.9229445017875861,0.20053489349093767,MixedLM,Enterococcus.faecalis
+C(AnyMilk)[T.No.Milk],1.6359346543955366,0.08170089672903114,MixedLM,Enterococcus.faecalis
+C(PICC)[T.PICC_LE],-1.0417721953535715,0.1106928141925686,MixedLM,Enterococcus.faecalis
+C(PICC)[T.PICC_Neck],2.9478621542671983,0.05177941001065958,MixedLM,Enterococcus.faecalis
+C(PICC)[T.PICC_UE],-1.327381735515556,0.018672637799103768,MixedLM,Enterococcus.faecalis
+C(PICC)[T.axillary],1.607330692745053,0.21090957014436773,MixedLM,Enterococcus.faecalis
+C(PICC)[T.peripheral_UE],1.7033091868248025,0.13128113067329808,MixedLM,Enterococcus.faecalis
+C(UVC)[T.UVC],1.0321906959942595,0.10845348529230076,MixedLM,Enterococcus.faecalis
+C(Delivery)[T.Vaginal],1.3801134483051867,0.016411971810627854,MixedLM,Enterococcus.faecalis
+Group Var,0.2055017299988398,0.004666789579866388,MixedLM,Enterococcus.faecalis
+Intercept,-1.3219172313579837,0.3984627573628544,MixedLM,Serratia.marcescens
+C(SampleType)[T.Groin],2.3066928231936936,9.74429679306656e-14,MixedLM,Serratia.marcescens
+C(SampleType)[T.Stool],3.8537357751054473,6.788233108286192e-41,MixedLM,Serratia.marcescens
+C(Location)[T.Hangzhou],1.7865643970006262,0.0007167574965697253,MixedLM,Serratia.marcescens
+C(GestationCohort)[T.28-32 Weeks],1.108130954280996,0.12016174407405374,MixedLM,Serratia.marcescens
+C(GestationCohort)[T.33-36 Weeks],2.030649282971549,0.025122825228170532,MixedLM,Serratia.marcescens
+C(SampleCollectionWeek)[T.Week.3],1.3596468885360549,5.070354963077315e-08,MixedLM,Serratia.marcescens
+C(MaternalAntibiotics)[T.None.Mat.Abx],-0.4012586196242661,0.3883226159406368,MixedLM,Serratia.marcescens
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],-0.38901944049916864,0.481186039085181,MixedLM,Serratia.marcescens
+C(PostNatalAbxCohort)[T.No.Infant.Abx],0.23851653000766143,0.652589461076554,MixedLM,Serratia.marcescens
+C(BSI_30D)[T.BSI ],-1.1454129018759542,0.5679295847364604,MixedLM,Serratia.marcescens
+C(BSI_30D)[T.BSI and No.BSI],5.999009191098695,0.0012165576685988163,MixedLM,Serratia.marcescens
+C(BSI_30D)[T.No.BSI],1.2548965775822012,0.0447996753364453,MixedLM,Serratia.marcescens
+C(BSI_30D)[T.No.BSI ],2.365767801287272,0.2933250979352253,MixedLM,Serratia.marcescens
+C(BSI_30D)[T.Other],6.2870181705693815,0.011859153966511396,MixedLM,Serratia.marcescens
+C(BSI_30D)[T.PICC],-0.9392772495996594,0.525752171059434,MixedLM,Serratia.marcescens
+C(NEC_30D)[T.No.NEC],0.8470402234362676,0.4057452100929154,MixedLM,Serratia.marcescens
+C(AnyMilk)[T.Mother],-0.9980908382781003,0.13344621605370777,MixedLM,Serratia.marcescens
+C(AnyMilk)[T.No.Milk],-1.1485620657129951,0.1860907069107548,MixedLM,Serratia.marcescens
+C(PICC)[T.PICC_LE],-0.8805115103307614,0.15040987466261047,MixedLM,Serratia.marcescens
+C(PICC)[T.PICC_Neck],-2.021600505258341,0.1526205100577891,MixedLM,Serratia.marcescens
+C(PICC)[T.PICC_UE],0.6729403495476188,0.2047421052737598,MixedLM,Serratia.marcescens
+C(PICC)[T.axillary],-0.6633547298126801,0.5759165980898778,MixedLM,Serratia.marcescens
+C(PICC)[T.peripheral_UE],-1.076317769034459,0.2940832366556345,MixedLM,Serratia.marcescens
+C(UVC)[T.UVC],0.0918180359706938,0.8742794148265425,MixedLM,Serratia.marcescens
+C(Delivery)[T.Vaginal],-0.5562943719263114,0.298040374012593,MixedLM,Serratia.marcescens
+Group Var,0.26408460491182895,0.0010162850110807865,MixedLM,Serratia.marcescens
+Intercept,7.4505923264956895,3.595024236927435e-08,MixedLM,Corynebacterium.aurimucosum
+C(SampleType)[T.Groin],-2.139901546429953,3.293405064913192e-11,MixedLM,Corynebacterium.aurimucosum
+C(SampleType)[T.Stool],-8.82612882716999,3.931553137651326e-189,MixedLM,Corynebacterium.aurimucosum
+C(Location)[T.Hangzhou],-0.8455542239989211,0.07373203284501069,MixedLM,Corynebacterium.aurimucosum
+C(GestationCohort)[T.28-32 Weeks],0.39879965250838545,0.5109952568403262,MixedLM,Corynebacterium.aurimucosum
+C(GestationCohort)[T.33-36 Weeks],-0.28420197722960994,0.7112948991905799,MixedLM,Corynebacterium.aurimucosum
+C(SampleCollectionWeek)[T.Week.3],1.4262625256021255,3.2128536704269263e-08,MixedLM,Corynebacterium.aurimucosum
+C(MaternalAntibiotics)[T.None.Mat.Abx],-1.1354523263290703,0.003616035078256274,MixedLM,Corynebacterium.aurimucosum
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],-0.5922793359261375,0.22528903456104343,MixedLM,Corynebacterium.aurimucosum
+C(PostNatalAbxCohort)[T.No.Infant.Abx],-0.7031646731129692,0.12832992549260822,MixedLM,Corynebacterium.aurimucosum
+C(BSI_30D)[T.BSI ],-0.6869858619976614,0.7019745329942173,MixedLM,Corynebacterium.aurimucosum
+C(BSI_30D)[T.BSI and No.BSI],-1.320590674938107,0.42643530938360374,MixedLM,Corynebacterium.aurimucosum
+C(BSI_30D)[T.No.BSI],0.33036267728667223,0.5554208022582313,MixedLM,Corynebacterium.aurimucosum
+C(BSI_30D)[T.No.BSI ],3.571521854325705,0.07222758876499898,MixedLM,Corynebacterium.aurimucosum
+C(BSI_30D)[T.Other],0.05645276182372929,0.9805302663286887,MixedLM,Corynebacterium.aurimucosum
+C(BSI_30D)[T.PICC],0.3120658701902964,0.8166139352055177,MixedLM,Corynebacterium.aurimucosum
+C(NEC_30D)[T.No.NEC],1.5057718780226388,0.08641459008115378,MixedLM,Corynebacterium.aurimucosum
+C(AnyMilk)[T.Mother],0.19478589086596007,0.7219062887360377,MixedLM,Corynebacterium.aurimucosum
+C(AnyMilk)[T.No.Milk],0.20939311097736663,0.7815438527244489,MixedLM,Corynebacterium.aurimucosum
+C(PICC)[T.PICC_LE],0.4700530815155833,0.3491374237678314,MixedLM,Corynebacterium.aurimucosum
+C(PICC)[T.PICC_Neck],0.7544654400836328,0.5331853458164669,MixedLM,Corynebacterium.aurimucosum
+C(PICC)[T.PICC_UE],0.4170761836116157,0.3275628452505055,MixedLM,Corynebacterium.aurimucosum
+C(PICC)[T.axillary],1.3856865248674923,0.17818407539204573,MixedLM,Corynebacterium.aurimucosum
+C(PICC)[T.peripheral_UE],1.3250529178367987,0.14848687552590115,MixedLM,Corynebacterium.aurimucosum
+C(UVC)[T.UVC],0.7970725189872293,0.10927623356673137,MixedLM,Corynebacterium.aurimucosum
+C(Delivery)[T.Vaginal],1.173107989607794,0.011065660878486427,MixedLM,Corynebacterium.aurimucosum
+Group Var,0.032936343302789786,0.20707606345311125,MixedLM,Corynebacterium.aurimucosum
+Intercept,6.864317886968276,1.5014024903266924e-08,MixedLM,Corynebacterium.pseudogenitalium
+C(SampleType)[T.Groin],-2.254479960001117,7.511399903817855e-15,MixedLM,Corynebacterium.pseudogenitalium
+C(SampleType)[T.Stool],-8.365781843145745,5.272433128987298e-210,MixedLM,Corynebacterium.pseudogenitalium
+C(Location)[T.Hangzhou],-0.8827848821441994,0.03746268448289033,MixedLM,Corynebacterium.pseudogenitalium
+C(GestationCohort)[T.28-32 Weeks],0.34371367756814086,0.5236287062789011,MixedLM,Corynebacterium.pseudogenitalium
+C(GestationCohort)[T.33-36 Weeks],-0.18475223223204087,0.7874679351836918,MixedLM,Corynebacterium.pseudogenitalium
+C(SampleCollectionWeek)[T.Week.3],1.3480234540173146,6.1376381436985e-09,MixedLM,Corynebacterium.pseudogenitalium
+C(MaternalAntibiotics)[T.None.Mat.Abx],-1.1420758428188889,0.0011529644344148427,MixedLM,Corynebacterium.pseudogenitalium
+C(PostNatalAbxCohort)[T.Low.Infant.Abx],-0.4731667528940418,0.28198884474612496,MixedLM,Corynebacterium.pseudogenitalium
+C(PostNatalAbxCohort)[T.No.Infant.Abx],-0.6588425660958149,0.11211272864998371,MixedLM,Corynebacterium.pseudogenitalium
+C(BSI_30D)[T.BSI ],-0.0687778554652901,0.9659647483070425,MixedLM,Corynebacterium.pseudogenitalium
+C(BSI_30D)[T.BSI and No.BSI],-0.8949381881303288,0.5485207455717858,MixedLM,Corynebacterium.pseudogenitalium
+C(BSI_30D)[T.No.BSI],0.13863548467516953,0.7824211523898382,MixedLM,Corynebacterium.pseudogenitalium
+C(BSI_30D)[T.No.BSI ],2.2034571489759167,0.21648579277878766,MixedLM,Corynebacterium.pseudogenitalium
+C(BSI_30D)[T.Other],-0.7785350390926341,0.7085075350460952,MixedLM,Corynebacterium.pseudogenitalium
+C(BSI_30D)[T.PICC],-0.9590164740575364,0.42979938585408706,MixedLM,Corynebacterium.pseudogenitalium
+C(NEC_30D)[T.No.NEC],1.0911786416180382,0.16701326018591534,MixedLM,Corynebacterium.pseudogenitalium
+C(AnyMilk)[T.Mother],0.29887922279414303,0.5421337321582907,MixedLM,Corynebacterium.pseudogenitalium
+C(AnyMilk)[T.No.Milk],0.07743489610759448,0.9089737886719388,MixedLM,Corynebacterium.pseudogenitalium
+C(PICC)[T.PICC_LE],0.6304357421153052,0.16191624534807914,MixedLM,Corynebacterium.pseudogenitalium
+C(PICC)[T.PICC_Neck],0.5014983223035991,0.6439209498944602,MixedLM,Corynebacterium.pseudogenitalium
+C(PICC)[T.PICC_UE],0.3437155704587627,0.369657697064399,MixedLM,Corynebacterium.pseudogenitalium
+C(PICC)[T.axillary],1.4789670279543037,0.10958676785055141,MixedLM,Corynebacterium.pseudogenitalium
+C(PICC)[T.peripheral_UE],1.2877675249473624,0.1177506552713329,MixedLM,Corynebacterium.pseudogenitalium
+C(UVC)[T.UVC],0.7368824153710798,0.09808130862053747,MixedLM,Corynebacterium.pseudogenitalium
+C(Delivery)[T.Vaginal],1.1386132845847101,0.006041261025682998,MixedLM,Corynebacterium.pseudogenitalium
+Group Var,0.032176423535636066,0.20257137451876106,MixedLM,Corynebacterium.pseudogenitalium

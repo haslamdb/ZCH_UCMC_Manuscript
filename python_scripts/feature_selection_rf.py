@@ -51,18 +51,19 @@ subject_id_col = "Subject"
 print(metadata_df.isnull().sum())
 
 
-# transform using CLR, VST, or other method from microbiome_transform module
-microbiome_clr = mt.clr_transform(microbiome_df)
-microbiome_tss = mt.tss_transform(microbiome_df)
-microbiome_vst = mt.vst_transform_r(microbiome_df) # this will fail if zero counts in all features
-microbiome_vst = mt.debug_vst_transform(microbiome_df) # has to be run from command prompt, not powershell
+# Use selected transformation method
+microbiome_transformed = select_best_transformation(microbiome_df)
+
+# Fallback to log transform if needed
+if microbiome_transformed is None:
+    print("Using log(x+1) transformation as fallback")
+    microbiome_transformed = mt.log_transform(microbiome_df)
 
 # Merge microbiome data and metadata on Sample ID
-# here we're using clr transformed data
-data = microbiome_clr.merge(metadata_df, left_index=True, right_index=True)
+data = microbiome_transformed.merge(metadata_df, left_index=True, right_index=True)
 
 # Calculate pairwise Bray-Curtis distance matrix
-bray_curtis_dist = scipy.spatial.distance.pdist(microbiome_clr, metric='braycurtis')
+bray_curtis_dist = scipy.spatial.distance.pdist(microbiome_transformed, metric='braycurtis')
 bray_curtis_dist = scipy.spatial.distance.squareform(bray_curtis_dist)  # Convert to square matrix
 
 # Convert distance matrix into a vector (response variable)
@@ -77,8 +78,10 @@ categorical_features = ["SampleType", "Location", "GestationCohort", "SampleColl
                         "MaternalAntibiotics", "PostNatalAbxCohort", "BSI_30D", "NEC_30D", "AnyMilk", 
                         "PICC", "UVC", "Delivery"]
 
-predictors = metadata_df[categorical_features]
+# Create a copy of the dataframe to avoid SettingWithCopyWarning
+predictors = metadata_df[categorical_features].copy()
 
+# Encode categorical variables
 for col in categorical_features:
     predictors[col] = LabelEncoder().fit_transform(predictors[col])
 
@@ -103,7 +106,7 @@ feature_importances = feature_importances.sort_values(by="Importance", ascending
 
 # Plot feature importances
 plt.figure(figsize=(10, 6))
-sns.barplot(x="Importance", y="Feature", data=feature_importances[:15], palette="viridis")
+sns.barplot(x="Importance", y="Feature", data=feature_importances[:15], hue="Feature", palette="viridis", legend=False)
 plt.xlabel("Feature Importance Score")
 plt.ylabel("Features")
 plt.title("Top Features Driving Microbiome Differences")

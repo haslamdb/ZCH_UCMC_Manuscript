@@ -285,6 +285,7 @@ for target_microbe in key_organisms:
         if num_groups < 5 or min_group_size < 2:
             print(f"⚠️ Not enough subjects or samples per subject for mixed model. Fitting OLS instead.")
             model = sm.formula.ols(mixed_formula, data=df).fit()
+            result = model  # Set result to model for consistency
             model_type = "OLS"
             result_summary = model.summary()
         else:
@@ -307,24 +308,25 @@ for target_microbe in key_organisms:
                     # Fall back to OLS if mixed model fails
                     print("⚠️ Mixed model failed to converge, falling back to OLS")
                     model = sm.formula.ols(mixed_formula, data=df).fit()
+                    result = model  # Set result to model for consistency
                     model_type = "OLS (fallback)"
                     result_summary = model.summary()
         
         print(result_summary)
 
-        # Extract coefficients manually since read_html might fail
-        if hasattr(model, 'params'):
-            # Create DataFrame directly from model parameters
+        # Extract coefficients from the result object
+        # We've standardized all model results to be in the 'result' variable
+        if hasattr(result, 'params'):
             coef_df = pd.DataFrame({
-                "Variable": model.params.index.tolist(),
-                "Coefficient": model.params.values,
-                "P-value": model.pvalues.values if hasattr(model, 'pvalues') else [None] * len(model.params),
+                "Variable": result.params.index.tolist(),
+                "Coefficient": result.params.values,
+                "P-value": result.pvalues.values if hasattr(result, 'pvalues') else [None] * len(result.params),
                 "Model_Type": model_type,
                 "Microbe": target_microbe
             })
             mixedlm_results.append(coef_df)
         else:
-            print(f"⚠️ Could not extract coefficients: model has no params attribute")
+            print(f"⚠️ Could not extract coefficients: result has no params attribute")
 
         # Save individual model results
         with open(f"../results/model_results_{target_microbe}.txt", "w") as f:

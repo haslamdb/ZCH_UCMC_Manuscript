@@ -4,7 +4,7 @@ Model:                    MixedLM       Dependent Variable:       MicrobeAbundan
 No. Observations:         536           Method:                   REML            
 No. Groups:               68            Scale:                    8.6881          
 Min. group size:          3             Log-Likelihood:           -1324.9472      
-Max. group size:          12            Converged:                Yes             
+Max. group size:          12            Converged:                No              
 Mean group size:          7.9                                                     
 ----------------------------------------------------------------------------------
                                         Coef.  Std.Err.   z    P>|z| [0.025 0.975]
