@@ -1630,7 +1630,7 @@ if __name__ == "__main__":
     print("Loading microbiome data...")
     # Load microbiome count data
     try:
-        microbiome_df = pd.read_csv("../data/NICUSpeciesReduced.csv", index_col=0)
+        microbiome_df = pd.read_csv("/home/david/Documents/Code/ZCH_UCMC_Manuscript/data/NICUSpeciesReduced.csv", index_col=0)
         print(f"Loaded microbiome data with shape: {microbiome_df.shape}")
     except FileNotFoundError:
         try:
@@ -1643,7 +1643,7 @@ if __name__ == "__main__":
     print("Loading metadata...")
     # Load clinical metadata
     try:
-        metadata_df = pd.read_csv("../metadata/AllNICUSampleKey20250206.csv", index_col=0)
+        metadata_df = pd.read_csv("/home/david/Documents/Code/ZCH_UCMC_Manuscript/metadata/AllNICUSampleKey20250206.csv", index_col=0)
         print(f"Loaded metadata with shape: {metadata_df.shape}")
     except FileNotFoundError:
         print("Error: Could not find metadata file")
