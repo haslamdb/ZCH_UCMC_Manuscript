@@ -9,7 +9,7 @@ from skbio.stats.distance import permanova, DistanceMatrix
 from skbio.stats.ordination import pcoa
 import microbiome_transform as mt
 import os
-from tqdm import tqdm
+# from tqdm import tqdm
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 import warnings
