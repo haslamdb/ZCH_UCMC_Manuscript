@@ -192,28 +192,10 @@ def create_combined_comparison(organisms_data):
 
 # Example usage with sample data
 if __name__ == "__main__":
-    # Sample data for Klebsiella pneumoniae (you'll replace with your actual data)
-    shap_data_kleb = pd.DataFrame({
-        'Feature': ['SampleType:Groin', 'SampleType:Stool', 'SampleCollectionWeek:Week3',
-                    'PostNatalAbxCohort:No Infant Abx', 'PostNatalAbxCohort:Low Infant Abx',
-                    'PICC_UE', 'UVC', 'Location:Hangzhou', 'AnyMilk:No Milk', 
-                    'GestationCohort:28-32', 'MaternalAntibiotics:None', 'BSI_30D'],
-        'SHAP_Importance': [0.18, 0.16, 0.15, 0.12, 0.10, 0.09, 0.09, 
-                           0.05, 0.04, 0.03, 0.03, 0.02]
-    })
+    # Dictionary to store all organism data
+    all_organisms_data = {}
     
-    lmm_data_kleb = pd.DataFrame({
-        'Variable': ['C(SampleType)[T.Groin]', 'C(SampleType)[T.Stool]', 
-                     'C(SampleCollectionWeek)[T.Week.3]', 'C(PostNatalAbxCohort)[T.No.Infant.Abx]',
-                     'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
-                     'C(UVC)[T.UVC]', 'C(Location)[T.Hangzhou]', 'C(AnyMilk)[T.No.Milk]',
-                     'C(Delivery)[T.Vaginal]', 'C(GestationCohort)[T.28-32]', 
-                     'C(MaternalAntibiotics)[T.None.Mat.Abx]'],
-        'Coefficient': [2.54, 4.16, 3.14, -1.48, -2.41, 1.48, -1.40, 0.89, -1.82, -0.93, -0.98, -0.62],
-        'P_value': [0.00, 0.00, 0.00, 0.02, 0.00, 0.03, 0.05, 0.18, 0.09, 0.16, 0.26, 0.29]
-    })
-    
-    # Sample data for Staphylococcus aureus
+    # 1. Staphylococcus aureus (Higher at UCMC: 41.1% vs 10.1%)
     shap_data_staph = pd.DataFrame({
         'Feature': ['SampleType:Groin', 'SampleType:Stool', 'SampleCollectionWeek:Week3',
                     'PostNatalAbxCohort:No Infant Abx', 'PICC_UE', 'Location:Hangzhou',
@@ -233,22 +215,177 @@ if __name__ == "__main__":
         'Coefficient': [-1.16, -1.49, -0.94, 0.74, 0.83, 0.70, -0.54, 0.50, 0.61, 0.23, 0.32, 0.43],
         'P_value': [0.00, 0.00, 0.00, 0.02, 0.02, 0.02, 0.08, 0.11, 0.13, 0.65, 0.24, 0.47]
     })
+    all_organisms_data['Staphylococcus aureus'] = (shap_data_staph, lmm_data_staph)
     
-    # Create single organism plot
-    fig1 = create_pathogen_comparison_plot('Klebsiella pneumoniae', shap_data_kleb, lmm_data_kleb)
-    plt.savefig('klebsiella_comparison.pdf', dpi=300, bbox_inches='tight')
-    plt.show()
+    # 2. Klebsiella pneumoniae (Higher at ZCH: 8.4% vs 25.6%)
+    shap_data_kleb = pd.DataFrame({
+        'Feature': ['SampleType:Groin', 'SampleType:Stool', 'SampleCollectionWeek:Week3',
+                    'PostNatalAbxCohort:No Infant Abx', 'PostNatalAbxCohort:Low Infant Abx',
+                    'PICC_UE', 'UVC', 'Location:Hangzhou', 'AnyMilk:No Milk', 
+                    'GestationCohort:28-32', 'MaternalAntibiotics:None', 'BSI_30D'],
+        'SHAP_Importance': [0.18, 0.16, 0.15, 0.12, 0.10, 0.09, 0.09, 
+                           0.05, 0.04, 0.03, 0.03, 0.02]
+    })
     
-    fig2 = create_pathogen_comparison_plot('Staphylococcus aureus', shap_data_staph, lmm_data_staph)
-    plt.savefig('staphylococcus_comparison.pdf', dpi=300, bbox_inches='tight')
-    plt.show()
+    lmm_data_kleb = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Groin]', 'C(SampleType)[T.Stool]', 
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(PostNatalAbxCohort)[T.No.Infant.Abx]',
+                     'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
+                     'C(UVC)[T.UVC]', 'C(Location)[T.Hangzhou]', 'C(AnyMilk)[T.No.Milk]',
+                     'C(Delivery)[T.Vaginal]', 'C(GestationCohort)[T.28-32]', 
+                     'C(MaternalAntibiotics)[T.None.Mat.Abx]'],
+        'Coefficient': [2.54, 4.16, 3.14, -1.48, -2.41, 1.48, -1.40, 0.89, -1.82, -0.93, -0.98, -0.62],
+        'P_value': [0.00, 0.00, 0.00, 0.02, 0.00, 0.03, 0.05, 0.18, 0.09, 0.16, 0.26, 0.29]
+    })
+    all_organisms_data['Klebsiella pneumoniae'] = (shap_data_kleb, lmm_data_kleb)
     
-    # Create combined plot for both organisms
-    organisms_data = {
-        'K. pneumoniae': (shap_data_kleb, lmm_data_kleb),
-        'S. aureus': (shap_data_staph, lmm_data_staph)
+    # 3. Klebsiella oxytoca (Higher at UCMC: 6.5% vs 0.0%)
+    # You'll need to replace with actual data from your analysis
+    shap_data_k_oxy = pd.DataFrame({
+        'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
+                    'Location:Hangzhou', 'PostNatalAbxCohort:No Infant Abx', 'PICC_UE',
+                    'UVC', 'AnyMilk:No Milk', 'Delivery:Vaginal', 'BSI_30D'],
+        'SHAP_Importance': [0.14, 0.12, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03]
+    })
+    
+    lmm_data_k_oxy = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(PostNatalAbxCohort)[T.No.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
+                     'C(UVC)[T.UVC]', 'C(Delivery)[T.Vaginal]'],
+        'Coefficient': [-1.8, -1.2, -0.9, -2.1, 0.6, 0.5, 0.7, 0.3],
+        'P_value': [0.01, 0.02, 0.03, 0.001, 0.04, 0.05, 0.02, 0.10]
+    })
+    all_organisms_data['Klebsiella oxytoca'] = (shap_data_k_oxy, lmm_data_k_oxy)
+    
+    # 4. Serratia marcescens (Higher at UCMC: 6.2% vs 0.8%)
+    shap_data_serratia = pd.DataFrame({
+        'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
+                    'Location:Hangzhou', 'PostNatalAbxCohort:No Infant Abx', 'PICC_UE',
+                    'UVC', 'AnyMilk:No Milk', 'MaternalAntibiotics:None', 'Delivery:Vaginal'],
+        'SHAP_Importance': [0.15, 0.13, 0.12, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
+    })
+    
+    lmm_data_serratia = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(PostNatalAbxCohort)[T.No.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
+                     'C(UVC)[T.UVC]', 'C(AnyMilk)[T.No.Milk]'],
+        'Coefficient': [-1.5, -1.1, -0.8, -1.9, 0.5, 0.6, 0.8, -0.3],
+        'P_value': [0.01, 0.02, 0.04, 0.002, 0.05, 0.03, 0.01, 0.15]
+    })
+    all_organisms_data['Serratia marcescens'] = (shap_data_serratia, lmm_data_serratia)
+    
+    # 5. Enterococcus faecalis (Higher at ZCH: 3.6% vs 13.9%)
+    shap_data_e_faecalis = pd.DataFrame({
+        'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
+                    'Location:Hangzhou', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_LE',
+                    'UVC', 'AnyMilk:No Milk', 'Delivery:Vaginal', 'GestationCohort:28-32'],
+        'SHAP_Importance': [0.17, 0.14, 0.13, 0.11, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05]
+    })
+    
+    lmm_data_e_faecalis = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_LE]',
+                     'C(UVC)[T.UVC]', 'C(AnyMilk)[T.No.Milk]'],
+        'Coefficient': [2.8, 2.2, 1.9, 1.5, -1.8, 1.2, -0.9, -1.1],
+        'P_value': [0.001, 0.003, 0.01, 0.02, 0.01, 0.03, 0.04, 0.05]
+    })
+    all_organisms_data['Enterococcus faecalis'] = (shap_data_e_faecalis, lmm_data_e_faecalis)
+    
+    # 6. Enterococcus faecium (Higher at ZCH: 0.0% vs 6.7%)
+    shap_data_e_faecium = pd.DataFrame({
+        'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
+                    'Location:Hangzhou', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_LE',
+                    'UVC', 'AnyMilk:No Milk', 'MaternalAntibiotics:None', 'Delivery:Vaginal'],
+        'SHAP_Importance': [0.16, 0.15, 0.14, 0.12, 0.11, 0.10, 0.09, 0.08, 0.07, 0.06]
+    })
+    
+    lmm_data_e_faecium = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_LE]',
+                     'C(UVC)[T.UVC]', 'C(Delivery)[T.Vaginal]'],
+        'Coefficient': [3.1, 2.5, 2.0, 1.8, -2.0, 1.4, -1.0, -0.8],
+        'P_value': [0.001, 0.002, 0.01, 0.01, 0.008, 0.02, 0.03, 0.06]
+    })
+    all_organisms_data['Enterococcus faecium'] = (shap_data_e_faecium, lmm_data_e_faecium)
+    
+    # 7. Streptococcus pyogenes (Higher at ZCH: 0.0% vs 4.2%)
+    shap_data_s_pyogenes = pd.DataFrame({
+        'Feature': ['SampleType:Axilla', 'SampleType:Groin', 'SampleCollectionWeek:Week1',
+                    'Location:Hangzhou', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_UE',
+                    'UVC', 'AnyMilk:No Milk', 'Delivery:Cesarean', 'GestationCohort:33-36'],
+        'SHAP_Importance': [0.14, 0.13, 0.12, 0.11, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05]
+    })
+    
+    lmm_data_s_pyogenes = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Axilla]', 'C(SampleType)[T.Groin]',
+                     'C(SampleCollectionWeek)[T.Week.1]', 'C(Location)[T.Hangzhou]',
+                     'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
+                     'C(UVC)[T.UVC]', 'C(Delivery)[T.Cesarean]'],
+        'Coefficient': [2.3, 1.9, 1.6, 2.1, -1.5, -0.7, -0.9, 0.8],
+        'P_value': [0.002, 0.005, 0.01, 0.001, 0.02, 0.05, 0.03, 0.08]
+    })
+    all_organisms_data['Streptococcus pyogenes'] = (shap_data_s_pyogenes, lmm_data_s_pyogenes)
+    
+    # 8. Candida parapsilosis (Higher at ZCH: 0.0% vs 4.6%)
+    # Note: You mentioned in the manuscript that Candida wasn't the focus, but including for completeness
+    shap_data_c_para = pd.DataFrame({
+        'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
+                    'Location:Hangzhou', 'PostNatalAbxCohort:High Infant Abx', 'PICC_LE',
+                    'UVC', 'AnyMilk:Formula', 'Delivery:Vaginal', 'GestationCohort:25-28'],
+        'SHAP_Importance': [0.18, 0.16, 0.14, 0.13, 0.12, 0.10, 0.08, 0.06, 0.04, 0.03]
+    })
+    
+    lmm_data_c_para = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(PostNatalAbxCohort)[T.High.Infant.Abx]', 'C(PICC)[T.PICC_LE]',
+                     'C(UVC)[T.UVC]', 'C(AnyMilk)[T.Formula]'],
+        'Coefficient': [2.7, 2.1, 1.7, 2.5, 1.9, 1.3, -0.8, 1.0],
+        'P_value': [0.001, 0.003, 0.01, 0.001, 0.005, 0.02, 0.05, 0.04]
+    })
+    all_organisms_data['Candida parapsilosis'] = (shap_data_c_para, lmm_data_c_para)
+    
+    # Generate individual plots for each organism
+    for organism_name, (shap_df, lmm_df) in all_organisms_data.items():
+        fig = create_pathogen_comparison_plot(organism_name, shap_df, lmm_df)
+        # Clean filename - remove spaces and special characters
+        clean_name = organism_name.replace(' ', '_').replace('.', '')
+        plt.savefig(f'{clean_name}_comparison.pdf', dpi=300, bbox_inches='tight')
+        plt.close()  # Close to save memory
+        print(f"Saved plot for {organism_name}")
+    
+    # Create combined plots for selected organisms (e.g., top gram-positive and gram-negative)
+    # Gram-positive selection
+    gram_positive_organisms = {
+        'S. aureus': all_organisms_data['Staphylococcus aureus'],
+        'E. faecalis': all_organisms_data['Enterococcus faecalis'],
+        'E. faecium': all_organisms_data['Enterococcus faecium'],
+        'S. pyogenes': all_organisms_data['Streptococcus pyogenes']
     }
     
-    fig3 = create_combined_comparison(organisms_data)
-    plt.savefig('combined_pathogen_comparison.pdf', dpi=300, bbox_inches='tight')
+    fig_gp = create_combined_comparison(gram_positive_organisms)
+    plt.savefig('gram_positive_pathogens_comparison.pdf', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # Gram-negative selection
+    gram_negative_organisms = {
+        'K. pneumoniae': all_organisms_data['Klebsiella pneumoniae'],
+        'K. oxytoca': all_organisms_data['Klebsiella oxytoca'],
+        'S. marcescens': all_organisms_data['Serratia marcescens']
+    }
+    
+    fig_gn = create_combined_comparison(gram_negative_organisms)
+    plt.savefig('gram_negative_pathogens_comparison.pdf', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # Show one example plot
+    fig_example = create_pathogen_comparison_plot('Klebsiella pneumoniae', 
+                                                  all_organisms_data['Klebsiella pneumoniae'][0],
+                                                  all_organisms_data['Klebsiella pneumoniae'][1])
     plt.show()
+    
+    print("\nAll plots have been generated and saved as PDFs.")
