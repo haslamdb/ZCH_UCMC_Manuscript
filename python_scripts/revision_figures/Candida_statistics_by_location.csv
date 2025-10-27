@@ -1,0 +1,13 @@
+"Species","Week","n_Cincinnati","median_Cincinnati","prevalence_Cincinnati","n_Hangzhou","median_Hangzhou","prevalence_Hangzhou","p_value"
+"Candida riodocensis","Week.1",196,0,NA,150,3,NA,0.00410912384098775
+"Candida riodocensis","Week.3",190,0,NA,133,0,NA,0.039752387392489
+"Candida gorgasii","Week.1",196,0,NA,150,0,NA,0.147072580887342
+"Candida gorgasii","Week.3",190,0,NA,133,0,NA,0.00218229554669469
+"Candida arabinofermentans","Week.1",196,0,NA,150,0,NA,3.00655094005994e-05
+"Candida arabinofermentans","Week.3",190,0,NA,133,0,NA,0.000885062699719927
+"Candida restingae","Week.1",196,0,NA,150,0,NA,0.722161245190152
+"Candida restingae","Week.3",190,0,NA,133,0,NA,0.437012226100762
+"Candida auris","Week.1",196,0,NA,150,0,NA,0.0039254521801412
+"Candida auris","Week.3",190,0,NA,133,0,NA,0.000857655550734984
+"Candida albicans","Week.1",196,0,NA,150,0,NA,0.060293048521203
+"Candida albicans","Week.3",190,0,NA,133,0,NA,0.133508924650088
