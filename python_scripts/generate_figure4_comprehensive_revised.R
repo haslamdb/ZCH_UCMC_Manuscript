@@ -107,11 +107,11 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
 
   # Create plot matching original style
   p <- ggplot(plot_data,
-              aes(x = Location, y = as.numeric(abundance), fill = Location)) +
-    geom_boxplot(lwd = 1, aes(color = factor(Location), fill = NA),
+              aes(x = Location, y = as.numeric(abundance))) +
+    geom_boxplot(lwd = 1, aes(color = factor(Location)),
+                 fill = NA,  # No gray fill in boxes
                  outlier.size = 3) +
     stat_summary(fun = mean, geom = "point", shape = 5, size = 8) +
-    scale_fill_manual(values = col) +
     scale_colour_manual(values = col) +
     geom_point(size = 4, aes(color = factor(Location))) +
     scale_y_log10() +
@@ -125,7 +125,7 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
       axis.text.x = element_text(size = 11),
       axis.text.y = element_text(size = 11),
       strip.text = element_text(size = 12, face = "bold"),
-      strip.background = element_blank(),  # Remove gray background
+      strip.background = element_blank(),  # Remove gray background from strip
       legend.position = "none",
       panel.grid.major = element_line(color = "gray90"),
       panel.grid.minor = element_blank()
@@ -136,10 +136,10 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
               size = 4,
               fontface = "bold",
               inherit.aes = FALSE) +
-    # Add p-value labels (increased font size 150%)
+    # Add p-value labels (back to original size)
     geom_text(data = pvalue_results,
               aes(x = 1.5, y = y_pos, label = p_label),
-              size = 6,  # Increased 150% from 4
+              size = 4,  # Back to original size
               fontface = "bold",
               inherit.aes = FALSE)
 
@@ -164,28 +164,25 @@ for (i in seq_along(key_organisms)) {
   plot_list[[i]] <- p
 }
 
-# Create comprehensive 3-column grid layout (3 on top rows, 2 centered on bottom)
+# Create comprehensive 4-column grid layout (2 rows, 4 per row)
 cat("\nCreating comprehensive figure...\n")
-
-# Create layout matrix for 3 columns with 2 centered on bottom row
-layout_matrix <- rbind(
-  c(1, 2, 3),
-  c(4, 5, 6),
-  c(NA, 7, 8)  # NA centers the last two plots
-)
 
 comprehensive_fig <- arrangeGrob(
   grobs = plot_list,
-  layout_matrix = layout_matrix,
+  ncol = 4,
+  nrow = 2,
   top = textGrob("Figure 4. Longitudinal changes in BSI-associated species abundance by location\n",
-                 gp = gpar(fontsize = 16, fontface = "bold"))
+                 gp = gpar(fontsize = 16, fontface = "bold")),
+  padding = unit(0.5, "line"),  # Add spacing between plots
+  widths = unit(rep(4.5, 4), "in"),  # Narrower individual plot width
+  heights = unit(rep(4.5, 2), "in")   # Plot heights
 )
 
-# Save comprehensive figure (narrower width for 3 columns)
+# Save comprehensive figure (4 columns, 2 rows with spacing)
 ggsave("revision_figures/Figure4_comprehensive_original_style.pdf",
        plot = comprehensive_fig,
-       width = 18,
-       height = 14,
+       width = 19,
+       height = 10,
        limitsize = FALSE)
 
 cat("\n✓ Saved comprehensive Figure 4 with original style\n")
@@ -203,12 +200,13 @@ cat("\n")
 cat("\nGenerated file:\n")
 cat("  - revision_figures/Figure4_comprehensive_original_style.pdf\n")
 cat("\nFormat:\n")
-cat("  - 3-column layout (3 plots per row, 2 centered on bottom)\n")
+cat("  - 4-column layout (2 rows, 4 plots per row)\n")
 cat("  - 8 species total (a-h)\n")
 cat("  - Original box plot style with Location on x-axis\n")
 cat("  - Faceted by SampleCollectionWeek (Week 1, Week 3 - no dots)\n")
+cat("  - Boxplots with no gray fill (transparent)\n")
 cat("  - Sample counts (n=) added above each box\n")
-cat("  - P-values shown between locations (150% larger font)\n")
+cat("  - P-values shown between locations (original font size)\n")
 cat("  - Y-axis species names 150% larger and italicized\n")
 cat("  - Gray background removed from strip labels\n")
 cat("  - Original color scheme (Cincinnati orange, Hangzhou blue)\n")
