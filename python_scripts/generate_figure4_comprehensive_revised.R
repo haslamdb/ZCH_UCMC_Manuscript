@@ -95,6 +95,16 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
   cat("\nP-values for", organism, ":\n")
   print(pvalue_results)
 
+  # Clean up week labels (remove dots)
+  plot_data <- plot_data %>%
+    mutate(SampleCollectionWeek = gsub("\\.", " ", SampleCollectionWeek))
+
+  sample_counts <- sample_counts %>%
+    mutate(SampleCollectionWeek = gsub("\\.", " ", SampleCollectionWeek))
+
+  pvalue_results <- pvalue_results %>%
+    mutate(SampleCollectionWeek = gsub("\\.", " ", SampleCollectionWeek))
+
   # Create plot matching original style
   p <- ggplot(plot_data,
               aes(x = Location, y = as.numeric(abundance), fill = Location)) +
@@ -111,10 +121,11 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
     scale_color_tableau() +
     theme_bw() +
     theme(
-      axis.title.y = element_text(face = "italic", size = 12),
+      axis.title.y = element_text(face = "italic", size = 18),  # Increased 150% from 12
       axis.text.x = element_text(size = 11),
       axis.text.y = element_text(size = 11),
       strip.text = element_text(size = 12, face = "bold"),
+      strip.background = element_blank(),  # Remove gray background
       legend.position = "none",
       panel.grid.major = element_line(color = "gray90"),
       panel.grid.minor = element_blank()
@@ -125,10 +136,10 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
               size = 4,
               fontface = "bold",
               inherit.aes = FALSE) +
-    # Add p-value labels
+    # Add p-value labels (increased font size 150%)
     geom_text(data = pvalue_results,
               aes(x = 1.5, y = y_pos, label = p_label),
-              size = 4,
+              size = 6,  # Increased 150% from 4
               fontface = "bold",
               inherit.aes = FALSE)
 
@@ -153,22 +164,28 @@ for (i in seq_along(key_organisms)) {
   plot_list[[i]] <- p
 }
 
-# Create comprehensive 4x2 grid layout
+# Create comprehensive 3-column grid layout (3 on top rows, 2 centered on bottom)
 cat("\nCreating comprehensive figure...\n")
+
+# Create layout matrix for 3 columns with 2 centered on bottom row
+layout_matrix <- rbind(
+  c(1, 2, 3),
+  c(4, 5, 6),
+  c(NA, 7, 8)  # NA centers the last two plots
+)
 
 comprehensive_fig <- arrangeGrob(
   grobs = plot_list,
-  ncol = 2,
-  nrow = 4,
+  layout_matrix = layout_matrix,
   top = textGrob("Figure 4. Longitudinal changes in BSI-associated species abundance by location\n",
                  gp = gpar(fontsize = 16, fontface = "bold"))
 )
 
-# Save comprehensive figure
+# Save comprehensive figure (narrower width for 3 columns)
 ggsave("revision_figures/Figure4_comprehensive_original_style.pdf",
        plot = comprehensive_fig,
-       width = 14,
-       height = 20,
+       width = 18,
+       height = 14,
        limitsize = FALSE)
 
 cat("\n✓ Saved comprehensive Figure 4 with original style\n")
@@ -186,11 +203,14 @@ cat("\n")
 cat("\nGenerated file:\n")
 cat("  - revision_figures/Figure4_comprehensive_original_style.pdf\n")
 cat("\nFormat:\n")
-cat("  - 4x2 grid (8 species: a-h)\n")
+cat("  - 3-column layout (3 plots per row, 2 centered on bottom)\n")
+cat("  - 8 species total (a-h)\n")
 cat("  - Original box plot style with Location on x-axis\n")
-cat("  - Faceted by SampleCollectionWeek (Week.1, Week.3)\n")
+cat("  - Faceted by SampleCollectionWeek (Week 1, Week 3 - no dots)\n")
 cat("  - Sample counts (n=) added above each box\n")
-cat("  - P-values shown between locations for each week\n")
+cat("  - P-values shown between locations (150% larger font)\n")
+cat("  - Y-axis species names 150% larger and italicized\n")
+cat("  - Gray background removed from strip labels\n")
 cat("  - Original color scheme (Cincinnati orange, Hangzhou blue)\n")
 cat(paste(rep("=", 70), collapse = ""))
 cat("\n")
