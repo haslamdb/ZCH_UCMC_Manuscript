@@ -116,14 +116,14 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
     geom_point(size = 4, aes(color = factor(Location))) +
     scale_y_log10() +
     xlab(NULL) +
-    ylab(paste0(gsub("\\.", " ", organism), "\n")) +
+    ylab(gsub("\\.", " ", organism)) +  # Removed \n to reduce spacing
     facet_grid(rows = vars(SampleCollectionWeek)) +
     scale_color_tableau() +
     theme_bw() +
     theme(
       axis.title.y = element_text(face = "italic", size = 18),  # Increased 150% from 12
-      axis.text.x = element_text(size = 11),
-      axis.text.y = element_text(size = 11),
+      axis.text.x = element_text(size = 14.3),  # Increased 130% from 11
+      axis.text.y = element_text(size = 13.2),  # Increased 120% from 11
       strip.text = element_text(size = 12, face = "bold"),
       strip.background = element_blank(),  # Remove gray background from strip
       legend.position = "none",
@@ -174,14 +174,14 @@ comprehensive_fig <- arrangeGrob(
   top = textGrob("Figure 4. Longitudinal changes in BSI-associated species abundance by location\n",
                  gp = gpar(fontsize = 16, fontface = "bold")),
   padding = unit(0.5, "line"),  # Add spacing between plots
-  widths = unit(rep(4.5, 4), "in"),  # Narrower individual plot width
+  widths = unit(rep(4.2, 4), "in"),  # Narrower individual plot width (was 4.5)
   heights = unit(rep(4.5, 2), "in")   # Plot heights
 )
 
 # Save comprehensive figure (4 columns, 2 rows with spacing)
 ggsave("revision_figures/Figure4_comprehensive_original_style.pdf",
        plot = comprehensive_fig,
-       width = 19,
+       width = 18,
        height = 10,
        limitsize = FALSE)
 
