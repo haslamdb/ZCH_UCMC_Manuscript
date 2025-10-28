@@ -80,14 +80,10 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
           list(p.value = NA)
         })
 
-        # Get max y value for p-value annotation position
-        max_y <- max(subset_data$abundance, na.rm = TRUE)
-
         pvalue_results <- rbind(pvalue_results, data.frame(
           SampleType = site,
           SampleCollectionWeek = week,
           p_value = test_result$p.value,
-          y_pos = max_y * 5,  # Position p-value above sample counts
           p_label = ifelse(is.na(test_result$p.value), "",
                     ifelse(test_result$p.value < 0.001, "p<0.001***",
                     ifelse(test_result$p.value < 0.01, sprintf("p=%.3f**", test_result$p.value),
@@ -105,12 +101,12 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
   # Create plot with faceting by SampleType (rows) and SampleCollectionWeek (columns)
   p <- ggplot(plot_data,
               aes(x = Location, y = as.numeric(abundance))) +
-    geom_boxplot(lwd = 1, aes(color = factor(Location)),
+    geom_boxplot(lwd = 0.75, aes(color = factor(Location)),  # Reduced to 75% of 1
                  fill = NA,  # No gray fill in boxes
-                 outlier.size = 1.8) +  # 60% of original
-    stat_summary(fun = mean, geom = "point", shape = 5, size = 4.8) +  # 60% of original
+                 outlier.size = 1.35) +  # 75% of 1.8 (which was 60% of 3)
+    stat_summary(fun = mean, geom = "point", shape = 5, size = 3.6) +  # 75% of 4.8
     scale_colour_manual(values = col) +
-    geom_point(size = 2.4, aes(color = factor(Location))) +  # 60% of original
+    geom_point(size = 1.8, aes(color = factor(Location))) +  # 75% of 2.4
     scale_y_log10() +
     xlab(NULL) +
     ylab(gsub("\\.", " ", organism)) +  # Remove dots, tight spacing
@@ -133,11 +129,12 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
               size = 4,
               fontface = "bold",
               inherit.aes = FALSE) +
-    # Add p-value labels
+    # Add p-value labels at top of plot (using Inf for y position)
     geom_text(data = pvalue_results,
-              aes(x = 1.5, y = y_pos, label = p_label),
+              aes(x = 1.5, y = Inf, label = p_label),
               size = 4,
               fontface = "bold",
+              vjust = 1.5,  # Position just below the top
               inherit.aes = FALSE)
 
   # Add panel label
