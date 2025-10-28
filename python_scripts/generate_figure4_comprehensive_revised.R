@@ -110,10 +110,10 @@ create_organism_plot_original_style <- function(data, organism, panel_label) {
               aes(x = Location, y = as.numeric(abundance))) +
     geom_boxplot(lwd = 1, aes(color = factor(Location)),
                  fill = NA,  # No gray fill in boxes
-                 outlier.size = 3) +
-    stat_summary(fun = mean, geom = "point", shape = 5, size = 8) +
+                 outlier.size = 1.8) +  # Reduced to 60% of 3
+    stat_summary(fun = mean, geom = "point", shape = 5, size = 4.8) +  # Reduced to 60% of 8
     scale_colour_manual(values = col) +
-    geom_point(size = 4, aes(color = factor(Location))) +
+    geom_point(size = 2.4, aes(color = factor(Location))) +  # Reduced to 60% of 4
     scale_y_log10() +
     xlab(NULL) +
     ylab(gsub("\\.", " ", organism)) +  # Removed \n to reduce spacing
@@ -173,12 +173,12 @@ comprehensive_fig <- arrangeGrob(
   nrow = 2,
   top = textGrob("Figure 4. Longitudinal changes in BSI-associated species abundance by location\n",
                  gp = gpar(fontsize = 16, fontface = "bold")),
-  padding = unit(0.5, "line"),  # Add spacing between plots
-  widths = unit(rep(4.2, 4), "in"),  # Narrower individual plot width (was 4.5)
-  heights = unit(rep(4.5, 2), "in")   # Plot heights
+  padding = unit(0.8, "line"),  # Increased padding between plots (was 0.5)
+  widths = unit(rep(3.78, 4), "in"),  # 90% of 4.2" = 3.78"
+  heights = unit(rep(4.5, 2), "in")   # Same height
 )
 
-# Save comprehensive figure (4 columns, 2 rows with spacing)
+# Save comprehensive figure (4 columns, 2 rows with more spacing)
 ggsave("revision_figures/Figure4_comprehensive_original_style.pdf",
        plot = comprehensive_fig,
        width = 18,
