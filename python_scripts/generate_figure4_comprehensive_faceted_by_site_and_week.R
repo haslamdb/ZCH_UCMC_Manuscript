@@ -98,6 +98,13 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
   cat("\nP-values for", organism, ":\n")
   print(pvalue_results)
 
+  # Calculate y-axis limits with padding at top for p-values and sample counts
+  y_min <- min(plot_data$abundance[plot_data$abundance > 0], na.rm = TRUE)
+  y_max <- max(plot_data$abundance, na.rm = TRUE)
+
+  # Add 50% padding at top (on log scale, multiply by factor)
+  y_limits <- c(y_min * 0.8, y_max * 10)  # 10x gives room at top on log scale
+
   # Create plot with faceting by SampleType (rows) and SampleCollectionWeek (columns)
   p <- ggplot(plot_data,
               aes(x = Location, y = as.numeric(abundance))) +
@@ -107,7 +114,7 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
     stat_summary(fun = mean, geom = "point", shape = 5, size = 3.6) +  # 75% of 4.8
     scale_colour_manual(values = col) +
     geom_point(size = 1.8, aes(color = factor(Location))) +  # 75% of 2.4
-    scale_y_log10() +
+    scale_y_log10(limits = y_limits) +  # Add limits with padding
     xlab(NULL) +
     ylab(gsub("\\.", " ", organism)) +  # Remove dots, tight spacing
     facet_grid(SampleType ~ SampleCollectionWeek) +  # Rows = SampleType, Columns = Week
@@ -115,7 +122,7 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
     theme_bw() +
     theme(
       axis.title.y = element_text(face = "italic", size = 18),
-      axis.text.x = element_text(size = 14.3),
+      axis.text.x = element_text(size = 10.725),  # 75% of 14.3
       axis.text.y = element_text(size = 13.2),
       strip.text = element_text(size = 12, face = "bold"),
       strip.background = element_blank(),
