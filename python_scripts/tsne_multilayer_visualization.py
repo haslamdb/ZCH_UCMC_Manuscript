@@ -258,6 +258,99 @@ def create_multilayer_plot_option2(plot_data, data, organism, location=None):
     return fig
 
 # ============================================================================
+# OPTION 3: Faceted by location (columns) and body site (rows)
+# ============================================================================
+
+def create_multilayer_plot_option3(plot_data, data, organism):
+    """
+    Create faceted plot:
+    - Columns: Location (Cincinnati, Hangzhou)
+    - Rows: Body site (Axilla, Groin, Stool)
+    - Color intensity: Organism abundance
+    - Marker type: Week (circle vs star)
+    """
+    fig, axes = plt.subplots(3, 2, figsize=(12, 16))
+
+    # Get abundance data
+    subset = plot_data.copy()
+    subset['abundance'] = data.loc[subset.index, organism]
+
+    # Define markers for weeks
+    week_markers = {
+        'Week 1': 'o',   # circle
+        'Week 3': '*'     # star
+    }
+
+    # Colormap
+    from matplotlib.colors import LinearSegmentedColormap
+    cmap = LinearSegmentedColormap.from_list('white_red', ['#ffffff', '#d73027'])
+
+    # Get global min/max for consistent coloring
+    vmin, vmax = subset['abundance'].min(), subset['abundance'].max()
+
+    # Plot each combination
+    body_sites = ['Axilla', 'Groin', 'Stool']
+    locations = ['Cincinnati', 'Hangzhou']
+
+    for row_idx, body_site in enumerate(body_sites):
+        for col_idx, location in enumerate(locations):
+            ax = axes[row_idx, col_idx]
+            site_loc_data = subset[(subset['SampleType'] == body_site) &
+                                   (subset['Location'] == location)]
+
+            # Plot each week group
+            for week_group in ['Week 1', 'Week 3']:
+                week_data = site_loc_data[site_loc_data['WeekGroup'] == week_group]
+
+                if len(week_data) > 0:
+                    scatter = ax.scatter(
+                        week_data['tSNE1'],
+                        week_data['tSNE2'],
+                        c=week_data['abundance'],
+                        cmap=cmap,
+                        vmin=vmin,
+                        vmax=vmax,
+                        marker=week_markers[week_group],
+                        s=150 if week_group == 'Week 3' else 80,
+                        alpha=0.8,
+                        edgecolors='black',
+                        linewidths=0.5,
+                        label=week_group
+                    )
+
+            # Set labels
+            if row_idx == 2:  # Bottom row
+                ax.set_xlabel('t-SNE 1', fontsize=11, fontweight='bold')
+            if col_idx == 0:  # Left column
+                ax.set_ylabel('t-SNE 2', fontsize=11, fontweight='bold')
+
+            # Title showing location on top row, body site on left
+            if row_idx == 0:
+                ax.set_title(f'{location}\n{body_site} (n={len(site_loc_data)})',
+                           fontsize=12, fontweight='bold')
+            else:
+                ax.set_title(f'{body_site} (n={len(site_loc_data)})',
+                           fontsize=12, fontweight='bold')
+
+            ax.grid(alpha=0.3)
+
+            # Only add legend to top-right panel
+            if row_idx == 0 and col_idx == 1:
+                ax.legend(fontsize=9, loc='best', title='Week')
+
+    # Add colorbar
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=axes, pad=0.02, aspect=40)
+    cbar.set_label(f'{organism.replace(".", " ")} (CLR)', fontsize=12, fontweight='bold')
+
+    fig.suptitle(f'{organism.replace(".", " ")}',
+                fontsize=16, fontweight='bold', y=0.995)
+
+    plt.tight_layout()
+    return fig
+
+# ============================================================================
 # Generate plots for all organisms
 # ============================================================================
 
@@ -325,6 +418,16 @@ with PdfPages('revision_figures/tSNE_multilayer_option2_by_location.pdf') as pdf
             pdf.savefig(fig, bbox_inches='tight')
             plt.close(fig)
 
+# Generate Option 3 plots (location columns x body site rows)
+print("\nOption 3: Location (columns) x Body site (rows)...")
+with PdfPages('revision_figures/tSNE_multilayer_option3_location_by_bodysite.pdf') as pdf:
+    for organism in key_organisms:
+        if organism in data.columns:
+            print(f"  Processing {organism}...")
+            fig = create_multilayer_plot_option3(plot_data, data, organism)
+            pdf.savefig(fig, bbox_inches='tight')
+            plt.close(fig)
+
 print("\n" + "="*70)
 print("MULTI-LAYER VISUALIZATION COMPLETE")
 print("="*70)
@@ -333,8 +436,10 @@ print("  - tSNE_multilayer_option1_combined.pdf (shape=site, border=week)")
 print("  - tSNE_multilayer_option1_by_location.pdf (separated by location)")
 print("  - tSNE_multilayer_option2_faceted.pdf (panels=site, marker=week)")
 print("  - tSNE_multilayer_option2_by_location.pdf (faceted + separated)")
+print("  - tSNE_multilayer_option3_location_by_bodysite.pdf (NEW: cols=location, rows=bodysite)")
 print("\nVisualization features:")
 print("  Option 1: Single plot with shape (body site) + border width (week)")
 print("  Option 2: Faceted panels by body site with markers for week")
-print("  Both: Color intensity shows organism abundance")
+print("  Option 3: Faceted 3x2 grid (rows=body site, cols=location)")
+print("  All: Color intensity shows organism abundance")
 print("="*70)
