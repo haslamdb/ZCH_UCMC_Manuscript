@@ -43,7 +43,8 @@ key_organisms = [
     "Enterococcus.faecalis",
     "Serratia.marcescens",
     "Escherichia.coli",
-    "Streptococcus.pyogenes"
+    "Streptococcus.pyogenes",
+    "Candida.parapsilosis"
 ]
 
 # Perform t-SNE once
@@ -280,11 +281,12 @@ def create_multilayer_plot_option3(plot_data, data, organism):
         "Staphylococcus.aureus": '#e41a1c',      # red
         "Klebsiella.pneumoniae": '#377eb8',      # blue
         "Klebsiella.oxytoca": '#4daf4a',         # green
-        "Enterococcus.faecium": '#984ea3',       # medium purple
+        "Enterococcus.faecium": '#6a0dad',       # dark purple
         "Enterococcus.faecalis": '#ff7f00',      # orange
-        "Serratia.marcescens": '#7f3c8d',        # dark purple
+        "Serratia.marcescens": '#11a579',        # teal
         "Escherichia.coli": '#a65628',           # brown
-        "Streptococcus.pyogenes": '#f781bf'      # pink
+        "Streptococcus.pyogenes": '#f781bf',     # pink
+        "Candida.parapsilosis": '#00ced1'        # dark cyan
     }
 
     # Get the color for this organism
@@ -392,11 +394,12 @@ def create_multilayer_plot_option4(plot_data, data, key_organisms):
         "Staphylococcus.aureus": '#e41a1c',      # red
         "Klebsiella.pneumoniae": '#377eb8',      # blue
         "Klebsiella.oxytoca": '#4daf4a',         # green
-        "Enterococcus.faecium": '#984ea3',       # purple
+        "Enterococcus.faecium": '#6a0dad',       # dark purple
         "Enterococcus.faecalis": '#ff7f00',      # orange
-        "Serratia.marcescens": '#ffff33',        # yellow
+        "Serratia.marcescens": '#11a579',        # teal
         "Escherichia.coli": '#a65628',           # brown
-        "Streptococcus.pyogenes": '#f781bf'      # pink
+        "Streptococcus.pyogenes": '#f781bf',     # pink
+        "Candida.parapsilosis": '#00ced1'        # dark cyan
     }
 
     # Define markers for weeks
