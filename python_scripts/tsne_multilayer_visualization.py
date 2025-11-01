@@ -336,18 +336,22 @@ def create_multilayer_plot_option3(plot_data, data, organism):
 
             # Only add legend to top-right panel
             if row_idx == 0 and col_idx == 1:
-                ax.legend(fontsize=9, loc='best', title='Week')
+                ax.legend(fontsize=9, loc='upper left', title='Week', framealpha=0.9)
 
-    # Add colorbar
+    # Add colorbar with more padding to avoid overlap
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
     sm.set_array([])
-    cbar = fig.colorbar(sm, ax=axes, pad=0.02, aspect=40)
+
+    # Adjust subplots to make room for colorbar on the right
+    plt.tight_layout(rect=[0, 0, 0.92, 0.98])
+
+    # Add colorbar to the right with more padding
+    cbar = fig.colorbar(sm, ax=axes, pad=0.03, aspect=40, fraction=0.046)
     cbar.set_label(f'{organism.replace(".", " ")} (CLR)', fontsize=12, fontweight='bold')
 
     fig.suptitle(f'{organism.replace(".", " ")}',
                 fontsize=16, fontweight='bold', y=0.995)
 
-    plt.tight_layout()
     return fig
 
 # ============================================================================
