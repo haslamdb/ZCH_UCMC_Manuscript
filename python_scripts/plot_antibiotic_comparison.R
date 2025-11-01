@@ -121,6 +121,11 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
   clean_name <- gsub("_w[0-9]", "", antibiotic)
   clean_name <- gsub("_", " ", clean_name)
 
+  # Special handling for Piperacillin Tazobactam - put on two lines
+  if (grepl("Piperacillin", clean_name)) {
+    clean_name <- "Piperacillin\nTazobactam"
+  }
+
   # Create plot matching Figure 4 style
   # Use plot_data (includes zeros) for boxplot, but plot_data_points for individual points
   p <- ggplot(plot_data, aes(x = Location, y = days)) +
@@ -138,8 +143,8 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
     theme_bw() +
     theme(
       axis.title.y = element_text(size = 16, face = "bold"),
-      axis.text.x = element_text(size = 14.3),
-      axis.text.y = element_text(size = 13.2),
+      axis.text.x = element_text(size = 18),  # Increased from 14.3 to 18
+      axis.text.y = element_text(size = 18),  # Increased from 13.2 to 18
       legend.position = "none",
       panel.grid.major = element_line(color = "gray90"),
       panel.grid.minor = element_blank()
