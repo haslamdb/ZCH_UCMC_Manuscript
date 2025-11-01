@@ -144,18 +144,18 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
       panel.grid.major = element_line(color = "gray90"),
       panel.grid.minor = element_blank()
     ) +
-    # Add sample count labels
+    # Add sample count labels (increased size from 4 to 7)
     geom_text(data = sample_counts,
               aes(x = Location, y = y_pos, label = paste0("n=", n)),
-              size = 4,
+              size = 7,
               fontface = "bold",
               inherit.aes = FALSE)
 
-  # Add p-value if available
+  # Add p-value if available (increased size from 4 to 7)
   if (nrow(pvalue_df) > 0 && pvalue_df$p_label != "") {
     p <- p + geom_text(data = pvalue_df,
                       aes(x = x, y = y_pos, label = p_label),
-                      size = 4,
+                      size = 7,
                       fontface = "bold",
                       inherit.aes = FALSE)
   }
