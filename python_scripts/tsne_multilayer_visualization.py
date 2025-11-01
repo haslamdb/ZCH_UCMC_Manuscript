@@ -328,8 +328,7 @@ def create_multilayer_plot_option3(plot_data, data, organism):
                         marker=week_markers[week_group],
                         s=150 if week_group == 'Week 3' else 80,
                         alpha=0.8,
-                        edgecolors='black',
-                        linewidths=0.5,
+                        edgecolors='none',
                         label=week_group
                     )
 
