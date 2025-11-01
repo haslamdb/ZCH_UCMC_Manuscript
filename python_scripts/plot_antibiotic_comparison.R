@@ -118,12 +118,14 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
               if(nrow(pvalue_df) > 0) pvalue_df$p_label else "N/A"))
 
   # Clean antibiotic name for display
-  clean_name <- gsub("_w[0-9]", "", antibiotic)
+  # Convert _w1 to _wk1 and _w2 to _wk3, then keep the suffix
+  clean_name <- gsub("_w1", " (wk1)", antibiotic)
+  clean_name <- gsub("_w2", " (wk3)", clean_name)
   clean_name <- gsub("_", " ", clean_name)
 
   # Special handling for Piperacillin Tazobactam - put on two lines
   if (grepl("Piperacillin", clean_name)) {
-    clean_name <- "Piperacillin\nTazobactam"
+    clean_name <- gsub("Piperacillin Tazobactam", "Piperacillin\nTazobactam", clean_name)
   }
 
   # Create plot matching Figure 4 style
