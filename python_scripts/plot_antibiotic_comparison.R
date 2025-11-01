@@ -142,9 +142,9 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
     scale_color_tableau() +
     theme_bw() +
     theme(
-      axis.title.y = element_text(size = 16, face = "bold"),
-      axis.text.x = element_text(size = 18),  # Increased from 14.3 to 18
-      axis.text.y = element_text(size = 18),  # Increased from 13.2 to 18
+      axis.title.y = element_text(size = 20, face = "bold"),  # Antibiotic name - increased to 20
+      axis.text.x = element_text(size = 18),  # Location labels (UCMC/ZCH)
+      axis.text.y = element_text(size = 18),  # Y-axis tick labels
       legend.position = "none",
       panel.grid.major = element_line(color = "gray90"),
       panel.grid.minor = element_blank()
