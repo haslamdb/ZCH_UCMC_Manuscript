@@ -64,6 +64,12 @@ plot_data['WeekGroup'] = plot_data['SampleCollectionWeek'].apply(
     lambda x: 'Week 1' if str(x) == 'Week.1' else 'Week 3'
 )
 
+# Rename locations: Cincinnati -> UCMC, Hangzhou -> ZCH
+plot_data['Location'] = plot_data['Location'].replace({
+    'Cincinnati': 'UCMC',
+    'Hangzhou': 'ZCH'
+})
+
 print(f"Filtered data shape: {plot_data.shape}")
 print(f"Week groups: {plot_data['WeekGroup'].value_counts()}")
 
@@ -314,7 +320,7 @@ def create_multilayer_plot_option3(plot_data, data, organism):
 
     # Plot each combination
     body_sites = ['Axilla', 'Groin', 'Stool']
-    locations = ['Cincinnati', 'Hangzhou']
+    locations = ['UCMC', 'ZCH']
 
     for row_idx, body_site in enumerate(body_sites):
         for col_idx, location in enumerate(locations):
@@ -411,7 +417,7 @@ def create_multilayer_plot_option4(plot_data, data, key_organisms):
 
     # Plot each combination
     body_sites = ['Axilla', 'Groin', 'Stool']
-    locations = ['Cincinnati', 'Hangzhou']
+    locations = ['UCMC', 'ZCH']
 
     for row_idx, body_site in enumerate(body_sites):
         for col_idx, location in enumerate(locations):

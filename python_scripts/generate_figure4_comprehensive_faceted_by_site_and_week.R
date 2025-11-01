@@ -23,7 +23,7 @@ cat("Workspace loaded successfully!\n")
 cat("\n=== Generating Comprehensive Figure 4 (Faceted by Site and Week) ===\n")
 
 # Define color palette (matching your original)
-col <- c("#E69F00", "#56B4E9")  # Cincinnati (orange), Hangzhou (blue)
+col <- c("#E69F00", "#56B4E9")  # UCMC (orange), ZCH (blue)
 
 # Key organisms for Figure 4 (all 8 species a-h)
 key_organisms <- c("Staphylococcus.aureus",        # a
@@ -51,9 +51,12 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
     rename(abundance = all_of(organism)) %>%
     filter(!is.na(abundance))
 
-  # Clean up week labels (remove dots)
+  # Clean up week labels (remove dots) and rename locations
   plot_data <- plot_data %>%
-    mutate(SampleCollectionWeek = gsub("\\.", " ", SampleCollectionWeek))
+    mutate(SampleCollectionWeek = gsub("\\.", " ", SampleCollectionWeek),
+           Location = recode(Location,
+                           "Cincinnati" = "UCMC",
+                           "Hangzhou" = "ZCH"))
 
   # Calculate sample sizes for each group
   sample_counts <- plot_data %>%
