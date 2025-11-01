@@ -213,7 +213,7 @@ comprehensive_fig <- arrangeGrob(
   ncol = ncols,
   nrow = nrows,
   top = textGrob("Supplementary Figure. Antibiotic Usage Comparison: UCMC vs ZCH\n",
-                 gp = gpar(fontsize = 16, fontface = "bold")),
+                 gp = gpar(fontsize = 24, fontface = "bold")),  # Increased from 16 to 24
   padding = unit(0.8, "line"),
   widths = unit(rep(3.78, ncols), "in"),
   heights = unit(rep(3.5, nrows), "in")
