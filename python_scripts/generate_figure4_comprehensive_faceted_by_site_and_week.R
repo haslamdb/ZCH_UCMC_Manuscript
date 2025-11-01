@@ -102,8 +102,8 @@ create_organism_plot_faceted <- function(data, organism, panel_label) {
   y_min <- min(plot_data$abundance[plot_data$abundance > 0], na.rm = TRUE)
   y_max <- max(plot_data$abundance, na.rm = TRUE)
 
-  # Add 50% padding at top (on log scale, multiply by factor)
-  y_limits <- c(y_min * 0.8, y_max * 10)  # 10x gives room at top on log scale
+  # Add more padding at top (on log scale) to prevent text overlap
+  y_limits <- c(y_min * 0.8, y_max * 100)  # 100x gives more room at top on log scale
 
   # Create plot with faceting by SampleType (rows) and SampleCollectionWeek (columns)
   p <- ggplot(plot_data,
@@ -176,14 +176,14 @@ comprehensive_fig <- arrangeGrob(
                  gp = gpar(fontsize = 16, fontface = "bold")),
   padding = unit(0.8, "line"),
   widths = unit(rep(3.78, 4), "in"),
-  heights = unit(rep(4.5, 2), "in")
+  heights = unit(rep(5.4, 2), "in")  # Increased by 20% from 4.5 to 5.4
 )
 
 # Save comprehensive figure with different name
 ggsave("revision_figures/Figure4_comprehensive_faceted_site_and_week.pdf",
        plot = comprehensive_fig,
        width = 18,
-       height = 10,
+       height = 12,  # Increased by 20% from 10 to 12
        limitsize = FALSE)
 
 cat("\n✓ Saved comprehensive Figure 4 with site and week faceting\n")
