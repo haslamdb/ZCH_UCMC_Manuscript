@@ -23,7 +23,7 @@ cat("Workspace loaded successfully!\n")
 cat("\n=== Generating Comprehensive Figure 4 (Original Style) ===\n")
 
 # Define color palette (matching your original)
-col <- c("#E69F00", "#56B4E9")  # Cincinnati (orange), Hangzhou (blue)
+col <- c("#E69F00", "#56B4E9")  # UCMC (orange), ZCH (blue)
 
 # Key organisms for Figure 4 (all 8 species a-h)
 key_organisms <- c("Staphylococcus.aureus",        # a
@@ -209,6 +209,6 @@ cat("  - Sample counts (n=) added above each box\n")
 cat("  - P-values shown between locations (original font size)\n")
 cat("  - Y-axis species names 150% larger and italicized\n")
 cat("  - Gray background removed from strip labels\n")
-cat("  - Original color scheme (Cincinnati orange, Hangzhou blue)\n")
+cat("  - Original color scheme (UCMC orange, ZCH blue)\n")
 cat(paste(rep("=", 70), collapse = ""))
 cat("\n")
