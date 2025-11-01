@@ -1,0 +1,3 @@
+"Antibiotic","Pathogen","Week","N","Rho","P_value","P_adjusted","Significant"
+"Penicillin_cumulative_w3","Escherichia.coli","Week3_Cumulative",103,-0.356258761480511,0.000221223614385008,0.0169913876177465,"Yes"
+"Cefotaxime_cumulative_w3","Enterococcus.faecalis","Week3_Cumulative",103,-0.347196681722944,0.000326757454187432,0.0169913876177465,"Yes"
