@@ -33,10 +33,13 @@ candida_cols <- grep("^Candida\\.", colnames(NICUSpeciesNR), value = TRUE)
 cat("\nFound", length(candida_cols), "Candida species in dataset:\n")
 print(candida_cols)
 
-# Filter data for relevant samples
+# Filter data for relevant samples and rename locations
 candida_data <- NICUSpeciesNR %>%
   filter(SampleType %in% c("Axilla", "Groin", "Stool"),
-         SampleCollectionWeek %in% c("Week.1", "Week.3"))
+         SampleCollectionWeek %in% c("Week.1", "Week.3")) %>%
+  mutate(Location = recode(Location,
+                           "Cincinnati" = "UCMC",
+                           "Hangzhou" = "ZCH"))
 
 # Calculate mean abundance for each Candida species
 candida_summary <- data.frame(
