@@ -280,9 +280,9 @@ def create_multilayer_plot_option3(plot_data, data, organism):
         "Staphylococcus.aureus": '#e41a1c',      # red
         "Klebsiella.pneumoniae": '#377eb8',      # blue
         "Klebsiella.oxytoca": '#4daf4a',         # green
-        "Enterococcus.faecium": '#984ea3',       # purple
+        "Enterococcus.faecium": '#984ea3',       # medium purple
         "Enterococcus.faecalis": '#ff7f00',      # orange
-        "Serratia.marcescens": '#ffff33',        # yellow
+        "Serratia.marcescens": '#7f3c8d',        # dark purple
         "Escherichia.coli": '#a65628',           # brown
         "Streptococcus.pyogenes": '#f781bf'      # pink
     }
@@ -296,6 +296,12 @@ def create_multilayer_plot_option3(plot_data, data, organism):
 
     # Get global min/max for consistent coloring
     vmin, vmax = subset['abundance'].min(), subset['abundance'].max()
+
+    # Use power normalization to emphasize high-abundance samples
+    # gamma < 1 makes colors darker for high values (emphasizes top end)
+    # gamma = 0.5 means the top 20% gets ~half the color range
+    from matplotlib.colors import PowerNorm
+    norm = PowerNorm(gamma=0.5, vmin=vmin, vmax=vmax)
 
     # Define markers for weeks
     week_markers = {
@@ -323,8 +329,7 @@ def create_multilayer_plot_option3(plot_data, data, organism):
                         week_data['tSNE2'],
                         c=week_data['abundance'],
                         cmap=cmap,
-                        vmin=vmin,
-                        vmax=vmax,
+                        norm=norm,
                         marker=week_markers[week_group],
                         s=150 if week_group == 'Week 3' else 80,
                         alpha=0.8,
@@ -353,7 +358,7 @@ def create_multilayer_plot_option3(plot_data, data, organism):
                 ax.legend(fontsize=9, loc='upper left', title='Week', framealpha=0.9)
 
     # Add colorbar with more padding to avoid overlap
-    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=norm)
     sm.set_array([])
 
     # Adjust subplots to make room for colorbar on the right
