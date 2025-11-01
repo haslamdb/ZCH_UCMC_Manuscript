@@ -49,17 +49,21 @@ col <- c("#E69F00", "#56B4E9")  # UCMC (orange), ZCH (blue)
 create_antibiotic_plot <- function(data, antibiotic, panel_label) {
 
   # Reshape data for this antibiotic
+  # Keep ALL patients (including zeros) so both locations always appear
   plot_data <- data %>%
     select(MRN, Location, all_of(antibiotic)) %>%
     rename(days = all_of(antibiotic)) %>%
-    filter(!is.na(days), days > 0)  # Only patients who received this antibiotic
+    filter(!is.na(days))
 
-  if (nrow(plot_data) == 0) {
-    return(NULL)  # Skip if no usage
+  if (sum(plot_data$days) == 0) {
+    return(NULL)  # Skip if no usage at all
   }
 
-  # Calculate sample sizes
-  sample_counts <- plot_data %>%
+  # For plotting, we'll still only show points for days > 0
+  plot_data_points <- plot_data %>% filter(days > 0)
+
+  # Calculate sample sizes (only count patients who received it)
+  sample_counts <- plot_data_points %>%
     group_by(Location) %>%
     summarise(
       n = n(),
@@ -118,13 +122,16 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
   clean_name <- gsub("_", " ", clean_name)
 
   # Create plot matching Figure 4 style
+  # Use plot_data (includes zeros) for boxplot, but plot_data_points for individual points
   p <- ggplot(plot_data, aes(x = Location, y = days)) +
     geom_boxplot(lwd = 1, aes(color = factor(Location)),
                  fill = NA,
-                 outlier.size = 1.8) +
-    stat_summary(fun = mean, geom = "point", shape = 5, size = 4.8) +
+                 outlier.shape = NA) +  # Don't show outliers, we'll add points separately
+    stat_summary(fun = mean, geom = "point", shape = 5, size = 4.8,
+                data = plot_data_points) +  # Only show mean for non-zero
     scale_colour_manual(values = col) +
-    geom_point(size = 2.4, aes(color = factor(Location))) +
+    geom_point(data = plot_data_points, size = 2.4,
+              aes(color = factor(Location))) +  # Only show points for non-zero
     xlab(NULL) +
     ylab(clean_name) +
     scale_color_tableau() +
