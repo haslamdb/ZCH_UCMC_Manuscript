@@ -301,9 +301,10 @@ def create_multilayer_plot_option3(plot_data, data, organism):
 
     # Use power normalization to emphasize high-abundance samples
     # gamma < 1 makes colors darker for high values (emphasizes top end)
-    # gamma = 0.5 means the top 20% gets ~half the color range
+    # gamma = 0.3 gives even more emphasis to top samples
+    # This makes ~90% of samples lighter and top ~10% progressively much darker
     from matplotlib.colors import PowerNorm
-    norm = PowerNorm(gamma=0.5, vmin=vmin, vmax=vmax)
+    norm = PowerNorm(gamma=0.3, vmin=vmin, vmax=vmax)
 
     # Define markers for weeks
     week_markers = {
