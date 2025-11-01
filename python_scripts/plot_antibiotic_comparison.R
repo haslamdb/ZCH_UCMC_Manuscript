@@ -101,10 +101,16 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
     pvalue_df <- data.frame(x = numeric(0), y_pos = numeric(0), p_label = character(0))
   }
 
+  # Get actual counts
+  ucmc_count <- sample_counts %>% filter(Location == "UCMC") %>% pull(n)
+  zch_count <- sample_counts %>% filter(Location == "ZCH") %>% pull(n)
+  ucmc_count <- ifelse(length(ucmc_count) == 0, 0, ucmc_count)
+  zch_count <- ifelse(length(zch_count) == 0, 0, zch_count)
+
   cat(sprintf("  %s: UCMC n=%d, ZCH n=%d, p=%s\n",
               antibiotic,
-              sum(sample_counts$Location == "UCMC"),
-              sum(sample_counts$Location == "ZCH"),
+              ucmc_count,
+              zch_count,
               if(nrow(pvalue_df) > 0) pvalue_df$p_label else "N/A"))
 
   # Clean antibiotic name for display
