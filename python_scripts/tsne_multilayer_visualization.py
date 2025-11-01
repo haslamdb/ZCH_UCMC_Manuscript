@@ -266,7 +266,7 @@ def create_multilayer_plot_option3(plot_data, data, organism):
     Create faceted plot:
     - Columns: Location (Cincinnati, Hangzhou)
     - Rows: Body site (Axilla, Groin, Stool)
-    - Color intensity: Organism abundance
+    - Color: Organism-specific color (distinct color per organism)
     - Marker type: Week (circle vs star)
     """
     fig, axes = plt.subplots(3, 2, figsize=(12, 16))
@@ -275,18 +275,33 @@ def create_multilayer_plot_option3(plot_data, data, organism):
     subset = plot_data.copy()
     subset['abundance'] = data.loc[subset.index, organism]
 
+    # Define organism colors (using a colorblind-friendly palette)
+    organism_colors = {
+        "Staphylococcus.aureus": '#e41a1c',      # red
+        "Klebsiella.pneumoniae": '#377eb8',      # blue
+        "Klebsiella.oxytoca": '#4daf4a',         # green
+        "Enterococcus.faecium": '#984ea3',       # purple
+        "Enterococcus.faecalis": '#ff7f00',      # orange
+        "Serratia.marcescens": '#ffff33',        # yellow
+        "Escherichia.coli": '#a65628',           # brown
+        "Streptococcus.pyogenes": '#f781bf'      # pink
+    }
+
+    # Get the color for this organism
+    organism_color = organism_colors.get(organism, '#808080')  # default to gray if not found
+
+    # Create colormap from white to the organism's color
+    from matplotlib.colors import LinearSegmentedColormap
+    cmap = LinearSegmentedColormap.from_list('white_to_org', ['#ffffff', organism_color])
+
+    # Get global min/max for consistent coloring
+    vmin, vmax = subset['abundance'].min(), subset['abundance'].max()
+
     # Define markers for weeks
     week_markers = {
         'Week 1': 'o',   # circle
         'Week 3': '*'     # star
     }
-
-    # Colormap
-    from matplotlib.colors import LinearSegmentedColormap
-    cmap = LinearSegmentedColormap.from_list('white_red', ['#ffffff', '#d73027'])
-
-    # Get global min/max for consistent coloring
-    vmin, vmax = subset['abundance'].min(), subset['abundance'].max()
 
     # Plot each combination
     body_sites = ['Axilla', 'Groin', 'Stool']
