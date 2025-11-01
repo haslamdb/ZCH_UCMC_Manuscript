@@ -355,6 +355,147 @@ def create_multilayer_plot_option3(plot_data, data, organism):
     return fig
 
 # ============================================================================
+# OPTION 4: Multi-organism colored view with location × body site layout
+# ============================================================================
+
+def create_multilayer_plot_option4(plot_data, data, key_organisms):
+    """
+    Create faceted plot showing all organisms:
+    - Columns: Location (Cincinnati, Hangzhou)
+    - Rows: Body site (Axilla, Groin, Stool)
+    - Color: Different organism (distinct colors for each organism)
+    - Marker type: Week (circle vs star)
+    """
+    fig, axes = plt.subplots(3, 2, figsize=(14, 18))
+
+    # Define organism colors (using a colorblind-friendly palette)
+    organism_colors = {
+        "Staphylococcus.aureus": '#e41a1c',      # red
+        "Klebsiella.pneumoniae": '#377eb8',      # blue
+        "Klebsiella.oxytoca": '#4daf4a',         # green
+        "Enterococcus.faecium": '#984ea3',       # purple
+        "Enterococcus.faecalis": '#ff7f00',      # orange
+        "Serratia.marcescens": '#ffff33',        # yellow
+        "Escherichia.coli": '#a65628',           # brown
+        "Streptococcus.pyogenes": '#f781bf'      # pink
+    }
+
+    # Define markers for weeks
+    week_markers = {
+        'Week 1': 'o',   # circle
+        'Week 3': '*'     # star
+    }
+
+    # Plot each combination
+    body_sites = ['Axilla', 'Groin', 'Stool']
+    locations = ['Cincinnati', 'Hangzhou']
+
+    for row_idx, body_site in enumerate(body_sites):
+        for col_idx, location in enumerate(locations):
+            ax = axes[row_idx, col_idx]
+            subset = plot_data.copy()
+            site_loc_data = subset[(subset['SampleType'] == body_site) &
+                                   (subset['Location'] == location)]
+
+            # For each organism, find samples where it's abundant
+            # We'll color by the dominant organism at each sample
+            site_loc_data['dominant_organism'] = 'Other'
+            site_loc_data['max_abundance'] = -np.inf
+
+            # Find which organism is most abundant at each sample
+            for organism in key_organisms:
+                if organism in data.columns:
+                    abundances = data.loc[site_loc_data.index, organism]
+                    mask = abundances > site_loc_data['max_abundance']
+                    site_loc_data.loc[mask, 'dominant_organism'] = organism
+                    site_loc_data.loc[mask, 'max_abundance'] = abundances[mask]
+
+            # Plot each organism separately
+            for organism in key_organisms:
+                if organism not in data.columns:
+                    continue
+
+                org_data = site_loc_data[site_loc_data['dominant_organism'] == organism]
+
+                # Plot each week group
+                for week_group in ['Week 1', 'Week 3']:
+                    week_data = org_data[org_data['WeekGroup'] == week_group]
+
+                    if len(week_data) > 0:
+                        ax.scatter(
+                            week_data['tSNE1'],
+                            week_data['tSNE2'],
+                            c=organism_colors[organism],
+                            marker=week_markers[week_group],
+                            s=150 if week_group == 'Week 3' else 80,
+                            alpha=0.7,
+                            edgecolors='black',
+                            linewidths=0.5,
+                            label=f'{organism.replace(".", " ")} - {week_group}' if row_idx == 0 and col_idx == 0 else ''
+                        )
+
+            # Set labels
+            if row_idx == 2:  # Bottom row
+                ax.set_xlabel('t-SNE 1', fontsize=11, fontweight='bold')
+            if col_idx == 0:  # Left column
+                ax.set_ylabel('t-SNE 2', fontsize=11, fontweight='bold')
+
+            # Title showing location on top row, body site on left
+            if row_idx == 0:
+                ax.set_title(f'{location}\n{body_site} (n={len(site_loc_data)})',
+                           fontsize=12, fontweight='bold')
+            else:
+                ax.set_title(f'{body_site} (n={len(site_loc_data)})',
+                           fontsize=12, fontweight='bold')
+
+            ax.grid(alpha=0.3)
+
+    # Create custom legend showing organisms and weeks
+    from matplotlib.lines import Line2D
+
+    # Organism legend elements
+    org_legend_elements = [
+        Line2D([0], [0], marker='o', color='w',
+               markerfacecolor=organism_colors[org],
+               markersize=10, label=org.replace(".", " "),
+               markeredgecolor='black', markeredgewidth=0.5)
+        for org in key_organisms if org in organism_colors
+    ]
+
+    # Week legend elements
+    week_legend_elements = [
+        Line2D([0], [0], marker='o', color='w',
+               markerfacecolor='gray', markersize=8,
+               label='Week 1', markeredgecolor='black', markeredgewidth=0.5),
+        Line2D([0], [0], marker='*', color='w',
+               markerfacecolor='gray', markersize=12,
+               label='Week 3', markeredgecolor='black', markeredgewidth=0.5)
+    ]
+
+    # Add legends
+    legend1 = fig.legend(handles=org_legend_elements,
+                        title='Dominant Organism',
+                        loc='center left',
+                        bbox_to_anchor=(0.92, 0.65),
+                        fontsize=9,
+                        title_fontsize=10,
+                        framealpha=0.9)
+
+    legend2 = fig.legend(handles=week_legend_elements,
+                        title='Timepoint',
+                        loc='center left',
+                        bbox_to_anchor=(0.92, 0.3),
+                        fontsize=9,
+                        title_fontsize=10,
+                        framealpha=0.9)
+
+    fig.suptitle('Key Organisms Distribution Across Locations and Body Sites',
+                fontsize=16, fontweight='bold', y=0.995)
+
+    plt.tight_layout(rect=[0, 0, 0.90, 0.98])
+    return fig
+
+# ============================================================================
 # Generate plots for all organisms
 # ============================================================================
 
@@ -432,6 +573,13 @@ with PdfPages('revision_figures/tSNE_multilayer_option3_location_by_bodysite.pdf
             pdf.savefig(fig, bbox_inches='tight')
             plt.close(fig)
 
+# Generate Option 4 plot (all organisms with different colors)
+print("\nOption 4: Multi-organism colored view...")
+fig = create_multilayer_plot_option4(plot_data, data, key_organisms)
+plt.savefig('revision_figures/tSNE_multilayer_option4_all_organisms_colored.pdf', bbox_inches='tight')
+plt.close(fig)
+print("  ✓ Generated multi-organism plot")
+
 print("\n" + "="*70)
 print("MULTI-LAYER VISUALIZATION COMPLETE")
 print("="*70)
@@ -440,10 +588,11 @@ print("  - tSNE_multilayer_option1_combined.pdf (shape=site, border=week)")
 print("  - tSNE_multilayer_option1_by_location.pdf (separated by location)")
 print("  - tSNE_multilayer_option2_faceted.pdf (panels=site, marker=week)")
 print("  - tSNE_multilayer_option2_by_location.pdf (faceted + separated)")
-print("  - tSNE_multilayer_option3_location_by_bodysite.pdf (NEW: cols=location, rows=bodysite)")
+print("  - tSNE_multilayer_option3_location_by_bodysite.pdf (cols=location, rows=bodysite)")
+print("  - tSNE_multilayer_option4_all_organisms_colored.pdf (NEW: multi-organism colored)")
 print("\nVisualization features:")
 print("  Option 1: Single plot with shape (body site) + border width (week)")
 print("  Option 2: Faceted panels by body site with markers for week")
-print("  Option 3: Faceted 3x2 grid (rows=body site, cols=location)")
-print("  All: Color intensity shows organism abundance")
+print("  Option 3: Faceted 3x2 grid (rows=body site, cols=location), color=abundance")
+print("  Option 4: Faceted 3x2 grid (rows=body site, cols=location), color=organism")
 print("="*70)
