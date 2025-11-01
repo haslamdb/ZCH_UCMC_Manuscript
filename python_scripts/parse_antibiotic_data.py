@@ -8,6 +8,7 @@ import pandas as pd
 import re
 from datetime import datetime
 from typing import Union
+from math import ceil
 
 def parse_date_range(date_str: str) -> int:
     """
@@ -52,29 +53,31 @@ def parse_date_range(date_str: str) -> int:
 
     return 0
 
-def parse_zch_entry(entry: str) -> float:
+def parse_zch_entry(entry: str) -> int:
     """
-    Parse a single ZCH antibiotic entry and return total days.
+    Parse a single ZCH antibiotic entry and return total days (rounded up).
 
     Patterns:
     - Date ranges: '6.3-6.8' -> count days
     - Single dose: '1 dose (5.27)' -> 1 day
     - With dosing info: '40mg/kg/dose (5.28-5.31)' -> extract date range
     - Every N days: '1dose/3days (7.12-7.21)' or '/3d' -> calculate actual dosing days
+
+    All fractional days are rounded UP to the nearest integer.
     """
     # Handle NaN and empty values
     if pd.isna(entry):
-        return 0.0
+        return 0
 
     # Convert to string and check if empty
     entry = str(entry).strip()
     if entry == '' or entry == 'nan':
-        return 0.0
+        return 0
 
     # Pattern 1: Special case like "3.27-3.30=2.5" (explicitly shows days)
     equals_match = re.search(r'=\s*([\d.]+)', entry)
     if equals_match:
-        return float(equals_match.group(1))
+        return ceil(float(equals_match.group(1)))
 
     # Pattern 2: Contains "/3days" or "/3d" pattern with date range
     # Example: "1dose/3days (7.12-7.21)" or "10.24-10.31 (/3days)"
@@ -87,7 +90,7 @@ def parse_zch_entry(entry: str) -> float:
             # Calculate number of actual dosing days
             # If 1 dose every 3 days for 10 day span = ceil(10/3) = 4 doses = 4 days
             actual_doses = (span_days + interval - 1) // interval
-            return float(actual_doses)
+            return actual_doses
 
     # Pattern 3: Date range with possible dosing info like "40mg/kg/dose (5.28-5.31)" or "6.3-6.8"
     # Extract any date range BEFORE checking for dose keywords
@@ -97,7 +100,7 @@ def parse_zch_entry(entry: str) -> float:
         total_days = 0
         for date_range in date_matches:
             total_days += parse_date_range(date_range)
-        return float(total_days)
+        return total_days
 
     # Pattern 4: Single dose like "1 dose (5.27)" or "4mg* 1dose" or "4mg 6 dose"
     if 'dose' in entry.lower():
@@ -105,50 +108,52 @@ def parse_zch_entry(entry: str) -> float:
         dose_match = re.search(r'(\d+)\s*dose', entry, re.IGNORECASE)
         if dose_match:
             num_doses = int(dose_match.group(1))
-            return float(num_doses)
+            return num_doses
 
         # Check for just "dose" (without number) - single dose
         if re.search(r'(?<!\d)\s*dose', entry, re.IGNORECASE):
-            return 1.0
+            return 1
 
     # Pattern 5: Just a single date like "6.18" - treat as 1 day
     single_date_match = re.match(r'^(\d+\.\d+)$', entry)
     if single_date_match:
-        return 1.0
+        return 1
 
-    # Pattern 6: Number at end like "4.7 0.5" - use the trailing number
+    # Pattern 6: Number at end like "4.7 0.5" - use the trailing number (rounded up)
     number_match = re.search(r'\s+([\d.]+)$', entry)
     if number_match:
-        return float(number_match.group(1))
+        return ceil(float(number_match.group(1)))
 
     # If we can't parse it, return 0 and we'll review
     print(f"Warning: Could not parse ZCH entry: '{entry}'")
-    return 0.0
+    return 0
 
-def parse_uc_entry(entry: str) -> float:
+def parse_uc_entry(entry: str) -> int:
     """
-    Parse a single UC antibiotic entry and return total days.
+    Parse a single UC antibiotic entry and return total days (rounded up).
 
     Patterns:
     - '100mg/kg q12h*2d' -> 2 days
     - '25mg/kg*bid*3d' -> 3 days
     - '25mg/kg q6h*3d+25mg/kg tid*2d' -> 3 + 2 = 5 days
     - Complex with multiple segments separated by '+'
+
+    All fractional days are rounded UP to the nearest integer.
     """
     # Handle NaN and empty values
     if pd.isna(entry):
-        return 0.0
+        return 0
 
     # Convert to string and check if empty
     entry = str(entry).strip()
     if entry == '' or entry == 'nan':
-        return 0.0
+        return 0
 
     # Skip text-only entries like "nystatin bid topical"
     if not re.search(r'\*\d+', entry):
         # Check if it might still have dosing info we should count
         # For now, if no *Xd pattern, return 0
-        return 0.0
+        return 0
 
     total_days = 0.0
 
@@ -167,7 +172,8 @@ def parse_uc_entry(entry: str) -> float:
             for day_str in day_matches:
                 total_days += float(day_str)
 
-    return total_days
+    # Round up to nearest integer
+    return ceil(total_days) if total_days > 0 else 0
 
 def parse_antibiotic_file(input_file: str, output_file: str, file_type: str = 'ZCH'):
     """
