@@ -1,0 +1,5 @@
+"SampleType","Antibiotic","Pathogen","Week","N","Rho","P_value","P_adjusted","Significant"
+"Stool","Meropenem_cumulative_w3","Candida.parapsilosis","Week3_Cumulative",98,0.486838964324878,3.71419065572031e-07,4.34560306719277e-05,"Yes"
+"Stool","Piperacillin_Tazobactam_cumulative_w3","Candida.parapsilosis","Week3_Cumulative",98,0.359055205702306,0.000282636812065516,0.0165342535058327,"Yes"
+"Stool","Moxalactam_cumulative_w3","Enterococcus.faecium","Week3_Cumulative",98,0.337586068664811,0.000675278380514405,0.0263358568400618,"Yes"
+"Groin","Penicillin_cumulative_w3","Escherichia.coli","Week3_Cumulative",85,-0.381809130533599,0.000311434933706938,0.0364378872437117,"Yes"
