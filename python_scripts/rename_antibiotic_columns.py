@@ -122,15 +122,15 @@ def main():
 
     # Process ZCH file
     zch_df = rename_columns_in_file(
-        'ZCH antibiotics_parsed.csv',
-        'ZCH antibiotics_parsed_renamed.csv',
+        'ZCH_antibiotics_parsed.csv',
+        'ZCH_antibiotics_parsed_renamed.csv',
         'zju'
     )
 
     # Process UC file
     uc_df = rename_columns_in_file(
-        'UC antibiotics_parsed.csv',
-        'UC antibiotics_parsed_renamed.csv',
+        'UC_antibiotics_parsed.csv',
+        'UC_antibiotics_parsed_renamed.csv',
         ''
     )
 
@@ -138,8 +138,8 @@ def main():
     print("COMPLETE")
     print("="*70)
     print("\nGenerated files:")
-    print("  - ZCH antibiotics_parsed_renamed.csv")
-    print("  - UC antibiotics_parsed_renamed.csv")
+    print("  - ZCH_antibiotics_parsed_renamed.csv")
+    print("  - UC_antibiotics_parsed_renamed.csv")
 
     # Show the new column structure
     print("\nNew column names (first 10 antibiotic columns):")

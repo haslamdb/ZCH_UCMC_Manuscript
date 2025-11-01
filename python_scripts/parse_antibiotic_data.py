@@ -241,15 +241,15 @@ def main():
 
     # Parse ZCH data
     zch_output = parse_antibiotic_file(
-        'ZCH antibiotics.csv',
-        'ZCH antibiotics_parsed.csv',
+        'ZCH_antibiotics.csv',
+        'ZCH_antibiotics_parsed.csv',
         'ZCH'
     )
 
     # Parse UC data
     uc_output = parse_antibiotic_file(
-        'UC antibiotics.csv',
-        'UC antibiotics_parsed.csv',
+        'UC_antibiotics.csv',
+        'UC_antibiotics_parsed.csv',
         'UC'
     )
 
@@ -257,8 +257,8 @@ def main():
     print("PARSING COMPLETE")
     print("="*70)
     print("\nGenerated files:")
-    print("  - ZCH antibiotics_parsed.csv")
-    print("  - UC antibiotics_parsed.csv")
+    print("  - ZCH_antibiotics_parsed.csv")
+    print("  - UC_antibiotics_parsed.csv")
     print("\nPlease review the output files and check for any warnings above.")
 
 if __name__ == '__main__':
