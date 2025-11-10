@@ -36,6 +36,11 @@ cat(sprintf("Loaded antibiotic data: %d patients\n", nrow(antibiotics)))
 cat(sprintf("  - UCMC: %d patients\n", sum(antibiotics$Location == "UCMC")))
 cat(sprintf("  - ZCH: %d patients\n", sum(antibiotics$Location == "ZCH")))
 
+# FIX: Normalize Subject IDs (N1-N9 -> N01-N09 for ZCH subjects)
+# This ensures proper matching with microbiome data
+antibiotics$Subject <- gsub("^N(\\d)$", "N0\\1", antibiotics$Subject)
+cat("\n✓ Normalized Subject IDs (N1->N01, etc.)\n")
+
 # Get antibiotic column names
 abx_cols <- grep("^(Ampicillin|Penicillin|Nafcillin|Cefotaxime|Moxalactam|Ceftazidime|Ceftriaxone|Cefepime|Gentamicin|Tobramycin|Vancomycin|Fluconazole|Amphotericin|Meropenem|Azithromycin|Piperacillin)",
                  colnames(antibiotics), value = TRUE)
