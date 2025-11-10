@@ -7,3 +7,4 @@ data/raw/*
 credentials.txt
 results/variance_analysis/variance_analysis_results.pkl
 dbRDA.RData
+nicu_resistome_analysis/data/nicu_fq_protein_matches.csv
