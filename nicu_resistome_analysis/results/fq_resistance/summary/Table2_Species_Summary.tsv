@@ -1,0 +1,10 @@
+Species	UCMC_N	UCMC_%	ZCH_N	ZCH_%	Location_p	Axilla_%	Groin_%	Stool_%	BodySite_p	BodySite_FDR	Top_Mutation
+Staphylococcus_aureus	229	75.6	150	73.2	0.604	94.9	76.5	56.3	1.544e-09	4.633e-09	Staphylococcus_aureus_parE_470.0_Y->N
+Enterococcus_faecalis	110	36.3	70	34.1	0.637	7.1	41.2	59.2	7.347e-14	6.612e-13	Enterococcus_faecalis_gyrA_87.0_E/S->K
+Escherichia_coli	49	16.2	36	17.6	0.717	2.0	20.6	25.2	1.546e-05	2.319e-05	Escherichia_coli_parE_458.0_D/S->A
+Klebsiella_oxytoca	35	11.6	25	12.2	0.889	1.0	14.7	18.4	2.714e-04	3.489e-04	Klebsiella_oxytoca_parC_80.0_S->R
+Streptococcus_mitis	7	2.3	5	2.4	1.000	4.1	2.0	1.0	0.327	0.368	Streptococcus_mitis_parC_79.0_S->I
+Enterococcus_faecium	125	41.3	84	41.0	1.000	13.3	47.1	62.1	6.154e-12	2.769e-11	Enterococcus_faecium_gyrA_87.0_E/S->Y
+Klebsiella_pneumoniae	129	42.6	88	42.9	1.000	21.4	47.1	58.3	4.755e-07	1.070e-06	Klebsiella_pneumoniae_gyrA_154.0_K->R
+Streptococcus_oralis	7	2.3	4	2.0	1.000	2.0	2.0	2.9	0.881	0.881	Streptococcus_oralis_gyrA_81.0_S->F
+Pseudomonas_aeruginosa	20	6.6	14	6.8	1.000	1.0	2.0	16.5	3.917e-06	7.050e-06	Pseudomonas_aeruginosa_gyrA_87.0_D/S->Y

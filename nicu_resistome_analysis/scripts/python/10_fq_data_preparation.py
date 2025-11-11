@@ -68,11 +68,21 @@ print("\n[3/5] Merging with metadata...")
 
 # Merge on sample_name
 fq_merged = fq_resistance.merge(
-    metadata[['sample_name', 'PatientID', 'Location', 'BodySite', 'Week',
-              'subject_complete', 'total_abx_days']],
+    metadata[['sample_name', 'PatientID', 'SubjectID', 'Location', 'SampleType', 'SampleCollectionWeek',
+              'subject_complete', 'total_abx_days', 'total_abx_days_week1', 'total_abx_days_week3',
+              'any_abx', 'any_abx_week1', 'any_abx_week3']],
     on='sample_name',
     how='left'
 )
+
+# Rename columns to match expected names
+fq_merged = fq_merged.rename(columns={
+    'SampleType': 'BodySite',
+    'SampleCollectionWeek': 'Week'
+})
+
+# Normalize Week values (Week.1 -> Week 1, Week.3 -> Week 3)
+fq_merged['Week'] = fq_merged['Week'].str.replace('.', ' ', regex=False)
 
 print(f"  - Merged data: {len(fq_merged):,} rows")
 print(f"  - Samples with metadata: {fq_merged['Location'].notna().sum():,}")

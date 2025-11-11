@@ -1,0 +1,87 @@
+species	gene	position	mutation_id	n_samples	mean_freq	median_freq	std_freq	n_high_freq	prevalence_pct
+Staphylococcus_aureus	parE	470.0	Staphylococcus_aureus_parE_470.0_Y->N	293	0.9981251781472683	1.0	0.007982652786129571	421	60.288065843621396
+Enterococcus_faecium	gyrA	87.0	Enterococcus_faecium_gyrA_87.0_E/S->Y	180	0.9980132575757577	1.0	0.0075205279521220626	264	37.03703703703704
+Klebsiella_pneumoniae	gyrA	154.0	Klebsiella_pneumoniae_gyrA_154.0_K->R	177	0.9943753086419752	1.0	0.01645767070419297	243	36.41975308641975
+Staphylococcus_aureus	parE	432.0	Staphylococcus_aureus_parE_432.0_D/S->V	140	0.49994653465346534	0.44945	0.3573038256077057	73	28.80658436213992
+Enterococcus_faecalis	gyrA	87.0	Enterococcus_faecalis_gyrA_87.0_E/S->K	132	0.9963876237623762	1.0	0.01045841303834514	202	27.160493827160494
+Staphylococcus_aureus	parC	80.0	Staphylococcus_aureus_parC_80.0_E/R->S	100	0.9848987951807229	1.0	0.0268249499148377	166	20.5761316872428
+Klebsiella_oxytoca	parC	80.0	Klebsiella_oxytoca_parC_80.0_S->R	29	0.009065116279069767	0.0053	0.00834996104128152	0	5.967078189300412
+Staphylococcus_aureus	parC	84.0	Staphylococcus_aureus_parC_84.0_D/E/S->N	29	0.30217924528301887	0.1967	0.31492869178134875	9	5.967078189300412
+Escherichia_coli	parE	458.0	Escherichia_coli_parE_458.0_D/S->A	26	0.013842857142857143	0.0071	0.015006147404657649	0	5.349794238683128
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->A	24	0.07175714285714285	0.0092	0.161437921570517	0	4.938271604938271
+Streptococcus_mitis	parC	79.0	Streptococcus_mitis_parC_79.0_S->I	24	0.9219307692307692	1.0	0.25773966209216737	24	4.938271604938271
+Escherichia_coli	parC	78.0	Escherichia_coli_parC_78.0_A/G->V	22	0.019666666666666666	0.008	0.03496580924405946	0	4.526748971193416
+Pseudomonas_aeruginosa	gyrA	87.0	Pseudomonas_aeruginosa_gyrA_87.0_D/S->Y	21	0.34492121212121213	0.2308	0.31104195030330695	3	4.320987654320987
+Klebsiella_oxytoca	parC	80.0	Klebsiella_oxytoca_parC_80.0_S->I	18	0.3910666666666667	0.2222	0.38159894566590896	6	3.7037037037037033
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->L	15	0.75945	0.8776999999999999	0.2989310243740742	9	3.0864197530864197
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->Y	14	0.09761428571428572	0.0083	0.15350503667865195	0	2.880658436213992
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->N	13	0.5248714285714285	0.5247999999999999	0.34118559900299567	4	2.674897119341564
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->L	13	0.66305625	0.718	0.3050883019034544	8	2.674897119341564
+Streptococcus_mitis	gyrA	81.0	Streptococcus_mitis_gyrA_81.0_S->F	12	0.5562199999999999	0.6667	0.38824313847308184	6	2.4691358024691357
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->Y	12	0.2792470588235294	0.0094	0.3733867266615925	2	2.4691358024691357
+Streptococcus_oralis	gyrA	81.0	Streptococcus_oralis_gyrA_81.0_S->F	12	0.5417799999999999	0.6667	0.3920591722832519	6	2.4691358024691357
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->A	12	0.005557142857142857	0.0035	0.0061742668737730655	0	2.4691358024691357
+Pseudomonas_aeruginosa	gyrA	87.0	Pseudomonas_aeruginosa_gyrA_87.0_D/S->N	9	0.7683555555555556	1.0	0.3564855611070072	6	1.8518518518518516
+Escherichia_coli	parE	475.0	Escherichia_coli_parE_475.0_D->V	9	0.008666666666666666	0.0039	0.00943289583370472	0	1.8518518518518516
+Escherichia_coli	parE	475.0	Escherichia_coli_parE_475.0_D->E	8	0.0050100000000000006	0.0048000000000000004	0.0037346575032613993	0	1.646090534979424
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->F	7	0.004269230769230769	0.0022	0.004516522374457405	0	1.440329218106996
+Staphylococcus_aureus	parE	432.0	Staphylococcus_aureus_parE_432.0_D/S->Y	7	0.006608333333333333	0.007350000000000001	0.0036260317236072345	0	1.440329218106996
+Staphylococcus_aureus	parE	432.0	Staphylococcus_aureus_parE_432.0_D/S->E	7	0.05514	0.0282	0.06829529347701137	0	1.440329218106996
+Staphylococcus_aureus	parC	84.0	Staphylococcus_aureus_parC_84.0_D/E/S->V	6	0.020880000000000003	0.0101	0.027164470258859173	0	1.2345679012345678
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->H	6	0.0691888888888889	0.0278	0.0619558803594228	0	1.2345679012345678
+Klebsiella_oxytoca	parC	80.0	Klebsiella_oxytoca_parC_80.0_S->T	5	0.0059875	0.0045	0.004792982221063267	0	1.02880658436214
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->G	5	0.03965	0.0364	0.030982624162585067	0	1.02880658436214
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->F	5	0.0765875	0.06925	0.06637160402934807	0	1.02880658436214
+Streptococcus_oralis	gyrA	81.0	Streptococcus_oralis_gyrA_81.0_S->Y	5	0.2529166666666667	0.019700000000000002	0.40746258437636534	1	1.02880658436214
+Klebsiella_oxytoca	gyrA	87.0	Klebsiella_oxytoca_gyrA_87.0_D->A	4	0.001942857142857143	0.0019	0.0005349677337844556	0	0.823045267489712
+Escherichia_coli	parE	458.0	Escherichia_coli_parE_458.0_D/S->Y	4	0.0025666666666666667	0.00215	0.001641543988648086	0	0.823045267489712
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->N	4	0.18062857142857142	0.125	0.15185673856506682	0	0.823045267489712
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->K	4	0.00295	0.0016	0.004624608091503539	0	0.823045267489712
+Staphylococcus_aureus	parC	84.0	Staphylococcus_aureus_parC_84.0_D/E/S->A	3	0.030300000000000004	0.0385	0.02221476986151331	0	0.6172839506172839
+Escherichia_coli	parC	78.0	Escherichia_coli_parC_78.0_A/G->R	3	0.0017666666666666666	0.0021	0.0006772493386240155	0	0.6172839506172839
+Escherichia_coli	parC	78.0	Escherichia_coli_parC_78.0_A/G->C	3	0.0019	0.00195	0.000812403840463596	0	0.6172839506172839
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->Y	3	0.00125	0.0014	0.00037859388972001824	0	0.6172839506172839
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->E	3	0.0009000000000000001	0.0009	0.0002000000000000001	0	0.6172839506172839
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->P	3	0.0021	0.0021	0.0004	0	0.6172839506172839
+Klebsiella_oxytoca	gyrA	83.0	Klebsiella_oxytoca_gyrA_83.0_T->I	2	0.42955	0.42955	0.49369221518404904	2	0.411522633744856
+Escherichia_coli	parE	475.0	Escherichia_coli_parE_475.0_D->H	2	0.00865	0.00865	0.008602519010925423	0	0.411522633744856
+Escherichia_coli	parE	475.0	Escherichia_coli_parE_475.0_D->A	2	0.00655	0.00655	0.0010969655114602891	0	0.411522633744856
+Staphylococcus_aureus	parE	432.0	Staphylococcus_aureus_parE_432.0_D/S->I	2	0.02935	0.02935	0.015299782133525081	0	0.411522633744856
+Staphylococcus_aureus	parE	432.0	Staphylococcus_aureus_parE_432.0_D/S->H	2	0.02053333333333333	0.0169	0.006293117934166922	0	0.411522633744856
+Pseudomonas_aeruginosa	gyrA	83.0	Pseudomonas_aeruginosa_gyrA_83.0_A/D->V	2	1.0	1.0	0.0	2	0.411522633744856
+Escherichia_coli	parC	78.0	Escherichia_coli_parC_78.0_A/G->D	2	0.0183	0.0263	0.013856406460551019	0	0.411522633744856
+Escherichia_coli	parC	56.0	Escherichia_coli_parC_56.0_S->T	2	0.9657	0.9657	0.04850752518939716	2	0.411522633744856
+Escherichia_coli	gyrA	83.0	Escherichia_coli_gyrA_83.0_A/D/S->T	1	0.003	0.003		0	0.205761316872428
+Staphylococcus_aureus	parC	84.0	Staphylococcus_aureus_parC_84.0_D/E/S->H	1	0.0027	0.0027	0.0	0	0.205761316872428
+Escherichia_coli	parC	78.0	Escherichia_coli_parC_78.0_A/G->E	1	0.0017	0.0017		0	0.205761316872428
+Escherichia_coli	parC	78.0	Escherichia_coli_parC_78.0_A/G->I	1	0.0043	0.0043		0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->Q	1	0.0012	0.0012		0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->R	1	0.001	0.001		0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->I	1	0.2	0.2	0.0	0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->M	1	0.0227	0.0227	0.0	0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->Q	1	0.0055	0.0055		0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->R	1	0.0079	0.0079		0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->T	1	0.0016	0.0016		0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	87.0	Klebsiella_pneumoniae_gyrA_87.0_D/S->V	1	0.0022	0.0022	0.0	0	0.205761316872428
+Pseudomonas_aeruginosa	gyrA	87.0	Pseudomonas_aeruginosa_gyrA_87.0_D/S->A	1	0.0142	0.0142	0.0	0	0.205761316872428
+Pseudomonas_aeruginosa	gyrA	87.0	Pseudomonas_aeruginosa_gyrA_87.0_D/S->E	1	0.0075	0.0075	0.0	0	0.205761316872428
+Pseudomonas_aeruginosa	gyrA	87.0	Pseudomonas_aeruginosa_gyrA_87.0_D/S->G	1	0.0714	0.0714		0	0.205761316872428
+Klebsiella_oxytoca	parC	80.0	Klebsiella_oxytoca_parC_80.0_S->G	1	0.002	0.002		0	0.205761316872428
+Klebsiella_oxytoca	parC	80.0	Klebsiella_oxytoca_parC_80.0_S->N	1	0.0024	0.0024		0	0.205761316872428
+Klebsiella_pneumoniae	gyrA	83.0	Klebsiella_pneumoniae_gyrA_83.0_D/S->C	1	0.001	0.001		0	0.205761316872428
+Pseudomonas_aeruginosa	gyrB	466.0	Pseudomonas_aeruginosa_gyrB_466.0_D/S->T	1	0.0095	0.0095		0	0.205761316872428
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->I	1	0.0169	0.0169		0	0.205761316872428
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->P	1	0.0035	0.0035	0.0	0	0.205761316872428
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->R	1	0.045	0.045	0.0	0	0.205761316872428
+Escherichia_coli	parE	475.0	Escherichia_coli_parE_475.0_D->Y	1	0.0006	0.0006		0	0.205761316872428
+Klebsiella_oxytoca	gyrA	83.0	Klebsiella_oxytoca_gyrA_83.0_T->S	1	0.0012	0.0012		0	0.205761316872428
+Klebsiella_oxytoca	gyrA	87.0	Klebsiella_oxytoca_gyrA_87.0_D->G	1	0.0061	0.0061	0.0	0	0.205761316872428
+Klebsiella_oxytoca	gyrA	87.0	Klebsiella_oxytoca_gyrA_87.0_D->Y	1	0.001	0.001		0	0.205761316872428
+Klebsiella_oxytoca	parC	80.0	Klebsiella_oxytoca_parC_80.0_S->A	1	0.0056	0.0056		0	0.205761316872428
+Staphylococcus_aureus	parE	432.0	Staphylococcus_aureus_parE_432.0_D/S->F	1	0.0196	0.0196	0.0	0	0.205761316872428
+Escherichia_coli	parE	475.0	Escherichia_coli_parE_475.0_D->S	1	0.0022	0.0022		0	0.205761316872428
+Staphylococcus_aureus	gyrA	84.0	Staphylococcus_aureus_gyrA_84.0_G/S->T	1	0.0068	0.0068	0.0	0	0.205761316872428
+Staphylococcus_aureus	parE	585.0	Staphylococcus_aureus_parE_585.0_N->S	1	0.9231	0.9231		1	0.205761316872428
+Escherichia_coli	parE	458.0	Escherichia_coli_parE_458.0_D/S->E	1	0.0023	0.0023		0	0.205761316872428
+Escherichia_coli	parE	458.0	Escherichia_coli_parE_458.0_D/S->P	1	0.0039	0.0039	0.0	0	0.205761316872428
+Escherichia_coli	parE	458.0	Escherichia_coli_parE_458.0_D/S->T	1	0.0031	0.0031	0.0	0	0.205761316872428

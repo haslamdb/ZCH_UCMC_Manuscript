@@ -1,0 +1,6 @@
+comparison	correlation	p_value	n_samples	body_site
+Total abx days vs N mutations	-0.02953681479147464	0.5065424971482775	508	
+Total abx days vs Mean frequency	-0.019387753819422024	0.6628785967579214	508	
+Total abx days vs N mutations	0.040743264159144574	0.6055845226038337	163	Axilla
+Total abx days vs N mutations	0.013928989350592315	0.8603546036743042	162	Groin
+Total abx days vs N mutations	-0.17040063762376512	0.021097512512109607	183	Stool
