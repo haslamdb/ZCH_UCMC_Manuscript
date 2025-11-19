@@ -63,7 +63,7 @@ create_staph_plot <- function(data, species, panel_label) {
     filter(!is.na(abundance)) %>%
     mutate(abundance_log = ifelse(abundance == 0, 1, abundance))  # Replace 0 with 1 for log scale
 
-  # Calculate sample sizes
+  # Calculate sample sizes and positioning for labels
   sample_counts <- plot_data %>%
     group_by(Location, SampleType, SampleCollectionWeek) %>%
     summarise(
@@ -72,9 +72,15 @@ create_staph_plot <- function(data, species, panel_label) {
       mean_abundance = mean(abundance_log, na.rm = TRUE),
       n_nonzero = sum(abundance > 0),
       prevalence = n_nonzero / n * 100,
-      y_pos = max(abundance_log, na.rm = TRUE) * 2,
+      max_abundance = max(abundance_log, na.rm = TRUE),
       .groups = 'drop'
     )
+
+  # Calculate y position for sample count labels
+  sample_counts <- sample_counts %>%
+    group_by(SampleType, SampleCollectionWeek) %>%
+    mutate(y_pos = max(max_abundance, na.rm = TRUE) * 1.3) %>%
+    ungroup()
 
   cat("\n", gsub("\\.", " ", species), "- Sample counts:\n")
   print(sample_counts)
@@ -88,20 +94,32 @@ create_staph_plot <- function(data, species, panel_label) {
         filter(SampleCollectionWeek == week, SampleType == site)
 
       if (nrow(subset_data) > 0 && length(unique(subset_data$Location)) == 2) {
+        # Use full data (including zeros) for comparison
+        ucmc_data <- subset_data %>% filter(Location == "Cincinnati") %>% pull(abundance)
+        zch_data <- subset_data %>% filter(Location == "Hangzhou") %>% pull(abundance)
+
         test_result <- tryCatch({
-          wilcox.test(abundance ~ Location, data = subset_data)
+          wilcox.test(ucmc_data, zch_data)
         }, error = function(e) {
           list(p.value = NA)
         })
 
+        p_value <- test_result$p.value
+        max_y <- max(subset_data$abundance_log, na.rm = TRUE)
+
+        p_label <- ifelse(is.na(p_value), "",
+                  ifelse(p_value < 0.001, "p<0.001***",
+                  ifelse(p_value < 0.01, sprintf("p=%.3f**", p_value),
+                  ifelse(p_value < 0.05, sprintf("p=%.3f*", p_value),
+                         sprintf("p=%.2f", p_value)))))
+
         pvalue_results <- rbind(pvalue_results, data.frame(
-          Week = week,
           SampleType = site,
-          p_value = test_result$p.value,
-          p_label = ifelse(is.na(test_result$p.value), "",
-                    ifelse(test_result$p.value < 0.001, "***",
-                    ifelse(test_result$p.value < 0.01, "**",
-                    ifelse(test_result$p.value < 0.05, "*", ""))))
+          SampleCollectionWeek = week,
+          x = 1.5,  # Position between Cincinnati and Hangzhou
+          y_pos = max_y * 1.5,
+          p_value = p_value,
+          p_label = p_label
         ))
       }
     }
@@ -110,35 +128,41 @@ create_staph_plot <- function(data, species, panel_label) {
   cat("\nP-values:\n")
   print(pvalue_results)
 
-  # Create plot with faceting (SampleType ~ Location)
+  # Create plot with faceting (SampleType ~ SampleCollectionWeek)
+  # X-axis: Location (Cincinnati vs Hangzhou)
   p <- ggplot(plot_data,
-              aes(x = SampleCollectionWeek, y = abundance_log, fill = SampleCollectionWeek)) +
-    geom_boxplot(lwd = 1, aes(color = factor(SampleCollectionWeek), fill = NA),
-                 outlier.size = 2) +
-    stat_summary(fun = mean, geom = "point", shape = 5, size = 6, color = "black") +
-    geom_point(size = 2, aes(color = factor(SampleCollectionWeek)), alpha = 0.5) +
+              aes(x = Location, y = abundance_log)) +
+    geom_boxplot(lwd = 1, aes(color = factor(Location), fill = NA),
+                 outlier.shape = NA) +  # Don't show outliers, we'll add points
+    stat_summary(fun = mean, geom = "point", shape = 5, size = 4.8,
+                data = plot_data) +
+    scale_colour_manual(values = c("Cincinnati" = "#E69F00", "Hangzhou" = "#56B4E9")) +
+    geom_point(size = 2.4, aes(color = factor(Location))) +
     # Add sample count labels
     geom_text(data = sample_counts,
-              aes(x = SampleCollectionWeek, y = y_pos, label = paste0("n=", n)),
-              size = 5,
+              aes(x = Location, y = y_pos, label = paste0("n=", n)),
+              size = 7,
               fontface = "bold",
               inherit.aes = FALSE) +
-    facet_grid(SampleType ~ Location) +
+    # Add p-value labels
+    geom_text(data = pvalue_results,
+              aes(x = x, y = y_pos, label = p_label),
+              size = 7,
+              fontface = "bold",
+              inherit.aes = FALSE) +
+    facet_grid(SampleType ~ SampleCollectionWeek) +
     scale_y_log10() +
-    scale_color_manual(values = c("Week.1" = "#1b9e77", "Week.3" = "#d95f02")) +
     ylab(paste0(gsub("\\.", " ", species), "\n(log10 abundance)")) +
     xlab(NULL) +
     ggtitle(paste0(panel_label, ". ", gsub("\\.", " ", species))) +
     theme_bw() +
     theme(
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 14),
-      axis.text.y = element_text(size = 14),
-      axis.title.y = element_text(size = 16, face = "bold.italic"),
-      strip.text = element_text(size = 14, face = "bold"),
-      plot.title = element_text(size = 18, face = "bold", hjust = 0),
-      legend.position = "bottom",
-      legend.title = element_text(size = 14, face = "bold"),
-      legend.text = element_text(size = 12),
+      axis.text.x = element_text(size = 18),
+      axis.text.y = element_text(size = 18),
+      axis.title.y = element_text(size = 20, face = "bold.italic"),
+      strip.text = element_text(size = 18, face = "bold"),
+      plot.title = element_text(size = 22, face = "bold", hjust = 0),
+      legend.position = "none",
       panel.grid.major = element_line(color = "gray90"),
       panel.grid.minor = element_blank()
     )
@@ -208,33 +232,84 @@ create_staph_plot_simplified <- function(data, species, panel_label) {
     filter(!is.na(abundance)) %>%
     mutate(abundance_log = ifelse(abundance == 0, 1, abundance))
 
-  # Calculate sample sizes
+  # Calculate sample sizes and positioning
   sample_counts <- plot_data %>%
     group_by(Location, SampleType, SampleCollectionWeek) %>%
     summarise(n = n(),
-              y_pos = max(abundance_log, na.rm = TRUE) * 1.8,
-              .groups = 'drop')
+              max_abundance = max(abundance_log, na.rm = TRUE),
+              .groups = 'drop') %>%
+    group_by(SampleType, SampleCollectionWeek) %>%
+    mutate(y_pos = max(max_abundance, na.rm = TRUE) * 1.3) %>%
+    ungroup()
+
+  # Calculate p-values for simplified plot
+  pvalue_results <- data.frame()
+
+  for (week in c("Week.1", "Week.3")) {
+    for (site in c("Axilla", "Groin", "Stool")) {
+      subset_data <- plot_data %>%
+        filter(SampleCollectionWeek == week, SampleType == site)
+
+      if (nrow(subset_data) > 0 && length(unique(subset_data$Location)) == 2) {
+        ucmc_data <- subset_data %>% filter(Location == "Cincinnati") %>% pull(abundance)
+        zch_data <- subset_data %>% filter(Location == "Hangzhou") %>% pull(abundance)
+
+        test_result <- tryCatch({
+          wilcox.test(ucmc_data, zch_data)
+        }, error = function(e) {
+          list(p.value = NA)
+        })
+
+        p_value <- test_result$p.value
+        max_y <- max(subset_data$abundance_log, na.rm = TRUE)
+
+        p_label <- ifelse(is.na(p_value), "",
+                  ifelse(p_value < 0.001, "***",
+                  ifelse(p_value < 0.01, "**",
+                  ifelse(p_value < 0.05, "*", ""))))
+
+        if (p_label != "") {
+          pvalue_results <- rbind(pvalue_results, data.frame(
+            SampleType = site,
+            SampleCollectionWeek = week,
+            x = 1.5,
+            y_pos = max_y * 1.5,
+            p_label = p_label
+          ))
+        }
+      }
+    }
+  }
 
   p <- ggplot(plot_data,
-              aes(x = SampleCollectionWeek, y = abundance_log,
-                  fill = SampleCollectionWeek)) +
-    geom_boxplot(lwd = 0.7, outlier.size = 1.5, alpha = 0.7) +
-    stat_summary(fun = mean, geom = "point", shape = 5, size = 4, color = "black") +
+              aes(x = Location, y = abundance_log)) +
+    geom_boxplot(lwd = 0.7, aes(color = Location, fill = NA),
+                 outlier.shape = NA, alpha = 0.7) +
+    stat_summary(fun = mean, geom = "point", shape = 5, size = 3, color = "black") +
+    geom_point(size = 1.5, aes(color = Location), alpha = 0.5) +
+    scale_colour_manual(values = c("Cincinnati" = "#E69F00", "Hangzhou" = "#56B4E9")) +
     # Add sample count labels
     geom_text(data = sample_counts,
-              aes(x = SampleCollectionWeek, y = y_pos, label = paste0("n=", n)),
+              aes(x = Location, y = y_pos, label = paste0("n=", n)),
               size = 3,
               fontface = "bold",
               inherit.aes = FALSE) +
-    facet_grid(SampleType ~ Location) +
+    # Add p-value labels (only if significant)
+    {if (nrow(pvalue_results) > 0)
+      geom_text(data = pvalue_results,
+                aes(x = x, y = y_pos, label = p_label),
+                size = 3.5,
+                fontface = "bold",
+                inherit.aes = FALSE)
+    } +
+    facet_grid(SampleType ~ SampleCollectionWeek) +
     scale_y_log10() +
-    scale_fill_manual(values = c("Week.1" = "#1b9e77", "Week.3" = "#d95f02")) +
     ylab(NULL) +
     xlab(NULL) +
     ggtitle(paste0(panel_label, ". ", gsub("\\.", " ", species))) +
     theme_bw(base_size = 10) +
     theme(
-      axis.text.x = element_text(angle = 45, hjust = 1, size = 9),
+      axis.text.x = element_text(size = 9),
       axis.text.y = element_text(size = 9),
       strip.text = element_text(size = 10, face = "bold"),
       plot.title = element_text(size = 12, face = "bold.italic", hjust = 0),
