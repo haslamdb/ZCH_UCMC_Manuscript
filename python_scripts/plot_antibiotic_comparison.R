@@ -33,6 +33,42 @@ colnames(zch_data)[colnames(zch_data) == "mrn_v2_zju"] <- "MRN"
 antibiotic_cols <- grep("^(Ampicillin|Penicillin|Nafcillin|Cefotaxime|Moxalactam|Ceftazidime|Ceftriaxone|Cefepime|Gentamicin|Tobramycin|Vancomycin|Fluconazole|Amphotericin|Meropenem|Azithromycin|Piperacillin)",
                         colnames(uc_data), value = TRUE)
 
+# Separate week 1 and week 2 (which is actually week 3 data) columns
+w1_cols <- grep("_w1$", antibiotic_cols, value = TRUE)
+w2_cols <- grep("_w2$", antibiotic_cols, value = TRUE)
+
+cat(sprintf("Week 1 columns: %d\n", length(w1_cols)))
+cat(sprintf("Week 2 (week 3 data) columns: %d\n", length(w2_cols)))
+
+# Create cumulative week 3 columns for both datasets
+cat("\n=== Creating cumulative week 3 columns ===\n")
+for (i in seq_along(w1_cols)) {
+  w1_col <- w1_cols[i]
+  # Find matching w2 column (replace _w1 with _w2)
+  w2_col <- gsub("_w1$", "_w2", w1_col)
+
+  if (w2_col %in% colnames(uc_data)) {
+    # Create cumulative column name
+    cumulative_col <- gsub("_w1$", "_cumulative_w3", w1_col)
+
+    # Add cumulative columns to UC data
+    uc_data[[cumulative_col]] <- uc_data[[w1_col]] + uc_data[[w2_col]]
+
+    # Add cumulative columns to ZCH data
+    zch_data[[cumulative_col]] <- zch_data[[w1_col]] + zch_data[[w2_col]]
+  }
+}
+
+# Get updated antibiotic columns including cumulative
+antibiotic_cols <- grep("^(Ampicillin|Penicillin|Nafcillin|Cefotaxime|Moxalactam|Ceftazidime|Ceftriaxone|Cefepime|Gentamicin|Tobramycin|Vancomycin|Fluconazole|Amphotericin|Meropenem|Azithromycin|Piperacillin)",
+                        colnames(uc_data), value = TRUE)
+
+# Now separate into week 1 and cumulative week 3 columns
+w1_cols <- grep("_w1$", antibiotic_cols, value = TRUE)
+cumulative_w3_cols <- grep("_cumulative_w3$", antibiotic_cols, value = TRUE)
+
+cat(sprintf("Created %d cumulative week 3 columns\n", length(cumulative_w3_cols)))
+
 # Combine datasets
 combined_data <- bind_rows(
   uc_data[, c("MRN", "Location", antibiotic_cols)],
@@ -118,9 +154,9 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
               if(nrow(pvalue_df) > 0) pvalue_df$p_label else "N/A"))
 
   # Clean antibiotic name for display
-  # Convert _w1 to _wk1 and _w2 to _wk3, then keep the suffix
-  clean_name <- gsub("_w1", " (wk1)", antibiotic)
-  clean_name <- gsub("_w2", " (wk3)", clean_name)
+  # Convert _w1 to _wk1 and _cumulative_w3 to (cumulative wk3)
+  clean_name <- gsub("_cumulative_w3", " (cumulative wk3)", antibiotic)
+  clean_name <- gsub("_w1", " (wk1)", clean_name)
   clean_name <- gsub("_", " ", clean_name)
 
   # Special handling for Piperacillin Tazobactam - put on two lines
@@ -173,64 +209,122 @@ create_antibiotic_plot <- function(data, antibiotic, panel_label) {
   return(p)
 }
 
-# Identify antibiotics with usage
+# Identify antibiotics with usage - separate by week
 cat("\n=== Identifying antibiotics with usage ===\n")
-antibiotics_with_usage <- c()
-for (antibiotic in antibiotic_cols) {
+
+# Week 1 antibiotics
+w1_with_usage <- c()
+for (antibiotic in w1_cols) {
   total_usage <- sum(combined_data[[antibiotic]] > 0, na.rm = TRUE)
   if (total_usage > 0) {
-    antibiotics_with_usage <- c(antibiotics_with_usage, antibiotic)
+    w1_with_usage <- c(w1_with_usage, antibiotic)
   }
 }
 
-cat(sprintf("Found %d/%d antibiotics with usage\n",
-            length(antibiotics_with_usage), length(antibiotic_cols)))
+# Cumulative Week 3 antibiotics
+w3_with_usage <- c()
+for (antibiotic in cumulative_w3_cols) {
+  total_usage <- sum(combined_data[[antibiotic]] > 0, na.rm = TRUE)
+  if (total_usage > 0) {
+    w3_with_usage <- c(w3_with_usage, antibiotic)
+  }
+}
 
-# Generate plots for antibiotics with usage
-cat("\n=== Generating plots ===\n")
-plot_list <- list()
-panel_labels <- letters[1:length(antibiotics_with_usage)]
+cat(sprintf("Week 1: Found %d/%d antibiotics with usage\n",
+            length(w1_with_usage), length(w1_cols)))
+cat(sprintf("Cumulative Week 3: Found %d/%d antibiotics with usage\n",
+            length(w3_with_usage), length(cumulative_w3_cols)))
 
-for (i in seq_along(antibiotics_with_usage)) {
-  antibiotic <- antibiotics_with_usage[i]
-  panel_label <- panel_labels[i]
+# Generate plots for Week 1
+cat("\n=== Generating Week 1 plots ===\n")
+w1_plot_list <- list()
+w1_panel_labels <- letters[1:length(w1_with_usage)]
+
+for (i in seq_along(w1_with_usage)) {
+  antibiotic <- w1_with_usage[i]
+  panel_label <- w1_panel_labels[i]
 
   p <- create_antibiotic_plot(combined_data, antibiotic, panel_label)
   if (!is.null(p)) {
-    plot_list[[length(plot_list) + 1]] <- p
+    w1_plot_list[[length(w1_plot_list) + 1]] <- p
   }
 }
 
-# Create comprehensive grid layout
-cat("\n=== Creating comprehensive figure ===\n")
+# Generate plots for Cumulative Week 3
+cat("\n=== Generating Cumulative Week 3 plots ===\n")
+w3_plot_list <- list()
+w3_panel_labels <- letters[1:length(w3_with_usage)]
 
-n_plots <- length(plot_list)
+for (i in seq_along(w3_with_usage)) {
+  antibiotic <- w3_with_usage[i]
+  panel_label <- w3_panel_labels[i]
+
+  p <- create_antibiotic_plot(combined_data, antibiotic, panel_label)
+  if (!is.null(p)) {
+    w3_plot_list[[length(w3_plot_list) + 1]] <- p
+  }
+}
+
+# Create Week 1 figure
+cat("\n=== Creating Week 1 figure ===\n")
+
+n_plots_w1 <- length(w1_plot_list)
 ncols <- 4
-nrows <- ceiling(n_plots / ncols)
+nrows_w1 <- ceiling(n_plots_w1 / ncols)
 
-comprehensive_fig <- arrangeGrob(
-  grobs = plot_list,
+w1_fig <- arrangeGrob(
+  grobs = w1_plot_list,
   ncol = ncols,
-  nrow = nrows,
-  top = textGrob("Supplementary Figure. Antibiotic Usage Comparison: UCMC vs ZCH\n",
-                 gp = gpar(fontsize = 24, fontface = "bold")),  # Increased from 16 to 24
+  nrow = nrows_w1,
+  top = textGrob("Supplementary Figure A. Antibiotic Usage Comparison (Week 1): UCMC vs ZCH\n",
+                 gp = gpar(fontsize = 24, fontface = "bold")),
   padding = unit(0.8, "line"),
   widths = unit(rep(3.78, ncols), "in"),
-  heights = unit(rep(3.5, nrows), "in")
+  heights = unit(rep(3.5, nrows_w1), "in")
 )
 
-# Calculate figure dimensions
-fig_width <- ncols * 4.5
-fig_height <- nrows * 4
+# Calculate figure dimensions for Week 1
+fig_width_w1 <- ncols * 4.5
+fig_height_w1 <- nrows_w1 * 4
 
-# Save figure
-ggsave("revision_figures/Antibiotic_Comparison_UCMC_vs_ZCH.pdf",
-       plot = comprehensive_fig,
-       width = fig_width,
-       height = fig_height,
+# Save Week 1 figure
+ggsave("revision_figures/Antibiotic_Comparison_UCMC_vs_ZCH_Week1.pdf",
+       plot = w1_fig,
+       width = fig_width_w1,
+       height = fig_height_w1,
        limitsize = FALSE)
 
-cat("\n✓ Saved comprehensive antibiotic comparison figure\n")
+cat("✓ Saved Week 1 antibiotic comparison figure\n")
+
+# Create Cumulative Week 3 figure
+cat("\n=== Creating Cumulative Week 3 figure ===\n")
+
+n_plots_w3 <- length(w3_plot_list)
+nrows_w3 <- ceiling(n_plots_w3 / ncols)
+
+w3_fig <- arrangeGrob(
+  grobs = w3_plot_list,
+  ncol = ncols,
+  nrow = nrows_w3,
+  top = textGrob("Supplementary Figure B. Antibiotic Usage Comparison (Cumulative Week 3): UCMC vs ZCH\n",
+                 gp = gpar(fontsize = 24, fontface = "bold")),
+  padding = unit(0.8, "line"),
+  widths = unit(rep(3.78, ncols), "in"),
+  heights = unit(rep(3.5, nrows_w3), "in")
+)
+
+# Calculate figure dimensions for Week 3
+fig_width_w3 <- ncols * 4.5
+fig_height_w3 <- nrows_w3 * 4
+
+# Save Week 3 figure
+ggsave("revision_figures/Antibiotic_Comparison_UCMC_vs_ZCH_CumulativeWeek3.pdf",
+       plot = w3_fig,
+       width = fig_width_w3,
+       height = fig_height_w3,
+       limitsize = FALSE)
+
+cat("✓ Saved Cumulative Week 3 antibiotic comparison figure\n")
 
 # ============================================================================
 # Generate statistics table
@@ -240,7 +334,10 @@ cat("\n=== Calculating statistics ===\n")
 
 stats_results <- data.frame()
 
-for (antibiotic in antibiotics_with_usage) {
+# Combine week 1 and cumulative week 3 antibiotics for statistics
+all_antibiotics_for_stats <- c(w1_with_usage, w3_with_usage)
+
+for (antibiotic in all_antibiotics_for_stats) {
   ucmc_data <- combined_data %>% filter(Location == "UCMC") %>% pull(!!antibiotic)
   zch_data <- combined_data %>% filter(Location == "ZCH") %>% pull(!!antibiotic)
 
@@ -302,13 +399,16 @@ cat(sprintf("\nTotal patients: %d (%d UCMC, %d ZCH)\n",
             nrow(combined_data),
             sum(combined_data$Location == "UCMC"),
             sum(combined_data$Location == "ZCH")))
-cat(sprintf("Antibiotics with usage: %d/%d\n",
-            length(antibiotics_with_usage), length(antibiotic_cols)))
+cat(sprintf("Week 1 antibiotics with usage: %d/%d\n",
+            length(w1_with_usage), length(w1_cols)))
+cat(sprintf("Cumulative Week 3 antibiotics with usage: %d/%d\n",
+            length(w3_with_usage), length(cumulative_w3_cols)))
 cat(sprintf("Significant differences (p<0.05): %d\n",
             sum(stats_results$P_value < 0.05, na.rm = TRUE)))
 
 cat("\nGenerated files:\n")
-cat("  - revision_figures/Antibiotic_Comparison_UCMC_vs_ZCH.pdf\n")
+cat("  - revision_figures/Antibiotic_Comparison_UCMC_vs_ZCH_Week1.pdf\n")
+cat("  - revision_figures/Antibiotic_Comparison_UCMC_vs_ZCH_CumulativeWeek3.pdf\n")
 cat("  - revision_figures/Antibiotic_Statistics_UCMC_vs_ZCH.csv\n")
 
 cat("\nTop significant differences:\n")
