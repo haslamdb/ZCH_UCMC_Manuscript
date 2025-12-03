@@ -12,3 +12,7 @@ nicu_resistome_analysis/data/nicu_fq_protein_matches.csv
 # DIAMOND traditional analysis - exclude large data files
 nicu_resistome_analysis/diamond_traditional/data/diamond_amr_combined.tsv
 nicu_resistome_analysis/diamond_traditional/results/**/*.tsv
+
+# Exclude all PDF and PNG files
+*.pdf
+*.png
