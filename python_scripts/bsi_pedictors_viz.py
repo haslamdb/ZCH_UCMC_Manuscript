@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 """
 Create comparative visualization of Random Forest SHAP importance and 
@@ -7,18 +8,9 @@ Linear Mixed Model coefficients for BSI pathogens
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib
 import seaborn as sns
 from matplotlib.patches import Rectangle
 import matplotlib.patches as mpatches
-
-# Set font type to TrueType (Type 42) for editable text in PDFs
-matplotlib.rcParams['pdf.fonttype'] = 42  # TrueType fonts
-matplotlib.rcParams['ps.fonttype'] = 42   # TrueType fonts for PostScript too
-
-# Set font to Arial for all text
-matplotlib.rcParams['font.family'] = 'sans-serif'
-matplotlib.rcParams['font.sans-serif'] = ['Arial']
 
 # Set style for publication-quality figures
 plt.style.use('seaborn-v0_8-whitegrid')
@@ -112,7 +104,7 @@ def create_comparison_label(feature_name):
         elif value == 'No Milk' or value == 'No.Milk':
             return 'No Milk'
         elif value == 'Formula':
-            return 'Formula'
+            return 'Formula Milk'
     elif category == 'PICC':
         if value == '1':
             return 'PICC Present'
@@ -179,9 +171,13 @@ def create_pathogen_comparison_plot(pathogen_name, shap_df, lmm_df, top_n=10):
     bars = ax1.barh(y_pos, lmm_top['Coefficient'].values, 
                     color=colors, alpha=0.7, edgecolor='darkgray', linewidth=1)
     
-    # Add significance stars combined with value labels
+    # Add significance stars
     for i, (coef, pval) in enumerate(zip(lmm_top['Coefficient'].values, lmm_top['P_value'].values)):
-        # Determine significance markers
+        # Add value labels with larger font
+        offset = 0.2 if coef > 0 else -0.2
+        ax1.text(coef + offset, i, f'{coef:.2f}', va='center', ha='left' if coef > 0 else 'right', fontsize=13, fontweight='bold')
+        
+        # Add significance stars with better spacing
         if pval < 0.001:
             sig_marker = '***'
         elif pval < 0.01:
@@ -191,23 +187,18 @@ def create_pathogen_comparison_plot(pathogen_name, shap_df, lmm_df, top_n=10):
         else:
             sig_marker = ''
         
-        # Combine coefficient value with significance markers
-        label_text = f'{coef:.2f}{sig_marker}'
-        
-        # Position label with consistent offset
-        offset = 0.25 if coef > 0 else -0.25
-        ax1.text(coef + offset, i, label_text, va='center', 
-                ha='left' if coef > 0 else 'right', fontsize=13, fontweight='bold')
+        if sig_marker:
+            # Position stars much further away to avoid overlap with larger labels
+            star_offset = 0.8 if coef > 0 else -0.8
+            ax1.text(coef + star_offset, i, sig_marker, 
+                    va='center', ha='left' if coef > 0 else 'right', fontsize=14, fontweight='bold')
     
     ax1.set_yticks(y_pos)
     ax1.set_yticklabels([create_comparison_label(v) for v in lmm_top['Variable']], fontsize=13)
-    ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=16, fontweight='bold')
+    ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=14)
     ax1.set_title('Linear Mixed Model', fontsize=16, fontweight='bold')
     ax1.axvline(x=0, color='black', linestyle='-', linewidth=0.5)
     ax1.grid(True, alpha=0.3, linestyle='--')
-    
-    # Increase x-axis tick label size
-    ax1.tick_params(axis='x', labelsize=14)
     
     # Add legend for LMM plot
     pos_patch = mpatches.Patch(color='salmon', alpha=0.7, label='Positive effect')
@@ -216,23 +207,21 @@ def create_pathogen_comparison_plot(pathogen_name, shap_df, lmm_df, top_n=10):
     
     # Plot 2 (RIGHT): Random Forest SHAP Importance
     y_pos = np.arange(len(shap_top))
+    colors = ['skyblue'] * len(shap_top)
     
     ax2.barh(y_pos, shap_top['SHAP_Importance'].values, 
-             color='skyblue', alpha=0.7, edgecolor='darkblue', linewidth=1)
+             color=colors, alpha=0.7, edgecolor='darkblue', linewidth=1)
     
     # Add value labels
     for i, v in enumerate(shap_top['SHAP_Importance'].values):
-        ax2.text(v + 0.002, i, f'{v:.3f}', va='center', fontsize=13, fontweight='bold')
+        ax2.text(v + 0.002, i, f'{v:.3f}', va='center', fontsize=11)
     
     ax2.set_yticks(y_pos)
     ax2.set_yticklabels([create_comparison_label(f) for f in shap_top['Feature']], fontsize=13)
-    ax2.set_xlabel('Mean |SHAP Value|', fontsize=16, fontweight='bold')
+    ax2.set_xlabel('Mean |SHAP Value|', fontsize=14)
     ax2.set_title('Random Forest (SHAP Importance)', fontsize=16, fontweight='bold')
     ax2.grid(True, alpha=0.3, linestyle='--')
     ax2.set_xlim(0, shap_top['SHAP_Importance'].max() * 1.15)
-    
-    # Increase x-axis tick label size
-    ax2.tick_params(axis='x', labelsize=14)
     
     # Overall title
     fig.suptitle(f'Top Predictors for BSI Pathogens — LMM and Random Forest\n{pathogen_name}', 
@@ -270,9 +259,14 @@ def create_combined_comparison(organisms_data):
         ax1.barh(y_pos, lmm_top['Coefficient'].values, 
                 color=colors, alpha=0.7, edgecolor='darkgray', linewidth=1)
         
-        # Add significance stars combined with value labels for combined plots
+        # Add significance stars for combined plots
         for i, (coef, pval) in enumerate(zip(lmm_top['Coefficient'].values, lmm_top['P_value'].values)):
-            # Determine significance markers
+            # Add value labels with larger font
+            offset = 0.15 if coef > 0 else -0.15
+            ax1.text(coef + offset, i, f'{coef:.2f}', va='center', 
+                    ha='left' if coef > 0 else 'right', fontsize=12, fontweight='bold')
+            
+            # Add significance stars
             if pval < 0.001:
                 sig_marker = '***'
             elif pval < 0.01:
@@ -282,19 +276,17 @@ def create_combined_comparison(organisms_data):
             else:
                 sig_marker = ''
             
-            # Combine coefficient value with significance markers
-            label_text = f'{coef:.2f}{sig_marker}'
-            
-            # Position label with consistent offset
-            offset = 0.2 if coef > 0 else -0.2
-            ax1.text(coef + offset, i, label_text, va='center', 
-                    ha='left' if coef > 0 else 'right', fontsize=12, fontweight='bold')
+            if sig_marker:
+                # Position stars much further away to avoid overlap with larger labels
+                star_offset = 0.7 if coef > 0 else -0.7
+                ax1.text(coef + star_offset, i, sig_marker, 
+                        va='center', ha='left' if coef > 0 else 'right', 
+                        fontsize=13, fontweight='bold')
         
         ax1.set_yticks(y_pos)
         ax1.set_yticklabels([create_comparison_label(v) for v in lmm_top['Variable']], fontsize=12)
-        ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=16, fontweight='bold')
+        ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=13)
         ax1.set_title('Linear Mixed Model', fontsize=14)
-        ax1.tick_params(axis='x', labelsize=14)  # Increase X-axis tick label size
         ax1.axvline(x=0, color='black', linestyle='-', linewidth=0.5)
         ax1.grid(True, alpha=0.3)
         
@@ -307,19 +299,17 @@ def create_combined_comparison(organisms_data):
         shap_top = shap_df.nlargest(10, 'SHAP_Importance').sort_values('SHAP_Importance')
         
         y_pos = np.arange(len(shap_top))
-        
         ax2.barh(y_pos, shap_top['SHAP_Importance'].values, 
                  color='skyblue', alpha=0.7, edgecolor='darkblue', linewidth=1)
         
         # Add value labels for SHAP importance
         for i, v in enumerate(shap_top['SHAP_Importance'].values):
-            ax2.text(v + 0.002, i, f'{v:.3f}', va='center', fontsize=12, fontweight='bold')
+            ax2.text(v + 0.002, i, f'{v:.3f}', va='center', fontsize=10)
         
         ax2.set_yticks(y_pos)
         ax2.set_yticklabels([create_comparison_label(f) for f in shap_top['Feature']], fontsize=12)
-        ax2.set_xlabel('Mean |SHAP Value|', fontsize=16, fontweight='bold')
+        ax2.set_xlabel('Mean |SHAP Value|', fontsize=13)
         ax2.set_title(f'Random Forest (SHAP Importance)', fontsize=14)
-        ax2.tick_params(axis='x', labelsize=14)  # Increase X-axis tick label size
         ax2.grid(True, alpha=0.3)
     
     fig.suptitle('Top Predictors for BSI Pathogens — LMM and Random Forest', 

@@ -16,3 +16,13 @@ nicu_resistome_analysis/diamond_traditional/results/**/*.tsv
 # Exclude all PDF and PNG files
 *.pdf
 *.png
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Analysis output directories (contain generated figures and results)
+python_scripts/results_revision/
+python_scripts/revision_figures_2/
