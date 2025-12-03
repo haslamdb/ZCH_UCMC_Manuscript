@@ -17,6 +17,9 @@ nicu_resistome_analysis/diamond_traditional/results/**/*.tsv
 *.pdf
 *.png
 
+# Exclude TSV files (typically large data files)
+*.tsv
+
 # Python cache files
 __pycache__/
 *.pyc
