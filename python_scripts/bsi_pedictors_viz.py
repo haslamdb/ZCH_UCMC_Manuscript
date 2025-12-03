@@ -7,13 +7,138 @@ Linear Mixed Model coefficients for BSI pathogens
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib
 import seaborn as sns
 from matplotlib.patches import Rectangle
 import matplotlib.patches as mpatches
 
+# Set font type to TrueType (Type 42) for editable text in PDFs
+matplotlib.rcParams['pdf.fonttype'] = 42  # TrueType fonts
+matplotlib.rcParams['ps.fonttype'] = 42   # TrueType fonts for PostScript too
+
+# Set font to Arial for all text
+matplotlib.rcParams['font.family'] = 'sans-serif'
+matplotlib.rcParams['font.sans-serif'] = ['Arial']
+
 # Set style for publication-quality figures
 plt.style.use('seaborn-v0_8-whitegrid')
 sns.set_palette("husl")
+
+def create_comparison_label(feature_name):
+    """Convert encoded feature names to comparison format"""
+    # Handle different feature patterns - for LMM outputs
+    if 'C(' in feature_name and '[T.' in feature_name:
+        # Handle categorical variable format from statsmodels: C(variable)[T.value]
+        import re
+        match = re.match(r'C\((\w+)\)\[T\.(.+)\]', feature_name)
+        if match:
+            category = match.group(1)
+            value = match.group(2)
+        else:
+            return feature_name
+    elif ':' in feature_name:
+        # Handle format like "SampleType:Stool"
+        parts = feature_name.split(':')
+        category = parts[0]
+        value = parts[1] if len(parts) > 1 else ''
+    elif '_' in feature_name:
+        # Handle sklearn dummy variable format: variable_value
+        parts = feature_name.split('_')
+        # Special handling for variables like BSI_30D_1
+        if len(parts) == 3 and parts[1] == '30D':
+            category = f"{parts[0]}_{parts[1]}"
+            value = parts[2]
+        else:
+            category = parts[0]
+            value = '_'.join(parts[1:])
+    else:
+        # Simple features or intercept
+        if feature_name == 'Intercept':
+            return 'Intercept (Baseline)'
+        return feature_name
+    
+    # Create simplified labels without "vs" comparisons
+    if category == 'SampleType':
+        if value == 'Groin':
+            return 'Groin Sample'
+        elif value == 'Stool':
+            return 'Stool Sample'
+        elif value in ['Nonese', 'Nose']:
+            return 'Nose Sample'
+        elif value == 'Axilla':
+            return 'Axilla Sample'
+    elif category == 'Location':
+        if value in ['ZCH', 'Hangzhou']:
+            return 'ZCH Location'
+        elif value in ['Cincinnati', 'UCMC']:
+            return 'UCMC Location'
+    elif category == 'GestationCohort':
+        if value == '28-32 Weeks' or value == '28-32':
+            return '28-32 Weeks Gestation'
+        elif value == '33-36 Weeks' or value == '33-36':
+            return '33-36 Weeks Gestation'
+        elif value == '25-28' or value == '23-27 Weeks':
+            return '23-27 Weeks Gestation'
+    elif category == 'SampleCollectionWeek':
+        if value in ['Week.3', 'Week 3', 'Week3']:
+            return 'Week 3 Sample'
+        elif value in ['Week.1', 'Week 1', 'Week1']:
+            return 'Week 1 Sample'
+    elif category == 'MaternalAntibiotics':
+        if value in ['None.Mat.Abx', 'No Mat Abx', 'None']:
+            return 'No Maternal Antibiotics'
+        elif value in ['Mat.Abx', 'Mat Abx']:
+            return 'Maternal Antibiotics'
+    elif category == 'PostNatalAbxCohort':
+        if value in ['No.Infant.Abx', 'No Infant Abx']:
+            return 'No Infant Antibiotics'
+        elif value in ['Low.Infant.Abx', 'Low Infant Abx']:
+            return 'Low Infant Antibiotics'
+        elif value in ['High.Infant.Abx', 'High Infant Abx']:
+            return 'High Infant Antibiotics'
+    elif category in ['BSI_30D', 'BSI30D']:
+        if value == '1':
+            return 'BSI Positive'
+        elif value == '0':
+            return 'BSI Negative'
+    elif category in ['NEC_30D', 'NEC30D']:
+        if value == '1':
+            return 'NEC Positive'
+        elif value == '0':
+            return 'NEC Negative'
+    elif category == 'AnyMilk':
+        if value == '1' or value == 'Mother':
+            return 'Mother\'s Milk'
+        elif value == 'No Milk' or value == 'No.Milk':
+            return 'No Milk'
+        elif value == 'Formula':
+            return 'Formula'
+    elif category == 'PICC':
+        if value == '1':
+            return 'PICC Present'
+        elif value == 'PICC_UE' or value == 'UE':
+            return 'PICC Upper Extremity'
+        elif value == 'PICC_LE' or value == 'LE':
+            return 'PICC Lower Extremity'
+        elif value == 'PICC_Neck' or value == 'Neck':
+            return 'PICC Neck'
+        elif value == 'axillary':
+            return 'PICC Axillary'
+        elif value == 'peripheral_UE':
+            return 'Peripheral Upper Extremity'
+    elif category == 'UVC':
+        if value == '1' or value == 'UVC':
+            return 'UVC Present'
+        elif value == '0':
+            return 'No UVC'
+    elif category == 'Delivery':
+        if value == 'Vaginal':
+            return 'Vaginal Delivery'
+        elif value == 'Cesarean':
+            return 'Cesarean Delivery'
+    
+    # Default: return original if no mapping found
+    return feature_name
 
 def create_pathogen_comparison_plot(pathogen_name, shap_df, lmm_df, top_n=10):
     """
@@ -42,27 +167,7 @@ def create_pathogen_comparison_plot(pathogen_name, shap_df, lmm_df, top_n=10):
     lmm_sig['abs_coef'] = lmm_sig['Coefficient'].abs()
     lmm_top = lmm_sig.nlargest(top_n, 'abs_coef').sort_values('Coefficient')
     
-    # Clean feature names for display
-    def clean_feature_name(name):
-        """Clean feature names for better display"""
-        replacements = {
-            'C(': '',
-            ')[T.': ':', 
-            ']': '',
-            '_': ' ',
-            'PostNatalAbxCohort': 'Postnatal Abx',
-            'SampleCollectionWeek': 'Week',
-            'GestationCohort': 'Gestation',
-            'MaternalAntibiotics': 'Maternal Abx',
-            'No.Infant.Abx': 'No Infant Abx',
-            'Low.Infant.Abx': 'Low Infant Abx',
-            'None.Mat.Abx': 'No Maternal Abx',
-            'PICC UE': 'PICC Upper Extremity',
-            'PICC LE': 'PICC Lower Extremity'
-        }
-        for old, new in replacements.items():
-            name = name.replace(old, new)
-        return name.strip()
+    # Use create_comparison_label for better display names
     
     # Plot 1 (LEFT): Linear Mixed Model Coefficients
     y_pos = np.arange(len(lmm_top))
@@ -74,13 +179,9 @@ def create_pathogen_comparison_plot(pathogen_name, shap_df, lmm_df, top_n=10):
     bars = ax1.barh(y_pos, lmm_top['Coefficient'].values, 
                     color=colors, alpha=0.7, edgecolor='darkgray', linewidth=1)
     
-    # Add significance stars
+    # Add significance stars combined with value labels
     for i, (coef, pval) in enumerate(zip(lmm_top['Coefficient'].values, lmm_top['P_value'].values)):
-        # Add value labels
-        offset = 0.1 if coef > 0 else -0.1
-        ax1.text(coef + offset, i, f'{coef:.2f}', va='center', ha='left' if coef > 0 else 'right', fontsize=9)
-        
-        # Add significance stars
+        # Determine significance markers
         if pval < 0.001:
             sig_marker = '***'
         elif pval < 0.01:
@@ -90,43 +191,52 @@ def create_pathogen_comparison_plot(pathogen_name, shap_df, lmm_df, top_n=10):
         else:
             sig_marker = ''
         
-        if sig_marker:
-            ax1.text(coef + (0.3 if coef > 0 else -0.3), i, sig_marker, 
-                    va='center', ha='center', fontsize=10, fontweight='bold')
+        # Combine coefficient value with significance markers
+        label_text = f'{coef:.2f}{sig_marker}'
+        
+        # Position label with consistent offset
+        offset = 0.25 if coef > 0 else -0.25
+        ax1.text(coef + offset, i, label_text, va='center', 
+                ha='left' if coef > 0 else 'right', fontsize=13, fontweight='bold')
     
     ax1.set_yticks(y_pos)
-    ax1.set_yticklabels([clean_feature_name(v) for v in lmm_top['Variable']], fontsize=11)
-    ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=12)
-    ax1.set_title('Linear Mixed Model', fontsize=14, fontweight='bold')
+    ax1.set_yticklabels([create_comparison_label(v) for v in lmm_top['Variable']], fontsize=13)
+    ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=16, fontweight='bold')
+    ax1.set_title('Linear Mixed Model', fontsize=16, fontweight='bold')
     ax1.axvline(x=0, color='black', linestyle='-', linewidth=0.5)
     ax1.grid(True, alpha=0.3, linestyle='--')
+    
+    # Increase x-axis tick label size
+    ax1.tick_params(axis='x', labelsize=14)
     
     # Add legend for LMM plot
     pos_patch = mpatches.Patch(color='salmon', alpha=0.7, label='Positive effect')
     neg_patch = mpatches.Patch(color='steelblue', alpha=0.7, label='Negative effect')
-    ax1.legend(handles=[pos_patch, neg_patch], loc='best', fontsize=10)
+    ax1.legend(handles=[pos_patch, neg_patch], loc='best', fontsize=12)
     
     # Plot 2 (RIGHT): Random Forest SHAP Importance
     y_pos = np.arange(len(shap_top))
-    colors = ['skyblue'] * len(shap_top)
     
     ax2.barh(y_pos, shap_top['SHAP_Importance'].values, 
-             color=colors, alpha=0.7, edgecolor='darkblue', linewidth=1)
+             color='skyblue', alpha=0.7, edgecolor='darkblue', linewidth=1)
     
     # Add value labels
     for i, v in enumerate(shap_top['SHAP_Importance'].values):
-        ax2.text(v + 0.002, i, f'{v:.3f}', va='center', fontsize=9)
+        ax2.text(v + 0.002, i, f'{v:.3f}', va='center', fontsize=13, fontweight='bold')
     
     ax2.set_yticks(y_pos)
-    ax2.set_yticklabels([clean_feature_name(f) for f in shap_top['Feature']], fontsize=11)
-    ax2.set_xlabel('Mean |SHAP Value|', fontsize=12)
-    ax2.set_title('Random Forest (SHAP Importance)', fontsize=14, fontweight='bold')
+    ax2.set_yticklabels([create_comparison_label(f) for f in shap_top['Feature']], fontsize=13)
+    ax2.set_xlabel('Mean |SHAP Value|', fontsize=16, fontweight='bold')
+    ax2.set_title('Random Forest (SHAP Importance)', fontsize=16, fontweight='bold')
     ax2.grid(True, alpha=0.3, linestyle='--')
     ax2.set_xlim(0, shap_top['SHAP_Importance'].max() * 1.15)
     
+    # Increase x-axis tick label size
+    ax2.tick_params(axis='x', labelsize=14)
+    
     # Overall title
-    fig.suptitle(f'Top Predictors for BSI Pathogens — RF vs. LMM\n{pathogen_name}', 
-                 fontsize=16, fontweight='bold', y=1.02)
+    fig.suptitle(f'Top Predictors for BSI Pathogens — LMM and Random Forest\n{pathogen_name}', 
+                 fontsize=18, fontweight='bold', y=1.02)
     
     plt.tight_layout()
     return fig
@@ -160,33 +270,60 @@ def create_combined_comparison(organisms_data):
         ax1.barh(y_pos, lmm_top['Coefficient'].values, 
                 color=colors, alpha=0.7, edgecolor='darkgray', linewidth=1)
         
+        # Add significance stars combined with value labels for combined plots
+        for i, (coef, pval) in enumerate(zip(lmm_top['Coefficient'].values, lmm_top['P_value'].values)):
+            # Determine significance markers
+            if pval < 0.001:
+                sig_marker = '***'
+            elif pval < 0.01:
+                sig_marker = '**'
+            elif pval < 0.05:
+                sig_marker = '*'
+            else:
+                sig_marker = ''
+            
+            # Combine coefficient value with significance markers
+            label_text = f'{coef:.2f}{sig_marker}'
+            
+            # Position label with consistent offset
+            offset = 0.2 if coef > 0 else -0.2
+            ax1.text(coef + offset, i, label_text, va='center', 
+                    ha='left' if coef > 0 else 'right', fontsize=12, fontweight='bold')
+        
         ax1.set_yticks(y_pos)
-        ax1.set_yticklabels(lmm_top['Variable'], fontsize=10)
-        ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=11)
-        ax1.set_title('Linear Mixed Model', fontsize=12)
+        ax1.set_yticklabels([create_comparison_label(v) for v in lmm_top['Variable']], fontsize=12)
+        ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=16, fontweight='bold')
+        ax1.set_title('Linear Mixed Model', fontsize=14)
+        ax1.tick_params(axis='x', labelsize=14)  # Increase X-axis tick label size
         ax1.axvline(x=0, color='black', linestyle='-', linewidth=0.5)
         ax1.grid(True, alpha=0.3)
         
         # Add organism label
         ax1.text(0.02, 0.98, organism, transform=ax1.transAxes, 
-                fontsize=11, fontweight='bold', va='top',
+                fontsize=13, fontweight='bold', va='top',
                 bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
         
         # Process and plot SHAP data (RIGHT)
         shap_top = shap_df.nlargest(10, 'SHAP_Importance').sort_values('SHAP_Importance')
         
         y_pos = np.arange(len(shap_top))
+        
         ax2.barh(y_pos, shap_top['SHAP_Importance'].values, 
                  color='skyblue', alpha=0.7, edgecolor='darkblue', linewidth=1)
         
+        # Add value labels for SHAP importance
+        for i, v in enumerate(shap_top['SHAP_Importance'].values):
+            ax2.text(v + 0.002, i, f'{v:.3f}', va='center', fontsize=12, fontweight='bold')
+        
         ax2.set_yticks(y_pos)
-        ax2.set_yticklabels(shap_top['Feature'], fontsize=10)
-        ax2.set_xlabel('Mean |SHAP Value|', fontsize=11)
-        ax2.set_title(f'Random Forest (SHAP Importance)', fontsize=12)
+        ax2.set_yticklabels([create_comparison_label(f) for f in shap_top['Feature']], fontsize=12)
+        ax2.set_xlabel('Mean |SHAP Value|', fontsize=16, fontweight='bold')
+        ax2.set_title(f'Random Forest (SHAP Importance)', fontsize=14)
+        ax2.tick_params(axis='x', labelsize=14)  # Increase X-axis tick label size
         ax2.grid(True, alpha=0.3)
     
-    fig.suptitle('Top Predictors for BSI Pathogens — RF vs. LMM', 
-                 fontsize=16, fontweight='bold')
+    fig.suptitle('Top Predictors for BSI Pathogens — LMM and Random Forest', 
+                 fontsize=18, fontweight='bold')
     plt.tight_layout()
     return fig
 
@@ -198,7 +335,7 @@ if __name__ == "__main__":
     # 1. Staphylococcus aureus (Higher at UCMC: 41.1% vs 10.1%)
     shap_data_staph = pd.DataFrame({
         'Feature': ['SampleType:Groin', 'SampleType:Stool', 'SampleCollectionWeek:Week3',
-                    'PostNatalAbxCohort:No Infant Abx', 'PICC_UE', 'Location:Hangzhou',
+                    'PostNatalAbxCohort:No Infant Abx', 'PICC_UE', 'Location:ZCH',
                     'UVC', 'AnyMilk:No Milk', 'Delivery:Vaginal', 'BSI_30D', 
                     'GestationCohort:28-32', 'NEC_30D'],
         'SHAP_Importance': [0.20, 0.15, 0.13, 0.10, 0.09, 0.07, 0.06, 
@@ -208,7 +345,7 @@ if __name__ == "__main__":
     lmm_data_staph = pd.DataFrame({
         'Variable': ['C(SampleType)[T.Groin]', 'C(SampleType)[T.Stool]',
                      'C(SampleCollectionWeek)[T.Week.3]', 'C(PostNatalAbxCohort)[T.No.Infant.Abx]',
-                     'C(UVC)[T.UVC]', 'C(PICC)[T.PICC_UE]', 'C(Location)[T.Hangzhou]',
+                     'C(UVC)[T.UVC]', 'C(PICC)[T.PICC_UE]', 'C(Location)[T.ZCH]',
                      'C(Delivery)[T.Vaginal]', 'C(GestationCohort)[T.28-32]',
                      'C(AnyMilk)[T.No.Milk]', 'C(MaternalAntibiotics)[T.None.Mat.Abx]',
                      'C(NEC_30D)[T.No.NEC]'],
@@ -221,7 +358,7 @@ if __name__ == "__main__":
     shap_data_kleb = pd.DataFrame({
         'Feature': ['SampleType:Groin', 'SampleType:Stool', 'SampleCollectionWeek:Week3',
                     'PostNatalAbxCohort:No Infant Abx', 'PostNatalAbxCohort:Low Infant Abx',
-                    'PICC_UE', 'UVC', 'Location:Hangzhou', 'AnyMilk:No Milk', 
+                    'PICC_UE', 'UVC', 'Location:ZCH', 'AnyMilk:No Milk', 
                     'GestationCohort:28-32', 'MaternalAntibiotics:None', 'BSI_30D'],
         'SHAP_Importance': [0.18, 0.16, 0.15, 0.12, 0.10, 0.09, 0.09, 
                            0.05, 0.04, 0.03, 0.03, 0.02]
@@ -231,7 +368,7 @@ if __name__ == "__main__":
         'Variable': ['C(SampleType)[T.Groin]', 'C(SampleType)[T.Stool]', 
                      'C(SampleCollectionWeek)[T.Week.3]', 'C(PostNatalAbxCohort)[T.No.Infant.Abx]',
                      'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
-                     'C(UVC)[T.UVC]', 'C(Location)[T.Hangzhou]', 'C(AnyMilk)[T.No.Milk]',
+                     'C(UVC)[T.UVC]', 'C(Location)[T.ZCH]', 'C(AnyMilk)[T.No.Milk]',
                      'C(Delivery)[T.Vaginal]', 'C(GestationCohort)[T.28-32]', 
                      'C(MaternalAntibiotics)[T.None.Mat.Abx]'],
         'Coefficient': [2.54, 4.16, 3.14, -1.48, -2.41, 1.48, -1.40, 0.89, -1.82, -0.93, -0.98, -0.62],
@@ -243,14 +380,14 @@ if __name__ == "__main__":
     # You'll need to replace with actual data from your analysis
     shap_data_k_oxy = pd.DataFrame({
         'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
-                    'Location:Hangzhou', 'PostNatalAbxCohort:No Infant Abx', 'PICC_UE',
+                    'Location:ZCH', 'PostNatalAbxCohort:No Infant Abx', 'PICC_UE',
                     'UVC', 'AnyMilk:No Milk', 'Delivery:Vaginal', 'BSI_30D'],
         'SHAP_Importance': [0.14, 0.12, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.03]
     })
     
     lmm_data_k_oxy = pd.DataFrame({
         'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
-                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.ZCH]',
                      'C(PostNatalAbxCohort)[T.No.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
                      'C(UVC)[T.UVC]', 'C(Delivery)[T.Vaginal]'],
         'Coefficient': [-1.8, -1.2, -0.9, -2.1, 0.6, 0.5, 0.7, 0.3],
@@ -258,17 +395,35 @@ if __name__ == "__main__":
     })
     all_organisms_data['Klebsiella oxytoca'] = (shap_data_k_oxy, lmm_data_k_oxy)
     
-    # 4. Serratia marcescens (Higher at UCMC: 6.2% vs 0.8%)
+    # 4. Escherichia coli 
+    shap_data_e_coli = pd.DataFrame({
+        'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
+                    'PostNatalAbxCohort:No Infant Abx', 'Location:ZCH', 'UVC',
+                    'GestationCohort:28-32', 'AnyMilk:No Milk', 'PICC_LE', 'Delivery:Vaginal'],
+        'SHAP_Importance': [0.17, 0.15, 0.14, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
+    })
+    
+    lmm_data_e_coli = pd.DataFrame({
+        'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(PostNatalAbxCohort)[T.No.Infant.Abx]',
+                     'C(UVC)[T.UVC]', 'C(Location)[T.ZCH]', 'C(GestationCohort)[T.28-32]',
+                     'C(PICC)[T.PICC_LE]', 'C(Delivery)[T.Vaginal]', 'C(AnyMilk)[T.No.Milk]'],
+        'Coefficient': [3.75, 2.07, 2.35, -0.71, -2.13, -0.95, -1.68, -1.32, -0.86, -0.38],
+        'P_value': [0.001, 0.001, 0.001, 0.22, 0.001, 0.11, 0.03, 0.05, 0.15, 0.70]
+    })
+    all_organisms_data['Escherichia coli'] = (shap_data_e_coli, lmm_data_e_coli)
+    
+    # 5. Serratia marcescens (Higher at UCMC: 6.2% vs 0.8%)
     shap_data_serratia = pd.DataFrame({
         'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
-                    'Location:Hangzhou', 'PostNatalAbxCohort:No Infant Abx', 'PICC_UE',
+                    'Location:ZCH', 'PostNatalAbxCohort:No Infant Abx', 'PICC_UE',
                     'UVC', 'AnyMilk:No Milk', 'MaternalAntibiotics:None', 'Delivery:Vaginal'],
         'SHAP_Importance': [0.15, 0.13, 0.12, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04]
     })
     
     lmm_data_serratia = pd.DataFrame({
         'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
-                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.ZCH]',
                      'C(PostNatalAbxCohort)[T.No.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
                      'C(UVC)[T.UVC]', 'C(AnyMilk)[T.No.Milk]'],
         'Coefficient': [-1.5, -1.1, -0.8, -1.9, 0.5, 0.6, 0.8, -0.3],
@@ -276,17 +431,17 @@ if __name__ == "__main__":
     })
     all_organisms_data['Serratia marcescens'] = (shap_data_serratia, lmm_data_serratia)
     
-    # 5. Enterococcus faecalis (Higher at ZCH: 3.6% vs 13.9%)
+    # 6. Enterococcus faecalis (Higher at ZCH: 3.6% vs 13.9%)
     shap_data_e_faecalis = pd.DataFrame({
         'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
-                    'Location:Hangzhou', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_LE',
+                    'Location:ZCH', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_LE',
                     'UVC', 'AnyMilk:No Milk', 'Delivery:Vaginal', 'GestationCohort:28-32'],
         'SHAP_Importance': [0.17, 0.14, 0.13, 0.11, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05]
     })
     
     lmm_data_e_faecalis = pd.DataFrame({
         'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
-                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.ZCH]',
                      'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_LE]',
                      'C(UVC)[T.UVC]', 'C(AnyMilk)[T.No.Milk]'],
         'Coefficient': [2.8, 2.2, 1.9, 1.5, -1.8, 1.2, -0.9, -1.1],
@@ -294,17 +449,17 @@ if __name__ == "__main__":
     })
     all_organisms_data['Enterococcus faecalis'] = (shap_data_e_faecalis, lmm_data_e_faecalis)
     
-    # 6. Enterococcus faecium (Higher at ZCH: 0.0% vs 6.7%)
+    # 7. Enterococcus faecium (Higher at ZCH: 0.0% vs 6.7%)
     shap_data_e_faecium = pd.DataFrame({
         'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
-                    'Location:Hangzhou', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_LE',
+                    'Location:ZCH', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_LE',
                     'UVC', 'AnyMilk:No Milk', 'MaternalAntibiotics:None', 'Delivery:Vaginal'],
         'SHAP_Importance': [0.16, 0.15, 0.14, 0.12, 0.11, 0.10, 0.09, 0.08, 0.07, 0.06]
     })
     
     lmm_data_e_faecium = pd.DataFrame({
         'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
-                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.ZCH]',
                      'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_LE]',
                      'C(UVC)[T.UVC]', 'C(Delivery)[T.Vaginal]'],
         'Coefficient': [3.1, 2.5, 2.0, 1.8, -2.0, 1.4, -1.0, -0.8],
@@ -312,17 +467,17 @@ if __name__ == "__main__":
     })
     all_organisms_data['Enterococcus faecium'] = (shap_data_e_faecium, lmm_data_e_faecium)
     
-    # 7. Streptococcus pyogenes (Higher at ZCH: 0.0% vs 4.2%)
+    # 8. Streptococcus pyogenes (Higher at ZCH: 0.0% vs 4.2%)
     shap_data_s_pyogenes = pd.DataFrame({
         'Feature': ['SampleType:Axilla', 'SampleType:Groin', 'SampleCollectionWeek:Week1',
-                    'Location:Hangzhou', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_UE',
+                    'Location:ZCH', 'PostNatalAbxCohort:Low Infant Abx', 'PICC_UE',
                     'UVC', 'AnyMilk:No Milk', 'Delivery:Cesarean', 'GestationCohort:33-36'],
         'SHAP_Importance': [0.14, 0.13, 0.12, 0.11, 0.10, 0.09, 0.08, 0.07, 0.06, 0.05]
     })
     
     lmm_data_s_pyogenes = pd.DataFrame({
         'Variable': ['C(SampleType)[T.Axilla]', 'C(SampleType)[T.Groin]',
-                     'C(SampleCollectionWeek)[T.Week.1]', 'C(Location)[T.Hangzhou]',
+                     'C(SampleCollectionWeek)[T.Week.1]', 'C(Location)[T.ZCH]',
                      'C(PostNatalAbxCohort)[T.Low.Infant.Abx]', 'C(PICC)[T.PICC_UE]',
                      'C(UVC)[T.UVC]', 'C(Delivery)[T.Cesarean]'],
         'Coefficient': [2.3, 1.9, 1.6, 2.1, -1.5, -0.7, -0.9, 0.8],
@@ -330,18 +485,18 @@ if __name__ == "__main__":
     })
     all_organisms_data['Streptococcus pyogenes'] = (shap_data_s_pyogenes, lmm_data_s_pyogenes)
     
-    # 8. Candida parapsilosis (Higher at ZCH: 0.0% vs 4.6%)
+    # 9. Candida parapsilosis (Higher at ZCH: 0.0% vs 4.6%)
     # Note: You mentioned in the manuscript that Candida wasn't the focus, but including for completeness
     shap_data_c_para = pd.DataFrame({
         'Feature': ['SampleType:Stool', 'SampleType:Groin', 'SampleCollectionWeek:Week3',
-                    'Location:Hangzhou', 'PostNatalAbxCohort:High Infant Abx', 'PICC_LE',
+                    'Location:ZCH', 'PostNatalAbxCohort:High Infant Abx', 'PICC_LE',
                     'UVC', 'AnyMilk:Formula', 'Delivery:Vaginal', 'GestationCohort:25-28'],
         'SHAP_Importance': [0.18, 0.16, 0.14, 0.13, 0.12, 0.10, 0.08, 0.06, 0.04, 0.03]
     })
     
     lmm_data_c_para = pd.DataFrame({
         'Variable': ['C(SampleType)[T.Stool]', 'C(SampleType)[T.Groin]',
-                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.Hangzhou]',
+                     'C(SampleCollectionWeek)[T.Week.3]', 'C(Location)[T.ZCH]',
                      'C(PostNatalAbxCohort)[T.High.Infant.Abx]', 'C(PICC)[T.PICC_LE]',
                      'C(UVC)[T.UVC]', 'C(AnyMilk)[T.Formula]'],
         'Coefficient': [2.7, 2.1, 1.7, 2.5, 1.9, 1.3, -0.8, 1.0],
@@ -375,6 +530,7 @@ if __name__ == "__main__":
     gram_negative_organisms = {
         'K. pneumoniae': all_organisms_data['Klebsiella pneumoniae'],
         'K. oxytoca': all_organisms_data['Klebsiella oxytoca'],
+        'E. coli': all_organisms_data['Escherichia coli'],
         'S. marcescens': all_organisms_data['Serratia marcescens']
     }
     

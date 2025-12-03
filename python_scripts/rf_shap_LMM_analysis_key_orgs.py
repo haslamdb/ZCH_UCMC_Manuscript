@@ -7,11 +7,99 @@ import shap
 import microbiome_transform as mt  # Import the transformation module
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import statsmodels.api as sm
 from statsmodels.formula.api import mixedlm
+
+# Set font type to TrueType (Type 42) for editable text in PDFs
+matplotlib.rcParams['pdf.fonttype'] = 42  # TrueType fonts
+matplotlib.rcParams['ps.fonttype'] = 42   # TrueType fonts for PostScript too
+
+def create_comparison_label(feature_name):
+    """Convert encoded feature names to comparison format"""
+    # Handle different feature patterns - for LMM outputs
+    if 'C(' in feature_name and '[T.' in feature_name:
+        # Handle categorical variable format from statsmodels: C(variable)[T.value]
+        import re
+        match = re.match(r'C\((\w+)\)\[T\.(.+)\]', feature_name)
+        if match:
+            category = match.group(1)
+            value = match.group(2)
+        else:
+            return feature_name
+    elif '_' in feature_name:
+        # Handle sklearn dummy variable format: variable_value
+        parts = feature_name.split('_')
+        # Special handling for variables like BSI_30D_1
+        if len(parts) == 3 and parts[1] == '30D':
+            category = f"{parts[0]}_{parts[1]}"
+            value = parts[2]
+        else:
+            category = parts[0]
+            value = '_'.join(parts[1:])
+    else:
+        # Simple features or intercept
+        if feature_name == 'Intercept':
+            return 'Intercept (Baseline)'
+        return feature_name
+    
+    # Create simplified labels without "vs" comparisons
+    if category == 'SampleType':
+        if value == 'Groin':
+            return 'Groin Sample'
+        elif value == 'Stool':
+            return 'Stool Sample'
+        elif value in ['Nonese', 'Nose']:
+            return 'Nose Sample'
+    elif category == 'Location':
+        if value in ['ZCH', 'Hangzhou']:
+            return 'ZCH Location'
+    elif category == 'GestationCohort':
+        if value == '28-32 Weeks':
+            return '28-32 Weeks Gestation'
+        elif value == '33-36 Weeks':
+            return '33-36 Weeks Gestation'
+    elif category == 'SampleCollectionWeek':
+        if value in ['Week.3', 'Week 3']:
+            return 'Week 3 Sample'
+    elif category == 'MaternalAntibiotics':
+        if value in ['None.Mat.Abx', 'No Mat Abx']:
+            return 'No Maternal Antibiotics'
+    elif category == 'PostNatalAbxCohort':
+        if value in ['No.Infant.Abx', 'No Infant Abx']:
+            return 'No Infant Antibiotics'
+        elif value in ['Low.Infant.Abx', 'Low Infant Abx']:
+            return 'Low Infant Antibiotics'
+    elif category in ['BSI_30D', 'BSI30D']:
+        if value == '1':
+            return 'BSI Positive'
+    elif category in ['NEC_30D', 'NEC30D']:
+        if value == '1':
+            return 'NEC Positive'
+    elif category == 'AnyMilk':
+        if value == '1':
+            return 'Mother\'s Milk'
+    elif category == 'PICC':
+        if value == '1':
+            return 'PICC Present'
+        elif value == 'PICC_UE' or value == 'UE':
+            return 'PICC Upper Extremity'
+        elif value == 'PICC_LE' or value == 'LE':
+            return 'PICC Lower Extremity'
+        elif value == 'PICC_Neck' or value == 'Neck':
+            return 'PICC Neck'
+    elif category == 'UVC':
+        if value == '1' or value == 'UVC':
+            return 'UVC Present'
+    elif category == 'Delivery':
+        if value == 'Vaginal':
+            return 'Vaginal Delivery'
+    
+    # Default: return original if no mapping found
+    return feature_name
 
 def select_best_transformation(df):
     """
@@ -45,7 +133,10 @@ microbiome_transformed.to_csv("microbiome_abundance_transformed.csv")
 
 # Load clinical metadata
 metadata_df = pd.read_csv("../metadata/AllNICUSampleKey20250206.csv", index_col=0)
-subject_id_col = "Subject"  
+subject_id_col = "Subject"
+
+# Replace location names
+metadata_df['Location'] = metadata_df['Location'].replace({'Cincinnati': 'UCMC', 'Hangzhou': 'ZCH'})  
 
 # Check for missing values in metadata
 print(metadata_df.isnull().sum())
@@ -121,10 +212,13 @@ for target_microbe in key_organisms:
         explainer = shap.TreeExplainer(rf)
         shap_values = explainer(X_test)
 
+        # Apply comparison labels to feature names for SHAP plots
+        feature_names_comparison = [create_comparison_label(col) for col in X_encoded.columns]
+        
         # SHAP Summary Plot
         try:
             plt.figure(figsize=(12, 8))
-            shap.summary_plot(shap_values, X_test, feature_names=X_encoded.columns.tolist(), show=False)
+            shap.summary_plot(shap_values, X_test, feature_names=feature_names_comparison, show=False)
             plt.title(f"SHAP Summary: {target_microbe}")
             plt.tight_layout()
             plt.savefig(f"../results/shap_summary_{target_microbe}.pdf", bbox_inches="tight")
@@ -144,8 +238,10 @@ for target_microbe in key_organisms:
 
         # SHAP Feature Importance - New Line+Dot Plot (similar to PyCaret style)
         shap_values_mean = np.abs(shap_values.values).mean(axis=0)
+        
+        # Use the same comparison labels as in the summary plot
         shap_importance = pd.DataFrame({
-            "Feature": X_encoded.columns,
+            "Feature": feature_names_comparison,
             "SHAP Importance": shap_values_mean
         }).sort_values(by="SHAP Importance", ascending=True)
         
@@ -317,8 +413,11 @@ for target_microbe in key_organisms:
         # Extract coefficients from the result object
         # We've standardized all model results to be in the 'result' variable
         if hasattr(result, 'params'):
+            # Apply comparison labels to variable names
+            variable_names = [create_comparison_label(name) for name in result.params.index.tolist()]
+            
             coef_df = pd.DataFrame({
-                "Variable": result.params.index.tolist(),
+                "Variable": variable_names,
                 "Coefficient": result.params.values,
                 "P-value": result.pvalues.values if hasattr(result, 'pvalues') else [None] * len(result.params),
                 "Model_Type": model_type,
