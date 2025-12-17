@@ -1,7 +1,0 @@
-"Species","Cincinnati_Prevalence","Hangzhou_Prevalence","Cincinnati_Mean_NonZero","Hangzhou_Mean_NonZero","Overall_P_value","Significant","Prevalence_Diff"
-"Staphylococcus.aureus",NA,NA,15195.3988603989,13917.9292035398,0.285383021109682,"No",NA
-"Staphylococcus.epidermidis",NA,NA,4059.08359133127,1938.91191709845,1.59045846023214e-10,"Yes",NA
-"Staphylococcus.capitis",NA,NA,655.826271186441,1228.30487804878,0.0106302254852279,"Yes",NA
-"Staphylococcus.hominis",NA,NA,71.5473251028807,34.0614035087719,3.25500962619149e-05,"Yes",NA
-"Staphylococcus.haemolyticus",NA,NA,49.984,593.174825174825,0.167365079084921,"No",NA
-"Staphylococcus.warneri",NA,NA,357.287081339713,61.7118644067797,0.247972434962605,"No",NA

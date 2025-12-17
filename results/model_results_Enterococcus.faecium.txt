@@ -12,7 +12,7 @@ Mean group size:          7.9
 Intercept                               -0.381    1.342 -0.284 0.776 -3.011  2.249
 C(SampleType)[T.Groin]                   0.333    0.325  1.026 0.305 -0.304  0.970
 C(SampleType)[T.Stool]                   2.216    0.303  7.308 0.000  1.622  2.810
-C(Location)[T.Hangzhou]                 -1.823    0.472 -3.859 0.000 -2.749 -0.897
+C(Location)[T.ZCH]                      -1.823    0.472 -3.859 0.000 -2.749 -0.897
 C(GestationCohort)[T.28-32 Weeks]        0.862    0.624  1.380 0.168 -0.362  2.085
 C(GestationCohort)[T.33-36 Weeks]       -0.851    0.781 -1.089 0.276 -2.382  0.680
 C(SampleCollectionWeek)[T.Week.3]        0.922    0.260  3.549 0.000  0.413  1.432

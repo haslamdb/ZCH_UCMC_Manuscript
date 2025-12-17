@@ -1,14 +1,61 @@
+# R project files
 .Rproj.user/
 .Rhistory
 .RData
 .Ruserdata
 *.Rproj
+
+# Raw data (should not be committed)
 data/raw/*
 credentials.txt
-results/variance_analysis/variance_analysis_results.pkl
-dbRDA.RData
-nicu_resistome_analysis/data/nicu_fq_protein_matches.csv
 
-# DIAMOND traditional analysis - exclude large data files
-nicu_resistome_analysis/diamond_traditional/data/diamond_amr_combined.tsv
-nicu_resistome_analysis/diamond_traditional/results/**/*.tsv
+# Large data files
+*.tsv
+*.pkl
+dbRDA.RData
+
+# Image files (generated outputs)
+*.pdf
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Results directories (generated outputs)
+results/figures/*
+results/tables/*
+results/models/*
+results/resistome/*
+!results/*/.gitkeep
+
+# Old directories (to be cleaned up)
+python_scripts/results_revision/
+python_scripts/revision_figures_2/
+python_scripts/results/
+python_scripts/revision_figures/
+revision_figures/
+results-LMM/
+
+# Legacy resistome analysis outputs
+nicu_resistome_analysis/diamond_traditional/data/
+nicu_resistome_analysis/diamond_traditional/results/
+nicu_resistome_analysis/diamond_traditional/diamond_ARG_figures/
+nicu_resistome_analysis/diamond_traditional/diamond_ARG_results/
+nicu_resistome_analysis/figures/
+nicu_resistome_analysis/results/
+
+# OS files
+.DS_Store
+Thumbs.db

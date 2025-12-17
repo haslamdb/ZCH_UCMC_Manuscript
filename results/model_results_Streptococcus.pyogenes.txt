@@ -4,7 +4,7 @@ Model:                    MixedLM       Dependent Variable:       MicrobeAbundan
 No. Observations:         536           Method:                   REML            
 No. Groups:               68            Scale:                    5.2214          
 Min. group size:          3             Log-Likelihood:           -1201.3983      
-Max. group size:          12            Converged:                Yes             
+Max. group size:          12            Converged:                No              
 Mean group size:          7.9                                                     
 ----------------------------------------------------------------------------------
                                         Coef.  Std.Err.   z    P>|z| [0.025 0.975]
@@ -12,7 +12,7 @@ Mean group size:          7.9
 Intercept                               -0.590    1.098 -0.538 0.591 -2.742  1.562
 C(SampleType)[T.Groin]                  -0.779    0.252 -3.087 0.002 -1.274 -0.284
 C(SampleType)[T.Stool]                   0.459    0.235  1.952 0.051 -0.002  0.920
-C(Location)[T.Hangzhou]                 -0.001    0.383 -0.003 0.998 -0.753  0.750
+C(Location)[T.ZCH]                      -0.001    0.383 -0.003 0.998 -0.753  0.750
 C(GestationCohort)[T.28-32 Weeks]       -0.244    0.499 -0.490 0.624 -1.222  0.733
 C(GestationCohort)[T.33-36 Weeks]       -0.219    0.630 -0.348 0.728 -1.454  1.016
 C(SampleCollectionWeek)[T.Week.3]        0.278    0.202  1.375 0.169 -0.118  0.675
