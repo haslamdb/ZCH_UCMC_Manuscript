@@ -1,0 +1,90 @@
+Variable,Coefficient,Std_Error,P-value,Significant,Type,Var1,Var2,PC
+C(Location)[T.Hangzhou]:C(MaternalAntibiotics)[T.None.Mat.Abx],0.4620936160493816,0.13002292002024957,0.00042324569426822634,True,Interaction,Location,MaternalAntibiotics,PC1
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(PICC)[T.peripheral_UE],-1.0062318418101583,0.31165719674439357,0.0013428308101619505,True,Interaction,MaternalAntibiotics,PICC,PC1
+C(Location)[T.Hangzhou]:C(GestationCohort)[T.28-32 Weeks],-0.7480480334618256,0.25658078174675536,0.003744740819189677,True,Interaction,Location,GestationCohort,PC1
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(Delivery)[T.Vaginal],-0.39314005931137685,0.1354614222122888,0.003903116499302745,True,Interaction,MaternalAntibiotics,Delivery,PC1
+C(GestationCohort)[T.28-32 Weeks]:C(AnyMilk)[T.No.Milk],0.8101924013776183,0.28258750850691955,0.00435477364753053,True,Interaction,GestationCohort,AnyMilk,PC1
+C(GestationCohort)[T.33-36 Weeks]:C(AnyMilk)[T.No.Milk],0.242001184523823,0.08899958492489395,0.006820758705106391,True,Interaction,GestationCohort,AnyMilk,PC1
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(PICC)[T.PICC_LE],-0.6180638909143775,0.23046072621246588,0.007614252398048035,True,Interaction,MaternalAntibiotics,PICC,PC1
+C(SampleCollectionWeek)[T.Week.3]:C(PICC)[T.axillary],-0.3340268792505043,0.13206927531403378,0.011803284634399494,True,Interaction,SampleCollectionWeek,PICC,PC1
+C(AnyMilk)[T.Mother]:C(PICC)[T.PICC_Neck],-0.333552272007554,0.14432984665729004,0.021321051894032987,True,Interaction,AnyMilk,PICC,PC1
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(PICC)[T.PICC_Neck],-0.333552272007554,0.14432984665729004,0.021321051894032987,True,Interaction,MaternalAntibiotics,PICC,PC1
+C(Location)[T.Hangzhou]:C(PICC)[T.PICC_Neck],-0.3335522720075584,0.14432984665729262,0.0213210518940336,True,Interaction,Location,PICC,PC1
+C(Location)[T.Hangzhou]:C(PICC)[T.peripheral_UE],-0.263468632323273,0.11439994200570097,0.02177106195430605,True,Interaction,Location,PICC,PC1
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(PICC)[T.PICC_UE],-0.45875727341611183,0.20274046121920603,0.024166563045793045,True,Interaction,MaternalAntibiotics,PICC,PC1
+C(PICC)[T.PICC_UE]:C(Delivery)[T.Vaginal],1.0257525426529064,0.4715582342639976,0.030177320644006383,True,Interaction,PICC,Delivery,PC1
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(PICC)[T.PICC_Neck],-0.5059193954366331,0.2430815357953016,0.03802279472016196,True,Interaction,PostNatalAbxCohort,PICC,PC1
+C(GestationCohort)[T.33-36 Weeks]:C(PICC)[T.PICC_Neck],-0.5059193954366332,0.24308153579530165,0.03802279472016196,True,Interaction,GestationCohort,PICC,PC1
+C(GestationCohort)[T.33-36 Weeks]:C(UVC)[T.UVC],-0.5284360588201445,0.26643900241838875,0.04799102189080116,True,Interaction,GestationCohort,UVC,PC1
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(Delivery)[T.Vaginal],0.5879378735800493,0.11292501360995415,3.0385633068273476e-07,True,Interaction,MaternalAntibiotics,Delivery,PC2
+C(PostNatalAbxCohort)[T.No.Infant.Abx]:C(PICC)[T.PICC_LE],-0.5139712046822754,0.13707269502840622,0.00020230214346681627,True,Interaction,PostNatalAbxCohort,PICC,PC2
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(PICC)[T.PICC_UE],0.6051158881192791,0.16901099197517713,0.00038386421355809534,True,Interaction,MaternalAntibiotics,PICC,PC2
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(PICC)[T.peripheral_UE],0.9250748469493997,0.2598074980258703,0.00041294085508544715,True,Interaction,MaternalAntibiotics,PICC,PC2
+C(SampleType)[T.Stool]:C(GestationCohort)[T.33-36 Weeks],0.34826679680403544,0.09785758317158887,0.00041554464501824433,True,Interaction,SampleType,GestationCohort,PC2
+C(PICC)[T.PICC_UE]:C(UVC)[T.UVC],-0.3152689156043712,0.09245588506163203,0.0007135640796312406,True,Interaction,PICC,UVC,PC2
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(Delivery)[T.Vaginal],0.3437295671902513,0.10637548623416854,0.001330811740737198,True,Interaction,PostNatalAbxCohort,Delivery,PC2
+C(SampleType)[T.Stool]:C(GestationCohort)[T.28-32 Weeks],0.2473143042522199,0.07655331745029241,0.001333858940724484,True,Interaction,SampleType,GestationCohort,PC2
+C(SampleType)[T.Stool]:C(SampleCollectionWeek)[T.Week.3],0.11329838558121529,0.0370611511460222,0.002380042774687063,True,Interaction,SampleType,SampleCollectionWeek,PC2
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(AnyMilk)[T.Mother],-0.3267714396164294,0.11171988100472427,0.0036349240586911126,True,Interaction,MaternalAntibiotics,AnyMilk,PC2
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(PICC)[T.PICC_LE],0.5071443269924288,0.19211949955255755,0.008610549846675315,True,Interaction,MaternalAntibiotics,PICC,PC2
+C(MaternalAntibiotics)[T.None.Mat.Abx]:C(UVC)[T.UVC],0.3840032000663398,0.1472988133269688,0.009464676279201693,True,Interaction,MaternalAntibiotics,UVC,PC2
+C(PICC)[T.PICC_LE]:C(UVC)[T.UVC],-0.6009863247181644,0.2323497198215673,0.010034247508796256,True,Interaction,PICC,UVC,PC2
+C(PostNatalAbxCohort)[T.No.Infant.Abx]:C(MaternalAntibiotics)[T.None.Mat.Abx],0.23738300997591955,0.09561781826151901,0.01343724497918014,True,Interaction,PostNatalAbxCohort,MaternalAntibiotics,PC2
+C(GestationCohort)[T.33-36 Weeks]:C(PICC)[T.axillary],-3.459589681721389e-16,1.4190978872742486e-16,0.015193531209679654,True,Interaction,GestationCohort,PICC,PC2
+C(PostNatalAbxCohort)[T.No.Infant.Abx]:C(UVC)[T.UVC],-0.2894367595107567,0.12569278271323528,0.021789074602083826,True,Interaction,PostNatalAbxCohort,UVC,PC2
+C(Location)[T.Hangzhou]:C(GestationCohort)[T.28-32 Weeks],-0.48857900400459064,0.2138940208777501,0.022864614933174095,True,Interaction,Location,GestationCohort,PC2
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(AnyMilk)[T.Mother],0.2788540667515226,0.12218318789929149,0.02298041393497656,True,Interaction,PostNatalAbxCohort,AnyMilk,PC2
+C(SampleType)[T.Groin]:C(PICC)[T.PICC_LE],0.15250870859320242,0.0718731232596961,0.03443814895405784,True,Interaction,SampleType,PICC,PC2
+C(GestationCohort)[T.33-36 Weeks]:C(MaternalAntibiotics)[T.None.Mat.Abx],-0.2114125570687207,0.10059472521210745,0.036189735362270985,True,Interaction,GestationCohort,MaternalAntibiotics,PC2
+C(PostNatalAbxCohort)[T.No.Infant.Abx]:C(PICC)[T.PICC_UE],0.4237741651273249,0.08014052333276944,2.0079071729327202e-07,True,Interaction,PostNatalAbxCohort,PICC,PC3
+C(SampleType)[T.Stool]:C(SampleCollectionWeek)[T.Week.3],0.14944465401176893,0.0294558604198968,5.908067512185281e-07,True,Interaction,SampleType,SampleCollectionWeek,PC3
+C(SampleType)[T.Groin]:C(SampleCollectionWeek)[T.Week.3],0.11025798192869463,0.031944930087806654,0.0006148261617172669,True,Interaction,SampleType,SampleCollectionWeek,PC3
+C(SampleCollectionWeek)[T.Week.3]:C(GestationCohort)[T.33-36 Weeks],-0.24219116097537235,0.07109062583410265,0.0007216056332416898,True,Interaction,SampleCollectionWeek,GestationCohort,PC3
+C(PostNatalAbxCohort)[T.No.Infant.Abx]:C(MaternalAntibiotics)[T.None.Mat.Abx],0.24813532297207702,0.07599615827552784,0.001185202958103552,True,Interaction,PostNatalAbxCohort,MaternalAntibiotics,PC3
+C(PostNatalAbxCohort)[T.No.Infant.Abx]:C(AnyMilk)[T.No.Milk],-0.44127564984691997,0.14273759905383504,0.002126000300496444,True,Interaction,PostNatalAbxCohort,AnyMilk,PC3
+C(Location)[T.Hangzhou]:C(SampleCollectionWeek)[T.Week.3],0.13047162800204992,0.043070332795968155,0.002605037285300928,True,Interaction,Location,SampleCollectionWeek,PC3
+C(SampleType)[T.Stool]:C(PostNatalAbxCohort)[T.No.Infant.Abx],-0.151332499871891,0.050086468255115646,0.0026719720256329744,True,Interaction,SampleType,PostNatalAbxCohort,PC3
+C(PostNatalAbxCohort)[T.No.Infant.Abx]:C(PICC)[T.PICC_LE],0.32754449276603803,0.10894411121304777,0.002803366503051686,True,Interaction,PostNatalAbxCohort,PICC,PC3
+C(SampleCollectionWeek)[T.Week.3]:C(PostNatalAbxCohort)[T.Low.Infant.Abx],0.1529280232646435,0.052247713474145197,0.00361139591164604,True,Interaction,SampleCollectionWeek,PostNatalAbxCohort,PC3
+C(SampleCollectionWeek)[T.Week.3]:C(PostNatalAbxCohort)[T.No.Infant.Abx],0.14348908142700317,0.04954670386992339,0.003979380039537675,True,Interaction,SampleCollectionWeek,PostNatalAbxCohort,PC3
+C(GestationCohort)[T.33-36 Weeks]:C(AnyMilk)[T.No.Milk],0.170352315150746,0.05896785229081534,0.0040689445351345,True,Interaction,GestationCohort,AnyMilk,PC3
+C(SampleType)[T.Stool]:C(UVC)[T.UVC],-0.14066485441518156,0.05024326079743169,0.0053547660365407075,True,Interaction,SampleType,UVC,PC3
+C(SampleType)[T.Groin]:C(UVC)[T.UVC],-0.14777468179749736,0.05579222273821132,0.008390157198268687,True,Interaction,SampleType,UVC,PC3
+C(SampleCollectionWeek)[T.Week.3]:C(PICC)[T.PICC_LE],-0.11491286029486061,0.044537665815557424,0.010219995249475911,True,Interaction,SampleCollectionWeek,PICC,PC3
+C(Location)[T.Hangzhou]:C(SampleType)[T.Stool],-0.12185728835046217,0.04787588579884303,0.011280979019959813,True,Interaction,Location,SampleType,PC3
+C(GestationCohort)[T.33-36 Weeks]:C(PICC)[T.axillary],2.7804426710047e-16,1.127885885816777e-16,0.014099260187526576,True,Interaction,GestationCohort,PICC,PC3
+C(SampleType)[T.Stool]:C(PICC)[T.PICC_UE],-0.1036526293331889,0.04375202052033955,0.018289780714667168,True,Interaction,SampleType,PICC,PC3
+C(SampleType)[T.Groin]:C(PICC)[T.PICC_UE],-0.1133992047971488,0.04893696487894974,0.020977113542660977,True,Interaction,SampleType,PICC,PC3
+C(SampleType)[T.Groin]:C(GestationCohort)[T.28-32 Weeks],-0.1622823962928316,0.07034300477332354,0.02154670171857997,True,Interaction,SampleType,GestationCohort,PC3
+C(SampleCollectionWeek)[T.Week.3]:C(UVC)[T.UVC],-0.113396648084103,0.05019628953307471,0.02439881611170286,True,Interaction,SampleCollectionWeek,UVC,PC3
+C(SampleType)[T.Stool]:C(PICC)[T.PICC_LE],-0.11659494658209793,0.05174078614608946,0.02475373507478384,True,Interaction,SampleType,PICC,PC3
+C(SampleCollectionWeek)[T.Week.3]:C(GestationCohort)[T.28-32 Weeks],-0.12447564938305777,0.05672579440791443,0.02876594217260748,True,Interaction,SampleCollectionWeek,GestationCohort,PC3
+C(Location)[T.Hangzhou]:C(MaternalAntibiotics)[T.None.Mat.Abx],0.18548440619733358,0.08614840562059745,0.031889415041579265,True,Interaction,Location,MaternalAntibiotics,PC3
+C(Location)[T.Hangzhou]:C(SampleType)[T.Groin],-0.12640387177692614,0.04282409138630244,0.0033400419236863724,True,Interaction,Location,SampleType,PC4
+C(Location)[T.Hangzhou]:C(SampleType)[T.Stool],-0.1092708467199626,0.037670664971996164,0.00392196936048529,True,Interaction,Location,SampleType,PC4
+C(SampleCollectionWeek)[T.Week.3]:C(PICC)[T.PICC_Neck],-0.20306623300615126,0.07531366135005879,0.007298029910619678,True,Interaction,SampleCollectionWeek,PICC,PC4
+C(SampleType)[T.Groin]:C(SampleCollectionWeek)[T.Week.3],0.06516016760368432,0.025135550785374407,0.00986957360802509,True,Interaction,SampleType,SampleCollectionWeek,PC4
+C(SampleType)[T.Groin]:C(PICC)[T.PICC_UE],-0.08772292397597341,0.03850556450165582,0.023224179419947626,True,Interaction,SampleType,PICC,PC4
+C(SampleType)[T.Stool]:C(PICC)[T.PICC_UE],-0.07512994577696777,0.03442584255870712,0.029643582464214436,True,Interaction,SampleType,PICC,PC4
+C(SampleType)[T.Stool]:C(SampleCollectionWeek)[T.Week.3],0.050132184128836146,0.023177051052424177,0.03111219190296633,True,Interaction,SampleType,SampleCollectionWeek,PC4
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(Delivery)[T.Vaginal],-0.14185923462588512,0.0665243792741821,0.03355857148651744,True,Interaction,PostNatalAbxCohort,Delivery,PC4
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(AnyMilk)[T.Mother],-0.39996214423691695,0.0736181233704366,9.47799905801595e-08,True,Interaction,PostNatalAbxCohort,AnyMilk,PC5
+C(SampleType)[T.Stool]:C(GestationCohort)[T.33-36 Weeks],0.21409521195064396,0.05896139849122863,0.0003175855522286149,True,Interaction,SampleType,GestationCohort,PC5
+C(SampleCollectionWeek)[T.Week.3]:C(PICC)[T.PICC_Neck],0.2385142375259358,0.07256175510672938,0.0010987611858852945,True,Interaction,SampleCollectionWeek,PICC,PC5
+C(SampleCollectionWeek)[T.Week.3]:C(PICC)[T.peripheral_UE],0.22091592467180765,0.0678084416770854,0.0012147483502234029,True,Interaction,SampleCollectionWeek,PICC,PC5
+C(SampleType)[T.Stool]:C(AnyMilk)[T.Mother],-0.13645473054771168,0.04324784247294825,0.0017210856987602274,True,Interaction,SampleType,AnyMilk,PC5
+C(GestationCohort)[T.28-32 Weeks]:C(MaternalAntibiotics)[T.None.Mat.Abx],0.17513565676099774,0.061154808988353807,0.004398691360424173,True,Interaction,GestationCohort,MaternalAntibiotics,PC5
+C(Location)[T.Hangzhou]:C(SampleCollectionWeek)[T.Week.3],-0.08892193842801917,0.032651167079238166,0.006734866429181538,True,Interaction,Location,SampleCollectionWeek,PC5
+C(SampleType)[T.Stool]:C(MaternalAntibiotics)[T.None.Mat.Abx],-0.07904755405345834,0.029725232798109968,0.008134730341164171,True,Interaction,SampleType,MaternalAntibiotics,PC5
+C(Location)[T.Hangzhou]:C(GestationCohort)[T.28-32 Weeks],0.3268308913216319,0.12887596639036672,0.011579014636696184,True,Interaction,Location,GestationCohort,PC5
+C(GestationCohort)[T.33-36 Weeks]:C(Delivery)[T.Vaginal],-0.43682375632794573,0.17282603040547725,0.011857852849931119,True,Interaction,GestationCohort,Delivery,PC5
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(Delivery)[T.Vaginal],-0.15971939771529897,0.06409362698599723,0.013093958006613764,True,Interaction,PostNatalAbxCohort,Delivery,PC5
+C(Location)[T.Hangzhou]:C(Delivery)[T.Vaginal],-0.26727032498888226,0.11501614735094438,0.02062155361421504,True,Interaction,Location,Delivery,PC5
+C(AnyMilk)[T.Mother]:C(PICC)[T.PICC_UE],0.1338704025690613,0.05888046676608857,0.023501647327820844,True,Interaction,AnyMilk,PICC,PC5
+C(SampleType)[T.Stool]:C(AnyMilk)[T.No.Milk],-0.1310605043148967,0.058659426815686734,0.025998996174726948,True,Interaction,SampleType,AnyMilk,PC5
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(PICC)[T.PICC_UE],0.13825593584300955,0.06497956325447879,0.03395368514528083,True,Interaction,PostNatalAbxCohort,PICC,PC5
+C(SampleCollectionWeek)[T.Week.3]:C(MaternalAntibiotics)[T.None.Mat.Abx],-0.05698105203293197,0.026922606677375234,0.03490048036921341,True,Interaction,SampleCollectionWeek,MaternalAntibiotics,PC5
+C(AnyMilk)[T.Mother]:C(PICC)[T.peripheral_UE],-0.3269429463862265,0.1605303294519425,0.04232162529461147,True,Interaction,AnyMilk,PICC,PC5
+C(PostNatalAbxCohort)[T.Low.Infant.Abx]:C(MaternalAntibiotics)[T.None.Mat.Abx],-0.2143803202085296,0.10693705852237642,0.045642182306296054,True,Interaction,PostNatalAbxCohort,MaternalAntibiotics,PC5
+C(SampleType)[T.Stool]:C(SampleCollectionWeek)[T.Week.3],0.04451671599160779,0.02233017851496148,0.04685505895866871,True,Interaction,SampleType,SampleCollectionWeek,PC5
+C(GestationCohort)[T.28-32 Weeks]:C(AnyMilk)[T.No.Milk],-0.27903119657819186,0.1419386830172668,0.049982985000608875,True,Interaction,GestationCohort,AnyMilk,PC5

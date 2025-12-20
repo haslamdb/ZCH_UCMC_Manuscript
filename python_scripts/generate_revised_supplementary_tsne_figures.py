@@ -15,10 +15,17 @@ import microbiome_transform as mt
 # Set style
 plt.style.use('seaborn-v0_8-whitegrid')
 
+# Use TrueType fonts (Type 42) for PDF compatibility
+plt.rcParams['pdf.fonttype'] = 42
+plt.rcParams['ps.fonttype'] = 42
+
 # Load microbiome data
 print("Loading data...")
 microbiome_df = pd.read_csv("../data/NICUSpeciesReduced.csv", index_col=0)
 metadata_df = pd.read_csv("../metadata/AllNICUSampleKey20250206.csv", index_col=0)
+
+# Remap Location names for manuscript consistency
+metadata_df['Location'] = metadata_df['Location'].replace({'Cincinnati': 'UCMC', 'Hangzhou': 'ZCH'})
 
 # Transform microbiome data
 microbiome_clr = mt.clr_transform(microbiome_df)
@@ -50,10 +57,10 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(18, 8))
 
 # Panel A: Colored by body site, shaped by location
 body_site_colors = {'Axilla': '#e41a1c', 'Groin': '#377eb8', 'Stool': '#4daf4a'}
-location_markers = {'Cincinnati': 'o', 'Hangzhou': '^'}
+location_markers = {'UCMC': 'o', 'ZCH': '^'}
 
 for site in ['Axilla', 'Groin', 'Stool']:
-    for loc in ['Cincinnati', 'Hangzhou']:
+    for loc in ['UCMC', 'ZCH']:
         mask = (tsne_plot_data['SampleType'] == site) & (tsne_plot_data['Location'] == loc)
         ax1.scatter(tsne_plot_data.loc[mask, 'tSNE1'],
                    tsne_plot_data.loc[mask, 'tSNE2'],
@@ -72,10 +79,10 @@ ax1.legend(bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=10, ncol=2)
 ax1.grid(alpha=0.3)
 
 # Panel B: Colored by location, shaped by body site
-location_colors = {'Cincinnati': '#E69F00', 'Hangzhou': '#56B4E9'}
+location_colors = {'UCMC': '#E69F00', 'ZCH': '#56B4E9'}
 body_site_markers = {'Axilla': 'o', 'Groin': 's', 'Stool': '^'}
 
-for loc in ['Cincinnati', 'Hangzhou']:
+for loc in ['UCMC', 'ZCH']:
     for site in ['Axilla', 'Groin', 'Stool']:
         mask = (tsne_plot_data['SampleType'] == site) & (tsne_plot_data['Location'] == loc)
         ax2.scatter(tsne_plot_data.loc[mask, 'tSNE1'],
@@ -133,8 +140,8 @@ with PdfPages('revision_figures/SuppFig3_tSNE_by_organism_by_site.pdf') as pdf:
         abundance_data = tsne_with_meta.copy()
         abundance_data['abundance'] = data.loc[abundance_data.index, organism]
 
-        # Cincinnati panel
-        cinci_data = abundance_data[abundance_data['Location'] == 'Cincinnati']
+        # UCMC panel
+        cinci_data = abundance_data[abundance_data['Location'] == 'UCMC']
         scatter1 = ax1.scatter(cinci_data['tSNE1'],
                               cinci_data['tSNE2'],
                               c=cinci_data['abundance'],
@@ -145,13 +152,13 @@ with PdfPages('revision_figures/SuppFig3_tSNE_by_organism_by_site.pdf') as pdf:
                               linewidths=0.5)
         ax1.set_xlabel('t-SNE Component 1', fontsize=12, fontweight='bold')
         ax1.set_ylabel('t-SNE Component 2', fontsize=12, fontweight='bold')
-        ax1.set_title(f'Cincinnati (n={len(cinci_data)})', fontsize=14, fontweight='bold')
+        ax1.set_title(f'UCMC (n={len(cinci_data)})', fontsize=14, fontweight='bold')
         ax1.grid(alpha=0.3)
         cbar1 = plt.colorbar(scatter1, ax=ax1)
         cbar1.set_label('Abundance (CLR)', fontsize=11)
 
-        # Hangzhou panel
-        hangz_data = abundance_data[abundance_data['Location'] == 'Hangzhou']
+        # ZCH panel
+        hangz_data = abundance_data[abundance_data['Location'] == 'ZCH']
         scatter2 = ax2.scatter(hangz_data['tSNE1'],
                               hangz_data['tSNE2'],
                               c=hangz_data['abundance'],
@@ -162,7 +169,7 @@ with PdfPages('revision_figures/SuppFig3_tSNE_by_organism_by_site.pdf') as pdf:
                               linewidths=0.5)
         ax2.set_xlabel('t-SNE Component 1', fontsize=12, fontweight='bold')
         ax2.set_ylabel('t-SNE Component 2', fontsize=12, fontweight='bold')
-        ax2.set_title(f'Hangzhou (n={len(hangz_data)})', fontsize=14, fontweight='bold')
+        ax2.set_title(f'ZCH (n={len(hangz_data)})', fontsize=14, fontweight='bold')
         ax2.grid(alpha=0.3)
         cbar2 = plt.colorbar(scatter2, ax=ax2)
         cbar2.set_label('Abundance (CLR)', fontsize=11)
@@ -192,5 +199,5 @@ print("  - SuppFig2_tSNE_revised_color_scheme.png")
 print("  - SuppFig3_tSNE_by_organism_by_site.pdf (multi-page, 8 organisms)")
 print("\nKey improvements:")
 print("  ✓ Supp Fig 2: Different colors for sites vs body sites")
-print("  ✓ Supp Fig 3: Separate panels for Cincinnati and Hangzhou")
+print("  ✓ Supp Fig 3: Separate panels for UCMC and ZCH")
 print("="*70)
