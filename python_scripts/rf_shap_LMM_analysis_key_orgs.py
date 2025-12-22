@@ -238,13 +238,18 @@ for target_microbe in key_organisms:
 
         # SHAP Feature Importance - New Line+Dot Plot (similar to PyCaret style)
         shap_values_mean = np.abs(shap_values.values).mean(axis=0)
-        
+
         # Use the same comparison labels as in the summary plot
         shap_importance = pd.DataFrame({
             "Feature": feature_names_comparison,
             "SHAP Importance": shap_values_mean
         }).sort_values(by="SHAP Importance", ascending=True)
-        
+
+        # Exclude "Low Infant Antibiotics" - keep only "No Infant Antibiotics"
+        exclude_abx_patterns = ['Low Infant Antibiotics', 'Low.Infant.Abx', 'Low Infant Abx']
+        for pattern in exclude_abx_patterns:
+            shap_importance = shap_importance[~shap_importance['Feature'].str.contains(pattern, case=False, na=False)]
+
         # Save this microbe's SHAP importance to the combined results
         shap_importance["Microbe"] = target_microbe
         all_shap_importance.append(shap_importance)
@@ -415,7 +420,7 @@ for target_microbe in key_organisms:
         if hasattr(result, 'params'):
             # Apply comparison labels to variable names
             variable_names = [create_comparison_label(name) for name in result.params.index.tolist()]
-            
+
             coef_df = pd.DataFrame({
                 "Variable": variable_names,
                 "Coefficient": result.params.values,
@@ -423,6 +428,12 @@ for target_microbe in key_organisms:
                 "Model_Type": model_type,
                 "Microbe": target_microbe
             })
+
+            # Exclude "Low Infant Antibiotics" - keep only "No Infant Antibiotics"
+            exclude_abx_patterns = ['Low Infant Antibiotics', 'Low.Infant.Abx', 'Low Infant Abx']
+            for pattern in exclude_abx_patterns:
+                coef_df = coef_df[~coef_df['Variable'].str.contains(pattern, case=False, na=False)]
+
             mixedlm_results.append(coef_df)
         else:
             print(f"⚠️ Could not extract coefficients: result has no params attribute")

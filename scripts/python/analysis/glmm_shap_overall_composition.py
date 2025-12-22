@@ -32,8 +32,8 @@ matplotlib.rcParams['ps.fonttype'] = 42
 matplotlib.rcParams['font.family'] = 'sans-serif'
 matplotlib.rcParams['font.sans-serif'] = ['Arial', 'DejaVu Sans', 'Helvetica', 'sans-serif']
 
-# Output directory - use absolute path
-OUTPUT_DIR = os.path.join(os.path.dirname(script_dir), '..', '..', 'results')
+# Output directory - use absolute path (updated results with absolute values and filtered antibiotics)
+OUTPUT_DIR = os.path.join(os.path.dirname(script_dir), '..', '..', 'results_updated')
 OUTPUT_DIR = os.path.abspath(OUTPUT_DIR)
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
@@ -130,7 +130,7 @@ def select_best_transformation(df):
 
 
 def create_combined_figure(glmm_coefs, shap_importance, pc_name, variance_explained, output_path,
-                           exclude_shap_features=None):
+                           exclude_shap_features=None, exclude_glmm_features=None):
     """
     Create a combined figure with GLMM coefficients on left and SHAP importance on right.
     Matches the style of bsi_pedictors_viz.py (Klebsiella_oxytoca_comparison.pdf style).
@@ -142,28 +142,40 @@ def create_combined_figure(glmm_coefs, shap_importance, pc_name, variance_explai
     - variance_explained: Proportion of variance explained by this PC
     - output_path: Path to save the figure
     - exclude_shap_features: List of feature names to exclude from SHAP plot (optional)
+    - exclude_glmm_features: List of feature names to exclude from GLMM plot (optional)
     """
-    import matplotlib.patches as mpatches
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
 
-    # --- Left panel: GLMM Coefficients (LMM Effect Size style) ---
+    # --- Left panel: GLMM Coefficients (Absolute Effect Size) ---
     # Filter to significant variables and exclude intercept/group variance
     glmm_plot = glmm_coefs[
         (glmm_coefs['Significant'] == True) &
         (~glmm_coefs['Variable'].str.contains('Intercept|Group Var', case=False, na=False))
     ].copy()
 
+    # Exclude specified GLMM features if provided (supports partial matching)
+    if exclude_glmm_features:
+        for pattern in exclude_glmm_features:
+            glmm_plot = glmm_plot[~glmm_plot['Variable'].str.contains(pattern, case=False, na=False)]
+
     if len(glmm_plot) == 0:
         # If no significant variables, show top 10 by absolute coefficient
         glmm_plot = glmm_coefs[
             ~glmm_coefs['Variable'].str.contains('Intercept|Group Var', case=False, na=False)
         ].copy()
+        # Re-apply exclusion filters
+        if exclude_glmm_features:
+            for pattern in exclude_glmm_features:
+                glmm_plot = glmm_plot[~glmm_plot['Variable'].str.contains(pattern, case=False, na=False)]
         glmm_plot['AbsCoef'] = glmm_plot['Coefficient'].abs()
         glmm_plot = glmm_plot.nlargest(10, 'AbsCoef')
 
-    # Sort by coefficient value
-    glmm_plot = glmm_plot.sort_values('Coefficient', ascending=True)
+    # Convert to absolute values for ranking without directionality
+    glmm_plot['AbsCoefficient'] = glmm_plot['Coefficient'].abs()
+
+    # Sort by absolute coefficient value (ascending so largest at top in horizontal bar)
+    glmm_plot = glmm_plot.sort_values('AbsCoefficient', ascending=True)
 
     # Limit to top 10 for readability (matching bsi_pedictors_viz style)
     if len(glmm_plot) > 10:
@@ -174,19 +186,15 @@ def create_combined_figure(glmm_coefs, shap_importance, pc_name, variance_explai
 
     y_pos = np.arange(len(glmm_plot))
 
-    # Color based on positive/negative coefficients (salmon for positive, steelblue for negative)
-    colors = ['salmon' if x > 0 else 'steelblue' for x in glmm_plot['Coefficient'].values]
-
-    # Create horizontal bars
-    bars = ax1.barh(y_pos, glmm_plot['Coefficient'].values,
-                    color=colors, alpha=0.7, edgecolor='darkgray', linewidth=1)
+    # Use single color (steelblue) since we're showing absolute effect sizes
+    bars = ax1.barh(y_pos, glmm_plot['AbsCoefficient'].values,
+                    color='steelblue', alpha=0.7, edgecolor='darkgray', linewidth=1)
 
     # Add coefficient values and significance stars
-    for i, (coef, pval) in enumerate(zip(glmm_plot['Coefficient'].values, glmm_plot['P-value'].values)):
+    for i, (coef, pval) in enumerate(zip(glmm_plot['AbsCoefficient'].values, glmm_plot['P-value'].values)):
         # Add value labels with larger font
-        offset = 0.15 if coef > 0 else -0.15
-        ax1.text(coef + offset, i, f'{coef:.2f}', va='center',
-                ha='left' if coef > 0 else 'right', fontsize=12, fontweight='bold')
+        ax1.text(coef + 0.15, i, f'{coef:.2f}', va='center',
+                ha='left', fontsize=12, fontweight='bold')
 
         # Add significance stars
         if pval < 0.001:
@@ -200,23 +208,17 @@ def create_combined_figure(glmm_coefs, shap_importance, pc_name, variance_explai
 
         if sig_marker:
             # Position stars further away to avoid overlap with larger labels
-            star_offset = 0.7 if coef > 0 else -0.7
-            ax1.text(coef + star_offset, i, sig_marker,
-                    va='center', ha='left' if coef > 0 else 'right',
+            ax1.text(coef + 0.7, i, sig_marker,
+                    va='center', ha='left',
                     fontsize=13, fontweight='bold')
 
     ax1.set_yticks(y_pos)
     ax1.set_yticklabels(glmm_plot['Label'].values, fontsize=13)
-    ax1.set_xlabel('LMM Effect Size (log odds ratio)', fontsize=14)
+    ax1.set_xlabel('LMM Absolute Effect Size', fontsize=14)
     ax1.set_title(f'Linear Mixed Model\n{pc_name} ({variance_explained:.1%} variance)',
                   fontsize=16, fontweight='bold')
-    ax1.axvline(x=0, color='black', linestyle='-', linewidth=0.5)
     ax1.grid(True, alpha=0.3, linestyle='--')
-
-    # Add legend for LMM plot
-    pos_patch = mpatches.Patch(color='salmon', alpha=0.7, label='Positive effect')
-    neg_patch = mpatches.Patch(color='steelblue', alpha=0.7, label='Negative effect')
-    ax1.legend(handles=[pos_patch, neg_patch], loc='best', fontsize=12)
+    ax1.set_xlim(0, glmm_plot['AbsCoefficient'].max() * 1.15)
 
     # --- Right panel: SHAP Feature Importance (Mean |SHAP Value| style) ---
     shap_plot = shap_importance.copy()
@@ -449,14 +451,16 @@ def main():
 
         # --- Create Combined Figure ---
         if glmm_coefs is not None:
-            exclude_features = None
+            # Exclude "Low Infant Antibiotics" - keep only "No Infant Antibiotics"
+            exclude_abx_patterns = ['Low.Infant.Abx', 'Low Infant Abx', 'Low Infant Antibiotics']
             create_combined_figure(
                 glmm_coefs=glmm_coefs,
                 shap_importance=shap_importance,
                 pc_name=pc_name,
                 variance_explained=variance_explained,
                 output_path=os.path.join(OUTPUT_DIR, f"combined_glmm_shap_{pc_name}_overall_composition.pdf"),
-                exclude_shap_features=exclude_features
+                exclude_shap_features=exclude_abx_patterns,
+                exclude_glmm_features=exclude_abx_patterns
             )
 
     # Save combined results
@@ -487,12 +491,17 @@ def main():
 
 
 def create_summary_heatmap(glmm_results, shap_results, variance_explained):
-    """Create a summary heatmap showing significant associations across all PCs"""
+    """Create a summary heatmap showing significant associations across all PCs (using absolute effect sizes)"""
     if not glmm_results:
         return
 
     # Combine all GLMM results
     combined_glmm = pd.concat(glmm_results, ignore_index=True)
+
+    # Exclude "Low Infant Antibiotics" patterns
+    exclude_patterns = ['Low.Infant.Abx', 'Low Infant Abx', 'Low Infant Antibiotics']
+    for pattern in exclude_patterns:
+        combined_glmm = combined_glmm[~combined_glmm['Variable'].str.contains(pattern, case=False, na=False)]
 
     # Filter to significant variables (excluding intercept and group variance)
     sig_vars = combined_glmm[
@@ -504,14 +513,15 @@ def create_summary_heatmap(glmm_results, shap_results, variance_explained):
         print("No significant variables found for heatmap")
         return
 
-    # Create coefficient matrix
+    # Create coefficient matrix (using absolute values)
     pcs = combined_glmm['PC'].unique()
     coef_matrix = pd.DataFrame(index=sig_vars, columns=pcs)
     pval_matrix = pd.DataFrame(index=sig_vars, columns=pcs)
 
     for _, row in combined_glmm.iterrows():
         if row['Variable'] in sig_vars:
-            coef_matrix.loc[row['Variable'], row['PC']] = row['Coefficient']
+            # Use absolute value of coefficient
+            coef_matrix.loc[row['Variable'], row['PC']] = abs(row['Coefficient'])
             pval_matrix.loc[row['Variable'], row['PC']] = row['P-value']
 
     coef_matrix = coef_matrix.astype(float)
@@ -522,13 +532,13 @@ def create_summary_heatmap(glmm_results, shap_results, variance_explained):
     # Create figure
     fig, ax = plt.subplots(figsize=(12, max(8, len(sig_vars) * 0.4)))
 
-    # Create heatmap
+    # Create heatmap with single-color scale (Blues) since we're using absolute values
     sns.heatmap(coef_matrix.values,
                 xticklabels=[f"{pc}\n({var:.1%})" for pc, var in zip(pcs, variance_explained)],
                 yticklabels=readable_labels,
-                cmap='RdBu_r', center=0,
+                cmap='Blues',
                 annot=True, fmt='.2f',
-                cbar_kws={'label': 'GLMM Coefficient'},
+                cbar_kws={'label': 'GLMM Absolute Effect Size'},
                 ax=ax)
 
     # Add significance markers
@@ -538,9 +548,9 @@ def create_summary_heatmap(glmm_results, shap_results, variance_explained):
             if pd.notna(pval) and pval < 0.05:
                 marker = '***' if pval < 0.001 else ('**' if pval < 0.01 else '*')
                 ax.text(j + 0.5, i + 0.75, marker, ha='center', va='center',
-                       fontsize=8, fontweight='bold')
+                       fontsize=8, fontweight='bold', color='white')
 
-    ax.set_title('GLMM Coefficients for Overall Microbiome Composition\n(Significant Variables Across PCs)',
+    ax.set_title('GLMM Absolute Effect Sizes for Overall Microbiome Composition\n(Significant Variables Across PCs)',
                 fontsize=14, fontweight='bold')
     ax.set_xlabel('Principal Components (% Variance Explained)', fontsize=12)
     ax.set_ylabel('Clinical Variables', fontsize=12)

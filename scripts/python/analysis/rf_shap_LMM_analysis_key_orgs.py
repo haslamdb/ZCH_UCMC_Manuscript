@@ -1,6 +1,14 @@
 # microbiome_shap_analysis.py
 # Random Forest + SHAP + Mixed Effects Model with subject-level random effects
 
+import sys
+import os
+
+# Add utils directory to path for microbiome_transform module
+script_dir = os.path.dirname(os.path.abspath(__file__))
+utils_dir = os.path.join(script_dir, '..', 'utils')
+sys.path.insert(0, utils_dir)
+
 import pandas as pd
 import numpy as np
 import shap
@@ -124,15 +132,20 @@ def select_best_transformation(df):
         print("✅ Data appears normalized, applying Total Sum Scaling (TSS).")
         return mt.tss_transform(df)
 
+# Define base directory and output directory
+base_dir = os.path.abspath(os.path.join(script_dir, '..', '..', '..'))
+OUTPUT_DIR = os.path.join(base_dir, 'results_updated')
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
 # Load microbiome count data
-microbiome_df = pd.read_csv("../data/NICUSpeciesReduced.csv", index_col=0)
+microbiome_df = pd.read_csv(os.path.join(base_dir, "data", "NICUSpeciesReduced.csv"), index_col=0)
 
 # Auto-select and apply transformation
 microbiome_transformed = select_best_transformation(microbiome_df)
-microbiome_transformed.to_csv("microbiome_abundance_transformed.csv")
+microbiome_transformed.to_csv(os.path.join(OUTPUT_DIR, "microbiome_abundance_transformed.csv"))
 
 # Load clinical metadata
-metadata_df = pd.read_csv("../metadata/AllNICUSampleKey20250206.csv", index_col=0)
+metadata_df = pd.read_csv(os.path.join(base_dir, "metadata", "AllNICUSampleKey20250206.csv"), index_col=0)
 subject_id_col = "Subject"
 
 # Replace location names
@@ -221,7 +234,7 @@ for target_microbe in key_organisms:
             shap.summary_plot(shap_values, X_test, feature_names=feature_names_comparison, show=False)
             plt.title(f"SHAP Summary: {target_microbe}")
             plt.tight_layout()
-            plt.savefig(f"../results/shap_summary_{target_microbe}.pdf", bbox_inches="tight")
+            plt.savefig(os.path.join(OUTPUT_DIR, f"shap_summary_{target_microbe}.pdf"), bbox_inches="tight")
             plt.close()
         except Exception as e:
             print(f"⚠️ Error creating SHAP summary plot: {e}")
@@ -231,20 +244,25 @@ for target_microbe in key_organisms:
                 shap.plots.beeswarm(shap_values, max_display=20, show=False)
                 plt.title(f"SHAP Summary: {target_microbe}")
                 plt.tight_layout()
-                plt.savefig(f"../results/shap_summary_{target_microbe}_alternative.pdf", bbox_inches="tight")
+                plt.savefig(os.path.join(OUTPUT_DIR, f"shap_summary_{target_microbe}_alternative.pdf"), bbox_inches="tight")
                 plt.close()
             except Exception as e2:
                 print(f"⚠️ Error creating alternative SHAP plot: {e2}")
 
         # SHAP Feature Importance - New Line+Dot Plot (similar to PyCaret style)
         shap_values_mean = np.abs(shap_values.values).mean(axis=0)
-        
+
         # Use the same comparison labels as in the summary plot
         shap_importance = pd.DataFrame({
             "Feature": feature_names_comparison,
             "SHAP Importance": shap_values_mean
         }).sort_values(by="SHAP Importance", ascending=True)
-        
+
+        # Exclude "Low Infant Antibiotics" - keep only "No Infant Antibiotics"
+        exclude_abx_patterns = ['Low Infant Antibiotics', 'Low.Infant.Abx', 'Low Infant Abx']
+        for pattern in exclude_abx_patterns:
+            shap_importance = shap_importance[~shap_importance['Feature'].str.contains(pattern, case=False, na=False)]
+
         # Save this microbe's SHAP importance to the combined results
         shap_importance["Microbe"] = target_microbe
         all_shap_importance.append(shap_importance)
@@ -279,7 +297,7 @@ for target_microbe in key_organisms:
             plt.text(importance + 0.001, i, f"{importance:.4f}", va='center')
             
         plt.tight_layout()
-        plt.savefig(f"../results/shap_feature_importance_{target_microbe}.pdf", bbox_inches="tight")
+        plt.savefig(os.path.join(OUTPUT_DIR, f"shap_feature_importance_{target_microbe}.pdf"), bbox_inches="tight")
         plt.close()
 
     except Exception as e:
@@ -289,7 +307,7 @@ for target_microbe in key_organisms:
 # Save all feature importance results as a CSV
 if all_shap_importance:
     combined_shap_importance = pd.concat(all_shap_importance)
-    combined_shap_importance.to_csv("shap_feature_importance_all_microbes.csv", index=False)
+    combined_shap_importance.to_csv(os.path.join(OUTPUT_DIR, "shap_feature_importance_all_microbes.csv"), index=False)
 else:
     print("⚠️ No SHAP results to save.")
 
@@ -415,7 +433,7 @@ for target_microbe in key_organisms:
         if hasattr(result, 'params'):
             # Apply comparison labels to variable names
             variable_names = [create_comparison_label(name) for name in result.params.index.tolist()]
-            
+
             coef_df = pd.DataFrame({
                 "Variable": variable_names,
                 "Coefficient": result.params.values,
@@ -423,12 +441,18 @@ for target_microbe in key_organisms:
                 "Model_Type": model_type,
                 "Microbe": target_microbe
             })
+
+            # Exclude "Low Infant Antibiotics" - keep only "No Infant Antibiotics"
+            exclude_abx_patterns = ['Low Infant Antibiotics', 'Low.Infant.Abx', 'Low Infant Abx']
+            for pattern in exclude_abx_patterns:
+                coef_df = coef_df[~coef_df['Variable'].str.contains(pattern, case=False, na=False)]
+
             mixedlm_results.append(coef_df)
         else:
             print(f"⚠️ Could not extract coefficients: result has no params attribute")
 
         # Save individual model results
-        with open(f"../results/model_results_{target_microbe}.txt", "w") as f:
+        with open(os.path.join(OUTPUT_DIR, f"model_results_{target_microbe}.txt"), "w") as f:
             f.write(str(result_summary))
             f.write(f"\nModel type: {model_type}")
 
@@ -441,12 +465,12 @@ for target_microbe in key_organisms:
 if mixedlm_results:
     try:
         combined_results = pd.concat(mixedlm_results, ignore_index=True)
-        combined_results.to_csv("../results/model_summary_all_microbes.csv", index=False)
+        combined_results.to_csv(os.path.join(OUTPUT_DIR, "model_summary_all_microbes.csv"), index=False)
         print(f"✅ Saved results for {len(mixedlm_results)} microbes")
     except Exception as e:
         print(f"❌ Failed to save combined results: {str(e)}")
         # Try to save individual dataframes
         for i, df in enumerate(mixedlm_results):
-            df.to_csv(f"../results/model_results_part_{i}.csv", index=False)
+            df.to_csv(os.path.join(OUTPUT_DIR, f"model_results_part_{i}.csv"), index=False)
 else:
     print("⚠️ No mixed model results to save.")
