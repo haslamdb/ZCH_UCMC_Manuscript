@@ -1,0 +1,2 @@
+SampleName,FilePath,R1 file,R2 file
+N01_1_2,/bulkpool/sequence_data/mss_data,N01_1_2_R1.fastq.gz,N01_1_2_R2.fastq.gz

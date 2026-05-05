@@ -1,0 +1,23 @@
+# Pipeline runtime outputs (large; not for version control)
+radar_runs/
+logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# Large binary / sequencing artifacts (precaution)
+*.fastq
+*.fastq.gz
+*.bam
+*.sam
+*.h5
+*.hdf5
+*.dmnd
+
+# Editor / OS
+.DS_Store
+*.swp
+*~
