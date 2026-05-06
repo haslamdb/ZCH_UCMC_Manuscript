@@ -111,12 +111,16 @@ def identify_complete_subjects(metadata):
         (metadata['SampleType'].isin(['Axilla', 'Groin', 'Stool']))
     ].copy()
 
-    # Count samples per subject
-    subject_counts = valid_samples.groupby('PatientID').agg({
+    # Count samples per subject. Group by SubjectID, NOT PatientID — UCMC and
+    # ZCH share PatientIDs (e.g. both have N10..N59), so PatientID alone
+    # collapses different children together. SubjectID is already disambiguated
+    # (ZJH_NX for ZCH, NXX for UCMC).
+    subject_counts = valid_samples.groupby('SubjectID').agg({
         'Sample': 'count',
         'SampleType': lambda x: x.nunique(),
         'SampleCollectionWeek': lambda x: x.nunique(),
-        'Location': 'first'
+        'Location': 'first',
+        'PatientID': 'first',
     }).rename(columns={
         'Sample': 'n_samples',
         'SampleType': 'n_body_sites',
@@ -141,10 +145,11 @@ def identify_complete_subjects(metadata):
     print(f"\nDistribution of samples per subject:")
     print(subject_counts['n_samples'].value_counts().sort_index())
 
-    # Save complete subjects list
+    # Save complete subjects list (SubjectID is the canonical key)
     complete_subjects_df = pd.DataFrame({
-        'PatientID': complete_subjects,
-        'Location': subject_counts.loc[complete_subjects, 'Location']
+        'SubjectID': complete_subjects,
+        'PatientID': subject_counts.loc[complete_subjects, 'PatientID'].values,
+        'Location':  subject_counts.loc[complete_subjects, 'Location'].values,
     })
     output_path = RESULTS_DIR / "complete_subjects.tsv"
     complete_subjects_df.to_csv(output_path, sep="\t", index=False)
@@ -153,8 +158,8 @@ def identify_complete_subjects(metadata):
     # Save subject completeness summary
     subject_counts.to_csv(RESULTS_DIR / "subject_completeness.tsv", sep="\t")
 
-    # Mark complete subjects in metadata
-    metadata['subject_is_complete'] = metadata['PatientID'].isin(complete_subjects)
+    # Mark complete subjects in metadata (using SubjectID, the disambiguated key)
+    metadata['subject_is_complete'] = metadata['SubjectID'].isin(complete_subjects)
 
     return metadata, complete_subjects
 
@@ -282,7 +287,9 @@ def main():
     print(f"Complete subjects: {len(complete_subjects)}")
     print(f"  - Total samples from complete subjects: {metadata[metadata['subject_is_complete']].shape[0]}")
     print(f"Genes passing QC filters: {len(genes_passing_qc)}")
-    print(f"\nRecommendation: Use complete subjects for paired/longitudinal analysis")
+    print(f"\nNote: 'subject_is_complete' = all 6 samples present. Paired/longitudinal")
+    print(f"      tests do NOT need this — they require only both timepoints for the")
+    print(f"      site being tested, paired per-site via SubjectID intersection.")
     print(f"                All samples can be used for cross-sectional comparisons")
 
 if __name__ == "__main__":

@@ -244,7 +244,9 @@ def figure3_longitudinal_trajectories(metadata):
     """Figure 3: Longitudinal trajectories Week 1→3"""
     print("\nCreating Figure 3: Longitudinal trajectories...")
 
-    complete = metadata[metadata['subject_complete']].copy()
+    # Use all samples; the per-site Week.1/Week.3 trajectory below already
+    # filters to subjects with both timepoints (via len(subj_data) == 2).
+    complete = metadata.copy()
 
     fig, axes = plt.subplots(1, 3, figsize=(15, 5))
 

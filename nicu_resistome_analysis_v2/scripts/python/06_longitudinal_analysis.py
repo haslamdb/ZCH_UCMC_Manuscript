@@ -62,7 +62,9 @@ def test_total_amr_change(metadata):
     print("="*60)
 
     # Filter to complete subjects only (paired data)
-    complete = metadata[metadata['subject_complete']].copy()
+    # Use all samples; the per-site Week.1/Week.3 pairing below already
+    # selects only subjects with both timepoints for that site.
+    complete = metadata.copy()
 
     results = []
 
@@ -127,7 +129,9 @@ def test_gene_level_changes(amr_matrix, metadata):
     print("="*60)
 
     # Filter to complete subjects
-    complete = metadata[metadata['subject_complete']].copy()
+    # Use all samples; the per-site Week.1/Week.3 pairing below already
+    # selects only subjects with both timepoints for that site.
+    complete = metadata.copy()
 
     all_results = {}
 
@@ -218,7 +222,9 @@ def plot_longitudinal_trajectories(metadata):
     """Plot AMR burden trajectories for complete subjects"""
     print("\nCreating trajectory plots...")
 
-    complete = metadata[metadata['subject_complete']].copy()
+    # Use all samples; the per-site Week.1/Week.3 pairing below already
+    # selects only subjects with both timepoints for that site.
+    complete = metadata.copy()
 
     # Figure: Trajectories by body site
     fig, axes = plt.subplots(1, 3, figsize=(20, 6))
@@ -268,7 +274,9 @@ def plot_paired_boxplots(metadata):
     """Boxplots showing Week 1 vs Week 3 for complete subjects"""
     print("\nCreating paired boxplots...")
 
-    complete = metadata[metadata['subject_complete']].copy()
+    # Use all samples; the per-site Week.1/Week.3 pairing below already
+    # selects only subjects with both timepoints for that site.
+    complete = metadata.copy()
 
     fig, axes = plt.subplots(2, 3, figsize=(18, 12))
 

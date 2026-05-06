@@ -75,9 +75,20 @@ def create_amr_matrix(metadata, amr_data, genes_passing_qc):
         fill_value=0
     )
 
+    # pivot_table only creates rows for sample_names that appear in the AMR
+    # long-format data. Samples that were sequenced but had no QC-passing
+    # gene_family rows (e.g. low-AMR samples) would be silently dropped from
+    # the matrix — and therefore from PCA, the heatmaps, and the differential
+    # abundance test. That's selection bias. Reindex against the full
+    # has_amr_data set so those samples are present as all-zero rows.
+    all_amr_samples = metadata[metadata['has_amr_data']]['sample_name'].unique()
+    amr_matrix = amr_matrix.reindex(all_amr_samples, fill_value=0)
+
     print(f"AMR matrix shape: {amr_matrix.shape}")
     print(f"  Samples: {amr_matrix.shape[0]}")
     print(f"  Genes: {amr_matrix.shape[1]}")
+    n_zero = (amr_matrix.sum(axis=1) == 0).sum()
+    print(f"  Samples with no QC-passing genes (kept as zero rows): {n_zero}")
 
     # Save matrix
     amr_matrix.to_csv(RESULTS_DIR / "amr_rpm_matrix.tsv", sep="\t")

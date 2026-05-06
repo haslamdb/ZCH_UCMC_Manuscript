@@ -21,3 +21,7 @@ __pycache__/
 .DS_Store
 *.swp
 *~
+
+# Pipeline operations: pre-fix snapshots (kept locally for safety, not tracked)
+*.pre_canonicalize
+*.pre_zero_augment

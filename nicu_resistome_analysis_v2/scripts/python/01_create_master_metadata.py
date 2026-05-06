@@ -43,10 +43,10 @@ def main():
     )
     print(f"Antibiotic exposure: {antibiotics.shape[0]} subjects, {antibiotics.shape[1]} columns")
 
-    # Normalize Subject IDs: ZCH subjects N1-N9 need leading zero to match metadata (N01-N09)
-    # Extract number and reformat with leading zeros
-    antibiotics['Subject'] = antibiotics['Subject'].str.replace(r'^N(\d+)$', lambda m: f'N{int(m.group(1)):02d}', regex=True)
-    print(f"  Normalized Subject IDs to match metadata format (N01, N02, etc.)")
+    # Subject ID convention (post-canonicalize_zjh_names.py): UCMC uses N01..N68
+    # (always two-digit) and ZCH uses N1..N9 + N10..N59 (no leading zero for
+    # single-digit, matching the FASTQ filename convention). The (Subject,
+    # Location) merge key disambiguates the two.
 
     # Standardize location names to match antibiotics file and rest of analysis
     sample_key['Location'] = sample_key['Location'].map({'Cincinnati': 'UCMC', 'Hangzhou': 'ZCH'})

@@ -60,8 +60,10 @@ def prepare_model_data(metadata):
     """Prepare data for mixed-effects modeling"""
     print("\nPreparing model data...")
 
-    # Use only complete subjects (balanced design)
-    model_data = metadata[metadata['subject_complete']].copy()
+    # Use the full sample set; mixed-effects models handle unbalanced designs
+    # via subject random intercepts. Subsetting to "complete" subjects (all 6
+    # samples) costs ~80% of the data without buying inferential cleanliness.
+    model_data = metadata.copy()
 
     # Log-transform total AMR (add pseudocount for zeros)
     model_data['log_total_amr'] = np.log10(model_data['total_amr_rpm'] + 1.0)
@@ -150,10 +152,21 @@ def fit_full_model(model_data):
         print(f"  {effect}: coef={coef:+.3f}, p={p:.4f} {sig}")
 
     # Random effects
+    subject_var = float(result.cov_re.values[0][0])
+    residual_var = float(result.scale)
+    icc = subject_var / (subject_var + residual_var)
     print(f"\nRandom Effects:")
-    print(f"  Subject variance: {result.cov_re.values[0][0]:.4f}")
-    print(f"  Residual variance: {result.scale:.4f}")
-    print(f"  ICC (intraclass correlation): {result.cov_re.values[0][0] / (result.cov_re.values[0][0] + result.scale):.3f}")
+    print(f"  Subject variance: {subject_var:.4f}")
+    print(f"  Residual variance: {residual_var:.4f}")
+    print(f"  ICC (intraclass correlation): {icc:.3f}")
+
+    # Persist for the summary report — otherwise 09_create_summary_report has
+    # nowhere to read these from and falls back to hard-coded values.
+    pd.DataFrame([{
+        'subject_variance': subject_var,
+        'residual_variance': residual_var,
+        'icc': icc,
+    }]).to_csv(MODELS_DIR / "variance_components.tsv", sep="\t", index=False)
 
     return result, results_table
 

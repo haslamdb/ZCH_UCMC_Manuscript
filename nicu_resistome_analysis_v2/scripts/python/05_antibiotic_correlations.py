@@ -146,6 +146,15 @@ def correlate_total_abx_with_amr(metadata):
     results_df = pd.DataFrame(results_by_site)
     results_df.to_csv(CORR_DIR / "total_abx_amr_correlation_by_site.tsv", sep="\t", index=False)
 
+    # Also save the overall (all-samples) correlation so the summary report
+    # (09_create_summary_report) doesn't have to recompute or hard-code it.
+    overall_rho, overall_pval = spearmanr(data['total_abx_cumulative'], data['total_amr_rpm'])
+    pd.DataFrame([{
+        'n_samples': len(data),
+        'spearman_rho': overall_rho,
+        'pvalue': overall_pval,
+    }]).to_csv(CORR_DIR / "total_abx_amr_correlation_overall.tsv", sep="\t", index=False)
+
     return data
 
 def correlate_specific_antibiotics(metadata, abx_names):

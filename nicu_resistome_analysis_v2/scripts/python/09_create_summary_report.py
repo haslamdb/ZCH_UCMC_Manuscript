@@ -180,6 +180,67 @@ def create_analysis_report(location_df, site_df, total_samples, total_subjects, 
     """Create comprehensive markdown report"""
     print("\nCreating analysis report...")
 
+    # ------------------------------------------------------------
+    # Pull every headline number from the actual analysis artifacts
+    # ------------------------------------------------------------
+    # Gene counts (universe vs post-QC)
+    n_genes_total = None
+    n_genes_passing_qc = None
+    if (QC_DIR / "gene_prevalence_stats.tsv").exists():
+        n_genes_total = len(pd.read_csv(QC_DIR / "gene_prevalence_stats.tsv", sep="\t"))
+    if (QC_DIR / "genes_passing_qc.txt").exists():
+        n_genes_passing_qc = sum(1 for _ in open(QC_DIR / "genes_passing_qc.txt") if _.strip())
+
+    # Differential abundance — total significant across sites
+    n_sig_diff_total = None
+    diff_per_site = []
+    if (DIFFERENTIAL_DIR / "differential_abundance_summary.tsv").exists():
+        ds = pd.read_csv(DIFFERENTIAL_DIR / "differential_abundance_summary.tsv", sep="\t")
+        n_sig_diff_total = int(ds['sig_fdr005'].sum())
+        diff_per_site = [(r['body_site'], int(r['sig_fdr005']), int(r['total_genes'])) for _, r in ds.iterrows()]
+
+    # Mixed-effects model coefficients (full model)
+    location_pval = stool_coef = stool_pval = None
+    if (MODELS_DIR / "full_model_coefficients.tsv").exists():
+        mc = pd.read_csv(MODELS_DIR / "full_model_coefficients.tsv", sep="\t", index_col=0)
+        if 'Location[T.ZCH]' in mc.index:
+            location_pval = mc.loc['Location[T.ZCH]', 'p_value']
+        if 'BodySite[T.Stool]' in mc.index:
+            stool_coef = mc.loc['BodySite[T.Stool]', 'coefficient']
+            stool_pval = mc.loc['BodySite[T.Stool]', 'p_value']
+
+    # PCA — PC1 variance explained
+    pc1_var_pct = None
+    if (EXPLORATORY_DIR / "pca_variance_explained.tsv").exists():
+        pc = pd.read_csv(EXPLORATORY_DIR / "pca_variance_explained.tsv", sep="\t")
+        pc1 = pc[pc['PC'] == 'PC1']
+        if not pc1.empty:
+            pc1_var_pct = float(pc1.iloc[0]['variance_explained']) * 100
+
+    # Overall (all-samples) antibiotic-AMR Spearman correlation
+    overall_rho = overall_pval = None
+    if (CORR_DIR / "total_abx_amr_correlation_overall.tsv").exists():
+        ov = pd.read_csv(CORR_DIR / "total_abx_amr_correlation_overall.tsv", sep="\t")
+        if not ov.empty:
+            overall_rho = float(ov.iloc[0]['spearman_rho'])
+            overall_pval = float(ov.iloc[0]['pvalue'])
+
+    # Variance components / ICC from the full mixed-effects model
+    icc = None
+    if (MODELS_DIR / "variance_components.tsv").exists():
+        vc = pd.read_csv(MODELS_DIR / "variance_components.tsv", sep="\t")
+        if not vc.empty:
+            icc = float(vc.iloc[0]['icc'])
+
+    # Complete-subject counts per location, from the location_df we already built
+    n_complete_total = int(location_df['Complete Subjects'].sum())
+    complete_by_loc = ", ".join(
+        f"{int(r['Complete Subjects'])} {r['Location']}" for _, r in location_df.iterrows()
+    )
+
+    def _fmt(x, spec):
+        return format(x, spec) if x is not None else "N/A"
+
     report = []
 
     # Header
@@ -194,7 +255,7 @@ def create_analysis_report(location_df, site_df, total_samples, total_subjects, 
     report.append(f"- **Locations:** UCMC (Cincinnati) and ZCH (Hangzhou)")
     report.append(f"- **Body Sites:** Axilla, Groin, Stool")
     report.append(f"- **Time Points:** Week 1 and Week 3")
-    report.append(f"- **AMR Genes Analyzed:** 237 genes (after QC filtering)")
+    report.append(f"- **AMR Genes Analyzed:** {_fmt(n_genes_passing_qc, 'd')} genes (after QC filtering)")
 
     # Sample Distribution
     report.append("\n\n### Sample Distribution by Location")
@@ -206,17 +267,23 @@ def create_analysis_report(location_df, site_df, total_samples, total_subjects, 
     report.append("\n\n## Key Findings\n")
 
     # Finding 1: No location differences
+    loc_sig_word = "not significant" if (location_pval is not None and location_pval >= 0.05) else "significant"
     report.append("### 1. No Significant Differences Between UCMC and ZCH")
     report.append("\n**Result:** Resistome composition is remarkably similar between Cincinnati and Hangzhou NICUs.")
-    report.append("\n- Differential abundance testing: 0 genes significantly different at FDR < 0.05")
-    report.append("- Mixed-effects model: Location effect p = 0.45 (not significant)")
+    report.append(f"\n- Differential abundance testing: {_fmt(n_sig_diff_total, 'd')} genes significantly different at FDR < 0.05 (across all body sites)")
+    report.append(f"- Mixed-effects model: Location effect p = {_fmt(location_pval, '.3f')} ({loc_sig_word})")
     report.append("- **Interpretation:** Geographic location does not significantly influence NICU resistome composition")
 
     # Finding 2: Body site is primary driver
+    stool_p_str = (
+        f"{stool_pval:.2g}" if (stool_pval is not None and stool_pval >= 1e-4)
+        else f"< {1e-4:.0e}" if stool_pval is not None
+        else "N/A"
+    )
     report.append("\n\n### 2. Body Site is the Primary Driver of Resistome Composition")
-    report.append("\n**Result:** Stool samples have dramatically higher AMR burden than skin sites.")
-    report.append("\n- PCA analysis: PC1 (30.8% variance) separates stool from axilla/groin")
-    report.append("- Mixed-effects model: Stool coefficient = +0.615, p < 0.0001")
+    report.append("\n**Result:** Stool samples have higher AMR burden than skin sites.")
+    report.append(f"\n- PCA analysis: PC1 ({_fmt(pc1_var_pct, '.1f')}% variance) separates stool from axilla/groin")
+    report.append(f"- Mixed-effects model: Stool coefficient = {_fmt(stool_coef, '+.3f')}, p = {stool_p_str}")
     report.append("- **Interpretation:** Gut-associated sites harbor more diverse and abundant AMR genes")
 
     # Finding 3: Longitudinal changes
@@ -247,12 +314,23 @@ def create_analysis_report(location_df, site_df, total_samples, total_subjects, 
             n_down = ((long_data['fdr'] < 0.05) & (long_data['log2_fold_change'] < 0)).sum()
             report.append(f"\n- **{site.title()}:** {n_sig} genes significantly changed ({n_up} increased, {n_down} decreased)")
 
-    # Finding 4: No antibiotic correlation
-    report.append("\n\n### 4. No Correlation Between Antibiotic Exposure and AMR Burden")
-    report.append("\n**Result:** Cumulative antibiotic exposure does not correlate with total AMR burden.")
-    report.append("\n- Overall Spearman rho = 0.001, p = 0.985")
-    report.append("- No individual antibiotics showed significant correlations")
-    report.append("- **Interpretation:** AMR colonization may be independent of selective antibiotic pressure in this cohort")
+    # Finding 4: Antibiotic correlation (sign of result determined by data)
+    report.append("\n\n### 4. Antibiotic Exposure vs Total AMR Burden")
+    if overall_rho is not None and overall_pval is not None:
+        sig = "significant" if overall_pval < 0.05 else "not significant"
+        direction = "positively correlates with" if overall_rho > 0.05 else "negatively correlates with" if overall_rho < -0.05 else "does not correlate with"
+        report.append(f"\n**Result:** Cumulative antibiotic exposure {direction} total AMR burden ({sig}).")
+        report.append(f"\n- Overall Spearman rho = {overall_rho:+.3f}, p = {overall_pval:.3f}")
+    else:
+        report.append("\n- Overall Spearman: N/A (correlation file missing)")
+    # Count antibiotics with FDR-significant correlations from specific_antibiotic_correlations.tsv
+    n_sig_specific = "N/A"
+    if (CORR_DIR / "specific_antibiotic_correlations.tsv").exists():
+        sa = pd.read_csv(CORR_DIR / "specific_antibiotic_correlations.tsv", sep="\t")
+        if 'spearman_fdr' in sa.columns:
+            n_sig_specific = int((sa['spearman_fdr'] < 0.05).sum())
+    report.append(f"- Specific antibiotics with significant correlations (FDR<0.05): {n_sig_specific}")
+    report.append("- **Interpretation:** AMR colonization in this cohort is largely independent of selective antibiotic pressure")
 
     # Finding 5: Mixed-effects model
     report.append("\n\n### 5. Mixed-Effects Model Confirms Body Site × Week Interaction")
@@ -272,22 +350,57 @@ def create_analysis_report(location_df, site_df, total_samples, total_subjects, 
                 sig_marker = "***" if pval < 0.001 else "**" if pval < 0.01 else "*"
                 report.append(f"\n- **{effect}:** coefficient = {coef:+.3f}, p = {pval:.4f} {sig_marker}")
 
-        # Report ICC
-        report.append(f"\n\n**Intraclass Correlation (ICC):** 0.262")
-        report.append("\n  - 26.2% of variance is between-subject")
+        # Report ICC (read from variance_components.tsv emitted by script 07)
+        report.append(f"\n\n**Intraclass Correlation (ICC):** {_fmt(icc, '.3f')}")
+        if icc is not None:
+            report.append(f"\n  - {icc * 100:.1f}% of variance is between-subject")
         report.append("  - Confirms substantial within-subject correlation, validating repeated measures design")
+
+    # Finding 6: Intrinsic vs acquired resistance split (from 09b)
+    iva_path = SUMMARY_DIR / "intrinsic_vs_acquired_summary.tsv"
+    if iva_path.exists():
+        report.append("\n\n### 6. Intrinsic vs Acquired Resistance")
+        report.append("\nResistance genes split by NCBI ReferenceGeneCatalog `resistance_type`")
+        report.append("(intrinsic = chromosomal/species-defining, acquired = mobilizable).")
+        report.append("Intrinsic and acquired share no biological denominator and are reported separately.\n")
+
+        iva = pd.read_csv(iva_path, sep="\t")
+        # Wide pivot: median RPM by SampleType x resistance_type x Week
+        pivot = iva.pivot_table(
+            index=['SampleType', 'resistance_type'],
+            columns=['SampleCollectionWeek'],
+            values='median_rpm',
+            aggfunc='median',
+        ).round(1)
+        report.append("\n**Median RPM by body site × resistance type × week (across both NICUs):**\n")
+        report.append("```")
+        report.append(pivot.to_string())
+        report.append("```")
+
+        # Acquired fraction summary (from per-sample fraction file)
+        af_path = SUMMARY_DIR / "acquired_fraction_per_sample.tsv"
+        if af_path.exists():
+            af = pd.read_csv(af_path, sep="\t")
+            af_pivot = af.groupby(['SampleType', 'SampleCollectionWeek'])['acquired_fraction'].median().unstack().round(3)
+            report.append("\n**Median acquired-fraction (acquired RPM / (acquired+intrinsic)):**\n")
+            report.append("```")
+            report.append(af_pivot.to_string())
+            report.append("```")
+            report.append("\nA fraction near 1.0 means the sample's resistome is dominated by acquired (mobilizable)")
+            report.append("genes; values dropping below 1.0 in groin and stool by week 3 reflect rising")
+            report.append("intrinsic-resistance organisms (e.g. Pseudomonas/Klebsiella efflux pumps) joining the gut/perineal flora.")
 
     # Data Quality
     report.append("\n\n## Data Quality and Filtering\n")
     report.append("### Quality Control Steps:")
     report.append("\n1. **Gene Filtering:**")
-    report.append("\n   - Original: 449 genes")
-    report.append("\n   - After QC: 237 genes (present in ≥5% samples with max RPM ≥1.0)")
+    report.append(f"\n   - Original (any reads): {_fmt(n_genes_total, 'd')} gene families")
+    report.append(f"\n   - After QC: {_fmt(n_genes_passing_qc, 'd')} (present in ≥5% samples with max RPM ≥1.0)")
     report.append("\n2. **Sample Filtering:**")
     report.append("\n   - Excluded 'Nonese' (nose swab) samples (never sequenced)")
     report.append("\n   - Retained only samples with AMR data")
     report.append("\n3. **Subject Completeness:**")
-    report.append("\n   - Complete subjects: 53 (40 UCMC, 13 ZCH)")
+    report.append(f"\n   - Complete subjects: {n_complete_total} ({complete_by_loc})")
     report.append("\n   - Complete = all 6 samples present (3 body sites × 2 weeks)")
 
     # Statistical Methods

@@ -118,12 +118,14 @@ def collect_amr(amr_root: Path, metadata: pd.DataFrame, hierarchy: pd.DataFrame)
                 metadata[["id", "gene_family", "gene_name_meta"]],
                 on="id", how="left", suffixes=("", "_md"),
             )
-            # Prefer metadata gene_family if blank in raw
+            # Prefer metadata gene_family when raw is NaN or blank string.
+            # NB: per-sample TSVs emit gene_family as NaN, and `NaN.astype(str)`
+            # is the literal "nan" (length 3) — so a naive str.len()>0 test
+            # would keep the NaN. Use the same isna-aware coalesce as above.
             if "gene_family_md" in detected.columns:
-                detected["gene_family"] = detected["gene_family"].where(
-                    detected["gene_family"].astype(str).str.len() > 0,
-                    detected["gene_family_md"],
-                )
+                raw = detected["gene_family"]
+                is_blank = raw.isna() | (raw.astype(str).str.len() == 0)
+                detected["gene_family"] = raw.where(~is_blank, detected["gene_family_md"])
 
         # Join annotated hierarchy on accession for ARO + MEGARes + NCBI fields.
         # accession parsed from protein_id is the precise allele key — gives 1:1
@@ -140,13 +142,23 @@ def collect_amr(amr_root: Path, metadata: pd.DataFrame, hierarchy: pd.DataFrame)
             detected = detected.merge(hier, on="accession", how="left")
 
         detected.insert(0, "sample_name", sid)
+        # Downstream scripts (02_quality_control through 09_create_summary_report)
+        # group by `gene_name`. We point this at `gene_family` so the analysis
+        # is at the curated-family level (e.g. all blaCTX-M-* alleles collapse
+        # to a single blaCTX-M row), which is the biologically meaningful unit
+        # and avoids the ~50× multiple-testing inflation of per-allele tests.
+        # `gene_symbol` is preserved as the per-allele identifier.
+        if "gene_family" in detected.columns:
+            detected["gene_name"] = detected["gene_family"]
+        elif "gene_symbol" in detected.columns:
+            detected["gene_name"] = detected["gene_symbol"]
         abundance_frames.append(detected)
 
         # Per-sample summary
         summary_rows.append(
             {
                 "sample_name": sid,
-                "total_amr_genes": len(detected),
+                "unique_amr_genes": len(detected),
                 "total_amr_reads": int(detected.get("total_reads", pd.Series([0])).sum()),
                 "total_amr_rpm": float(detected.get("rpm", pd.Series([0.0])).sum()),
                 "high_conf_amr": int((detected.get("detection_confidence", pd.Series([])) == "HIGH").sum()),
