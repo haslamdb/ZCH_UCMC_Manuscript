@@ -1,0 +1,12 @@
+category	definition
+ESBL	blaCTX-M, ESBL TEM/SHV variants, GES/PER/VEB families
+Carbapenemase	KPC/NDM/VIM/IMP/OXA-48-family
+Methicillin (mecA)	mecA / mecC (MRSA marker)
+Aminoglycoside	subclass aminoglycoside or 16S rmt/armA/npmA
+Fluoroquinolone	qnr, qep, oqxAB, aac(6')-Ib-cr
+Macrolide (MLS)	subclass erythromycin/clindamycin/azithromycin or erm/mef/msr/mph/lnu
+Tetracycline	subclass tetracycline/tigecycline or tet*
+Sulfonamide	subclass sulfonamide or sul*
+Trimethoprim	subclass trimethoprim or dfr*
+Colistin (mcr)	mcr-* family
+Vancomycin (VRE)	vanA/B/C/D/E/G/M

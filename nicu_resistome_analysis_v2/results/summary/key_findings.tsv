@@ -1,0 +1,18 @@
+Analysis	Comparison	n_tested	n_significant	Test	Interpretation
+Differential Abundance	Axilla: UCMC vs ZCH	250	99	Mann-Whitney U	99 genes differ
+Differential Abundance	Groin: UCMC vs ZCH	250	151	Mann-Whitney U	151 genes differ
+Differential Abundance	Stool: UCMC vs ZCH	250	128	Mann-Whitney U	128 genes differ
+Longitudinal	Axilla: Week 1 → Week 3	250	0	Wilcoxon signed-rank	No significant changes
+Longitudinal	Groin: Week 1 → Week 3	250	140	Wilcoxon signed-rank	140 increased, 0 decreased
+Longitudinal	Stool: Week 1 → Week 3	250	0	Wilcoxon signed-rank	No significant changes
+Total AMR Longitudinal	Axilla: Week 1 → Week 3	92	ns	Wilcoxon signed-rank	+15.4% change (p=0.2739)
+Total AMR Longitudinal	Groin: Week 1 → Week 3	86	***	Wilcoxon signed-rank	+93.7% change (p=0.0000)
+Total AMR Longitudinal	Stool: Week 1 → Week 3	95	***	Wilcoxon signed-rank	+60.8% change (p=0.0004)
+Antibiotic Correlation	Axilla: Total Abx vs AMR	217	ns	Spearman correlation	rho=-0.100, p=0.1404
+Antibiotic Correlation	Groin: Total Abx vs AMR	207	ns	Spearman correlation	rho=-0.150, p=0.0308
+Antibiotic Correlation	Stool: Total Abx vs AMR	218	ns	Spearman correlation	rho=-0.088, p=0.1974
+Mixed-Effects Model	Location Effect	318	*	Linear Mixed Model	coef=-0.423, p=0.0295
+Mixed-Effects Model	BodySite: Stool vs Axilla	318	ns	Linear Mixed Model	coef=+0.280, p=0.1097
+Mixed-Effects Model	Week Effect	318	ns	Linear Mixed Model	coef=+0.199, p=0.2608
+Mixed-Effects Model	Groin × Week	318	ns	Linear Mixed Model	coef=+0.381, p=0.1242
+Mixed-Effects Model	Stool × Week	318	ns	Linear Mixed Model	coef=+0.060, p=0.8151

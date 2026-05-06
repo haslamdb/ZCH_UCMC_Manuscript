@@ -1,0 +1,45 @@
+category	SampleType	n_subjects_screened	n_subjects_positive	pct_positive
+ESBL	Axilla	124	18	14.516129032258064
+Carbapenemase	Axilla	124	8	6.451612903225806
+Methicillin (mecA)	Axilla	124	111	89.51612903225806
+Aminoglycoside	Axilla	124	116	93.54838709677419
+Fluoroquinolone	Axilla	124	21	16.93548387096774
+Macrolide (MLS)	Axilla	124	120	96.7741935483871
+Tetracycline	Axilla	124	109	87.90322580645162
+Sulfonamide	Axilla	124	53	42.74193548387097
+Trimethoprim	Axilla	124	90	72.58064516129032
+Colistin (mcr)	Axilla	124	0	0.0
+Vancomycin (VRE)	Axilla	124	0	0.0
+ESBL	Groin	120	57	47.5
+Carbapenemase	Groin	120	9	7.5
+Methicillin (mecA)	Groin	120	67	55.833333333333336
+Aminoglycoside	Groin	120	93	77.5
+Fluoroquinolone	Groin	120	71	59.166666666666664
+Macrolide (MLS)	Groin	120	109	90.83333333333333
+Tetracycline	Groin	120	98	81.66666666666667
+Sulfonamide	Groin	120	72	60.0
+Trimethoprim	Groin	120	60	50.0
+Colistin (mcr)	Groin	120	2	1.6666666666666667
+Vancomycin (VRE)	Groin	120	3	2.5
+ESBL	Stool	123	64	52.03252032520325
+Carbapenemase	Stool	123	20	16.260162601626018
+Methicillin (mecA)	Stool	123	60	48.78048780487805
+Aminoglycoside	Stool	123	114	92.6829268292683
+Fluoroquinolone	Stool	123	83	67.47967479674797
+Macrolide (MLS)	Stool	123	112	91.0569105691057
+Tetracycline	Stool	123	112	91.0569105691057
+Sulfonamide	Stool	123	95	77.23577235772358
+Trimethoprim	Stool	123	74	60.16260162601626
+Colistin (mcr)	Stool	123	8	6.504065040650406
+Vancomycin (VRE)	Stool	123	20	16.260162601626018
+ESBL	Any site	127	74	58.267716535433074
+Carbapenemase	Any site	127	23	18.11023622047244
+Methicillin (mecA)	Any site	127	121	95.2755905511811
+Aminoglycoside	Any site	127	124	97.63779527559055
+Fluoroquinolone	Any site	127	92	72.44094488188976
+Macrolide (MLS)	Any site	127	126	99.21259842519684
+Tetracycline	Any site	127	122	96.06299212598425
+Sulfonamide	Any site	127	106	83.46456692913385
+Trimethoprim	Any site	127	110	86.61417322834646
+Colistin (mcr)	Any site	127	8	6.299212598425197
+Vancomycin (VRE)	Any site	127	20	15.748031496062993

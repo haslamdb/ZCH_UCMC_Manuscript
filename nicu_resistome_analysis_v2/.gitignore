@@ -25,3 +25,11 @@ __pycache__/
 # Pipeline operations: pre-fix snapshots (kept locally for safety, not tracked)
 *.pre_canonicalize
 *.pre_zero_augment
+
+# Track v2 figures and result tables (parent repo .gitignore excludes *.pdf
+# and *.tsv globally; we re-include them here so remote checkouts have the
+# rendered analysis outputs without re-running the pipeline).
+!figures/**/*.pdf
+!results/**/*.tsv
+!results/**/*.txt
+!results/**/*.md

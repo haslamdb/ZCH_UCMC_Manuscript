@@ -1,0 +1,486 @@
+aro_id	gene_family	subclass	resistance_type	megares_class	aro_match_method	n_rows
+ARO:3000005	vanD	VANCOMYCIN	acquired	Glycopeptides	gene_name	12
+ARO:3000026	mepA	TIGECYCLINE	acquired	Drug and biocide resistance	accession;gene_name	138
+ARO:3000027	emrA-sm	EFFLUX	intrinsic	Multi-drug resistance	gene_family	1
+ARO:3000074	emrB-sm	EFFLUX	intrinsic	Multi-drug resistance	gene_family	1
+ARO:3000090	bla1	BETA-LACTAM	acquired	betalactams	gene_name	6
+ARO:3000124	mecI_of_mecA	METHICILLIN	acquired	betalactams	gene_family	208
+ARO:3000149	fosA5_fam;fosA_PA1129;fosA_gen;fos_A_A2	FOSFOMYCIN	acquired	Fosfomycin	gene_family;gene_name	801
+ARO:3000165	tet(A)	TETRACYCLINE	acquired	Tetracyclines	gene_name	341
+ARO:3000166	tet(B)	TETRACYCLINE	acquired	Tetracyclines	gene_name	252
+ARO:3000167	tet(C)	TETRACYCLINE	acquired	Tetracyclines	gene_name	126
+ARO:3000168	tet(D)	TETRACYCLINE	acquired	Tetracyclines	gene_name	12
+ARO:3000172	fosB-Saur;fosB-Sepi;fosB_gen;fosBx1-fam	FOSFOMYCIN	acquired	Fosfomycin	gene_family;gene_name	523
+ARO:3000173	tet(E)	TETRACYCLINE	acquired	Tetracyclines	gene_name	3
+ARO:3000175	tet(H)	TETRACYCLINE	acquired	Tetracyclines	gene_name	4
+ARO:3000177	tet(J)	TETRACYCLINE	acquired	Tetracyclines	gene_name	22
+ARO:3000178	tet(K)	TETRACYCLINE	acquired	Tetracyclines	gene_name	74
+ARO:3000179	tet(L)	TETRACYCLINE	acquired	Tetracyclines	gene_name	336
+ARO:3000180	tetA(P)	TETRACYCLINE	acquired	Tetracyclines	gene_name	72
+ARO:3000186	tet(M)	TETRACYCLINE	acquired	Tetracyclines	gene_name	3681
+ARO:3000190	tet(O)	TETRACYCLINE	acquired	Tetracyclines	gene_name	218
+ARO:3000191	tet(Q)	TETRACYCLINE	acquired	Tetracyclines	gene_name	25
+ARO:3000194	tet(W)	TETRACYCLINE	acquired	Tetracyclines	gene_name	2418
+ARO:3000195	tetB(P)	TETRACYCLINE	acquired	Tetracyclines	gene_name	18
+ARO:3000215	mecR1	METHICILLIN	acquired	betalactams	gene_name	170
+ARO:3000216	acrB	AZITHROMYCIN;AZITHROMYCIN/CLARITHROMYCIN/ERYTHROMYCIN;CEFTIBUTEN-AVIBACTAM;CEPHALOSPORIN	intrinsic	Drug and biocide resistance	gene_name	870
+ARO:3000217	blaR1;blaR1-2	BETA-LACTAM	acquired	betalactams	gene_family;gene_name	1203
+ARO:3000377	mexA	EFFLUX	intrinsic	Drug and biocide resistance	gene_name	5
+ARO:3000378	mexB	CARBAPENEM/VABORBACTAM	acquired	Drug and biocide resistance	gene_name	6
+ARO:3000410	sul1	SULFONAMIDE	acquired	Sulfonamides	gene_name	2230
+ARO:3000412	sul2	SULFONAMIDE	acquired	Sulfonamides	gene_name	519
+ARO:3000502	acrF	EFFLUX	intrinsic	Drug and biocide resistance	accession	216
+ARO:3000506	mexR	AZTREONAM/AZTREONAM-AVIBACTAM/CARBAPENEM/VABORBACTAM	acquired	Drug and biocide resistance	gene_name	3
+ARO:3000516	emrR	NITROXOLINE	intrinsic	Drug and biocide resistance	gene_name	219
+ARO:3000521	mupA	MUPIROCIN	acquired	Mupirocin	gene_name	518
+ARO:3000549	adeS	EFFLUX	intrinsic	Drug and biocide resistance	gene_name	3
+ARO:3000553	adeR	EFFLUX	intrinsic	Drug and biocide resistance	gene_name	3
+ARO:3000556	tet(44)	TETRACYCLINE	acquired	Tetracyclines	gene_name	4
+ARO:3000565	tet(38)	TETRACYCLINE	acquired	Tetracyclines	gene_name	432
+ARO:3000566	tet(39)	TETRACYCLINE	acquired	Tetracyclines	gene_name	9
+ARO:3000567	tet(40)	TETRACYCLINE	acquired	Tetracyclines	gene_name	8
+ARO:3000569	tet(41)	TETRACYCLINE	acquired	Tetracyclines	gene_name	8
+ARO:3000599	erm(33)	CLINDAMYCIN/ERYTHROMYCIN/LINCOMYCIN	acquired	MLS	gene_name	114
+ARO:3000617	mecA;mecA-ceftar	CEFTAROLINE/METHICILLIN;METHICILLIN	acquired	betalactams	gene_family;gene_name	3317
+ARO:3000620	adeL	TIGECYCLINE	acquired	Drug and biocide resistance	gene_name	10
+ARO:3000621	blaZ	BETA-LACTAM	acquired	betalactams	gene_family;gene_name	2328
+ARO:3000801	mexD	AVIBACTAM	acquired	Drug and biocide resistance	gene_name	4
+ARO:3000803	mexE	EFFLUX	intrinsic	Drug and biocide resistance	accession;gene_name	3
+ARO:3000814	mexT	CHLORAMPHENICOL/QUINOLONE/TRIMETHOPRIM	acquired	Drug and biocide resistance	gene_name	3
+ARO:3000818	nalC	CARBAPENEM	acquired	Multi-drug resistance	gene_name	3
+ARO:3000819	nalD	AZTREONAM	acquired	Multi-drug resistance	gene_name	4
+ARO:3000822	pmrA	COLISTIN;QUINOLONE	acquired	Drug and biocide resistance	accession;gene_name	375
+ARO:3000828	baeR	AZTREONAM-AVIBACTAM;CEFIDEROCOL	intrinsic	Drug and biocide and metal resistance	gene_name	237
+ARO:3000829	baeS	AZTREONAM/AZTREONAM-AVIBACTAM;AZTREONAM/TEMOCILLIN/TICARCILLIN;CEFIDEROCOL;TEMOCILLIN	intrinsic	Drug and biocide and metal resistance	gene_name	585
+ARO:3000830	cpxA	CEFTIBUTEN-AVIBACTAM	intrinsic	Drug and biocide resistance	gene_name	235
+ARO:3000860	rmtB	AMINOGLYCOSIDE	acquired	Aminoglycosides	gene_family	120
+ARO:3000896	blaTEM	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3001044	blaTEM	BETA-LACTAM	acquired	betalactams	accession	113
+ARO:3001214	mdtM	EFFLUX	intrinsic	Drug and biocide resistance	accession	46
+ARO:3001387	blaTEM	BETA-LACTAM	acquired	betalactams	accession	108
+ARO:3001581	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3001582	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3001854	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3001998	blaCTX-M	CEPHALOSPORIN	acquired	betalactams	accession	42
+ARO:3002004	blaCTX-M	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3002007	blaCTX-M	CEPHALOSPORIN	acquired	betalactams	accession	12
+ARO:3002109	blaCMY	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3002118	blaCMY	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3002119	blaCMY	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3002121	blaCMY	CEPHALOSPORIN	acquired	betalactams	accession	8
+ARO:3002172	blaMIR	CEPHALOSPORIN	acquired	betalactams	accession	7
+ARO:3002406	blaOXY-2	CEPHALOSPORIN	acquired	betalactams	accession	16
+ARO:3002407	blaOXY-2	CEPHALOSPORIN	acquired	betalactams	accession	16
+ARO:3002408	blaOXY-2	CEPHALOSPORIN	acquired	betalactams	accession	12
+ARO:3002546	aac(6')-set_A;aac(6')_Serra	AMINOGLYCOSIDE	acquired	Aminoglycosides	gene_family	381
+ARO:3002547	aac(6')-Ib-cr	AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN	acquired	Multi-drug resistance	accession	3
+ARO:3002591	aac(3)-IIa;aac(3)-IIc;aac(3)-IId;aac(3)-IIe;aac(3)-XI;aac(6')-IIa;aac(6')-Ib';aac(6')-Ib-AGKT;aac(6')-Ib-AKT;aac(6')-Ib-D181Y;aac(6')-Ib-G;aac(6')-Ib-K;aac(6')-Ib-W104R;aac(6')-Ib-cr;aac(6')-Ib11;aac(6')-Ie;aac(6')-Ie2;aac(6')-Im;aac(6')_Entco;aph(2'')-Ia;aph(2'')-If2	AMIKACIN/GENTAMICIN/KANAMYCIN/TOBRAMYCIN;AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN;AMIKACIN/KANAMYCIN/TOBRAMYCIN;AMINOGLYCOSIDE;GENTAMICIN;GENTAMICIN/KANAMYCIN/TOBRAMYCIN;KANAMYCIN	acquired	Aminoglycosides	gene_prefix	1673
+ARO:3002602	aadA2	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	273
+ARO:3002603	aadA3	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	32
+ARO:3002604	aadA4	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	36
+ARO:3002605	aadA5	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	252
+ARO:3002606	aadA6	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	41
+ARO:3002607	aadA7	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	1
+ARO:3002608	aadA8	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	10
+ARO:3002611	aadA11	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	14
+ARO:3002612	aadA12	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	2
+ARO:3002615	aadA15	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	1
+ARO:3002616	aadA16	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	12
+ARO:3002617	ant(3'')-Ia	SPECTINOMYCIN/STREPTOMYCIN	acquired	Aminoglycosides	gene_name	1
+ARO:3002618	aadA21	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	31
+ARO:3002619	aadA22	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	78
+ARO:3002658	aph(6)-Smalt	AMINOGLYCOSIDE	acquired	Aminoglycosides	gene_family	2
+ARO:3002679	catB7	CHLORAMPHENICOL	acquired	Phenicol	gene_name	3
+ARO:3002683	catA1	CHLORAMPHENICOL	acquired	Phenicol	gene_name	30
+ARO:3002689	cat-TC	CHLORAMPHENICOL	acquired	Phenicol	gene_prefix	24
+ARO:3002691	cmlA	CHLORAMPHENICOL	acquired	Phenicol	gene_family;gene_name	12
+ARO:3002693	cmlA1	CHLORAMPHENICOL	acquired	Phenicol	gene_name	12
+ARO:3002694	cmlA4	CHLORAMPHENICOL	acquired	Phenicol	gene_name	12
+ARO:3002695	cmlA5	CHLORAMPHENICOL	acquired	Phenicol	gene_name	8
+ARO:3002696	cmlA	CHLORAMPHENICOL	acquired	Phenicol	gene_name	4
+ARO:3002699	cmlB1	CHLORAMPHENICOL	acquired	Phenicol	gene_name	1
+ARO:3002702	cmrA	CHLORAMPHENICOL/IMIPENEM/QUINOLONE	acquired	Phenicol	gene_name	2
+ARO:3002703	cmx	CHLORAMPHENICOL	acquired	Phenicol	gene_name	192
+ARO:3002705	floR	CHLORAMPHENICOL/FLORFENICOL	acquired	Phenicol	gene_name	234
+ARO:3002737	qnrB	QUINOLONE	acquired	Fluoroquinolones	gene_name	3
+ARO:3002761	qnrB	QUINOLONE	acquired	Fluoroquinolones	gene_name	5
+ARO:3002764	qnrB	QUINOLONE	acquired	Fluoroquinolones	gene_name	3
+ARO:3002769	qnrB	QUINOLONE	acquired	Fluoroquinolones	gene_name	2
+ARO:3002790	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	6
+ARO:3002791	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	4
+ARO:3002793	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	8
+ARO:3002794	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	12
+ARO:3002795	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	4
+ARO:3002797	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	11
+ARO:3002798	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	11
+ARO:3002804	fos_A_A2	FOSFOMYCIN	acquired	Fosfomycin	gene_name	53
+ARO:3002853	arr;arr-3	RIFAMYCIN	acquired	Rifampin	gene_family;gene_name;gene_prefix	40
+ARO:3002854	dfrA1	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	168
+ARO:3002858	dfrA12	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	144
+ARO:3002859	dfrA14	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	35
+ARO:3002860	dfrA17	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	203
+ARO:3002861	dfrA5	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	24
+ARO:3002862	dfrA7	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	75
+ARO:3002865	dfrC	TRIMETHOPRIM	acquired	Trimethoprim	gene_family	315
+ARO:3002867	dfrF	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	16
+ARO:3002868	dfrG	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	55
+ARO:3002869	dfrK	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	142
+ARO:3002872	fos_A3_A4	FOSFOMYCIN	acquired	Fosfomycin	gene_name	35
+ARO:3002873	fosB-Saur	FOSFOMYCIN	acquired	Fosfomycin	gene_name	16
+ARO:3002878	BcII	CARBAPENEM	acquired	betalactams	gene_name	28
+ARO:3002921	vanR-A;vanR-C;vanR-Cd;vanR-D	VANCOMYCIN	acquired	Glycopeptides	gene_prefix	79
+ARO:3002933	vanS-C;vanS-Cd;vanS-D;vanS-Pt	VANCOMYCIN	acquired	Glycopeptides	gene_prefix	66
+ARO:3002948	vanH-D	VANCOMYCIN	acquired	Glycopeptides	gene_prefix	12
+ARO:3002952	vanX-D	VANCOMYCIN	acquired	Glycopeptides	gene_prefix	15
+ARO:3002956	vanY-D	VANCOMYCIN	acquired	Glycopeptides	gene_prefix	6
+ARO:3002972	vanT-C;vanT-Cd	VANCOMYCIN	acquired	Glycopeptides	gene_prefix	26
+ARO:3002987	bcrA_Lm	BACITRACIN	acquired	Bacitracin	gene_family	1
+ARO:3003001	cfxA;cfxA_fam	BETA-LACTAM	acquired	betalactams	gene_family;gene_name	36
+ARO:3003002	cfxA2	BETA-LACTAM	acquired	betalactams	gene_name	12
+ARO:3003003	cfxA3	CEPHALOSPORIN	acquired	betalactams	gene_name	6
+ARO:3003005	cfxA4	CEPHALOSPORIN	acquired	betalactams	gene_name	6
+ARO:3003012	dfrA12_A21	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	8
+ARO:3003013	dfrA15	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	36
+ARO:3003014	dfrA16	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	12
+ARO:3003017	dfrA21	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	9
+ARO:3003018	dfrA22	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	7
+ARO:3003020	dfrA25	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	2
+ARO:3003033	mexY	CEPHALOSPORIN	acquired	Drug and biocide resistance	gene_name	4
+ARO:3003034	mexX	EFFLUX	intrinsic	Drug and biocide resistance	accession;gene_name	5
+ARO:3003041	pbp1a	BETA-LACTAM	acquired	betalactams	gene_name	141
+ARO:3003042	pbp2b	BETA-LACTAM	acquired	betalactams	gene_name	388
+ARO:3003043	pbp2x	BETA-LACTAM	acquired	betalactams	gene_name	609
+ARO:3003057	smeF	QUINOLONE	acquired	Fluoroquinolones	accession	1
+ARO:3003069	vanG-Cd;vanXY-C	VANCOMYCIN	acquired	Glycopeptides	gene_family;gene_prefix	29
+ARO:3003072	mphL	MACROLIDE	acquired	MLS	gene_name	2
+ARO:3003077	liaF	DAPTOMYCIN	acquired	Lipopeptides	accession;gene_name	145
+ARO:3003078	liaR	DAPTOMYCIN	acquired	Lipopeptides	gene_name	256
+ARO:3003079	liaS	DAPTOMYCIN	acquired	Lipopeptides	gene_name	148
+ARO:3003092	cls	DAPTOMYCIN	acquired	Lipopeptides	gene_name	301
+ARO:3003093	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003094	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003095	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003096	cfxA5	CEPHALOSPORIN	acquired	betalactams	gene_name	6
+ARO:3003099	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003100	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003101	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003102	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003103	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003104	cphA	CARBAPENEM	acquired	betalactams	gene_name	1
+ARO:3003139	blaMIR	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3003140	blaMOX	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3003141	blaMOX	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3003197	aadA25	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	95
+ARO:3003209	fosA5_fam	FOSFOMYCIN	acquired	Fosfomycin	gene_name	147
+ARO:3003210	fos_A3_A4	FOSFOMYCIN	acquired	Fosfomycin	gene_name	40
+ARO:3003285	rpoB	BETA-LACTAM;DAPTOMYCIN/RIFAXIMIN;FIDAXOMICIN;RIFAMPIN;RIFAMYCIN	acquired	Multi-drug resistance	gene_name	1760
+ARO:3003291	rpoC	BETA-LACTAM;DAPTOMYCIN;FIDAXOMICIN	acquired	Lipopeptides	gene_name	601
+ARO:3003297	gyrA	QUINOLONE	acquired	Fluoroquinolones	gene_name	2320
+ARO:3003303	gyrB	NALIDIXIC ACID;QUINOLONE;ZOLIFLODACIN	acquired	Aminocoumarins	gene_name	698
+ARO:3003312	parC	QUINOLONE	acquired	Fluoroquinolones	gene_name	1627
+ARO:3003315	parE	QUINOLONE	acquired	Fluoroquinolones	gene_name	828
+ARO:3003323	pgsA	DAPTOMYCIN	acquired	Lipopeptides	gene_name	165
+ARO:3003373	acrR	AMPICILLIN/CHLORAMPHENICOL/QUINOLONE/RIFAMPIN/TETRACYCLINE;TIGECYCLINE	intrinsic	Drug and biocide resistance	gene_name	204
+ARO:3003378	marR	AMPICILLIN/CHLORAMPHENICOL/QUINOLONE/RIFAMPIN/TETRACYCLINE	intrinsic	Drug and biocide resistance	gene_name	96
+ARO:3003380	ramR	AMPICILLIN/CHLORAMPHENICOL/QUINOLONE/RIFAMPIN/TETRACYCLINE;TIGECYCLINE	acquired	Multi-drug resistance	gene_name	164
+ARO:3003381	soxR	AMPICILLIN/CHLORAMPHENICOL/QUINOLONE/RIFAMPIN/TETRACYCLINE	intrinsic	Drug and biocide resistance	gene_name	312
+ARO:3003386	folP	SULFONAMIDE	acquired	Sulfonamides	gene_name	453
+ARO:3003390	ompF	CEPHALOSPORIN	acquired	betalactams	gene_name	49
+ARO:3003395	rpsL	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	282
+ARO:3003470	str	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	15
+ARO:3003499	tet(O/M/O);tet(O/W);tet(O/W/32/O);tet(O/W/O);tet(W/32/O);tet(W/N/W)	TETRACYCLINE	acquired	Tetracyclines	gene_prefix	550
+ARO:3003511	soxS	AMPICILLIN/CHLORAMPHENICOL/QUINOLONE/RIFAMPIN/TETRACYCLINE	intrinsic	Drug and biocide and metal resistance	gene_name	368
+ARO:3003552	fusB	FUSIDIC ACID	acquired	Fusidic acid	gene_name	26
+ARO:3003574	lpxC	COLISTIN	acquired	Lipopeptides	gene_name	15
+ARO:3003582	basR	COLISTIN	acquired	Cationic antimicrobial peptides	gene_name	57
+ARO:3003585	phoP	COLISTIN	acquired	Drug and biocide resistance	gene_name	236
+ARO:3003686	oprD	CARBAPENEM	acquired	betalactams	gene_name	4
+ARO:3003709	mexZ	AMINOGLYCOSIDE/CEFEPIME/FLUOROQUINOLONE	acquired	Drug and biocide resistance	gene_name	3
+ARO:3003729	ileS	MUPIROCIN	acquired	Mupirocin	gene_name	309
+ARO:3003733	fusC_set	FUSIDIC ACID	acquired	Fusidic acid	gene_name	2
+ARO:3003735	fusA	FUSIDIC ACID	acquired	Fusidic acid	gene_name	404
+ARO:3003737	fusE	FUSIDIC ACID	acquired	Fusidic acid	gene_name	348
+ARO:3003751	nfsA	NITROFURANTOIN	acquired	Chromium resistance	gene_name	129
+ARO:3003756	nfsB	NITROFURANTOIN	acquired		gene_name	82
+ARO:3003775	murA	FOSFOMYCIN	acquired	Fosfomycin	gene_name	572
+ARO:3003794	walK	DAPTOMYCIN	acquired	Lipopeptides	gene_name	404
+ARO:3003797	yybT	DAPTOMYCIN	acquired	Lipopeptides	gene_name	112
+ARO:3003805	gshF	DAPTOMYCIN	acquired	Lipopeptides	gene_name	107
+ARO:3003890	uhpT	FOSFOMYCIN	intrinsic	Fosfomycin	gene_name	547
+ARO:3003893	uhpA	FOSFOMYCIN	acquired	Fosfomycin	gene_name	226
+ARO:3003896	phoQ	COLISTIN	acquired	Lipopeptides	gene_name	190
+ARO:3003899	ptsI	FOSFOMYCIN	acquired	Fosfomycin	gene_name	242
+ARO:3003900	cyaA	FOSMIDOMYCIN	intrinsic		gene_name	247
+ARO:3003901	glpT	FOSFOMYCIN	acquired	Fosfomycin	gene_name	256
+ARO:3003922	oqxA	PHENICOL/QUINOLONE	acquired	Drug and biocide resistance;Multi-drug resistance	gene_family;gene_name	2244
+ARO:3003923	oqxB	PHENICOL/QUINOLONE	acquired	Drug and biocide resistance;Multi-drug resistance	gene_family;gene_name	5383
+ARO:3003930	rpsJ	TETRACYCLINE;TIGECYCLINE	acquired	Tetracyclines	gene_name	610
+ARO:3003937	pbp2	CEPHALOSPORIN	acquired	betalactams	gene_name	159
+ARO:3003953	hmrM	EFFLUX	intrinsic	Drug and biocide resistance	accession;gene_name	6
+ARO:3003966	ompK35	CARBAPENEM	acquired	betalactams	gene_name	170
+ARO:3003968	ompK36	CARBAPENEM	acquired	betalactams	gene_name	209
+ARO:3004032	tetA(46)	TETRACYCLINE	acquired	Tetracyclines	gene_name	8
+ARO:3004033	tetB(46)	TETRACYCLINE	acquired	Tetracyclines	gene_name	8
+ARO:3004045	fabI	TRICLOSAN	acquired	Phenolic compound resistance	gene_name	227
+ARO:3004049	fabG	TRICLOSAN	acquired	Phenolic compound resistance	gene_name	232
+ARO:3004054	cpxR	CARBAPENEM/VABORBACTAM	intrinsic	Drug and biocide resistance	gene_name	3
+ARO:3004059	nfxB	COLISTIN	acquired	Multi-drug resistance	gene_name	4
+ARO:3004097	cdsA	DAPTOMYCIN	acquired	Lipopeptides	gene_name	2
+ARO:3004111	fosA5_fam	FOSFOMYCIN	acquired	Fosfomycin	gene_name	155
+ARO:3004113	fosA7_fam	FOSFOMYCIN	acquired	Fosfomycin	gene_family;gene_name	24
+ARO:3004114	ompC	CARBAPENEM	acquired	betalactams	gene_name	152
+ARO:3004126	lamB	CEFTAZIDIME-AVIBACTAM	acquired	betalactams	gene_name	134
+ARO:3004290	blaEC	BETA-LACTAM	intrinsic	betalactams	accession	43
+ARO:3004291	ampC_Kaer;ampC_Sliq	CEPHALOSPORIN	acquired	betalactams	gene_prefix	23
+ARO:3004550	dfrA27	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	5
+ARO:3004551	dfrA	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	5
+ARO:3004552	dfrA30	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	6
+ARO:3004555	dfrA32	TRIMETHOPRIM	acquired	Trimethoprim	gene_name	13
+ARO:3004561	murG	VANCOMYCIN	acquired	Glycopeptides	gene_name	31
+ARO:3004573	abaF	FOSFOMYCIN	acquired	Fosfomycin	accession	8
+ARO:3004577	amvA	EFFLUX	intrinsic	Drug and biocide resistance	accession	10
+ARO:3004595	erm(45)	CLINDAMYCIN/ERYTHROMYCIN/PRISTINAMYCIN	acquired	MLS	gene_name	15
+ARO:3004622	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	6
+ARO:3004624	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	9
+ARO:3004627	qnrS	QUINOLONE	acquired	Fluoroquinolones	gene_name	6
+ARO:3004639	tetAB_A	TETRACYCLINE	acquired	Tetracyclines	gene_family	60
+ARO:3004657	catA4	CHLORAMPHENICOL	acquired	Phenicol	gene_name	10
+ARO:3004658	catA8	CHLORAMPHENICOL	acquired	Phenicol	gene_name	52
+ARO:3004662	mcr-10;mcr-11;mcr-3;mcr-3_set;mcr-9	COLISTIN	acquired	Lipopeptides	gene_prefix	71
+ARO:3004665	cmlA	CHLORAMPHENICOL	acquired	Phenicol	gene_name	4
+ARO:3004670	fosB-Saur	FOSFOMYCIN	acquired	Fosfomycin	gene_name	16
+ARO:3004671	fosB-Saur	FOSFOMYCIN	acquired	Fosfomycin	gene_name	16
+ARO:3004672	fosB-Saur	FOSFOMYCIN	acquired	Fosfomycin	gene_name	16
+ARO:3004673	fosB-Saur	FOSFOMYCIN	acquired	Fosfomycin	gene_name	16
+ARO:3004674	fosD	FOSFOMYCIN	acquired	Fosfomycin	gene_name	9
+ARO:3004692	aadA10	STREPTOMYCIN	acquired	Aminoglycosides	gene_name	28
+ARO:3004869	blaNDM	CARBAPENEM	acquired	betalactams	accession	16
+ARO:3004956	rplD	AZITHROMYCIN;AZITHROMYCIN/CHLORAMPHENICOL/CLARITHROMYCIN/ERYTHROMYCIN/LINEZOLID	acquired	MLS	accession;gene_name	161
+ARO:3005045	satA_Bant	STREPTOTHRICIN	acquired	Aminoglycosides	gene_family	5
+ARO:3005064	cprS	COLISTIN	acquired	Lipopeptides	gene_name	4
+ARO:3005067	parS	COLISTIN	acquired	Multi-drug resistance	gene_name	3
+ARO:3005068	parR	COLISTIN	acquired	Multi-drug resistance	gene_name	2
+ARO:3005099	erm(A)	AZITHROMYCIN/CLARITHROMYCIN/CLINDAMYCIN/ERYTHROMYCIN/TELITHROMYCIN	acquired	MLS	gene_name	168
+ARO:3005112	aac(6')-Ib-cr	AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN	acquired	Aminoglycosides	accession	3
+ARO:3005114	aac(6')-Ib-cr	AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN	acquired	Aminoglycosides	accession	5
+ARO:3005116	aac(6')-Ib-cr	AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN	acquired	Aminoglycosides	accession	5
+ARO:3005128	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3005227	blaSHV	BETA-LACTAM	acquired	betalactams	accession	119
+ARO:3005230	blaSHV	BETA-LACTAM	acquired	betalactams	accession	120
+ARO:3005258	blaTEM	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3005306	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3005307	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3005319	blaOXA-2_fam	CEPHALOSPORIN	acquired	betalactams	accession	44
+ARO:3005320	blaOXA-2_fam	BETA-LACTAM	acquired	betalactams	accession	47
+ARO:3005326	blaOXA-60_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005347	dfrA37	TRIMETHOPRIM	acquired	Trimethoprim	accession	8
+ARO:3005590	blaCTX-M	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3005591	blaCTX-M	CEPHALOSPORIN	acquired	betalactams	accession	10
+ARO:3005597	blaCTX-M	CEPHALOSPORIN	acquired	betalactams	accession	16
+ARO:3005664	blaCTX-M	CEPHALOSPORIN	acquired	betalactams	accession	41
+ARO:3005700	blaNDM	CARBAPENEM/TANIBORBACTAM	acquired	betalactams	accession	13
+ARO:3005701	blaNDM	CARBAPENEM	acquired	betalactams	accession	22
+ARO:3005727	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3005729	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005734	blaOXA-PR	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3005742	blaOXA-58_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005750	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3005789	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005794	blaOXA-22_fam	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3005863	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005864	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005865	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005866	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005867	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005868	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005870	blaOXA-10_fam	CARBAPENEM	acquired	betalactams	accession	4
+ARO:3005871	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3005872	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005877	blaOXA-211_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005879	blaOXA-274_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005880	blaOXA-274_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005885	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3005922	blaOXA-51_fam	CARBAPENEM	acquired	betalactams	accession	5
+ARO:3005923	blaOXA-51_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005924	blaOXA-51_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3005931	blaOXA-12_fam	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3005983	blaOXA-PR	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3005994	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3005995	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3006006	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006007	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006008	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006010	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006011	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006012	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006013	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006014	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006015	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006016	blaOXA-23_fam	CARBAPENEM	acquired	betalactams	accession	1
+ARO:3006021	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3006022	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3006024	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3006040	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3006041	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006043	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	3
+ARO:3006048	blaOXA-51_fam	CARBAPENEM	acquired	betalactams	accession	5
+ARO:3006089	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3006092	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3006093	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3006095	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006099	blaOXA-12_fam	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006100	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006101	blaOXA-50_fam	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3006103	blaOXA-427_fam	CARBAPENEM	acquired	betalactams	accession	2
+ARO:3006113	blaOXA-10_fam	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3006116	blaOXA-10_fam	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006129	blaOXY-2	CEPHALOSPORIN	acquired	betalactams	accession	13
+ARO:3006130	blaOXY-2	CEPHALOSPORIN	acquired	betalactams	accession	14
+ARO:3006142	blaOKP-B	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006150	blaOKP-B	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3006151	blaOKP-B	BETA-LACTAM	acquired	betalactams	accession	2
+ARO:3006228	blaACC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006229	blaACC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006230	blaACC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006231	blaACC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006232	blaACC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006234	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006235	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	48
+ARO:3006236	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	50
+ARO:3006237	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	42
+ARO:3006238	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	44
+ARO:3006239	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	50
+ARO:3006240	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	39
+ARO:3006241	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	28
+ARO:3006242	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	17
+ARO:3006244	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006245	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006246	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006247	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	7
+ARO:3006248	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006249	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006250	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	28
+ARO:3006251	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	44
+ARO:3006252	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006253	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	3
+ARO:3006255	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006259	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006260	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	43
+ARO:3006261	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	14
+ARO:3006262	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006263	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006264	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	23
+ARO:3006265	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	44
+ARO:3006266	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	41
+ARO:3006268	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	50
+ARO:3006269	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	18
+ARO:3006271	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006277	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006278	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	3
+ARO:3006279	blaACT	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006293	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006295	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006296	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006297	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006300	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006306	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006315	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006318	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006326	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006330	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006332	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	8
+ARO:3006337	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006341	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	7
+ARO:3006347	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006354	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006392	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	3
+ARO:3006395	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006403	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006407	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006410	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006411	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006413	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	7
+ARO:3006419	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	4
+ARO:3006428	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006432	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006435	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	8
+ARO:3006445	blaADC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006457	blaCMY	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006458	blaCMY	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006461	blaCMY	CEPHALOSPORIN	acquired	betalactams	accession	11
+ARO:3006464	blaMOX	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006477	blaMOX	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006478	blaMOX	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006603	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006614	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006622	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006641	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006663	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006695	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	3
+ARO:3006701	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006702	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006708	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006709	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006720	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006749	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006762	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006787	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	2
+ARO:3006839	blaPDC	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006853	blaSRT	CEPHALOSPORIN	acquired	betalactams	accession	13
+ARO:3006859	blaMIR	CEPHALOSPORIN	acquired	betalactams	accession	7
+ARO:3006860	blaMIR	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006861	blaMIR	CEPHALOSPORIN	acquired	betalactams	accession	6
+ARO:3006862	blaMIR	CEPHALOSPORIN	acquired	betalactams	accession	5
+ARO:3006874	blaEC	CEPHALOSPORIN	intrinsic	betalactams	accession	43
+ARO:3006875	blaEC	CEPHALOSPORIN	intrinsic	betalactams	accession	43
+ARO:3006876	blaEC	CEPHALOSPORIN	intrinsic	betalactams	accession	43
+ARO:3006877	blaEC	CEPHALOSPORIN	intrinsic	betalactams	accession	43
+ARO:3006878	blaEC	CEPHALOSPORIN	intrinsic	betalactams	accession	43
+ARO:3006879	blaEC	CEPHALOSPORIN	intrinsic	betalactams	accession	43
+ARO:3006904	blaCDD	CEPHALOSPORIN	acquired	betalactams	accession	13
+ARO:3006905	blaCDD	CEPHALOSPORIN	acquired	betalactams	accession	12
+ARO:3006932	blaLEN	BETA-LACTAM	acquired	betalactams	accession	6
+ARO:3006933	blaLEN	BETA-LACTAM	acquired	betalactams	accession	4
+ARO:3006934	blaLEN	BETA-LACTAM	acquired	betalactams	accession	6
+ARO:3006956	blaOHIO	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006957	blaORN	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006958	blaORN	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006959	blaORN	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006960	blaORN	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006961	blaORN	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006962	blaORN	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006968	blaPLA	CEPHALOSPORIN	acquired	betalactams	accession	1
+ARO:3006969	blaPLA	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006970	blaPLA	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006971	blaPLA	BETA-LACTAM	acquired	betalactams	accession	1
+ARO:3006999	blaSRT	CEPHALOSPORIN	acquired	betalactams	accession	13
+ARO:3007042	msr(G)	AZITHROMYCIN/ERYTHROMYCIN/PRISTINAMYCIN	acquired	MLS	gene_name	2
+ARO:3007248	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007249	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007250	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007251	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007252	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007253	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007254	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007255	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007256	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007257	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007258	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007259	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007260	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007263	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007265	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007267	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007268	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007269	mcr-3	COLISTIN	acquired	Lipopeptides	accession	1
+ARO:3007274	mcr-10	COLISTIN	acquired	Lipopeptides	accession	9
+ARO:3007371	fosA8_fam	FOSFOMYCIN	acquired	Fosfomycin	gene_name	3
+ARO:3007372	fosBx1-fam	FOSFOMYCIN	acquired	Fosfomycin	gene_name	5
+ARO:3007491	ampR	CEPHALOSPORIN	acquired	betalactams	gene_name	2
+ARO:3007527	rpsE	SPECTINOMYCIN	acquired	Aminoglycosides	gene_name	4
+ARO:3007637	cplR	CLINDAMYCIN/LINCOMYCIN/RETAPAMULIN/VIRGINIAMYCIN	acquired	MLS	accession	24
+ARO:3007671	nimB-Cd	NITROIMIDAZOLE	acquired		accession	18
+ARO:3007751	gyrA	QUINOLONE	acquired	Fluoroquinolones	accession	242
+ARO:3007752	gyrB	QUINOLONE	acquired	Fluoroquinolones	accession	255
+ARO:3007770	aac(6')-Ib-cr	AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN	acquired	Multi-drug resistance	accession	1
+ARO:3007771	aac(6')-Ib-cr	AMIKACIN/KANAMYCIN/QUINOLONE/TOBRAMYCIN	acquired	Multi-drug resistance	accession	1

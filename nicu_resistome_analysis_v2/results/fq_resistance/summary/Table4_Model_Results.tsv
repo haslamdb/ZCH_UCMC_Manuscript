@@ -1,0 +1,9 @@
+Model	Parameter	Coefficient	Std_Error	Z_value	p_value	CI_95_Lower	CI_95_Upper
+N_mutations (OLS)	Intercept	1.963	0.621	3.16	0.002	0.745	3.181
+N_mutations (OLS)	BodySite[T.Groin]	5.419	0.734	7.38	6.632e-13	3.98	6.858
+N_mutations (OLS)	BodySite[T.Stool]	10.016	0.683	14.67	8.007e-41	8.678	11.354
+N_mutations (OLS)	Week[T.Week 3]	3.481	0.581	5.99	4.053e-09	2.342	4.621
+Mean_frequency (OLS)	Intercept	0.507	0.026	19.71	1.748e-64	0.457	0.557
+Mean_frequency (OLS)	BodySite[T.Groin]	-0.201	0.03	-6.6	1.069e-10	-0.26	-0.141
+Mean_frequency (OLS)	BodySite[T.Stool]	-0.339	0.028	-11.99	2.599e-29	-0.394	-0.284
+Mean_frequency (OLS)	Week[T.Week 3]	-0.067	0.024	-2.8	0.005	-0.115	-0.02

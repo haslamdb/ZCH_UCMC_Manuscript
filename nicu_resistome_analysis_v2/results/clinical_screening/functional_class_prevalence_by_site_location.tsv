@@ -1,0 +1,89 @@
+category	SampleType	Location	n_subjects_screened	n_subjects_positive	pct_positive
+ESBL	Axilla	UCMC	66	6	9.090909090909092
+Carbapenemase	Axilla	UCMC	66	0	0.0
+Methicillin (mecA)	Axilla	UCMC	66	62	93.93939393939394
+Aminoglycoside	Axilla	UCMC	66	64	96.96969696969697
+Fluoroquinolone	Axilla	UCMC	66	9	13.636363636363637
+Macrolide (MLS)	Axilla	UCMC	66	64	96.96969696969697
+Tetracycline	Axilla	UCMC	66	62	93.93939393939394
+Sulfonamide	Axilla	UCMC	66	29	43.93939393939394
+Trimethoprim	Axilla	UCMC	66	57	86.36363636363636
+Colistin (mcr)	Axilla	UCMC	66	0	0.0
+Vancomycin (VRE)	Axilla	UCMC	66	0	0.0
+ESBL	Axilla	ZCH	58	12	20.689655172413794
+Carbapenemase	Axilla	ZCH	58	8	13.793103448275861
+Methicillin (mecA)	Axilla	ZCH	58	49	84.48275862068965
+Aminoglycoside	Axilla	ZCH	58	52	89.65517241379311
+Fluoroquinolone	Axilla	ZCH	58	12	20.689655172413794
+Macrolide (MLS)	Axilla	ZCH	58	56	96.55172413793103
+Tetracycline	Axilla	ZCH	58	47	81.03448275862068
+Sulfonamide	Axilla	ZCH	58	24	41.37931034482759
+Trimethoprim	Axilla	ZCH	58	33	56.89655172413793
+Colistin (mcr)	Axilla	ZCH	58	0	0.0
+Vancomycin (VRE)	Axilla	ZCH	58	0	0.0
+ESBL	Groin	UCMC	67	39	58.208955223880594
+Carbapenemase	Groin	UCMC	67	0	0.0
+Methicillin (mecA)	Groin	UCMC	67	49	73.13432835820896
+Aminoglycoside	Groin	UCMC	67	62	92.53731343283582
+Fluoroquinolone	Groin	UCMC	67	46	68.65671641791045
+Macrolide (MLS)	Groin	UCMC	67	67	100.0
+Tetracycline	Groin	UCMC	67	65	97.01492537313433
+Sulfonamide	Groin	UCMC	67	48	71.64179104477611
+Trimethoprim	Groin	UCMC	67	48	71.64179104477611
+Colistin (mcr)	Groin	UCMC	67	1	1.492537313432836
+Vancomycin (VRE)	Groin	UCMC	67	3	4.477611940298507
+ESBL	Groin	ZCH	53	18	33.9622641509434
+Carbapenemase	Groin	ZCH	53	9	16.9811320754717
+Methicillin (mecA)	Groin	ZCH	53	18	33.9622641509434
+Aminoglycoside	Groin	ZCH	53	31	58.490566037735846
+Fluoroquinolone	Groin	ZCH	53	25	47.16981132075472
+Macrolide (MLS)	Groin	ZCH	53	42	79.24528301886792
+Tetracycline	Groin	ZCH	53	33	62.264150943396224
+Sulfonamide	Groin	ZCH	53	24	45.283018867924525
+Trimethoprim	Groin	ZCH	53	12	22.641509433962263
+Colistin (mcr)	Groin	ZCH	53	1	1.8867924528301887
+Vancomycin (VRE)	Groin	ZCH	53	0	0.0
+ESBL	Stool	UCMC	65	42	64.61538461538461
+Carbapenemase	Stool	UCMC	65	0	0.0
+Methicillin (mecA)	Stool	UCMC	65	39	60.0
+Aminoglycoside	Stool	UCMC	65	64	98.46153846153847
+Fluoroquinolone	Stool	UCMC	65	49	75.38461538461539
+Macrolide (MLS)	Stool	UCMC	65	63	96.92307692307692
+Tetracycline	Stool	UCMC	65	64	98.46153846153847
+Sulfonamide	Stool	UCMC	65	60	92.3076923076923
+Trimethoprim	Stool	UCMC	65	46	70.76923076923077
+Colistin (mcr)	Stool	UCMC	65	4	6.153846153846154
+Vancomycin (VRE)	Stool	UCMC	65	20	30.76923076923077
+ESBL	Stool	ZCH	58	22	37.93103448275862
+Carbapenemase	Stool	ZCH	58	20	34.48275862068966
+Methicillin (mecA)	Stool	ZCH	58	21	36.206896551724135
+Aminoglycoside	Stool	ZCH	58	50	86.20689655172414
+Fluoroquinolone	Stool	ZCH	58	34	58.62068965517241
+Macrolide (MLS)	Stool	ZCH	58	49	84.48275862068965
+Tetracycline	Stool	ZCH	58	48	82.75862068965517
+Sulfonamide	Stool	ZCH	58	35	60.3448275862069
+Trimethoprim	Stool	ZCH	58	28	48.275862068965516
+Colistin (mcr)	Stool	ZCH	58	4	6.896551724137931
+Vancomycin (VRE)	Stool	ZCH	58	0	0.0
+ESBL	Any site	UCMC	68	50	73.52941176470588
+Carbapenemase	Any site	UCMC	68	0	0.0
+Methicillin (mecA)	Any site	UCMC	68	67	98.52941176470588
+Aminoglycoside	Any site	UCMC	68	67	98.52941176470588
+Fluoroquinolone	Any site	UCMC	68	55	80.88235294117646
+Macrolide (MLS)	Any site	UCMC	68	67	98.52941176470588
+Tetracycline	Any site	UCMC	68	67	98.52941176470588
+Sulfonamide	Any site	UCMC	68	63	92.6470588235294
+Trimethoprim	Any site	UCMC	68	65	95.58823529411765
+Colistin (mcr)	Any site	UCMC	68	4	5.882352941176471
+Vancomycin (VRE)	Any site	UCMC	68	20	29.41176470588235
+ESBL	Any site	ZCH	59	24	40.67796610169491
+Carbapenemase	Any site	ZCH	59	23	38.983050847457626
+Methicillin (mecA)	Any site	ZCH	59	54	91.52542372881356
+Aminoglycoside	Any site	ZCH	59	57	96.61016949152543
+Fluoroquinolone	Any site	ZCH	59	37	62.71186440677966
+Macrolide (MLS)	Any site	ZCH	59	59	100.0
+Tetracycline	Any site	ZCH	59	55	93.22033898305085
+Sulfonamide	Any site	ZCH	59	43	72.88135593220339
+Trimethoprim	Any site	ZCH	59	45	76.27118644067797
+Colistin (mcr)	Any site	ZCH	59	4	6.779661016949152
+Vancomycin (VRE)	Any site	ZCH	59	0	0.0

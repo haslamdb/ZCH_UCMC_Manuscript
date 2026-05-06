@@ -1,0 +1,4 @@
+Mutation_ID	Species	Gene	Axilla_N	Axilla_Mean	Groin_N	Groin_Mean	Stool_N	Stool_Mean	Kruskal_Wallis	p_value	FDR
+Escherichia_coli_gyrA_83_S->A	Escherichia_coli	gyrA	6	0.119	9	0.018	9	0.035	10.33	5.699e-03	4.552e-02
+Escherichia_coli_gyrA_87_D->Y	Escherichia_coli	gyrA	4	0.41	10	0.013	6	0.072	9.67	7.934e-03	4.552e-02
+Mycobacterium_tuberculosis_gyrB_470_G->A	Mycobacterium_tuberculosis	gyrB	6	0.011	11	0.048	3	0.447	9.53	8.535e-03	4.552e-02

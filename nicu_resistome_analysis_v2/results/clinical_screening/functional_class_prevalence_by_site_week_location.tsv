@@ -1,0 +1,133 @@
+category	SampleType	SampleCollectionWeek	Location	n_subjects_screened	n_subjects_positive	pct_positive
+ESBL	Axilla	Week.1	UCMC	63	4	6.349206349206349
+Carbapenemase	Axilla	Week.1	UCMC	63	0	0.0
+Methicillin (mecA)	Axilla	Week.1	UCMC	63	50	79.36507936507937
+Aminoglycoside	Axilla	Week.1	UCMC	63	58	92.06349206349206
+Fluoroquinolone	Axilla	Week.1	UCMC	63	4	6.349206349206349
+Macrolide (MLS)	Axilla	Week.1	UCMC	63	58	92.06349206349206
+Tetracycline	Axilla	Week.1	UCMC	63	55	87.3015873015873
+Sulfonamide	Axilla	Week.1	UCMC	63	22	34.92063492063492
+Trimethoprim	Axilla	Week.1	UCMC	63	46	73.01587301587301
+Colistin (mcr)	Axilla	Week.1	UCMC	63	0	0.0
+Vancomycin (VRE)	Axilla	Week.1	UCMC	63	0	0.0
+ESBL	Axilla	Week.1	ZCH	51	2	3.9215686274509802
+Carbapenemase	Axilla	Week.1	ZCH	51	3	5.882352941176471
+Methicillin (mecA)	Axilla	Week.1	ZCH	51	32	62.745098039215684
+Aminoglycoside	Axilla	Week.1	ZCH	51	33	64.70588235294117
+Fluoroquinolone	Axilla	Week.1	ZCH	51	3	5.882352941176471
+Macrolide (MLS)	Axilla	Week.1	ZCH	51	45	88.23529411764706
+Tetracycline	Axilla	Week.1	ZCH	51	24	47.05882352941177
+Sulfonamide	Axilla	Week.1	ZCH	51	11	21.568627450980394
+Trimethoprim	Axilla	Week.1	ZCH	51	15	29.41176470588235
+Colistin (mcr)	Axilla	Week.1	ZCH	51	0	0.0
+Vancomycin (VRE)	Axilla	Week.1	ZCH	51	0	0.0
+ESBL	Axilla	Week.3	UCMC	57	3	5.2631578947368425
+Carbapenemase	Axilla	Week.3	UCMC	57	0	0.0
+Methicillin (mecA)	Axilla	Week.3	UCMC	57	48	84.21052631578948
+Aminoglycoside	Axilla	Week.3	UCMC	57	56	98.24561403508773
+Fluoroquinolone	Axilla	Week.3	UCMC	57	8	14.035087719298245
+Macrolide (MLS)	Axilla	Week.3	UCMC	57	57	100.0
+Tetracycline	Axilla	Week.3	UCMC	57	53	92.98245614035088
+Sulfonamide	Axilla	Week.3	UCMC	57	15	26.31578947368421
+Trimethoprim	Axilla	Week.3	UCMC	57	40	70.17543859649123
+Colistin (mcr)	Axilla	Week.3	UCMC	57	0	0.0
+Vancomycin (VRE)	Axilla	Week.3	UCMC	57	0	0.0
+ESBL	Axilla	Week.3	ZCH	45	11	24.444444444444443
+Carbapenemase	Axilla	Week.3	ZCH	45	5	11.11111111111111
+Methicillin (mecA)	Axilla	Week.3	ZCH	45	31	68.88888888888889
+Aminoglycoside	Axilla	Week.3	ZCH	45	40	88.88888888888889
+Fluoroquinolone	Axilla	Week.3	ZCH	45	10	22.22222222222222
+Macrolide (MLS)	Axilla	Week.3	ZCH	45	45	100.0
+Tetracycline	Axilla	Week.3	ZCH	45	39	86.66666666666667
+Sulfonamide	Axilla	Week.3	ZCH	45	17	37.77777777777778
+Trimethoprim	Axilla	Week.3	ZCH	45	22	48.888888888888886
+Colistin (mcr)	Axilla	Week.3	ZCH	45	0	0.0
+Vancomycin (VRE)	Axilla	Week.3	ZCH	45	0	0.0
+ESBL	Groin	Week.1	UCMC	63	12	19.047619047619047
+Carbapenemase	Groin	Week.1	UCMC	63	0	0.0
+Methicillin (mecA)	Groin	Week.1	UCMC	63	38	60.317460317460316
+Aminoglycoside	Groin	Week.1	UCMC	63	42	66.66666666666667
+Fluoroquinolone	Groin	Week.1	UCMC	63	12	19.047619047619047
+Macrolide (MLS)	Groin	Week.1	UCMC	63	52	82.53968253968254
+Tetracycline	Groin	Week.1	UCMC	63	40	63.492063492063494
+Sulfonamide	Groin	Week.1	UCMC	63	20	31.746031746031747
+Trimethoprim	Groin	Week.1	UCMC	63	31	49.20634920634921
+Colistin (mcr)	Groin	Week.1	UCMC	63	0	0.0
+Vancomycin (VRE)	Groin	Week.1	UCMC	63	1	1.5873015873015872
+ESBL	Groin	Week.1	ZCH	44	3	6.818181818181818
+Carbapenemase	Groin	Week.1	ZCH	44	4	9.090909090909092
+Methicillin (mecA)	Groin	Week.1	ZCH	44	4	9.090909090909092
+Aminoglycoside	Groin	Week.1	ZCH	44	14	31.818181818181817
+Fluoroquinolone	Groin	Week.1	ZCH	44	9	20.454545454545453
+Macrolide (MLS)	Groin	Week.1	ZCH	44	18	40.90909090909091
+Tetracycline	Groin	Week.1	ZCH	44	13	29.545454545454547
+Sulfonamide	Groin	Week.1	ZCH	44	8	18.181818181818183
+Trimethoprim	Groin	Week.1	ZCH	44	1	2.272727272727273
+Colistin (mcr)	Groin	Week.1	ZCH	44	0	0.0
+Vancomycin (VRE)	Groin	Week.1	ZCH	44	0	0.0
+ESBL	Groin	Week.3	UCMC	60	32	53.333333333333336
+Carbapenemase	Groin	Week.3	UCMC	60	0	0.0
+Methicillin (mecA)	Groin	Week.3	UCMC	60	29	48.333333333333336
+Aminoglycoside	Groin	Week.3	UCMC	60	53	88.33333333333333
+Fluoroquinolone	Groin	Week.3	UCMC	60	41	68.33333333333333
+Macrolide (MLS)	Groin	Week.3	UCMC	60	56	93.33333333333333
+Tetracycline	Groin	Week.3	UCMC	60	55	91.66666666666667
+Sulfonamide	Groin	Week.3	UCMC	60	44	73.33333333333333
+Trimethoprim	Groin	Week.3	UCMC	60	32	53.333333333333336
+Colistin (mcr)	Groin	Week.3	UCMC	60	1	1.6666666666666667
+Vancomycin (VRE)	Groin	Week.3	UCMC	60	2	3.3333333333333335
+ESBL	Groin	Week.3	ZCH	39	17	43.58974358974359
+Carbapenemase	Groin	Week.3	ZCH	39	7	17.94871794871795
+Methicillin (mecA)	Groin	Week.3	ZCH	39	16	41.02564102564103
+Aminoglycoside	Groin	Week.3	ZCH	39	25	64.1025641025641
+Fluoroquinolone	Groin	Week.3	ZCH	39	21	53.84615384615385
+Macrolide (MLS)	Groin	Week.3	ZCH	39	36	92.3076923076923
+Tetracycline	Groin	Week.3	ZCH	39	27	69.23076923076923
+Sulfonamide	Groin	Week.3	ZCH	39	21	53.84615384615385
+Trimethoprim	Groin	Week.3	ZCH	39	11	28.205128205128204
+Colistin (mcr)	Groin	Week.3	ZCH	39	1	2.5641025641025643
+Vancomycin (VRE)	Groin	Week.3	ZCH	39	0	0.0
+ESBL	Stool	Week.1	UCMC	61	19	31.147540983606557
+Carbapenemase	Stool	Week.1	UCMC	61	0	0.0
+Methicillin (mecA)	Stool	Week.1	UCMC	61	35	57.377049180327866
+Aminoglycoside	Stool	Week.1	UCMC	61	55	90.1639344262295
+Fluoroquinolone	Stool	Week.1	UCMC	61	21	34.42622950819672
+Macrolide (MLS)	Stool	Week.1	UCMC	61	55	90.1639344262295
+Tetracycline	Stool	Week.1	UCMC	61	56	91.80327868852459
+Sulfonamide	Stool	Week.1	UCMC	61	36	59.01639344262295
+Trimethoprim	Stool	Week.1	UCMC	61	41	67.21311475409836
+Colistin (mcr)	Stool	Week.1	UCMC	61	0	0.0
+Vancomycin (VRE)	Stool	Week.1	UCMC	61	9	14.754098360655737
+ESBL	Stool	Week.1	ZCH	55	6	10.909090909090908
+Carbapenemase	Stool	Week.1	ZCH	55	5	9.090909090909092
+Methicillin (mecA)	Stool	Week.1	ZCH	55	10	18.181818181818183
+Aminoglycoside	Stool	Week.1	ZCH	55	22	40.0
+Fluoroquinolone	Stool	Week.1	ZCH	55	12	21.818181818181817
+Macrolide (MLS)	Stool	Week.1	ZCH	55	29	52.72727272727273
+Tetracycline	Stool	Week.1	ZCH	55	26	47.27272727272727
+Sulfonamide	Stool	Week.1	ZCH	55	10	18.181818181818183
+Trimethoprim	Stool	Week.1	ZCH	55	9	16.363636363636363
+Colistin (mcr)	Stool	Week.1	ZCH	55	0	0.0
+Vancomycin (VRE)	Stool	Week.1	ZCH	55	0	0.0
+ESBL	Stool	Week.3	UCMC	53	35	66.0377358490566
+Carbapenemase	Stool	Week.3	UCMC	53	0	0.0
+Methicillin (mecA)	Stool	Week.3	UCMC	53	7	13.20754716981132
+Aminoglycoside	Stool	Week.3	UCMC	53	52	98.11320754716981
+Fluoroquinolone	Stool	Week.3	UCMC	53	46	86.79245283018868
+Macrolide (MLS)	Stool	Week.3	UCMC	53	51	96.22641509433963
+Tetracycline	Stool	Week.3	UCMC	53	52	98.11320754716981
+Sulfonamide	Stool	Week.3	UCMC	53	50	94.33962264150944
+Trimethoprim	Stool	Week.3	UCMC	53	21	39.62264150943396
+Colistin (mcr)	Stool	Week.3	UCMC	53	4	7.547169811320755
+Vancomycin (VRE)	Stool	Week.3	UCMC	53	14	26.41509433962264
+ESBL	Stool	Week.3	ZCH	49	20	40.816326530612244
+Carbapenemase	Stool	Week.3	ZCH	49	18	36.734693877551024
+Methicillin (mecA)	Stool	Week.3	ZCH	49	15	30.612244897959183
+Aminoglycoside	Stool	Week.3	ZCH	49	46	93.87755102040816
+Fluoroquinolone	Stool	Week.3	ZCH	49	29	59.183673469387756
+Macrolide (MLS)	Stool	Week.3	ZCH	49	44	89.79591836734694
+Tetracycline	Stool	Week.3	ZCH	49	45	91.83673469387755
+Sulfonamide	Stool	Week.3	ZCH	49	32	65.3061224489796
+Trimethoprim	Stool	Week.3	ZCH	49	23	46.93877551020408
+Colistin (mcr)	Stool	Week.3	ZCH	49	4	8.16326530612245
+Vancomycin (VRE)	Stool	Week.3	ZCH	49	0	0.0

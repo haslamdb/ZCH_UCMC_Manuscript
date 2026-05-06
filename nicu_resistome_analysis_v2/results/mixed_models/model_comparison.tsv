@@ -1,0 +1,7 @@
+model	AIC	BIC	log_likelihood	n_params
+location_only			-1017.418056596207	3
+bodysite_only			-1013.9763992819076	4
+week_only			-995.4428393477342	3
+bodysite_week			-970.7959597276763	7
+location_week			-966.8356304998351	5
+full_model			-930.9505290073994	13
