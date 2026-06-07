@@ -379,6 +379,123 @@ def figure4_volcano_plots(long_results):
     print(f"✓ Saved: {PUB_FIGURES_DIR / 'Figure4_Volcano_Plots.pdf'}")
     plt.close()
 
+def _paired_amr_table(site_data, metric='total_amr_rpm'):
+    """Per-subject paired table (Week.1, Week.3, delta) for one body site.
+
+    Pairs are formed from the Week.1 n Week.3 intersection of SubjectIDs at this
+    site (NOT restricted to subjects sampled at all sites/weeks), so every usable
+    pair is retained. If a subject has >1 sample at a site/week, the mean is used.
+    """
+    wide = (site_data
+            .groupby(['SubjectID', 'SampleCollectionWeek'])[metric]
+            .mean()
+            .unstack('SampleCollectionWeek'))
+
+    if 'Week.1' not in wide.columns or 'Week.3' not in wide.columns:
+        return pd.DataFrame(columns=['Week.1', 'Week.3', 'delta', 'Location'])
+
+    paired = wide.dropna(subset=['Week.1', 'Week.3']).copy()
+    paired['delta'] = paired['Week.3'] - paired['Week.1']
+    paired['Location'] = site_data.groupby('SubjectID')['Location'].first().reindex(paired.index)
+    return paired
+
+
+def figure5_amr_change_by_site(metadata):
+    """Figure 5: Within-subject change in total AMR RPM, Week 1 -> Week 3.
+
+    Companion to Figure 2 (cross-sectional Total AMR RPM by week/location): one
+    panel per body site showing paired Week 1 -> Week 3 boxplots, per-subject
+    connectors, a paired Wilcoxon signed-rank test, and the median delta RPM.
+    """
+    print("\nCreating Figure 5: AMR change Week 1 -> Week 3 by body site...")
+
+    from matplotlib.lines import Line2D
+
+    sites = ['Axilla', 'Groin', 'Stool']
+    metric = 'total_amr_rpm'
+
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
+    ymax = metadata[metric].max() * 1.08  # headroom for stats text
+
+    for i, site in enumerate(sites):
+        ax = axes[i]
+        site_data = metadata[metadata['SampleType'] == site]
+        paired = _paired_amr_table(site_data, metric)
+        n_pairs = len(paired)
+
+        w1 = paired['Week.1'].values
+        w3 = paired['Week.3'].values
+
+        # Faint per-subject connecting lines (slight jitter around x=1 / x=2)
+        jit = np.linspace(-0.04, 0.04, max(n_pairs, 1))
+        for j in range(n_pairs):
+            ax.plot([1 + jit[j], 2 + jit[j]], [w1[j], w3[j]],
+                    color='0.6', alpha=0.35, linewidth=0.7, zorder=1)
+
+        # Paired boxplots: Week 1 then Week 3
+        bp = ax.boxplot([w1, w3], positions=[1, 2], widths=0.55,
+                        patch_artist=True, showfliers=False, zorder=3)
+        for patch, wk in zip(bp['boxes'], ['Week.1', 'Week.3']):
+            patch.set_facecolor(WEEK_COLORS[wk])
+            patch.set_alpha(0.65)
+        for element in ['whiskers', 'caps', 'medians']:
+            plt.setp(bp[element], color='black', linewidth=1.2)
+
+        # Jittered individual points, colored by week
+        for pos, vals, wk in [(1, w1, 'Week.1'), (2, w3, 'Week.3')]:
+            xj = pos + np.linspace(-0.04, 0.04, max(len(vals), 1))[:len(vals)]
+            ax.scatter(xj, vals, s=14, color=WEEK_COLORS[wk],
+                       edgecolors='white', linewidths=0.4, alpha=0.85, zorder=4)
+
+        # Paired Wilcoxon signed-rank test + median within-subject change
+        if n_pairs >= 3:
+            stat, pval = wilcoxon(w1, w3)
+            pval_text = 'p < 0.001' if pval < 0.001 else f'p = {pval:.3f}'
+        else:
+            pval_text = 'p = N/A'
+        median_delta = np.median(paired['delta']) if n_pairs else np.nan
+        delta_text = f'median ΔRPM = {median_delta:+,.0f}' if n_pairs else 'ΔRPM = N/A'
+
+        ax.set_xlim(0.5, 2.5)
+        ax.set_ylim(0, ymax)
+        ax.set_xticks([1, 2])
+        ax.set_xticklabels(['Week 1', 'Week 3'])
+        if i == 0:
+            ax.set_ylabel('Total AMR RPM', fontsize=11, fontweight='bold')
+
+        panel_label = chr(65 + i)  # A, B, C
+        ax.set_title(f'{panel_label}. {site} (n={n_pairs} paired)\n{pval_text}',
+                     fontsize=12, fontweight='bold', loc='left')
+
+        ax.text(0.97, 0.97, delta_text, transform=ax.transAxes,
+                ha='right', va='top', fontsize=9,
+                bbox=dict(boxstyle='round,pad=0.3', facecolor='white',
+                          edgecolor='0.7', alpha=0.8))
+
+        ax.grid(True, alpha=0.3, axis='y', linewidth=0.5)
+        ax.spines['top'].set_visible(False)
+        ax.spines['right'].set_visible(False)
+
+    legend_elements = [
+        Line2D([0], [0], marker='s', color='w', label='Week 1',
+               markerfacecolor=WEEK_COLORS['Week.1'], markersize=10, alpha=0.8),
+        Line2D([0], [0], marker='s', color='w', label='Week 3',
+               markerfacecolor=WEEK_COLORS['Week.3'], markersize=10, alpha=0.8),
+        Line2D([0], [0], color='0.6', linewidth=1.0, label='Subject pair'),
+    ]
+    axes[2].legend(handles=legend_elements, loc='upper right',
+                   frameon=True, fontsize=9, bbox_to_anchor=(1.0, 0.86))
+
+    fig.suptitle('Within-subject change in total AMR abundance, Week 1 → Week 3',
+                 fontsize=13, fontweight='bold', y=1.02)
+
+    plt.tight_layout()
+    plt.savefig(PUB_FIGURES_DIR / "Figure5_AMR_Change_by_Site.pdf", dpi=300, bbox_inches='tight')
+    plt.savefig(PUB_FIGURES_DIR / "Figure5_AMR_Change_by_Site.png", dpi=200, bbox_inches='tight')
+    print(f"✓ Saved: {PUB_FIGURES_DIR / 'Figure5_AMR_Change_by_Site.pdf'}")
+    plt.close()
+
+
 def main():
     print("="*60)
     print("GENERATING PUBLICATION-READY FIGURES")
@@ -392,6 +509,7 @@ def main():
     figure2_bodysite_comparison(metadata)
     figure3_longitudinal_trajectories(metadata)
     figure4_volcano_plots(long_results)
+    figure5_amr_change_by_site(metadata)
 
     print("\n" + "="*60)
     print("PUBLICATION FIGURES COMPLETE")
@@ -401,6 +519,7 @@ def main():
     print(f"  - {PUB_FIGURES_DIR / 'Figure2_BodySite_Comparison.pdf'}")
     print(f"  - {PUB_FIGURES_DIR / 'Figure3_Longitudinal_Trajectories.pdf'}")
     print(f"  - {PUB_FIGURES_DIR / 'Figure4_Volcano_Plots.pdf'}")
+    print(f"  - {PUB_FIGURES_DIR / 'Figure5_AMR_Change_by_Site.pdf'}")
 
 if __name__ == "__main__":
     main()
