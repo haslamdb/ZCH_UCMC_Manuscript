@@ -415,7 +415,9 @@ def figure5_amr_change_by_site(metadata):
     metric = 'total_amr_rpm'
 
     fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-    ymax = metadata[metric].max() * 1.08  # headroom for stats text
+    ymax = 25000  # fixed y-axis ceiling (clips a few high outliers, mostly Stool)
+    pos1, pos2 = 1.0, 1.6  # bring Week 1 / Week 3 closer within each panel
+    box_w = 0.42
 
     for i, site in enumerate(sites):
         ax = axes[i]
@@ -426,14 +428,14 @@ def figure5_amr_change_by_site(metadata):
         w1 = paired['Week.1'].values
         w3 = paired['Week.3'].values
 
-        # Faint per-subject connecting lines (slight jitter around x=1 / x=2)
+        # Faint per-subject connecting lines (slight jitter around each box)
         jit = np.linspace(-0.04, 0.04, max(n_pairs, 1))
         for j in range(n_pairs):
-            ax.plot([1 + jit[j], 2 + jit[j]], [w1[j], w3[j]],
+            ax.plot([pos1 + jit[j], pos2 + jit[j]], [w1[j], w3[j]],
                     color='0.6', alpha=0.35, linewidth=0.7, zorder=1)
 
         # Paired boxplots: Week 1 then Week 3
-        bp = ax.boxplot([w1, w3], positions=[1, 2], widths=0.55,
+        bp = ax.boxplot([w1, w3], positions=[pos1, pos2], widths=box_w,
                         patch_artist=True, showfliers=False, zorder=3)
         for patch, wk in zip(bp['boxes'], ['Week.1', 'Week.3']):
             patch.set_facecolor(WEEK_COLORS[wk])
@@ -442,7 +444,7 @@ def figure5_amr_change_by_site(metadata):
             plt.setp(bp[element], color='black', linewidth=1.2)
 
         # Jittered individual points, colored by week
-        for pos, vals, wk in [(1, w1, 'Week.1'), (2, w3, 'Week.3')]:
+        for pos, vals, wk in [(pos1, w1, 'Week.1'), (pos2, w3, 'Week.3')]:
             xj = pos + np.linspace(-0.04, 0.04, max(len(vals), 1))[:len(vals)]
             ax.scatter(xj, vals, s=14, color=WEEK_COLORS[wk],
                        edgecolors='white', linewidths=0.4, alpha=0.85, zorder=4)
@@ -456,10 +458,10 @@ def figure5_amr_change_by_site(metadata):
         median_delta = np.median(paired['delta']) if n_pairs else np.nan
         delta_text = f'median ΔRPM = {median_delta:+,.0f}' if n_pairs else 'ΔRPM = N/A'
 
-        ax.set_xlim(0.5, 2.5)
+        ax.set_xlim(0.5, 2.1)
         ax.set_ylim(0, ymax)
-        ax.set_xticks([1, 2])
-        ax.set_xticklabels(['Week 1', 'Week 3'])
+        ax.set_xticks([pos1, pos2])
+        ax.set_xticklabels(['Week 1', 'Week 3'], fontsize=14, fontweight='bold')
         if i == 0:
             ax.set_ylabel('Total AMR RPM', fontsize=11, fontweight='bold')
 
@@ -490,6 +492,7 @@ def figure5_amr_change_by_site(metadata):
                  fontsize=13, fontweight='bold', y=1.02)
 
     plt.tight_layout()
+    plt.subplots_adjust(wspace=0.12)  # a little breathing room between panels
     plt.savefig(PUB_FIGURES_DIR / "Figure5_AMR_Change_by_Site.pdf", dpi=300, bbox_inches='tight')
     plt.savefig(PUB_FIGURES_DIR / "Figure5_AMR_Change_by_Site.png", dpi=200, bbox_inches='tight')
     print(f"✓ Saved: {PUB_FIGURES_DIR / 'Figure5_AMR_Change_by_Site.pdf'}")
